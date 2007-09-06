@@ -1,0 +1,145 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0687BA26-783C-48A0-9BEF-74D3D8CDE2FD}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WasserWerkVerwaltung.GUI</RootNamespace>
+    <AssemblyName>WWV</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DruckenControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DruckenControl.Designer.cs">
+      <DependentUpon>DruckenControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KostenInfoControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="KostenInfoControl.Designer.cs">
+      <DependentUpon>KostenInfoControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KundenDetailsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="KundenDetailsControl.Designer.cs">
+      <DependentUpon>KundenDetailsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KundenSuchenControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="KundenSuchenControl.Designer.cs">
+      <DependentUpon>KundenSuchenControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="DruckenControl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>DruckenControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KostenInfoControl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>KostenInfoControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KundenDetailsControl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>KundenDetailsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KundenSuchenControl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>KundenSuchenControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StammdatenControl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>StammdatenControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ZaehlerstaendeControl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ZaehlerstaendeControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="StammdatenControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="StammdatenControl.Designer.cs">
+      <DependentUpon>StammdatenControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ZaehlerstaendeControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ZaehlerstaendeControl.Designer.cs">
+      <DependentUpon>ZaehlerstaendeControl.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WasserWerkVerwaltungCommonObjects\WasserWerkVerwaltungCommonObjects.csproj">
+      <Project>{72EA8889-FBBC-485E-B9E9-4C47A35D8E7A}</Project>
+      <Name>WasserWerkVerwaltungCommonObjects</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
