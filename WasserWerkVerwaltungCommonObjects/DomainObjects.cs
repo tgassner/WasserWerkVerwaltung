@@ -24,12 +24,14 @@ namespace WasserWerkVerwaltung.CommonObjects {
         private DateTime tauschDatum;
         private double zaehlermiete;
         private string bemerkung;
+        private string zahlung;        
 
         public KundenData(long id, string vorname, string nachname, string strasse,
                     string ort, string tel, string hausbesitzer, string bankVerbindung, 
                     bool bekommtRechnung, long zaehlerEinbauStand, long zaehlerNeuStand, 
                     DateTime eichDatum, string zaehlerNummer, DateTime einbauDatum, 
-                    string erkl, DateTime tauschDatum, double zaehlermiete, string bemerkung){
+                    string erkl, DateTime tauschDatum, double zaehlermiete, 
+                    string bemerkung, string zahlung){
 
             this.id = id;
             this.vorname = vorname;
@@ -49,7 +51,7 @@ namespace WasserWerkVerwaltung.CommonObjects {
             this.tauschDatum = tauschDatum;
             this.zaehlermiete = zaehlermiete;
             this.bemerkung = bemerkung;
-            
+            this.zahlung = zahlung;
         }
 
         public long Id {
@@ -211,6 +213,15 @@ namespace WasserWerkVerwaltung.CommonObjects {
             }
         }
 
+        public string Zahlung {
+            get {
+                return this.zahlung;
+            }
+            set {
+                this.zahlung = value;
+            }
+        }
+
         public override string ToString() {
             return this.vorname + " " + this.nachname;
         }
@@ -228,24 +239,22 @@ namespace WasserWerkVerwaltung.CommonObjects {
     }
 
     [Serializable]
-    public class AblesungData {
+    public class JahresDatenData {
         private long id;
         private long kundenId;
         private double rechnungssumme;
-        private string zahlung;
         private long zaehlerStandAlt;
         private long zaehlerStandNeu;
         private long jahr;
         private DateTime ableseDatum;
         private double bereitsBezahlt;
 
-        public AblesungData(long id, long kundenId, double rechnungssumme, string zahlung, 
+        public JahresDatenData(long id, long kundenId, double rechnungssumme, 
                     long zaehlerStandAlt, long zaehlerStandNeu, long jahr, 
                     DateTime ableseDatum, double bereitsBezahlt) {
             this.id = id;
             this.kundenId = kundenId;
             this.rechnungssumme = rechnungssumme;
-            this.zahlung = zahlung;
             this.zaehlerStandAlt = zaehlerStandAlt;
             this.zaehlerStandNeu = zaehlerStandNeu;
             this.jahr = jahr;
@@ -277,15 +286,6 @@ namespace WasserWerkVerwaltung.CommonObjects {
             }
             set {
                 this.rechnungssumme = value;
-            }
-        }
-
-        public string Zahlung {
-            get {
-                return this.zahlung;
-            }
-            set {
-                this.zahlung = value;
             }
         }
 
@@ -339,7 +339,7 @@ namespace WasserWerkVerwaltung.CommonObjects {
         }
 
         public override bool Equals(object obj) {
-            AblesungData abl = obj as AblesungData;
+            JahresDatenData abl = obj as JahresDatenData;
             if (abl == null)
                 return false;
             return abl.Id == this.id;
@@ -383,7 +383,7 @@ namespace WasserWerkVerwaltung.CommonObjects {
         }
 
         public override bool Equals(object obj) {
-            AblesungData abl = obj as AblesungData;
+            JahresDatenData abl = obj as JahresDatenData;
             if (abl == null)
                 return false;
             return abl.Jahr == this.jahr;

@@ -56,18 +56,28 @@ namespace SimplePatientDocumentation.DAL.Tests {
 
     [TestFixture]
     public class KundeTest {
-        //[SetUp]
-        //public void InitVisitTest() {
-        //    IKunde kundeDB = Database.CreateKunde();
-        //    DateTime date = new DateTime(2006, 12, 24);
-        //    PatientData patient = new PatientData(0, "first", "sure", date, Sex.male, "0123456789", 29, "address");
-        //    pID = patientDB.Insert(patient);
-        //}
+
+        private long kID;
+        private KundenData kunde;
+
+        [SetUp]
+        public void InitVisitTest() {
+            IKunde kundeDB = Database.CreateKunde();
+            kunde = new KundenData(0, "vorname", "Nachname", "Strasse", "ort", "tel", "hausbesetzer", "Datenbank", true, 987, 876, DateTime.Now, "zNr", DateTime.Now, "erkl", DateTime.Now, 234.1, "Bemerkung", "asdf");
+            kID = kundeDB.Insert(kunde);
+        }
 
         [Test]
         public void KundeFindAllTest() {
             IKunde kundeDB = Database.CreateKunde();
-            kundeDB.FindAll();
+            //IList<KundenData> kundenList = kundeDB.FindAll();
+        }
+
+        [Test]
+        public void KundeFindByIdTest() {
+            IKunde kundeDB = Database.CreateKunde();
+            //KundenData kunde = kundeDB.FindByID(this.kID);
+            //Assert.AreEqual(kunde.Id,this.kID);
         }
     }
 

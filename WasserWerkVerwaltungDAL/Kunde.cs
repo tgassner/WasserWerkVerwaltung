@@ -10,20 +10,23 @@ using NUnit.Framework;
 namespace WasserWerkVerwaltung.DAL {
     class Kunde : IKunde {
 
-        //const string SQL_FIND_BY_ID = "SELECT * FROM kunde WHERE kundenID = ?";
-        const string SQL_FIND_ALL = "SELECT * FROM kunde";
-        //const string SQL_LAST_INSERTED_ROW = "SELECT @@Identity";
-        //const string SQL_GET_FURTHER_TREATMENT_BY_ID = "SELECT furthertreatment from patient WHERE patientID = ?";
-        //readonly string SQL_UPDATE_BY_ID = "UPDATE patient SET firstname = ?, surname = ?, birthdate = ?, sex = ?, phone = ?, weight = ?, address = ? WHERE patientID = ?";
-        //readonly string SQL_INSERT_BY_ID = "INSERT INTO patient (firstname, surname, birthdate, sex, phone, furthertreatment, weight, address) VALUES(?,?,?,?,?,?,?,?)";
-        //readonly string SQL_DELETE_BY_ID = "DELETE FROM patient WHERE patientID = ?";
-        //static IDbCommand findByIdCmd;
+        const string SQL_FIND_BY_ID = "SELECT * FROM Kunde WHERE KundeID = ?";
+        const string SQL_FIND_ALL = "SELECT * FROM Kunde";
+        const string SQL_LAST_INSERTED_ROW = "SELECT @@Identity";
+        readonly string SQL_UPDATE_BY_ID = "UPDATE Kunde SET Vorname = ?, Nachname = ?, Strasse = ?, Ort = ?, Tel = ?, Hausbesitzer = ?, Bankverbindung = ?, bekommtRechnung = ?, ZaehlerEinbauStand = ?, ZaehlerNeuStand = ?, Eichdatum = ?, ZaehlerNr = ?, Einbaudatum = ?, Erkl = ?, Tauschdatum = ?, Zaehlermiete = ?, Bemerkung = ?, Zahlung = ? WHERE KundeID = ?";
+        readonly string SQL_INSERT_BY_ID = "INSERT INTO Kunde (Vorname, Nachname, Strasse, Ort, Tel, Hausbesitzer, Bankverbindung, bekommtRechnung, ZaehlerEinbauStand, ZaehlerNeuStand, Eichdatum, ZaehlerNr, Einbaudatum, Erkl, Tauschdatum, Zaehlermiete, Bemerkung, Zahlung) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        readonly string SQL_DELETE_BY_ID = "DELETE FROM Kunde WHERE KundeID = ?";
+        static IDbCommand findByIdCmd;
         static IDbCommand findAllCmd;
-        //static IDbCommand updateByIdCmd;
-        //static IDbCommand insertByIdCmd;
-        //static IDbCommand deleteByIdCmd;
-        //static IDbCommand lastInsertedRowCmd;
-        
+        static IDbCommand updateByIdCmd;
+        static IDbCommand insertByIdCmd;
+        static IDbCommand deleteByIdCmd;
+        static IDbCommand lastInsertedRowCmd;
+
+
+        //KundeID, Vorname, Nachname, Strasse, Ort, Tel, Hausbesitzer, Bankverbindung, bekommtRechnung, ZaehlerEinbauStand, ZaehlerNeuStand, Eichdatum, ZaehlerNr, Einbaudatum, Erkl, Tauschdatum, Zaehlermiete, Bemerkung, Zahlung
+
+
         public IList<KundenData> FindAll() {
             try {
                 DbUtil.OpenConnection();
@@ -35,42 +38,18 @@ namespace WasserWerkVerwaltung.DAL {
                 using (IDataReader rdr = findAllCmd.ExecuteReader()) {
                     IList<KundenData> kundenList = new List<KundenData>();
                     while (rdr.Read()) {
-                        bool bekommtRechnung = true;
-                        if ((long)(int)rdr["bekommtRechnung"] == 0)
-                            bekommtRechnung = false;
-
-                        long id = (long)(int)rdr["KundeID"];
-
-                        string vorname = (string)rdr["Vorname"];
-                        string nachname = (string)rdr["Nachname"];
-                        string strasse = (string)rdr["Strasse"];
-                        string ort = (string)rdr["Ort"];
-                        string tel = (string)rdr["Tel"];
-                        string hausbesitzer = (string)rdr["Hausbesitzer"];
-                        string bankverbindung = (string)rdr["Bankverbindung"];
-                        long zse = (long)(int)rdr["ZaehlerEinbauStand"];
-                        long zsn = (long)(int)rdr["ZaehlerNeuStand"];
-                        Object o = (DateTime)rdr["Eichdatum"];
-                        DateTime ed = (DateTime)rdr["Eichdatum"];
-                        string zarh = (string)rdr["ZaehlerNr"];
-                        DateTime edd = (DateTime)rdr["Einbaudatum"];
-                        string erkl = (string)rdr["Erkl"];
-                        DateTime eddd = (DateTime)rdr["Tauschdatum"];
-                        double lkjlkj = (double)rdr["Zaehlermiete"];
-                        string bemerkung = (string)rdr["Bemerkung"];
-
-
                         kundenList.Add(new KundenData( (long)(int)rdr["KundeID"], (string)rdr["Vorname"], (string)rdr["Nachname"], 
                                     (string)rdr["Strasse"], (string)rdr["Ort"],  (string)rdr["Tel"],  
                                     (string)rdr["Hausbesitzer"], (string)rdr["Bankverbindung"],
-                                    bekommtRechnung, (long)(int)rdr["ZaehlerEinbauStand"], 
+                                    (bool)rdr["bekommtRechnung"], (long)(int)rdr["ZaehlerEinbauStand"], 
                                     (long)(int)rdr["ZaehlerNeuStand"],
                                     (DateTime)rdr["Eichdatum"],
                                     (string)rdr["ZaehlerNr"],
                                     (DateTime)rdr["Einbaudatum"],
                                     (string)rdr["Erkl"],
                                     (DateTime)rdr["Tauschdatum"],
-                                    (double)rdr["Zaehlermiete"],(string)rdr["Bemerkung"]));
+                                    (double)rdr["Zaehlermiete"],(string)rdr["Bemerkung"],
+                                    (string) rdr["Zahlung"]));
                     }
                     return kundenList;
                 }
@@ -80,146 +59,167 @@ namespace WasserWerkVerwaltung.DAL {
         }
 
         public KundenData FindByID(long id) {
-        //    try {
-        //        DbUtil.OpenConnection();
+            try {
+                DbUtil.OpenConnection();
 
-        //        if (findByIdCmd == null) {
-        //            findByIdCmd = DbUtil.CreateCommand(SQL_FIND_BY_ID, DbUtil.CurrentConnection);
-        //            findByIdCmd.Parameters.Add(DbUtil.CreateParameter("@patientId", DbType.Int64));
-        //        }
+                if (findByIdCmd == null) {
+                    findByIdCmd = DbUtil.CreateCommand(SQL_FIND_BY_ID, DbUtil.CurrentConnection);
+                    findByIdCmd.Parameters.Add(DbUtil.CreateParameter("@KundeID", DbType.Int64));
+                }
 
-        //        ((IDataParameter)findByIdCmd.Parameters["@patientId"]).Value = id;
-                
-        //        using (IDataReader rdr = findByIdCmd.ExecuteReader()) {
-        //            IList<PatientData> patientList = new List<PatientData>();
-        //            if (rdr.Read()) {
-        //                Sex sex = Sex.male;
-        //                if (((string)rdr["sex"]).Equals(Sex.male.ToString()))
-        //                    sex = Sex.male;
-        //                if (((string)rdr["sex"]).Equals(Sex.female.ToString()))
-        //                    sex = Sex.female;
+                ((IDataParameter)findByIdCmd.Parameters["@KundeID"]).Value = id;
 
-        //                return new PatientData((long)(int)rdr["patientid"], (string)rdr["firstname"],
-        //                                       (string)rdr["surname"], DateTime.Parse((string)rdr["birthdate"],
-        //                                       DateTimeFormatInfo.InvariantInfo), sex, (string)rdr["phone"],
-        //                                       (int)(Int16)rdr["weight"], (string)rdr["address"]);
-        //            }
-        //        }
-        //    } finally {
-        //        DbUtil.CloseConnection();
-        //    }
-        //    return null;
-            throw new NotImplementedException();
+                using (IDataReader rdr = findByIdCmd.ExecuteReader()) {
+                    IList<KundenData> kundenList = new List<KundenData>();
+                    if (rdr.Read()) {
+                        return new KundenData((long)(int)rdr["KundeID"], (string)rdr["Vorname"], (string)rdr["Nachname"],
+                                    (string)rdr["Strasse"], (string)rdr["Ort"], (string)rdr["Tel"],
+                                    (string)rdr["Hausbesitzer"], (string)rdr["Bankverbindung"],
+                                    (bool)rdr["bekommtRechnung"], (long)(int)rdr["ZaehlerEinbauStand"],
+                                    (long)(int)rdr["ZaehlerNeuStand"],
+                                    (DateTime)rdr["Eichdatum"],
+                                    (string)rdr["ZaehlerNr"],
+                                    (DateTime)rdr["Einbaudatum"],
+                                    (string)rdr["Erkl"],
+                                    (DateTime)rdr["Tauschdatum"],
+                                    (double)rdr["Zaehlermiete"], (string)rdr["Bemerkung"],
+                                    (string) rdr["Zahlung"]);
+                    }
+                }
+            } finally {
+                DbUtil.CloseConnection();
+            }
+            return null;
         }
 
-        public long Insert(KundenData patient) {
-        //    try {
-        //        DbUtil.OpenConnection();
+        public long Insert(KundenData kunde) {
+            try {
+                DbUtil.OpenConnection();
 
-        //        if (insertByIdCmd == null) {
-        //            insertByIdCmd = DbUtil.CreateCommand(SQL_INSERT_BY_ID, DbUtil.CurrentConnection);
-        //            insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@fistname", DbType.String));
-        //            insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@surname", DbType.String));
-        //            insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@birthdate", DbType.String));
-        //            insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@sex", DbType.String));
-        //            insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@phone", DbType.String));
-        //            insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@furthertreatment", DbType.String));
-        //            insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@weight", DbType.Int64));
-        //            insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@address", DbType.String));
-        //        }
+                if (insertByIdCmd == null) {
+                    insertByIdCmd = DbUtil.CreateCommand(SQL_INSERT_BY_ID, DbUtil.CurrentConnection);
+                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Vorname", DbType.String));
+                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Nachname", DbType.String));
+                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Strasse", DbType.String));
+                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Ort", DbType.String));
+                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Tel", DbType.String));
+                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Hausbesitzer", DbType.String));
+                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Bankverbindung", DbType.String));
+                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@bekommtRechnung", DbType.Boolean));
+                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@ZaehlerEinbauStand", DbType.Int64));
+                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@ZaehlerNeuStand", DbType.Int64));
+                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Eichdatum", DbType.DateTime));
+                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@ZaehlerNr", DbType.String));
+                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Einbaudatum", DbType.DateTime));
+                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Erkl", DbType.String));
+                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Tauschdatum", DbType.DateTime));
+                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Zaehlermiete", DbType.Double));
+                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Bemerkung", DbType.String));
+                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Zahlung", DbType.String));
+                }
 
-        //        ((IDataParameter)insertByIdCmd.Parameters["@fistname"]).Value = patient.FirstName;
-        //        ((IDataParameter)insertByIdCmd.Parameters["@surname"]).Value = patient.SurName;
-        //        ((IDataParameter)insertByIdCmd.Parameters["@birthdate"]).Value = patient.DateOfBirth.ToString("yyyy-MM-dd", DateTimeFormatInfo.InvariantInfo);
-        //        ((IDataParameter)insertByIdCmd.Parameters["@sex"]).Value = patient.Sex.ToString();
-        //        ((IDataParameter)insertByIdCmd.Parameters["@phone"]).Value = patient.Phone;
-        //        ((IDataParameter)insertByIdCmd.Parameters["@furthertreatment"]).Value = "";
-        //        ((IDataParameter)insertByIdCmd.Parameters["@weight"]).Value = patient.Weight;
-        //        ((IDataParameter)insertByIdCmd.Parameters["@address"]).Value = patient.Address;
+                ((IDataParameter)insertByIdCmd.Parameters["@Vorname"]).Value = kunde.Vorname;
+                ((IDataParameter)insertByIdCmd.Parameters["@Nachname"]).Value = kunde.Nachmame;
+                ((IDataParameter)insertByIdCmd.Parameters["@Strasse"]).Value = kunde.Strasse;
+                ((IDataParameter)insertByIdCmd.Parameters["@Ort"]).Value = kunde.Ort;
+                ((IDataParameter)insertByIdCmd.Parameters["@Tel"]).Value = kunde.Tel;
+                ((IDataParameter)insertByIdCmd.Parameters["@Hausbesitzer"]).Value = kunde.Hausbesitzer;
+                ((IDataParameter)insertByIdCmd.Parameters["@Bankverbindung"]).Value = kunde.BankVerbindung;
+                ((IDataParameter)insertByIdCmd.Parameters["@bekommtRechnung"]).Value = kunde.BekommtRechnung;
+                ((IDataParameter)insertByIdCmd.Parameters["@ZaehlerEinbauStand"]).Value = kunde.ZaehlerEinbauStand;
+                ((IDataParameter)insertByIdCmd.Parameters["@ZaehlerNeuStand"]).Value = kunde.ZaehlerNeuStand;
+                ((IDataParameter)insertByIdCmd.Parameters["@Eichdatum"]).Value = kunde.EichDatum;
+                ((IDataParameter)insertByIdCmd.Parameters["@ZaehlerNr"]).Value = kunde.ZaehlerNummer;
+                ((IDataParameter)insertByIdCmd.Parameters["@Einbaudatum"]).Value = kunde.EinbauDatum;
+                ((IDataParameter)insertByIdCmd.Parameters["@Erkl"]).Value = kunde.Erkl;
+                ((IDataParameter)insertByIdCmd.Parameters["@Tauschdatum"]).Value = kunde.TauschDatum;
+                ((IDataParameter)insertByIdCmd.Parameters["@Zaehlermiete"]).Value = kunde.Zaehlermiete;
+                ((IDataParameter)insertByIdCmd.Parameters["@Bemerkung"]).Value = kunde.Bemerkung;
+                ((IDataParameter)insertByIdCmd.Parameters["@Zahlung"]).Value = kunde.Zahlung;
 
-
-        //        if (insertByIdCmd.ExecuteNonQuery() != 1)
-        //            return 0;
-        //        else
-        //        {
-        //            if (lastInsertedRowCmd == null) {
-        //                lastInsertedRowCmd = DbUtil.CreateCommand(SQL_LAST_INSERTED_ROW, DbUtil.CurrentConnection);
-        //            }
-        //            return (long)(int)lastInsertedRowCmd.ExecuteScalar();
-        //        }
-        //    } finally {
-        //        DbUtil.CloseConnection();
-        //    }
-            throw new NotImplementedException();
+                if (insertByIdCmd.ExecuteNonQuery() != 1)
+                    return 0;
+                else {
+                    if (lastInsertedRowCmd == null) {
+                        
+                        lastInsertedRowCmd = DbUtil.CreateCommand(SQL_LAST_INSERTED_ROW, DbUtil.CurrentConnection);
+                    }
+                    return (long)(int)lastInsertedRowCmd.ExecuteScalar();
+                }
+            } finally {
+                DbUtil.CloseConnection();
+            }
         }
 
-        public bool Update(KundenData patient) {
-        //    try {
-        //        DbUtil.OpenConnection();
+        public bool Update(KundenData kunde) {
+            try {
+                DbUtil.OpenConnection();
 
-        //        if (updateByIdCmd == null) {
-        //            updateByIdCmd = DbUtil.CreateCommand(SQL_UPDATE_BY_ID, DbUtil.CurrentConnection);
+                if (updateByIdCmd == null) {
+                    updateByIdCmd = DbUtil.CreateCommand(SQL_UPDATE_BY_ID, DbUtil.CurrentConnection);
 
-        //            updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@firstname", DbType.String));
-        //            updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@surname", DbType.String));
-        //            updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@birthdate", DbType.String));
-        //            updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@sex", DbType.String));
-        //            updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@phone", DbType.String));
-        //            updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@weight", DbType.Int64));
-        //            updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@address", DbType.String));
-        //            updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@patientID", DbType.Int64));
-        //        }
+                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Vorname", DbType.String));
+                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Nachname", DbType.String));
+                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Strasse", DbType.String));
+                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Ort", DbType.String));
+                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Tel", DbType.String));
+                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Hausbesitzer", DbType.String));
+                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Bankverbindung", DbType.String));
+                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@bekommtRechnung", DbType.Boolean));
+                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@ZaehlerEinbauStand", DbType.Int64));
+                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@ZaehlerNeuStand", DbType.Int64));
+                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Eichdatum", DbType.DateTime));
+                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@ZaehlerNr", DbType.String));
+                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Einbaudatum", DbType.DateTime));
+                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Erkl", DbType.String));
+                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Tauschdatum", DbType.DateTime));
+                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Zaehlermiete", DbType.Double));
+                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Bemerkung", DbType.String));
+                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Zahlung", DbType.String));
+                    updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@KundeID", DbType.Int64));
+                }
 
-        //        ((IDataParameter)updateByIdCmd.Parameters["@firstname"]).Value = patient.FirstName;
-        //        ((IDataParameter)updateByIdCmd.Parameters["@surname"]).Value = patient.SurName;
-        //        ((IDataParameter)updateByIdCmd.Parameters["@birthdate"]).Value = patient.DateOfBirth.ToString("yyyy-MM-dd", DateTimeFormatInfo.InvariantInfo);
-        //        ((IDataParameter)updateByIdCmd.Parameters["@sex"]).Value = patient.Sex.ToString();
-        //        ((IDataParameter)updateByIdCmd.Parameters["@phone"]).Value = patient.Phone;
-        //        ((IDataParameter)updateByIdCmd.Parameters["@weight"]).Value = patient.Weight;
-        //        ((IDataParameter)updateByIdCmd.Parameters["@address"]).Value = patient.Address;
-        //        ((IDataParameter)updateByIdCmd.Parameters["@patientID"]).Value = patient.Id;
+                ((IDataParameter)insertByIdCmd.Parameters["@Vorname"]).Value = kunde.Vorname;
+                ((IDataParameter)insertByIdCmd.Parameters["@Nachname"]).Value = kunde.Nachmame;
+                ((IDataParameter)insertByIdCmd.Parameters["@Strasse"]).Value = kunde.Strasse;
+                ((IDataParameter)insertByIdCmd.Parameters["@Ort"]).Value = kunde.Ort;
+                ((IDataParameter)insertByIdCmd.Parameters["@Tel"]).Value = kunde.Tel;
+                ((IDataParameter)insertByIdCmd.Parameters["@Hausbesitzer"]).Value = kunde.Hausbesitzer;
+                ((IDataParameter)insertByIdCmd.Parameters["@Bankverbindung"]).Value = kunde.BankVerbindung;
+                ((IDataParameter)insertByIdCmd.Parameters["@bekommtRechnung"]).Value = kunde.BekommtRechnung;
+                ((IDataParameter)insertByIdCmd.Parameters["@ZaehlerEinbauStand"]).Value = kunde.ZaehlerEinbauStand;
+                ((IDataParameter)insertByIdCmd.Parameters["@ZaehlerNeuStand"]).Value = kunde.ZaehlerNeuStand;
+                ((IDataParameter)insertByIdCmd.Parameters["@Eichdatum"]).Value = kunde.EichDatum;
+                ((IDataParameter)insertByIdCmd.Parameters["@ZaehlerNr"]).Value = kunde.ZaehlerNummer;
+                ((IDataParameter)insertByIdCmd.Parameters["@Einbaudatum"]).Value = kunde.EinbauDatum;
+                ((IDataParameter)insertByIdCmd.Parameters["@Erkl"]).Value = kunde.Erkl;
+                ((IDataParameter)insertByIdCmd.Parameters["@Tauschdatum"]).Value = kunde.TauschDatum;
+                ((IDataParameter)insertByIdCmd.Parameters["@Zaehlermiete"]).Value = kunde.Zaehlermiete;
+                ((IDataParameter)insertByIdCmd.Parameters["@Bemerkung"]).Value = kunde.Bemerkung;
+                ((IDataParameter)insertByIdCmd.Parameters["@Zahlung"]).Value = kunde.Zahlung;
+                ((IDataParameter)insertByIdCmd.Parameters["@KundeID"]).Value = kunde.Id;
 
-        //        return updateByIdCmd.ExecuteNonQuery() == 1;
-        //    } finally {
-        //        DbUtil.CloseConnection();
-        //    }
-            throw new NotImplementedException();
+                return updateByIdCmd.ExecuteNonQuery() == 1;
+            } finally {
+                DbUtil.CloseConnection();
+            }
         }
 
         public bool Delete(long id) {
-        //    try {
-        //        DbUtil.OpenConnection();
+            try {
+                DbUtil.OpenConnection();
 
-        //        if (deleteByIdCmd == null) {
-        //            deleteByIdCmd = DbUtil.CreateCommand(SQL_DELETE_BY_ID, DbUtil.CurrentConnection);
-        //            deleteByIdCmd.Parameters.Add(DbUtil.CreateParameter("@patientID", DbType.Int64));
-        //        }
+                if (deleteByIdCmd == null) {
+                    deleteByIdCmd = DbUtil.CreateCommand(SQL_DELETE_BY_ID, DbUtil.CurrentConnection);
+                    deleteByIdCmd.Parameters.Add(DbUtil.CreateParameter("@KundeID", DbType.Int64));
+                }
 
-        //        ////Don't delete if there are references to it
-        //        //ISongsImAlbum songsImAlbum = Database.CreateSongsImAlbum();
-        //        //IPreis preis = Database.CreatePreis();
-        //        //IBilder bilder = Database.CreateBilder();
-        //        //IRezension rezension = Database.CreateRezension();
-        //        //IBesitzt besitzt = Database.CreateBesitzt();
-        //        //IWiederverkauf wiederverkauf = Database.CreateWiederverkauf();
-        //        //IList<SongsImAlbumData> songsimalbumList = songsImAlbum.FindBySongId(songId);
-        //        //PreisData preisData = preis.FindNewestSongPrice(songId);
-        //        //IList<BilderData> bilderList = bilder.FindBySongId(songId);
-        //        //IList<RezensionData> rezensionList = rezension.FindBySong(songId);
-        //        //IList<BesitztData> besitztList = besitzt.FindBySongId(songId);
-        //        //IList<WiederverkaufData> wiederverkaufList = wiederverkauf.FindBySong(songId);
-        //        //if ((songsimalbumList.Count > 0) || (preisData != null) ||
-        //        //    (bilderList.Count > 0) || (rezensionList.Count > 0) ||
-        //        //    (besitztList.Count > 0) || (wiederverkaufList.Count > 0))
-        //        //    return false;
+                ((IDataParameter)deleteByIdCmd.Parameters["@KundeID"]).Value = id;
 
-        //        ((IDataParameter)deleteByIdCmd.Parameters["@patientID"]).Value = id;
-
-        //        return deleteByIdCmd.ExecuteNonQuery() == 1;
-        //    } finally {
-        //        DbUtil.CloseConnection();
-        //    }
-            throw new NotImplementedException();
+                return deleteByIdCmd.ExecuteNonQuery() == 1;
+            } finally {
+                DbUtil.CloseConnection();
+            }
         }
 
     }
