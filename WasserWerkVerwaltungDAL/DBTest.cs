@@ -54,6 +54,23 @@ public interface IPatient {
 
 namespace SimplePatientDocumentation.DAL.Tests {
 
+    [TestFixture]
+    public class KundeTest {
+        //[SetUp]
+        //public void InitVisitTest() {
+        //    IKunde kundeDB = Database.CreateKunde();
+        //    DateTime date = new DateTime(2006, 12, 24);
+        //    PatientData patient = new PatientData(0, "first", "sure", date, Sex.male, "0123456789", 29, "address");
+        //    pID = patientDB.Insert(patient);
+        //}
+
+        [Test]
+        public void KundeFindAllTest() {
+            IKunde kundeDB = Database.CreateKunde();
+            kundeDB.FindAll();
+        }
+    }
+
     //[TestFixture]
     //public class VisitTest {
 

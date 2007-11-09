@@ -11,50 +11,72 @@ namespace WasserWerkVerwaltung.DAL {
     class Kunde : IKunde {
 
         //const string SQL_FIND_BY_ID = "SELECT * FROM kunde WHERE kundenID = ?";
-        //const string SQL_FIND_ALL = "SELECT * FROM patient";
+        const string SQL_FIND_ALL = "SELECT * FROM kunde";
         //const string SQL_LAST_INSERTED_ROW = "SELECT @@Identity";
         //const string SQL_GET_FURTHER_TREATMENT_BY_ID = "SELECT furthertreatment from patient WHERE patientID = ?";
         //readonly string SQL_UPDATE_BY_ID = "UPDATE patient SET firstname = ?, surname = ?, birthdate = ?, sex = ?, phone = ?, weight = ?, address = ? WHERE patientID = ?";
         //readonly string SQL_INSERT_BY_ID = "INSERT INTO patient (firstname, surname, birthdate, sex, phone, furthertreatment, weight, address) VALUES(?,?,?,?,?,?,?,?)";
         //readonly string SQL_DELETE_BY_ID = "DELETE FROM patient WHERE patientID = ?";
         //static IDbCommand findByIdCmd;
-        //static IDbCommand findAllCmd;
+        static IDbCommand findAllCmd;
         //static IDbCommand updateByIdCmd;
         //static IDbCommand insertByIdCmd;
         //static IDbCommand deleteByIdCmd;
         //static IDbCommand lastInsertedRowCmd;
         
         public IList<KundenData> FindAll() {
-        //    try {
-        //        DbUtil.OpenConnection();
+            try {
+                DbUtil.OpenConnection();
 
-        //        if (findAllCmd == null) {
-        //            findAllCmd = DbUtil.CreateCommand(SQL_FIND_ALL, DbUtil.CurrentConnection);
-        //        }
+                if (findAllCmd == null) {
+                    findAllCmd = DbUtil.CreateCommand(SQL_FIND_ALL, DbUtil.CurrentConnection);
+                }
 
-                
-                
-        //        using (IDataReader rdr = findAllCmd.ExecuteReader()) {
-        //            IList<KundenData> kundenList = new List<KundenData>();
-        //            while (rdr.Read()) {
-        //                Sex sex = Sex.male;
-        //                if (((string)rdr["sex"]).Equals(Sex.male.ToString()))
-        //                    sex = Sex.male;
-        //                if (((string)rdr["sex"]).Equals(Sex.female.ToString()))
-        //                    sex = Sex.female;
-        //                long l = (long)(int)rdr["patientid"];
+                using (IDataReader rdr = findAllCmd.ExecuteReader()) {
+                    IList<KundenData> kundenList = new List<KundenData>();
+                    while (rdr.Read()) {
+                        bool bekommtRechnung = true;
+                        if ((long)(int)rdr["bekommtRechnung"] == 0)
+                            bekommtRechnung = false;
 
-        //                kundenList.Add(new PatientData((long)(int)rdr["patientid"], (string)rdr["firstname"],
-        //                                       (string)rdr["surname"], DateTime.Parse((string)rdr["birthdate"],
-        //                                       DateTimeFormatInfo.InvariantInfo), sex, /*(string)rdr["city"], (string)rdr["street"],*/
-        //                                       (string)rdr["phone"], (int)(Int16)rdr["weight"], (string)rdr["address"]));
-        //            }
-        //            return kundenList;
-        //        }
-        //    } finally {
-        //        DbUtil.CloseConnection();
-        //    }
-            throw new NotImplementedException();
+                        long id = (long)(int)rdr["KundeID"];
+
+                        string vorname = (string)rdr["Vorname"];
+                        string nachname = (string)rdr["Nachname"];
+                        string strasse = (string)rdr["Strasse"];
+                        string ort = (string)rdr["Ort"];
+                        string tel = (string)rdr["Tel"];
+                        string hausbesitzer = (string)rdr["Hausbesitzer"];
+                        string bankverbindung = (string)rdr["Bankverbindung"];
+                        long zse = (long)(int)rdr["ZaehlerEinbauStand"];
+                        long zsn = (long)(int)rdr["ZaehlerNeuStand"];
+                        Object o = (DateTime)rdr["Eichdatum"];
+                        DateTime ed = (DateTime)rdr["Eichdatum"];
+                        string zarh = (string)rdr["ZaehlerNr"];
+                        DateTime edd = (DateTime)rdr["Einbaudatum"];
+                        string erkl = (string)rdr["Erkl"];
+                        DateTime eddd = (DateTime)rdr["Tauschdatum"];
+                        double lkjlkj = (double)rdr["Zaehlermiete"];
+                        string bemerkung = (string)rdr["Bemerkung"];
+
+
+                        kundenList.Add(new KundenData( (long)(int)rdr["KundeID"], (string)rdr["Vorname"], (string)rdr["Nachname"], 
+                                    (string)rdr["Strasse"], (string)rdr["Ort"],  (string)rdr["Tel"],  
+                                    (string)rdr["Hausbesitzer"], (string)rdr["Bankverbindung"],
+                                    bekommtRechnung, (long)(int)rdr["ZaehlerEinbauStand"], 
+                                    (long)(int)rdr["ZaehlerNeuStand"],
+                                    (DateTime)rdr["Eichdatum"],
+                                    (string)rdr["ZaehlerNr"],
+                                    (DateTime)rdr["Einbaudatum"],
+                                    (string)rdr["Erkl"],
+                                    (DateTime)rdr["Tauschdatum"],
+                                    (double)rdr["Zaehlermiete"],(string)rdr["Bemerkung"]));
+                    }
+                    return kundenList;
+                }
+            } finally {
+                DbUtil.CloseConnection();
+            }
         }
 
         public KundenData FindByID(long id) {

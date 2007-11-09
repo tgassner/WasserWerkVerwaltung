@@ -6,6 +6,7 @@ using System.Data;
 using System.Text;
 using System.Windows.Forms;
 using WasserWerkVerwaltung.CommonObjects;
+using WasserWerkVerwaltung.BL;
 
 namespace WasserWerkVerwaltung.GUI {
     public partial class StammdatenControl : UserControl {
@@ -39,6 +40,8 @@ namespace WasserWerkVerwaltung.GUI {
 
         public void Init() {
             this.listBoxKunden.Items.Clear();
+            WWVBusinessObject bo = new WWVBusinessObject();
+            bo.Trallala();
             //for (int i = 0; i < 300; i++ )
                 //this.listBoxKunden.Items.Add(new KundenData(i+1, "Max", "Mustermann"+i.ToString(),"Straße","Ort", "Tel", "Besitzer","Bank",123,456,DateTime.Now,"ZählerNummer", DateTime.Now, "erkl", "hausbesitzer", DateTime.Now, 987, "Zahlung", true));
         }

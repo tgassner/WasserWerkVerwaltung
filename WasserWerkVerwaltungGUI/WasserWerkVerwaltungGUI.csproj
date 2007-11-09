@@ -129,6 +129,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\WasserWerkVerwaltungBL\WasserWerkVerwaltungBL.csproj">
+      <Project>{19857CCA-D1DB-46B5-8156-C5BDBAA9E15D}</Project>
+      <Name>WasserWerkVerwaltungBL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WasserWerkVerwaltungCommonObjects\WasserWerkVerwaltungCommonObjects.csproj">
       <Project>{72EA8889-FBBC-485E-B9E9-4C47A35D8E7A}</Project>
       <Name>WasserWerkVerwaltungCommonObjects</Name>

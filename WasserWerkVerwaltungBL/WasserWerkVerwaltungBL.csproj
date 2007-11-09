@@ -35,6 +35,17 @@
   <ItemGroup>
     <Compile Include="Interfaces.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WWVBusinessObject.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WasserWerkVerwaltungCommonObjects\WasserWerkVerwaltungCommonObjects.csproj">
+      <Project>{72EA8889-FBBC-485E-B9E9-4C47A35D8E7A}</Project>
+      <Name>WasserWerkVerwaltungCommonObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WasserWerkVerwaltungDAL\WasserWerkVerwaltungDAL.csproj">
+      <Project>{1C12ABA9-0051-44A0-96FE-0A6ED6E28FBC}</Project>
+      <Name>WasserWerkVerwaltungDAL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
