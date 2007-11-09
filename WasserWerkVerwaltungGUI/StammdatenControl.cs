@@ -39,8 +39,8 @@ namespace WasserWerkVerwaltung.GUI {
 
         public void Init() {
             this.listBoxKunden.Items.Clear();
-            for (int i = 0; i < 300; i++ )
-                this.listBoxKunden.Items.Add(new KundenData(i+1, "Max", "Mustermann"+i.ToString(),"Straße","objekt", "Ort", "Tel", "Bank",123,456,DateTime.Now,"ZählerNummer", DateTime.Now, "erkl", "hausbesitzer", DateTime.Now, 987, "Zahlung", true));
+            //for (int i = 0; i < 300; i++ )
+                //this.listBoxKunden.Items.Add(new KundenData(i+1, "Max", "Mustermann"+i.ToString(),"Straße","Ort", "Tel", "Besitzer","Bank",123,456,DateTime.Now,"ZählerNummer", DateTime.Now, "erkl", "hausbesitzer", DateTime.Now, 987, "Zahlung", true));
         }
 
         private void listBoxKunden_SelectedIndexChanged(object sender, EventArgs e) {

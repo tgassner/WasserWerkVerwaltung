@@ -8,64 +8,53 @@ namespace WasserWerkVerwaltung.CommonObjects {
     public class KundenData {
         private long id;
         private string vorname;
-        private string name;
+        private string nachname;
         private string strasse;
-        private string objekt;
         private string ort;
         private string tel;
+        private string hausbesitzer;
         private string bankVerbindung;
-        private long tzEinbau;
-        private long tzNeu;
+        private bool bekommtRechnung;
+        private long zaehlerEinbauStand;
+        private long zaehlerNeuStand;
         private DateTime eichDatum;
         private string zaehlerNummer;
         private DateTime einbauDatum;
         private string erkl;
-        private string hausbesitzer;
         private DateTime tauschDatum;
         private long zaehlermiete;
-        private string zahlung;
-        private bool bekommtRechnung;
+        private string bemerkung;
 
-        public KundenData(long id, string vorname, string name, string strasse,
-                string objekt, string ort, string tel, string bankVerbindung,
-                long tzEinbau, long tzNeu, DateTime eichDatum, string zaehlerNummer,
-                DateTime einbauDatum, string erkl, string hausbesitzer, DateTime tauschDatum,
-                long zaehlermiete, string zahlung, bool bekommtRechnung) {
+        public KundenData(long id, string vorname, string nachname, string strasse,
+                    string ort, string tel, string hausbesitzer, string bankVerbindung, 
+                    bool bekommtRechnung, long zaehlerEinbauStand, long zaehlerNeuStand, 
+                    DateTime eichDatum, string zaehlerNummer, DateTime einbauDatum, 
+                    string erkl, DateTime tauschDatum, long zaehlermiete, string bemerkung){
 
             this.id = id;
             this.vorname = vorname;
-            this.name = name;
+            this.nachname = nachname;
             this.strasse = strasse;
-            this.objekt = objekt;
             this.ort = ort;
             this.tel = tel;
+            this.hausbesitzer = hausbesitzer;
             this.bankVerbindung = bankVerbindung;
-            this.tzEinbau = tzEinbau;
-            this.tzNeu = tzNeu;
+            this.bekommtRechnung = bekommtRechnung;
+            this.zaehlerEinbauStand = zaehlerEinbauStand;
+            this.zaehlerNeuStand = zaehlerNeuStand;
             this.eichDatum = eichDatum;
             this.zaehlerNummer = zaehlerNummer;
             this.einbauDatum = einbauDatum;
             this.erkl = erkl;
-            this.hausbesitzer = hausbesitzer;
             this.tauschDatum = tauschDatum;
             this.zaehlermiete = zaehlermiete;
-            this.zahlung = zahlung;
-            this.bekommtRechnung = bekommtRechnung;
-
+            this.bemerkung = bemerkung;
+            
         }
 
         public long Id {
             get {
                 return id;
-            }
-        }
-
-        public string Name {
-            get {
-                return this.name;
-            }
-            set {
-                this.name = value;
             }
         }
 
@@ -78,21 +67,21 @@ namespace WasserWerkVerwaltung.CommonObjects {
             }
         }
 
+        public string Nachmame {
+            get {
+                return this.nachname;
+            }
+            set {
+                this.nachname = value;
+            }
+        }
+
         public string Strasse {
             get {
                 return this.strasse;
             }
             set {
                 this.strasse = value;
-            }
-        }
-
-        public string Objekt {
-            get {
-                return this.objekt;
-            }
-            set {
-                this.objekt = value;
             }
         }
 
@@ -114,6 +103,15 @@ namespace WasserWerkVerwaltung.CommonObjects {
             }
         }
 
+        public string Hausbesitzer {
+            get {
+                return this.hausbesitzer;
+            }
+            set {
+                this.hausbesitzer = value;
+            }
+        }
+
         public string BankVerbindung {
             get {
                 return this.bankVerbindung;
@@ -123,21 +121,30 @@ namespace WasserWerkVerwaltung.CommonObjects {
             }
         }
 
-        public long TzEinbau {
+        public bool BekommtRechnung {
             get {
-                return this.tzEinbau;
+                return this.bekommtRechnung;
             }
             set {
-                this.tzEinbau = value;
+                this.bekommtRechnung = value;
             }
         }
 
-        public long TzNeu {
+        public long ZaehlerEinbauStand {
             get {
-                return this.tzNeu;
+                return this.zaehlerEinbauStand;
             }
             set {
-                this.tzNeu = value;
+                this.zaehlerEinbauStand = value;
+            }
+        }
+
+        public long ZaehlerNeuStand {
+            get {
+                return this.zaehlerNeuStand;
+            }
+            set {
+                this.zaehlerNeuStand = value;
             }
         }
 
@@ -177,15 +184,6 @@ namespace WasserWerkVerwaltung.CommonObjects {
             }
         }
 
-        public string Hausbesitzer {
-            get {
-                return this.hausbesitzer;
-            }
-            set {
-                this.hausbesitzer = value;
-            }
-        }
-
         public DateTime TauschDatum {
             get {
                 return this.tauschDatum;
@@ -204,26 +202,17 @@ namespace WasserWerkVerwaltung.CommonObjects {
             }
         }
 
-        public string Zahlung {
+        public string Bemerkung {
             get {
-                return this.zahlung;
+                return this.bemerkung;
             }
             set {
-                this.zahlung = value;
-            }
-        }
-
-        public bool BekommtRechnung{
-            get {
-                return this.bekommtRechnung;
-            }
-            set {
-                this.bekommtRechnung = value;
+                this.bemerkung = value;
             }
         }
 
         public override string ToString() {
-            return this.name + " " + this.vorname;
+            return this.vorname + " " + this.nachname;
         }
 
         public override bool Equals(object obj) {
@@ -234,7 +223,7 @@ namespace WasserWerkVerwaltung.CommonObjects {
         }
 
         public override int GetHashCode() {
-            return this.id.GetHashCode() + this.vorname.GetHashCode() + this.name.GetHashCode();
+            return this.id.GetHashCode() + this.vorname.GetHashCode() + this.nachname.GetHashCode();
         }
     }
 
@@ -242,18 +231,26 @@ namespace WasserWerkVerwaltung.CommonObjects {
     public class AblesungData {
         private long id;
         private long kundenId;
+        private double rechnungssumme;
+        private string zahlung;
+        private long zaehlerStandAlt;
+        private long zaehlerStandNeu;
         private long jahr;
         private DateTime ableseDatum;
-        private long zaehlerstand;
-        private long zaehlerstand2;
+        private double bereitsBezahlt;
 
-        public AblesungData(long id, long kundenId, long jahr, DateTime ableseDatum, long zaehlerstand, long zaehlerstand2) {
+        public AblesungData(long id, long kundenId, double rechnungssumme, string zahlung, 
+                    long zaehlerStandAlt, long zaehlerStandNeu, long jahr, 
+                    DateTime ableseDatum, double bereitsBezahlt) {
             this.id = id;
             this.kundenId = kundenId;
+            this.rechnungssumme = rechnungssumme;
+            this.zahlung = zahlung;
+            this.zaehlerStandAlt = zaehlerStandAlt;
+            this.zaehlerStandNeu = zaehlerStandNeu;
             this.jahr = jahr;
             this.ableseDatum = ableseDatum;
-            this.zaehlerstand = zaehlerstand;
-            this.zaehlerstand2 = zaehlerstand2;
+            this.bereitsBezahlt = bereitsBezahlt;
         }
 
         public long Id {
@@ -274,7 +271,43 @@ namespace WasserWerkVerwaltung.CommonObjects {
             }
         }
 
-        public long Jahr {
+        public double Rechnungssumme{
+            get {
+                return this.rechnungssumme;
+            }
+            set {
+                this.rechnungssumme = value;
+            }
+        }
+
+        public string Zahlung {
+            get {
+                return this.zahlung;
+            }
+            set {
+                this.zahlung = value;
+            }
+        }
+
+        public long ZaehlerStandAlt {
+            get {
+                return this.zaehlerStandAlt;
+            }
+            set {
+                this.zaehlerStandAlt = value;
+            }
+        }
+
+        public long ZaehlerStandNeu {
+            get {
+                return this.zaehlerStandNeu;
+            }
+            set {
+                this.zaehlerStandNeu = value;
+            }
+        }
+
+                public long Jahr {
             get {
                 return this.jahr;
             }
@@ -291,26 +324,18 @@ namespace WasserWerkVerwaltung.CommonObjects {
                 this.ableseDatum = value;
             }
         }
-        public long Zaehlerstand {
-            get {
-                return this.zaehlerstand;
-            }
-            set {
-                this.zaehlerstand = value;
-            }
-        }
 
-        public long Zaehlerstand2 {
+        public double BereitsBezahlt {
             get {
-                return this.zaehlerstand2;
+                return this.bereitsBezahlt;
             }
             set {
-                this.zaehlerstand2 = value;
+                this.bereitsBezahlt = value;
             }
         }
 
         public override string ToString() {
-            return this.jahr.ToString() + " " + this.zaehlerstand.ToString();
+            return this.id + this.jahr.ToString() + " " + this.zaehlerStandNeu.ToString();
         }
 
         public override bool Equals(object obj) {
@@ -321,7 +346,51 @@ namespace WasserWerkVerwaltung.CommonObjects {
         }
 
         public override int GetHashCode() {
-            return this.id.GetHashCode() + this.jahr.GetHashCode() + this.zaehlerstand.GetHashCode();
+            return this.id.GetHashCode() + this.jahr.GetHashCode() + this.zaehlerStandNeu.GetHashCode();
+        }
+    }
+
+    [Serializable]
+    public class PreisData {
+        private long jahr;
+        private long preis;
+
+        public PreisData(long jahr, long preis) {
+            this.jahr = jahr;
+            this.preis = preis;
+        }
+
+        public long Jahr {
+            get {
+                return this.jahr;
+            }
+            set {
+                this.jahr = value;
+            }
+        }
+
+        public long Preis {
+            get {
+                return this.preis;
+            }
+            set {
+                this.preis = value;
+            }
+        }       
+
+        public override string ToString() {
+            return this.jahr + this.jahr.ToString() + " " + this.preis.ToString();
+        }
+
+        public override bool Equals(object obj) {
+            AblesungData abl = obj as AblesungData;
+            if (abl == null)
+                return false;
+            return abl.Jahr == this.jahr;
+        }
+
+        public override int GetHashCode() {
+            return this.jahr.GetHashCode() + this.preis.GetHashCode();
         }
     }
 }

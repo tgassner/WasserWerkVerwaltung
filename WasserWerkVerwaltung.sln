@@ -5,6 +5,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WasserWerkVerwaltungGUI", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WasserWerkVerwaltungCommonObjects", "WasserWerkVerwaltungCommonObjects\WasserWerkVerwaltungCommonObjects.csproj", "{72EA8889-FBBC-485E-B9E9-4C47A35D8E7A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WasserWerkVerwaltungDAL", "WasserWerkVerwaltungDAL\WasserWerkVerwaltungDAL.csproj", "{1C12ABA9-0051-44A0-96FE-0A6ED6E28FBC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WasserWerkVerwaltungBL", "WasserWerkVerwaltungBL\WasserWerkVerwaltungBL.csproj", "{19857CCA-D1DB-46B5-8156-C5BDBAA9E15D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +23,14 @@ Global
 		{72EA8889-FBBC-485E-B9E9-4C47A35D8E7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72EA8889-FBBC-485E-B9E9-4C47A35D8E7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72EA8889-FBBC-485E-B9E9-4C47A35D8E7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C12ABA9-0051-44A0-96FE-0A6ED6E28FBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C12ABA9-0051-44A0-96FE-0A6ED6E28FBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C12ABA9-0051-44A0-96FE-0A6ED6E28FBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C12ABA9-0051-44A0-96FE-0A6ED6E28FBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19857CCA-D1DB-46B5-8156-C5BDBAA9E15D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19857CCA-D1DB-46B5-8156-C5BDBAA9E15D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19857CCA-D1DB-46B5-8156-C5BDBAA9E15D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19857CCA-D1DB-46B5-8156-C5BDBAA9E15D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
