@@ -5,20 +5,23 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using WasserWerkVerwaltung.BL;
 
 namespace WasserWerkVerwaltung.GUI {
     public partial class MainForm : Form {
 
         private StammdatenControl stammdatenControl;
         private DruckenControl druckenControl;
-
+        private IWWVBL wwvBLComp;
 
         public MainForm() {
             InitializeComponent();
 
             this.stammdatenControl = new StammdatenControl();
             this.druckenControl = new DruckenControl();
-
+            wwvBLComp = WWVBLFactory.GetBussinessLogicObject();
+            this.stammdatenControl.Init(wwvBLComp);
+            this.druckenControl.Init(wwvBLComp);
         }
 
         private void Clear() {

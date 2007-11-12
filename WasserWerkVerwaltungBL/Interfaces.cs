@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using WasserWerkVerwaltung.CommonObjects;
 
 namespace WasserWerkVerwaltung.BL {
-    interface IWWVBL {
+    public interface IWWVBL {
+        IList<KundenData> GetAllKunden();
     }
 }

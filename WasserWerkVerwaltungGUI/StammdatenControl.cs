@@ -18,7 +18,7 @@ namespace WasserWerkVerwaltung.GUI {
 
         public StammdatenControl() {
             InitializeComponent();
-            
+
             this.kundenDetailsControl = new KundenDetailsControl();
             this.kundenDetailsControl.Location = new System.Drawing.Point(200, 200);
             this.Controls.Add(this.kundenDetailsControl);
@@ -32,22 +32,19 @@ namespace WasserWerkVerwaltung.GUI {
             this.Controls.Add(this.zaehlerstaendeControl);
 
             this.kostenInfoControl = new KostenInfoControl();
-            this.kostenInfoControl.Location = new System.Drawing.Point(720,200);
+            this.kostenInfoControl.Location = new System.Drawing.Point(720, 200);
             this.Controls.Add(this.kostenInfoControl);
-
-            Init();
         }
 
-        public void Init() {
+        public void Init(IWWVBL wwvBLComp) {
             this.listBoxKunden.Items.Clear();
-            WWVBusinessComponent bo = new WWVBusinessComponent();
-            bo.Trallala();
-            //for (int i = 0; i < 300; i++ )
-                //this.listBoxKunden.Items.Add(new KundenData(i+1, "Max", "Mustermann"+i.ToString(),"Straße","Ort", "Tel", "Besitzer","Bank",123,456,DateTime.Now,"ZählerNummer", DateTime.Now, "erkl", "hausbesitzer", DateTime.Now, 987, "Zahlung", true));
+            foreach (KundenData kunde in wwvBLComp.GetAllKunden()) {
+                this.listBoxKunden.Items.Add(kunde);
+            }
         }
 
         private void listBoxKunden_SelectedIndexChanged(object sender, EventArgs e) {
-            this.kundenDetailsControl.SetCurrentCustomer((KundenData) this.listBoxKunden.SelectedItem);
+            this.kundenDetailsControl.SetCurrentCustomer((KundenData)this.listBoxKunden.SelectedItem);
         }
     }
 }

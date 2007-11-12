@@ -35,6 +35,7 @@
   <ItemGroup>
     <Compile Include="Interfaces.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WWVBLFactory.cs" />
     <Compile Include="WWVBusinessComponent.cs" />
   </ItemGroup>
   <ItemGroup>
