@@ -119,7 +119,7 @@ namespace WasserWerkVerwaltung.DAL {
                 }
 
                 ((IDataParameter)insertByIdCmd.Parameters["@Vorname"]).Value = kunde.Vorname;
-                ((IDataParameter)insertByIdCmd.Parameters["@Nachname"]).Value = kunde.Nachmame;
+                ((IDataParameter)insertByIdCmd.Parameters["@Nachname"]).Value = kunde.Nachname;
                 ((IDataParameter)insertByIdCmd.Parameters["@Strasse"]).Value = kunde.Strasse;
                 ((IDataParameter)insertByIdCmd.Parameters["@Ort"]).Value = kunde.Ort;
                 ((IDataParameter)insertByIdCmd.Parameters["@Tel"]).Value = kunde.Tel;
@@ -128,11 +128,11 @@ namespace WasserWerkVerwaltung.DAL {
                 ((IDataParameter)insertByIdCmd.Parameters["@bekommtRechnung"]).Value = kunde.BekommtRechnung;
                 ((IDataParameter)insertByIdCmd.Parameters["@ZaehlerEinbauStand"]).Value = kunde.ZaehlerEinbauStand;
                 ((IDataParameter)insertByIdCmd.Parameters["@ZaehlerNeuStand"]).Value = kunde.ZaehlerNeuStand;
-                ((IDataParameter)insertByIdCmd.Parameters["@Eichdatum"]).Value = kunde.EichDatum;
+                ((IDataParameter)insertByIdCmd.Parameters["@Eichdatum"]).Value = kunde.EichDatum.Date;
                 ((IDataParameter)insertByIdCmd.Parameters["@ZaehlerNr"]).Value = kunde.ZaehlerNummer;
-                ((IDataParameter)insertByIdCmd.Parameters["@Einbaudatum"]).Value = kunde.EinbauDatum;
+                ((IDataParameter)insertByIdCmd.Parameters["@Einbaudatum"]).Value = kunde.EinbauDatum.Date;
                 ((IDataParameter)insertByIdCmd.Parameters["@Erkl"]).Value = kunde.Erkl;
-                ((IDataParameter)insertByIdCmd.Parameters["@Tauschdatum"]).Value = kunde.TauschDatum;
+                ((IDataParameter)insertByIdCmd.Parameters["@Tauschdatum"]).Value = kunde.TauschDatum.Date;
                 ((IDataParameter)insertByIdCmd.Parameters["@Zaehlermiete"]).Value = kunde.Zaehlermiete;
                 ((IDataParameter)insertByIdCmd.Parameters["@Bemerkung"]).Value = kunde.Bemerkung;
                 ((IDataParameter)insertByIdCmd.Parameters["@Zahlung"]).Value = kunde.Zahlung;
@@ -158,46 +158,46 @@ namespace WasserWerkVerwaltung.DAL {
                 if (updateByIdCmd == null) {
                     updateByIdCmd = DbUtil.CreateCommand(SQL_UPDATE_BY_ID, DbUtil.CurrentConnection);
 
-                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Vorname", DbType.String));
-                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Nachname", DbType.String));
-                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Strasse", DbType.String));
-                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Ort", DbType.String));
-                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Tel", DbType.String));
-                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Hausbesitzer", DbType.String));
-                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Bankverbindung", DbType.String));
-                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@bekommtRechnung", DbType.Boolean));
-                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@ZaehlerEinbauStand", DbType.Int64));
-                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@ZaehlerNeuStand", DbType.Int64));
-                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Eichdatum", DbType.DateTime));
-                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@ZaehlerNr", DbType.String));
-                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Einbaudatum", DbType.DateTime));
-                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Erkl", DbType.String));
-                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Tauschdatum", DbType.DateTime));
-                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Zaehlermiete", DbType.Double));
-                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Bemerkung", DbType.String));
-                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Zahlung", DbType.String));
+                    updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Vorname", DbType.String));
+                    updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Nachname", DbType.String));
+                    updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Strasse", DbType.String));
+                    updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Ort", DbType.String));
+                    updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Tel", DbType.String));
+                    updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Hausbesitzer", DbType.String));
+                    updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Bankverbindung", DbType.String));
+                    updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@bekommtRechnung", DbType.Boolean));
+                    updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@ZaehlerEinbauStand", DbType.Int64));
+                    updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@ZaehlerNeuStand", DbType.Int64));
+                    updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Eichdatum", DbType.DateTime));
+                    updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@ZaehlerNr", DbType.String));
+                    updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Einbaudatum", DbType.DateTime));
+                    updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Erkl", DbType.String));
+                    updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Tauschdatum", DbType.DateTime));
+                    updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Zaehlermiete", DbType.Double));
+                    updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Bemerkung", DbType.String));
+                    updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Zahlung", DbType.String));
                     updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@KundeID", DbType.Int64));
                 }
 
-                ((IDataParameter)insertByIdCmd.Parameters["@Vorname"]).Value = kunde.Vorname;
-                ((IDataParameter)insertByIdCmd.Parameters["@Nachname"]).Value = kunde.Nachmame;
-                ((IDataParameter)insertByIdCmd.Parameters["@Strasse"]).Value = kunde.Strasse;
-                ((IDataParameter)insertByIdCmd.Parameters["@Ort"]).Value = kunde.Ort;
-                ((IDataParameter)insertByIdCmd.Parameters["@Tel"]).Value = kunde.Tel;
-                ((IDataParameter)insertByIdCmd.Parameters["@Hausbesitzer"]).Value = kunde.Hausbesitzer;
-                ((IDataParameter)insertByIdCmd.Parameters["@Bankverbindung"]).Value = kunde.BankVerbindung;
-                ((IDataParameter)insertByIdCmd.Parameters["@bekommtRechnung"]).Value = kunde.BekommtRechnung;
-                ((IDataParameter)insertByIdCmd.Parameters["@ZaehlerEinbauStand"]).Value = kunde.ZaehlerEinbauStand;
-                ((IDataParameter)insertByIdCmd.Parameters["@ZaehlerNeuStand"]).Value = kunde.ZaehlerNeuStand;
-                ((IDataParameter)insertByIdCmd.Parameters["@Eichdatum"]).Value = kunde.EichDatum;
-                ((IDataParameter)insertByIdCmd.Parameters["@ZaehlerNr"]).Value = kunde.ZaehlerNummer;
-                ((IDataParameter)insertByIdCmd.Parameters["@Einbaudatum"]).Value = kunde.EinbauDatum;
-                ((IDataParameter)insertByIdCmd.Parameters["@Erkl"]).Value = kunde.Erkl;
-                ((IDataParameter)insertByIdCmd.Parameters["@Tauschdatum"]).Value = kunde.TauschDatum;
-                ((IDataParameter)insertByIdCmd.Parameters["@Zaehlermiete"]).Value = kunde.Zaehlermiete;
-                ((IDataParameter)insertByIdCmd.Parameters["@Bemerkung"]).Value = kunde.Bemerkung;
-                ((IDataParameter)insertByIdCmd.Parameters["@Zahlung"]).Value = kunde.Zahlung;
-                ((IDataParameter)insertByIdCmd.Parameters["@KundeID"]).Value = kunde.Id;
+                ((IDataParameter)updateByIdCmd.Parameters["@Vorname"]).Value = kunde.Vorname;
+                ((IDataParameter)updateByIdCmd.Parameters["@Nachname"]).Value = kunde.Nachname;
+                ((IDataParameter)updateByIdCmd.Parameters["@Strasse"]).Value = kunde.Strasse;
+                ((IDataParameter)updateByIdCmd.Parameters["@Ort"]).Value = kunde.Ort;
+                ((IDataParameter)updateByIdCmd.Parameters["@Tel"]).Value = kunde.Tel;
+                ((IDataParameter)updateByIdCmd.Parameters["@Hausbesitzer"]).Value = kunde.Hausbesitzer;
+                ((IDataParameter)updateByIdCmd.Parameters["@Bankverbindung"]).Value = kunde.BankVerbindung;
+                ((IDataParameter)updateByIdCmd.Parameters["@bekommtRechnung"]).Value = kunde.BekommtRechnung;
+                ((IDataParameter)updateByIdCmd.Parameters["@ZaehlerEinbauStand"]).Value = kunde.ZaehlerEinbauStand;
+                ((IDataParameter)updateByIdCmd.Parameters["@ZaehlerNeuStand"]).Value = kunde.ZaehlerNeuStand;
+                ((IDataParameter)updateByIdCmd.Parameters["@Eichdatum"]).Value = kunde.EichDatum.Date;
+                ((IDataParameter)updateByIdCmd.Parameters["@ZaehlerNr"]).Value = kunde.ZaehlerNummer;
+                ((IDataParameter)updateByIdCmd.Parameters["@Einbaudatum"]).Value = kunde.EinbauDatum.Date;
+                ((IDataParameter)updateByIdCmd.Parameters["@Erkl"]).Value = kunde.Erkl;
+                ((IDataParameter)updateByIdCmd.Parameters["@Tauschdatum"]).Value = kunde.TauschDatum.Date;
+                ((IDataParameter)updateByIdCmd.Parameters["@Zaehlermiete"]).Value = kunde.Zaehlermiete;
+                ((IDataParameter)updateByIdCmd.Parameters["@Bemerkung"]).Value = kunde.Bemerkung;
+                ((IDataParameter)updateByIdCmd.Parameters["@Zahlung"]).Value = kunde.Zahlung;
+                ((IDataParameter)updateByIdCmd.Parameters["@KundeID"]).Value = kunde.Id;
 
                 return updateByIdCmd.ExecuteNonQuery() == 1;
             } finally {

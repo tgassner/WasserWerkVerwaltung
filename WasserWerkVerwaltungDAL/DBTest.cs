@@ -70,331 +70,254 @@ namespace SimplePatientDocumentation.DAL.Tests {
         [Test]
         public void KundeFindAllTest() {
             IKunde kundeDB = Database.CreateKunde();
-            //IList<KundenData> kundenList = kundeDB.FindAll();
+            IList<KundenData> kundenList = kundeDB.FindAll();
+            foreach (KundenData kundefoeach in kundenList) {
+                if (kundefoeach.Id == this.kID) {
+                    Assert.AreEqual(kundefoeach.BankVerbindung, this.kunde.BankVerbindung);
+                    Assert.AreEqual(kundefoeach.BekommtRechnung, this.kunde.BekommtRechnung);
+                    Assert.AreEqual(kundefoeach.Bemerkung, this.kunde.Bemerkung);
+                    Assert.AreEqual(kundefoeach.EichDatum.Date, this.kunde.EichDatum.Date);
+                    Assert.AreEqual(kundefoeach.EinbauDatum.Date, this.kunde.EinbauDatum.Date);
+                    Assert.AreEqual(kundefoeach.Erkl, this.kunde.Erkl);
+                    Assert.AreEqual(kundefoeach.Hausbesitzer, this.kunde.Hausbesitzer);
+                    Assert.AreEqual(kundefoeach.Nachname, this.kunde.Nachname);
+                    Assert.AreEqual(kundefoeach.Ort, this.kunde.Ort);
+                    Assert.AreEqual(kundefoeach.Strasse, this.kunde.Strasse);
+                    Assert.AreEqual(kundefoeach.TauschDatum.Date, this.kunde.TauschDatum.Date);
+                    Assert.AreEqual(kundefoeach.Tel, this.kunde.Tel);
+                    Assert.AreEqual(kundefoeach.Vorname, this.kunde.Vorname);
+                    Assert.AreEqual(kundefoeach.ZaehlerEinbauStand, this.kunde.ZaehlerEinbauStand);
+                    Assert.AreEqual(kundefoeach.Zaehlermiete, this.kunde.Zaehlermiete);
+                    Assert.AreEqual(kundefoeach.ZaehlerNeuStand, this.kunde.ZaehlerNeuStand);
+                    Assert.AreEqual(kundefoeach.ZaehlerNummer, this.kunde.ZaehlerNummer);
+                    Assert.AreEqual(kundefoeach.Zahlung, this.kunde.Zahlung);
+                }
+            }
         }
 
         [Test]
         public void KundeFindByIdTest() {
             IKunde kundeDB = Database.CreateKunde();
-            //KundenData kunde = kundeDB.FindByID(this.kID);
-            //Assert.AreEqual(kunde.Id,this.kID);
+            KundenData kunde2 = kundeDB.FindByID(this.kID);
+            Assert.AreEqual(kunde2.Id, this.kID);
+            Assert.AreEqual(kunde2.BankVerbindung, this.kunde.BankVerbindung);
+            Assert.AreEqual(kunde2.BekommtRechnung, this.kunde.BekommtRechnung);
+            Assert.AreEqual(kunde2.Bemerkung, this.kunde.Bemerkung);
+            Assert.AreEqual(kunde2.EichDatum.Date, this.kunde.EichDatum.Date);
+            Assert.AreEqual(kunde2.EinbauDatum.Date, this.kunde.EinbauDatum.Date);
+            Assert.AreEqual(kunde2.Erkl, this.kunde.Erkl);
+            Assert.AreEqual(kunde2.Hausbesitzer, this.kunde.Hausbesitzer);
+            Assert.AreEqual(kunde2.Nachname, this.kunde.Nachname);
+            Assert.AreEqual(kunde2.Ort, this.kunde.Ort);
+            Assert.AreEqual(kunde2.Strasse, this.kunde.Strasse);
+            Assert.AreEqual(kunde2.TauschDatum.Date, this.kunde.TauschDatum.Date);
+            Assert.AreEqual(kunde2.Tel, this.kunde.Tel);
+            Assert.AreEqual(kunde2.Vorname, this.kunde.Vorname);
+            Assert.AreEqual(kunde2.ZaehlerEinbauStand, this.kunde.ZaehlerEinbauStand);
+            Assert.AreEqual(kunde2.Zaehlermiete, this.kunde.Zaehlermiete);
+            Assert.AreEqual(kunde2.ZaehlerNeuStand, this.kunde.ZaehlerNeuStand);
+            Assert.AreEqual(kunde2.ZaehlerNummer, this.kunde.ZaehlerNummer);
+            Assert.AreEqual(kunde2.Zahlung, this.kunde.Zahlung);
+        }
+
+        [Test]
+        public void KundeUpdateTest() {
+            IKunde kundeDB = Database.CreateKunde();
+            KundenData kunde2 = kundeDB.FindByID(this.kID);
+            kunde2.BankVerbindung = kunde.BankVerbindung = "bank2";
+            kunde2.BekommtRechnung = kunde.BekommtRechnung = false;
+            kunde2.Bemerkung = kunde.Bemerkung = "Bemerkung2";
+            kunde2.EichDatum = kunde.EichDatum = DateTime.Now;
+            kunde2.EinbauDatum = kunde.EinbauDatum = DateTime.Now;
+            kunde2.Erkl = kunde.Erkl = "Erkl2";
+            kunde2.Hausbesitzer = kunde.Hausbesitzer = "Hausbesitzer2";
+            kunde2.Nachname = kunde.Nachname = "Nachnane2";
+            kunde2.Ort = kunde.Ort = "Ort2";
+            kunde2.Strasse = kunde.Strasse = "Strasse2";
+            kunde2.TauschDatum = kunde.TauschDatum = DateTime.Now;
+            kunde2.Tel = kunde.Tel = "Tel2";
+            kunde2.Vorname = kunde.Vorname = "Vorname2";
+            kunde2.ZaehlerEinbauStand = kunde.ZaehlerEinbauStand = 98765;
+            kunde2.Zaehlermiete = kunde.Zaehlermiete = 2.09876543;
+            kunde2.ZaehlerNeuStand = kunde.ZaehlerNeuStand = 87654;
+            kunde2.ZaehlerNummer = kunde.ZaehlerNummer = "ZNo2";
+            kunde2.Zahlung = kunde.Zahlung = "Zahlung2";
+
+            Assert.IsTrue(kundeDB.Update(kunde2));
+            KundenData kunde3 = kundeDB.FindByID(kID);
+
+            Assert.AreEqual(kunde3.Id, this.kID);
+            Assert.AreEqual(kunde3.BankVerbindung, this.kunde.BankVerbindung);
+            Assert.AreEqual(kunde3.BekommtRechnung, this.kunde.BekommtRechnung);
+            Assert.AreEqual(kunde3.Bemerkung, this.kunde.Bemerkung);
+            Assert.AreEqual(kunde3.EichDatum.Date, this.kunde.EichDatum.Date);
+            Assert.AreEqual(kunde3.EinbauDatum.Date, this.kunde.EinbauDatum.Date);
+            Assert.AreEqual(kunde3.Erkl, this.kunde.Erkl);
+            Assert.AreEqual(kunde3.Hausbesitzer, this.kunde.Hausbesitzer);
+            Assert.AreEqual(kunde3.Nachname, this.kunde.Nachname);
+            Assert.AreEqual(kunde3.Ort, this.kunde.Ort);
+            Assert.AreEqual(kunde3.Strasse, this.kunde.Strasse);
+            Assert.AreEqual(kunde3.TauschDatum.Date, this.kunde.TauschDatum.Date);
+            Assert.AreEqual(kunde3.Tel, this.kunde.Tel);
+            Assert.AreEqual(kunde3.Vorname, this.kunde.Vorname);
+            Assert.AreEqual(kunde3.ZaehlerEinbauStand, this.kunde.ZaehlerEinbauStand);
+            Assert.AreEqual(kunde3.Zaehlermiete, this.kunde.Zaehlermiete);
+            Assert.AreEqual(kunde3.ZaehlerNeuStand, this.kunde.ZaehlerNeuStand);
+            Assert.AreEqual(kunde3.ZaehlerNummer, this.kunde.ZaehlerNummer);
+            Assert.AreEqual(kunde3.Zahlung, this.kunde.Zahlung);
+        }
+
+        [Test]
+        public void KundeDeleteTest() {
+            IKunde kundeDB = Database.CreateKunde();
+            Assert.IsNotNull(kundeDB.FindByID(this.kID));
+            Assert.IsTrue(kundeDB.Delete(this.kID));
+            Assert.IsNull(kundeDB.FindByID(this.kID));
         }
     }
 
-    //[TestFixture]
-    //public class VisitTest {
+    [TestFixture]
+    public class JahresdatenTest {
 
-    //    private long pID;
+        private long jdID;
+        private JahresDatenData jahresdaten;
 
-    //    [SetUp]
-    //    public void InitVisitTest() {
-    //        IPatient patientDB = Database.CreatePatient();
-    //        DateTime date = new DateTime(2006, 12, 24);
-    //        PatientData patient = new PatientData(0, "first", "sure", date, Sex.male, "0123456789", 29, "address");
-    //        pID = patientDB.Insert(patient);
-    //    }
 
-    //    [Test]
-    //    public void InsertTest(){
-    //        IVisit visitDB = Database.CreateVisit();
-    //        VisitData visit = new VisitData(0,"good Cause", "lokkkalis", "extra Diagnossses", "procedurrre", "extratherapie", pID, DateTime.Now,"anest...","ultrasound","blooood","ToDo","Radiodiagnostic");
-    //        long vID = visitDB.Insert(visit);
-    //        VisitData visitWithID = new VisitData(vID, visit.Cause, visit.Localis, visit.ExtraDiagnosis, visit.Procedure, visit.ExtraTherapy, pID, visit.VisitDate, visit.Anesthesiology, visit.Ultrasound, visit.Blooddiagnostic,visit.Todo, visit.Radiodiagnostics);
+        [SetUp]
+        public void InitVisitTest() {
+            IJahresDaten jahresDatenDB = Database.CreateJahresDaten();
+            jahresdaten = new JahresDatenData(0, 1, 0.4, 23, 234, 2006, DateTime.Now, 87.0);
+            this.jdID = jahresDatenDB.Insert(jahresdaten);
+        }
 
-    //        visit = visitDB.FindByID(vID);
+        [Test]
+        public void JahresdatenFindAllTest() {
+            IJahresDaten jahredDatenDB = Database.CreateJahresDaten();
+            IList<JahresDatenData> jahresdataList = jahredDatenDB.FindAll();
+            foreach (JahresDatenData jahrfoeach in jahresdataList) {
+                if (jahrfoeach.Id == this.jdID) {
+                    Assert.AreEqual(jahrfoeach.AbleseDatum.Date, this.jahresdaten.AbleseDatum.Date);
+                    Assert.AreEqual(jahrfoeach.BereitsBezahlt, this.jahresdaten.BereitsBezahlt);
+                    Assert.AreEqual(jahrfoeach.Jahr, this.jahresdaten.Jahr);
+                    Assert.AreEqual(jahrfoeach.KundenId, this.jahresdaten.KundenId);
+                    Assert.AreEqual(jahrfoeach.Rechnungssumme, this.jahresdaten.Rechnungssumme);
+                    Assert.AreEqual(jahrfoeach.ZaehlerStandAlt, this.jahresdaten.ZaehlerStandAlt);
+                    Assert.AreEqual(jahrfoeach.ZaehlerStandNeu, this.jahresdaten.ZaehlerStandNeu);
+                }
+            }
+        }
 
-    //        Assert.AreEqual(visit.Anesthesiology, visitWithID.Anesthesiology);
-    //        Assert.AreEqual(visit.Blooddiagnostic, visitWithID.Blooddiagnostic);
-    //        Assert.AreEqual(visit.Cause, visitWithID.Cause);
-    //        Assert.AreEqual(visit.ExtraDiagnosis, visitWithID.ExtraDiagnosis);
-    //        Assert.AreEqual(visit.ExtraTherapy, visitWithID.ExtraTherapy);
-    //        Assert.AreEqual(visit.Id, vID);
-    //        Assert.AreEqual(visit.Localis, visitWithID.Localis);
-    //        Assert.AreEqual(visit.PatientId, pID);
-    //        Assert.AreEqual(visit.Procedure, visitWithID.Procedure);
-    //        Assert.AreEqual(visit.Ultrasound, visitWithID.Ultrasound);
-    //        Assert.AreEqual(visit.VisitDate, visitWithID.VisitDate);
-    //        Assert.AreEqual(visit.Todo, visitWithID.Todo);
-    //        Assert.AreEqual(visit.Radiodiagnostics, visitWithID.Radiodiagnostics);
+        [Test]
+        public void JahresdatenFindByIdTest() {
+            IJahresDaten jahredDatenDB = Database.CreateJahresDaten();
+            JahresDatenData jahredData2 = jahredDatenDB.FindByID(this.jdID);
+            Assert.AreEqual(jahredData2.Id, this.jdID);
+            Assert.AreEqual(jahredData2.AbleseDatum.Date, this.jahresdaten.AbleseDatum.Date);
+            Assert.AreEqual(jahredData2.BereitsBezahlt, this.jahresdaten.BereitsBezahlt);
+            Assert.AreEqual(jahredData2.Jahr, this.jahresdaten.Jahr);
+            Assert.AreEqual(jahredData2.KundenId, this.jahresdaten.KundenId);
+            Assert.AreEqual(jahredData2.Rechnungssumme, this.jahresdaten.Rechnungssumme);
+            Assert.AreEqual(jahredData2.ZaehlerStandAlt, this.jahresdaten.ZaehlerStandAlt);
+            Assert.AreEqual(jahredData2.ZaehlerStandNeu, this.jahresdaten.ZaehlerStandNeu);
+        }
 
-    //        Assert.IsTrue(visitDB.Delete(vID));
+        [Test]
+        public void KundeUpdateTest() {
+            IJahresDaten jahredDatenDB = Database.CreateJahresDaten();
+            JahresDatenData jahredData2 = jahredDatenDB.FindByID(this.jdID);
+            jahredData2.AbleseDatum = jahresdaten.AbleseDatum = DateTime.Now;
+            jahredData2.BereitsBezahlt = jahresdaten.BereitsBezahlt = 88.8;
+            jahredData2.Jahr = jahresdaten.Jahr = 2006;
+            jahredData2.KundenId = jahresdaten.KundenId = 5;
+            jahredData2.Rechnungssumme = jahresdaten.Rechnungssumme = 436.9;
+            jahredData2.ZaehlerStandAlt = jahresdaten.ZaehlerStandAlt = 8765;
+            jahredData2.ZaehlerStandNeu = jahresdaten.ZaehlerStandNeu = 234;
 
-    //        Assert.IsNull(visitDB.FindByID(vID));
-    //    }
 
-    //    [Test]
-    //    public void FindByPatientTest() {
-    //        IVisit visitDB = Database.CreateVisit();
-    //        VisitData visit1 = new VisitData(0, "good Cause", "lokkkalis", "extra Diagnossses", "procedurrre", "extratherapie", pID, DateTime.Now, "anest...", "ultrasound", "blooood","Todo","Radiodiagnasdn");
-    //        long vID1 = visitDB.Insert(visit1);
-    //        VisitData visitWithID1 = new VisitData(vID1, visit1.Cause, visit1.Localis, visit1.ExtraDiagnosis, visit1.Procedure, visit1.ExtraTherapy, pID, visit1.VisitDate, visit1.Anesthesiology, visit1.Ultrasound, visit1.Blooddiagnostic, visit1.Todo, visit1.Radiodiagnostics);
-    //        VisitData visit2 = new VisitData(0, "asdfg", "nkjbjhbhj", "ejhij", "aölsdfjöasj", "laksdjalksd", pID, new DateTime(2007,12,01), "ikouhz...", "döner", "kljhg","asdas","asdasfd");
-    //        long vID2 = visitDB.Insert(visit2);
-    //        VisitData visitWithID2 = new VisitData(vID2, visit2.Cause, visit2.Localis, visit2.ExtraDiagnosis, visit2.Procedure, visit2.ExtraTherapy, pID, visit2.VisitDate, visit2.Anesthesiology, visit2.Ultrasound, visit2.Blooddiagnostic,visit2.Todo, visit2.Radiodiagnostics);
-    //        VisitData visit3 = new VisitData(0, "öloiu", "kjhsbdklsw", "üüpüpü", "asüdkpasüd", "+*a", pID, new DateTime(2007, 12, 02), "pooip", "saddsf", "bloooodüüü","todoooo","Radioooo");
-    //        long vID3 = visitDB.Insert(visit3);
-    //        VisitData visitWithID3 = new VisitData(vID3, visit3.Cause, visit3.Localis, visit3.ExtraDiagnosis, visit3.Procedure, visit3.ExtraTherapy, pID, visit3.VisitDate, visit3.Anesthesiology, visit3.Ultrasound, visit3.Blooddiagnostic, visit3.Todo, visit3.Radiodiagnostics);
+            Assert.IsTrue(jahredDatenDB.Update(jahredData2));
+            JahresDatenData jahres3 = jahredDatenDB.FindByID(jdID);
 
-    //        IList<VisitData> visits = visitDB.FindByPatientID(pID);
-    //        Assert.AreEqual(3, visits.Count);
 
-    //        foreach (VisitData visit in visits) {
-    //            Assert.IsTrue(visitDB.Delete(visit.Id));
-    //        }
+            Assert.AreEqual(jahres3.Id, this.jdID);
+            Assert.AreEqual(jahres3.AbleseDatum.Date, this.jahresdaten.AbleseDatum.Date);
+            Assert.AreEqual(jahres3.BereitsBezahlt, this.jahresdaten.BereitsBezahlt);
+            Assert.AreEqual(jahres3.Jahr, this.jahresdaten.Jahr);
+            Assert.AreEqual(jahres3.KundenId, this.jahresdaten.KundenId);
+            Assert.AreEqual(jahres3.Rechnungssumme, this.jahresdaten.Rechnungssumme);
+            Assert.AreEqual(jahres3.ZaehlerStandAlt, this.jahresdaten.ZaehlerStandAlt);
+            Assert.AreEqual(jahres3.ZaehlerStandNeu, this.jahresdaten.ZaehlerStandNeu);
+        }
 
-    //        visits = visitDB.FindByPatientID(pID);
-    //        Assert.AreEqual(0,visits.Count);
-    //    }
+        [Test]
+        public void JahresDataDeleteTest() {
+            IJahresDaten jahresDataDB = Database.CreateJahresDaten();
+            Assert.IsNotNull(jahresDataDB.FindByID(this.jdID));
+            Assert.IsTrue(jahresDataDB.Delete(this.jdID));
+            Assert.IsNull(jahresDataDB.FindByID(this.jdID));
+        }
+    }
 
-    //    [TearDown]
-    //    public void TearDownOperationTest() {
-    //        IPatient patientDB = Database.CreatePatient();
-    //        patientDB.Delete(pID);
-    //    }
-    //}
 
-    //[TestFixture]
-    //public class OperationTest {
+    [TestFixture]
+    public class PreisTest {
 
-    //    private long pID;
+        private PreisData preis;
+        private long jahr;
+        private Random rand = new Random();
 
-    //    [SetUp]
-    //    public void InitOperationTest() {
-    //        IPatient patientDB = Database.CreatePatient();
-    //        DateTime date = new DateTime(2006, 12, 24);
-    //        PatientData patient = new PatientData(0, "first", "sure", date, Sex.male, "0123456789", 29, "address");
-    //        pID = patientDB.Insert(patient);
-    //    }
+        [SetUp]
+        public void InitVisitTest() {
+            IPreis preisDB = Database.CreatePreis();
+            jahr = (long)rand.Next();
+            preis = new PreisData(jahr, 23.8);
+            Assert.IsTrue(preisDB.Insert(preis));
+        }
 
-    //    [Test]
-    //    public void InsertTest(){
-    //        IOperation operationDB = Database.CreateOperation();
-    //        OperationData operation = new OperationData(0, DateTime.Now,"Tolles Team","Toller Proccess","diagnosissss","alles performed",pID);
-    //        long oID = operationDB.Insert(operation);
-    //        OperationData operationWithID = new OperationData(oID,operation.Date,operation.Team,operation.Process,operation.Diagnoses,operation.Performed,pID);
+        [Test]
+        public void JahresdatenFindAllTest() {
+            IPreis preisDB = Database.CreatePreis();
+            IList<PreisData> preisList = preisDB.FindAll();
+            foreach (PreisData preisfoeach in preisList) {
+                if (preisfoeach.Preis == this.jahr) {
+                    Assert.AreEqual(preisfoeach.Jahr, this.preis.Jahr);
+                    Assert.AreEqual(preisfoeach.Preis, this.preis.Preis);
+                }
+            }
+        }
 
-    //        operation = operationDB.FindByOperationId(oID);
+        [Test]
+        public void JahresdatenFindByIdTest() {
+            IPreis preisDB = Database.CreatePreis();
+            PreisData  preis2 = preisDB.FindByJahr(this.jahr);
+            Assert.AreEqual(preis2.Jahr, this.jahr);
+            Assert.AreEqual(preis2.Preis, this.preis.Preis);
+            Assert.AreEqual(preis2.Jahr, this.preis.Jahr);
+        }
 
-    //        Assert.AreEqual(operation.Date, operationWithID.Date);
-    //        Assert.AreEqual(operation.Diagnoses, operationWithID.Diagnoses);
-    //        Assert.AreEqual(operation.OperationId, operationWithID.OperationId);
-    //        Assert.AreEqual(operation.PatientId, operationWithID.PatientId);
-    //        Assert.AreEqual(operation.Performed, operationWithID.Performed);
-    //        Assert.AreEqual(operation.Process, operationWithID.Process);
-    //        Assert.AreEqual(operation.Team, operationWithID.Team);
+        [Test]
+        public void KundeUpdateTest() {
+            IPreis preisDB = Database.CreatePreis();
+            PreisData preis2 = preisDB.FindByJahr(this.jahr);
 
-    //        Assert.IsTrue(operationDB.Delete(oID));
+            preis2.Preis = preis.Preis = 34.7;
 
-    //        Assert.IsNull(operationDB.FindByOperationId(oID));
-    //    }
+            Assert.IsTrue(preisDB.Update(preis2));
+            PreisData preis3 = preisDB.FindByJahr(this.jahr);
 
-    //    [TearDown]
-    //    public void TearDownOperationTest() {
-    //        IPatient patientDB = Database.CreatePatient();
-    //        patientDB.Delete(pID);
-    //    }
-    //}
 
-    //[TestFixture]
-    //public class PhotoTest {
-
-    //    private long pID;
-
-    //    [SetUp]
-    //    public void InitPhotoTest() {
-    //        IPatient patientDB = Database.CreatePatient();
-    //        DateTime date = new DateTime(2006, 12, 24);
-    //        PatientData patient = new PatientData(0, "first", "sure", date, Sex.male, "0123456789", 29, "address");
-    //        pID = patientDB.Insert(patient);
-    //    }
-
-    //    [Test]
-    //    public void InsertTest() {
-    //        IPhoto photoDB = Database.CreatePhoto();
-    //        ImageData photo = new ImageData(0, pID, "c:\\image.jpg", "Gutes Foto");
-    //        long iID = photoDB.Insert(photo);
-    //        ImageData photoWithID = new ImageData(iID, photo.PatientID, photo.Link, photo.Kommentar);
-
-    //        photo = photoDB.FindByPhotoId(iID);
-
-    //        Assert.AreEqual(photo.Link, photoWithID.Link);
-    //        Assert.AreEqual(photo.Kommentar, photoWithID.Kommentar);
-    //        Assert.AreEqual(photo.PhotoID, photoWithID.PhotoID);
-    //        Assert.AreEqual(photo.Link, photoWithID.Link);
-
-    //        Assert.IsTrue(photoDB.Delete(iID));
-
-    //        Assert.IsNull(photoDB.FindByPhotoId(iID));
-    //    }
-
-    //    [TearDown]
-    //    public void TearDownPhotoTest() {
-    //        IPatient patientDB = Database.CreatePatient();
-    //        patientDB.Delete(pID);
-    //    }
-    //}
-
-    //[TestFixture]
-    //public class PatientTest {
-        
-    //    [Test]
-    //    public void InsertTest(){
-    //        IPatient patientDB = Database.CreatePatient();
-    //        DateTime date = new DateTime(2006,12, 24);
-    //        PatientData patient = new PatientData(0, "first", "sure", date, Sex.male, "0123456789",29,"address");
-    //        long pID = patientDB.Insert(patient);
-    //        PatientData pdataWithID = new PatientData(pID,
-    //            patient.FirstName,patient.SurName,patient.DateOfBirth,
-    //            patient.Sex, patient.Phone,patient.Weight, patient.Address);
-
-    //        patient = patientDB.FindByID(pdataWithID.Id);
+            Assert.AreEqual(preis3.Jahr, this.jahr);
+            Assert.AreEqual(preis3.Preis, this.preis.Preis);
+            Assert.AreEqual(preis3.Jahr, this.preis.Jahr);
             
-    //        Assert.AreEqual(patient.Id,pdataWithID.Id);
-    //        Assert.AreEqual(patient.FirstName, pdataWithID.FirstName);
-    //        Assert.AreEqual(patient.SurName, pdataWithID.SurName);
-    //        Assert.AreEqual(patient.Phone, pdataWithID.Phone);
-    //        Assert.AreEqual(patient.DateOfBirth, pdataWithID.DateOfBirth);
-    //        Assert.AreEqual(patient.Sex, pdataWithID.Sex);
-    //        Assert.AreEqual(patient.Weight, pdataWithID.Weight);
-    //        Assert.AreEqual(patient.Address, pdataWithID.Address);
-            
-    //        Assert.IsTrue(patientDB.Delete(pID));
-    //        Assert.IsNull(patientDB.FindByID(pID));
-    //    }
+        }
 
-    //    [Test]
-    //    public void FurtherTreatmentTest() {
-    //        IPatient patientDB = Database.CreatePatient();
-    //        DateTime date = new DateTime(2006, 12, 24);
-    //        PatientData patient = new PatientData(0, "first", "sure", date, Sex.male, "0123456789", 29, "address");
-    //        long pID = patientDB.Insert(patient);
-    //        PatientData pdataWithID = new PatientData(pID,
-    //            patient.FirstName, patient.SurName, patient.DateOfBirth,
-    //            patient.Sex, patient.Phone, patient.Weight, patient.Address);
-
-    //        patientDB.InsertFurtherTreatment("Trallala Further Treatment", pID);
-    //        Assert.AreEqual("Trallala Further Treatment",patientDB.GetFurtherTreatmentByPatentID(pID));
-
-    //        patientDB.InsertFurtherTreatment("Döner", pID);
-    //        Assert.AreEqual("Döner", patientDB.GetFurtherTreatmentByPatentID(pID));
-
-    //        Assert.IsTrue(patientDB.Delete(pID));
-
-    //        Assert.IsNull(patientDB.FindByID(pID));
-    //    }
-
-    //    [Test]
-    //    public void UpdateTest() {
-    //        IPatient patientDB = Database.CreatePatient();
-    //        DateTime date = new DateTime(2006, 12, 24);
-    //        PatientData patient = new PatientData(0, "first", "sure", date, Sex.male, "0123456789", 29, "address");
-    //        long pID = patientDB.Insert(patient);
-    //        PatientData pdataWithID = new PatientData(pID,
-    //            patient.FirstName, patient.SurName, patient.DateOfBirth,
-    //            patient.Sex, patient.Phone, patient.Weight, patient.Address);
-
-    //        pdataWithID.Address = "Trallala";
-    //        pdataWithID.DateOfBirth = new DateTime(2007, 05, 06);
-    //        pdataWithID.FirstName = "asdf";
-    //        pdataWithID.Phone = "0815";
-    //        pdataWithID.Sex = Sex.female;
-    //        pdataWithID.SurName = "asdasfd";
-    //        pdataWithID.Weight = 35;
-
-    //        patientDB.Update(pdataWithID);
-
-    //        patient = patientDB.FindByID(pID);
-
-    //        Assert.AreEqual(patient.Id, pdataWithID.Id);
-    //        Assert.AreEqual(patient.FirstName, pdataWithID.FirstName);
-    //        Assert.AreEqual(patient.Phone, pdataWithID.Phone);
-    //        Assert.AreEqual(patient.SurName, pdataWithID.SurName);
-    //        Assert.AreEqual(patient.DateOfBirth, pdataWithID.DateOfBirth);
-    //        Assert.AreEqual(patient.Sex, pdataWithID.Sex);
-    //        Assert.AreEqual(patient.Weight, pdataWithID.Weight);
-    //        Assert.AreEqual(patient.Address, pdataWithID.Address);
-
-    //        Assert.IsTrue(patientDB.Delete(pID));
-    //        Assert.IsNull(patientDB.FindByID(pID));
-    //    }
-
-    //    [Test]
-    //    public void FindAllTest() {
-    //        IPatient patientDB = Database.CreatePatient();
-    //        IList<PatientData> patients;
-    //        patients = patientDB.FindAll();
-    //        int originalCountOfPatients = patients.Count;
-    //        DateTime date = new DateTime(2006, 12, 24);
-    //        PatientData patient = new PatientData(0, "first", "sure", date, Sex.male, "0123456789", 29, "address");
-    //        long pID = patientDB.Insert(patient);
-    //        PatientData pdataWithID = new PatientData(pID,
-    //            patient.FirstName, patient.SurName, patient.DateOfBirth,
-    //            patient.Sex, patient.Phone, patient.Weight, patient.Address);
-
-    //        patients = patientDB.FindAll();
-
-    //        Assert.AreEqual(originalCountOfPatients + 1, patients.Count);
-
-    //        bool exists = false;
-    //        long maxPID = 0;
-    //        int newCountOfPatients = patients.Count;
-
-    //        foreach (PatientData patientlocal1 in patients) {
-    //            if (patientlocal1.Id == pID) {
-    //                exists = true;
-    //            }
-    //            if (patientlocal1.Id > maxPID) {
-    //                maxPID = patientlocal1.Id;
-    //            }
-    //        }
-    //        Assert.IsTrue(exists);
-
-    //        IList<PatientData> patients2 = new List<PatientData>();
-    //        for (int i = 0; i < (maxPID+1); i++) {
-    //            PatientData patientlocal2 = patientDB.FindByID(i);
-    //            if (patientlocal2 != null) {
-    //                patients2.Add(patientlocal2);
-    //            }
-    //        }
-
-    //        Assert.AreEqual(patients2.Count, patients.Count);
-
-    //        Assert.IsTrue(patientDB.Delete(pID));
-    //        Assert.IsNull(patientDB.FindByID(pID));
-
-    //        patients = patientDB.FindAll();
-
-    //        Assert.AreEqual(originalCountOfPatients, patients.Count);
-    //        Assert.AreEqual(patients.Count + 1, newCountOfPatients);
-            
-    //    }
-
-    //    private string getRandomString() {
-    //        StringBuilder sb = new StringBuilder();
-    //        Random rand = new Random();
-    //        int count = rand.Next() % 20 + 1;
-    //        for (int i = 0; i < count; i++) {
-    //            char ch = (char)((rand.Next() % ('z' - 'a')) + 'a');
-    //            sb.Append(ch);
-    //        }
-    //        return sb.ToString();
-    //    }
-
-    //    [Test]
-    //    [Ignore]
-    //    public void fillPatient() {
-    //        Random rand = new Random();
-    //        IPatient patientDB = Database.CreatePatient();
-    //        Sex sex;
-    //        for (int i = 0; i<5000;i++){
-    //            if ((rand.Next() % 2) == 0){
-    //                sex = Sex.female;
-    //            }else{
-    //                sex = Sex.male;
-    //            }
-    //            patientDB.Insert(new PatientData(0,getRandomString(),getRandomString(),new DateTime(rand.Next() % 10 + 1995,rand.Next() % 12 + 1,rand.Next() % 28 + 1),sex,getRandomString(),rand.Next() % 99,getRandomString()));
-    //            if (i%50==0) Console.WriteLine(i.ToString());
-    //        }
-    //    }
-    //}
+        [Test]
+        public void JahresDataDeleteTest() {
+            IPreis preisDB = Database.CreatePreis();
+            Assert.IsNotNull(preisDB.FindByJahr(this.jahr));
+            Assert.IsTrue(preisDB.Delete(this.jahr));
+            Assert.IsNull(preisDB.FindByJahr(this.jahr));
+        }
+    }
 }
+    

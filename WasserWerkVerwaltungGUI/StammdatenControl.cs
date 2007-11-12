@@ -40,7 +40,7 @@ namespace WasserWerkVerwaltung.GUI {
 
         public void Init() {
             this.listBoxKunden.Items.Clear();
-            WWVBusinessObject bo = new WWVBusinessObject();
+            WWVBusinessComponent bo = new WWVBusinessComponent();
             bo.Trallala();
             //for (int i = 0; i < 300; i++ )
                 //this.listBoxKunden.Items.Add(new KundenData(i+1, "Max", "Mustermann"+i.ToString(),"Straße","Ort", "Tel", "Besitzer","Bank",123,456,DateTime.Now,"ZählerNummer", DateTime.Now, "erkl", "hausbesitzer", DateTime.Now, 987, "Zahlung", true));

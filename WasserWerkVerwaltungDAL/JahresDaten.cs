@@ -10,12 +10,12 @@ using NUnit.Framework;
 namespace WasserWerkVerwaltung.DAL {
     class JahresDaten : IJahresDaten {
 
-        const string SQL_FIND_BY_ID = "SELECT * FROM JahresDaten WHERE KundeID = ?";
+        const string SQL_FIND_BY_ID = "SELECT * FROM JahresDaten WHERE JahresDatenID = ?";
         const string SQL_FIND_ALL = "SELECT * FROM JahresDaten";
         const string SQL_LAST_INSERTED_ROW = "SELECT @@Identity";
         readonly string SQL_UPDATE_BY_ID = "UPDATE JahresDaten SET KundeID = ?, Rechnungssumme = ?, ZaehlerStandAlt = ?, ZaehlerStandNeu = ?, Ablesedatum = ?, Jahr = ?, BereitsBezahlt = ? WHERE JahresDatenID = ?";
         readonly string SQL_INSERT_BY_ID = "INSERT INTO JahresDaten (KundeID, Rechnungssumme, ZaehlerStandAlt, ZaehlerStandNeu, Ablesedatum, Jahr, BereitsBezahlt) VALUES(?,?,?,?,?,?,?)";
-        readonly string SQL_DELETE_BY_ID = "DELETE FROM JahresDaten WHERE KundeID = ?";
+        readonly string SQL_DELETE_BY_ID = "DELETE FROM JahresDaten WHERE JahresDatenID = ?";
         static IDbCommand findByIdCmd;
         static IDbCommand findAllCmd;
         static IDbCommand updateByIdCmd;
@@ -107,7 +107,7 @@ namespace WasserWerkVerwaltung.DAL {
                 ((IDataParameter)insertByIdCmd.Parameters["@Rechnungssumme"]).Value = jahresDatenData.Rechnungssumme;
                 ((IDataParameter)insertByIdCmd.Parameters["@ZaehlerStandAlt"]).Value = jahresDatenData.ZaehlerStandAlt;
                 ((IDataParameter)insertByIdCmd.Parameters["@ZaehlerStandNeu"]).Value = jahresDatenData.ZaehlerStandNeu;
-                ((IDataParameter)insertByIdCmd.Parameters["@Ablesedatum"]).Value = jahresDatenData.AbleseDatum;
+                ((IDataParameter)insertByIdCmd.Parameters["@Ablesedatum"]).Value = jahresDatenData.AbleseDatum.Date;
                 ((IDataParameter)insertByIdCmd.Parameters["@Jahr"]).Value = jahresDatenData.Jahr;
                 ((IDataParameter)insertByIdCmd.Parameters["@BereitsBezahlt"]).Value = jahresDatenData.BereitsBezahlt;
 
@@ -131,24 +131,24 @@ namespace WasserWerkVerwaltung.DAL {
                 if (updateByIdCmd == null) {
                     updateByIdCmd = DbUtil.CreateCommand(SQL_UPDATE_BY_ID, DbUtil.CurrentConnection);
 
-                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@KundeID", DbType.Int64));
-                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Rechnungssumme", DbType.Double));
-                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@ZaehlerStandAlt", DbType.Int64));
-                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@ZaehlerStandNeu", DbType.Int64));
-                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Ablesedatum", DbType.DateTime));
-                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Jahr", DbType.Int64));
-                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@BereitsBezahlt", DbType.Double));
+                    updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@KundeID", DbType.Int64));
+                    updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Rechnungssumme", DbType.Double));
+                    updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@ZaehlerStandAlt", DbType.Int64));
+                    updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@ZaehlerStandNeu", DbType.Int64));
+                    updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Ablesedatum", DbType.DateTime));
+                    updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Jahr", DbType.Int64));
+                    updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@BereitsBezahlt", DbType.Double));
                     updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@JahresDatenID", DbType.Int64));
                 }
 
-                ((IDataParameter)insertByIdCmd.Parameters["@KundeID"]).Value = jahresDatenData.KundenId;
-                ((IDataParameter)insertByIdCmd.Parameters["@Rechnungssumme"]).Value = jahresDatenData.Rechnungssumme;
-                ((IDataParameter)insertByIdCmd.Parameters["@ZaehlerStandAlt"]).Value = jahresDatenData.ZaehlerStandAlt;
-                ((IDataParameter)insertByIdCmd.Parameters["@ZaehlerStandNeu"]).Value = jahresDatenData.ZaehlerStandNeu;
-                ((IDataParameter)insertByIdCmd.Parameters["@Ablesedatum"]).Value = jahresDatenData.AbleseDatum;
-                ((IDataParameter)insertByIdCmd.Parameters["@Jahr"]).Value = jahresDatenData.Jahr;
-                ((IDataParameter)insertByIdCmd.Parameters["@BereitsBezahlt"]).Value = jahresDatenData.BereitsBezahlt;
-                ((IDataParameter)insertByIdCmd.Parameters["@JahresDatenID"]).Value = jahresDatenData.Id;
+                ((IDataParameter)updateByIdCmd.Parameters["@KundeID"]).Value = jahresDatenData.KundenId;
+                ((IDataParameter)updateByIdCmd.Parameters["@Rechnungssumme"]).Value = jahresDatenData.Rechnungssumme;
+                ((IDataParameter)updateByIdCmd.Parameters["@ZaehlerStandAlt"]).Value = jahresDatenData.ZaehlerStandAlt;
+                ((IDataParameter)updateByIdCmd.Parameters["@ZaehlerStandNeu"]).Value = jahresDatenData.ZaehlerStandNeu;
+                ((IDataParameter)updateByIdCmd.Parameters["@Ablesedatum"]).Value = jahresDatenData.AbleseDatum.Date;
+                ((IDataParameter)updateByIdCmd.Parameters["@Jahr"]).Value = jahresDatenData.Jahr;
+                ((IDataParameter)updateByIdCmd.Parameters["@BereitsBezahlt"]).Value = jahresDatenData.BereitsBezahlt;
+                ((IDataParameter)updateByIdCmd.Parameters["@JahresDatenID"]).Value = jahresDatenData.Id;
 
                 return updateByIdCmd.ExecuteNonQuery() == 1;
             } finally {

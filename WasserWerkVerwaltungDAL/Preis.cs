@@ -38,7 +38,7 @@ namespace WasserWerkVerwaltung.DAL {
                 using (IDataReader rdr = findAllCmd.ExecuteReader()) {
                     IList<PreisData> preisList = new List<PreisData>();
                     while (rdr.Read()) {
-                        preisList.Add(new PreisData((long)(int)rdr["Jahr"], (long)(int)rdr["Preis"]));
+                        preisList.Add(new PreisData((long)(int)rdr["Jahr"], (double)rdr["Preis"]));
                     }
                     return preisList;
                 }
@@ -61,7 +61,7 @@ namespace WasserWerkVerwaltung.DAL {
                 using (IDataReader rdr = findByIdCmd.ExecuteReader()) {
                     IList<PreisData> kundenList = new List<PreisData>();
                     if (rdr.Read()) {
-                        return new PreisData((long)(int)rdr["Jahr"], (long)(int)rdr["Preis"]);
+                        return new PreisData((long)(int)rdr["Jahr"], (double)rdr["Preis"]);
                     }
                 }
             } finally {
@@ -77,7 +77,7 @@ namespace WasserWerkVerwaltung.DAL {
                 if (insertByIdCmd == null) {
                     insertByIdCmd = DbUtil.CreateCommand(SQL_INSERT_BY_ID, DbUtil.CurrentConnection);
                     insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Jahr", DbType.Int64));
-                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Preis", DbType.Int64));
+                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Preis", DbType.Double));
                 }
 
                 ((IDataParameter)insertByIdCmd.Parameters["@Preis"]).Value = preis.Preis;
@@ -100,12 +100,12 @@ namespace WasserWerkVerwaltung.DAL {
                 if (updateByIdCmd == null) {
                     updateByIdCmd = DbUtil.CreateCommand(SQL_UPDATE_BY_ID, DbUtil.CurrentConnection);
 
-                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Jahr", DbType.Int64));
-                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Preis", DbType.Int64));
+                    updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Preis", DbType.Double));
+                    updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Jahr", DbType.Int64));
                 }
 
-                ((IDataParameter)insertByIdCmd.Parameters["@Jahr"]).Value = preis.Jahr;
-                ((IDataParameter)insertByIdCmd.Parameters["@Preis"]).Value = preis.Preis;
+                ((IDataParameter)updateByIdCmd.Parameters["@Preis"]).Value = preis.Preis;
+                ((IDataParameter)updateByIdCmd.Parameters["@Jahr"]).Value = preis.Jahr;
 
                 return updateByIdCmd.ExecuteNonQuery() == 1;
             } finally {

@@ -69,7 +69,7 @@ namespace WasserWerkVerwaltung.CommonObjects {
             }
         }
 
-        public string Nachmame {
+        public string Nachname {
             get {
                 return this.nachname;
             }
@@ -353,9 +353,9 @@ namespace WasserWerkVerwaltung.CommonObjects {
     [Serializable]
     public class PreisData {
         private long jahr;
-        private long preis;
+        private double preis;
 
-        public PreisData(long jahr, long preis) {
+        public PreisData(long jahr, double preis) {
             this.jahr = jahr;
             this.preis = preis;
         }
@@ -369,7 +369,7 @@ namespace WasserWerkVerwaltung.CommonObjects {
             }
         }
 
-        public long Preis {
+        public double Preis {
             get {
                 return this.preis;
             }
