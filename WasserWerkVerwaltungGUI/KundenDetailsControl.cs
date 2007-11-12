@@ -6,6 +6,7 @@ using System.Data;
 using System.Text;
 using System.Windows.Forms;
 using WasserWerkVerwaltung.CommonObjects;
+using System.Globalization;
 
 namespace WasserWerkVerwaltung.GUI {
     public partial class KundenDetailsControl : UserControl {
@@ -24,22 +25,22 @@ namespace WasserWerkVerwaltung.GUI {
         private void fillDateFromCurrentCustomer() {
             this.textBoxID.Text = currentCustomer.Id.ToString();
             this.textBoxVorname.Text = currentCustomer.Vorname;
-            //this.textBoxNachname.Text = currentCustomer.Name;
+            this.textBoxNachname.Text = currentCustomer.Nachname;
             this.textBoxStrasse.Text = currentCustomer.Strasse;
-            //this.textBoxObjekt.Text = currentCustomer.Objekt;
             this.textBoxOrt.Text = currentCustomer.Ort;
             this.textBoxTel.Text = currentCustomer.Tel;
             this.textBoxBankverbindung.Text = currentCustomer.BankVerbindung;
-            //this.textBoxTzEinbau.Text = currentCustomer.TzEinbau.ToString();
-            //this.textBoxTzNeu.Text = currentCustomer.TzNeu.ToString();
-            this.textBoxEichdatum.Text = currentCustomer.EichDatum.ToString();
+            this.textBoxZaehlerStandEinbau.Text = currentCustomer.ZaehlerEinbauStand.ToString();
+            this.textBoxZaehlerStandNeu.Text = currentCustomer.ZaehlerNeuStand.ToString();
+            this.textBoxEichdatum.Text = currentCustomer.EichDatum.Date.ToString("dd.MM.yyyy", DateTimeFormatInfo.InvariantInfo);
             this.textBoxZaehlerNummer.Text = currentCustomer.ZaehlerNummer;
-            this.textBoxEinbaudatum.Text = currentCustomer.EinbauDatum.ToString();
+            this.textBoxEinbaudatum.Text = currentCustomer.EinbauDatum.Date.ToString("dd.MM.yyyy", DateTimeFormatInfo.InvariantInfo);
             this.textBoxErkl.Text = currentCustomer.Erkl;
             this.textBoxHausbesitzer.Text = currentCustomer.Hausbesitzer;
-            this.textBoxTauschdatum.Text = currentCustomer.TauschDatum.ToString();
+            this.textBoxTauschdatum.Text = currentCustomer.TauschDatum.Date.ToString("dd.MM.yyyy", DateTimeFormatInfo.InvariantInfo);
             this.textBoxZaehlermiete.Text = currentCustomer.Zaehlermiete.ToString();
-            //this.textBoxZahlung.Text = currentCustomer.Zahlung;
+            this.textBoxZahlung.Text = currentCustomer.Zahlung;
+            this.textBoxBemerkung.Text = currentCustomer.Bemerkung;
             if (currentCustomer.BekommtRechnung) {
                 this.radioButtonBekommtRechnung.Checked = true;
                 this.radioButtonBekommtKeineRechnung.Checked = false;
@@ -58,7 +59,8 @@ namespace WasserWerkVerwaltung.GUI {
         }
 
         private void buttonNewKunde_Click(object sender, EventArgs e) {
-            MessageBox.Show("neuer Kunde noch nicht implementiert");
+            currentCustomer = new KundenData(0, "", "", "", "", "", "", "", true, 0, 0, DateTime.Now.Date, "", DateTime.Now.Date, "", DateTime.Now.Date, 0, "", "");
+            this.fillDateFromCurrentCustomer();
         }
     }
 }
