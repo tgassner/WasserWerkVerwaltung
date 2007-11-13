@@ -224,7 +224,7 @@ namespace WasserWerkVerwaltung.GUI {
             this.textBoxID.Name = "textBoxID";
             this.textBoxID.ReadOnly = true;
             this.textBoxID.Size = new System.Drawing.Size(364, 20);
-            this.textBoxID.TabIndex = 1;
+            this.textBoxID.TabIndex = 22;
             // 
             // label11
             // 

@@ -5,7 +5,7 @@ using System.Text;
 namespace WasserWerkVerwaltung.CommonObjects {
 
     [Serializable]
-    public class KundenData {
+    public class KundenData{
         private long id;
         private string vorname;
         private string nachname;
@@ -335,7 +335,7 @@ namespace WasserWerkVerwaltung.CommonObjects {
         }
 
         public override string ToString() {
-            return this.id + this.jahr.ToString() + " " + this.zaehlerStandNeu.ToString();
+            return "Jahr: " + this.jahr.ToString() + " Z-Stand: " + this.zaehlerStandNeu.ToString();
         }
 
         public override bool Equals(object obj) {

@@ -42,11 +42,11 @@
     <Compile Include="DruckenControl.Designer.cs">
       <DependentUpon>DruckenControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="KostenInfoControl.cs">
+    <Compile Include="JahresDatenInfoControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="KostenInfoControl.Designer.cs">
-      <DependentUpon>KostenInfoControl.cs</DependentUpon>
+    <Compile Include="JahresDatenInfoControl.Designer.cs">
+      <DependentUpon>JahresDatenInfoControl.cs</DependentUpon>
     </Compile>
     <Compile Include="KundenDetailsControl.cs">
       <SubType>UserControl</SubType>
@@ -72,9 +72,9 @@
       <SubType>Designer</SubType>
       <DependentUpon>DruckenControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="KostenInfoControl.resx">
+    <EmbeddedResource Include="JahresDatenInfoControl.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>KostenInfoControl.cs</DependentUpon>
+      <DependentUpon>JahresDatenInfoControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="KundenDetailsControl.resx">
       <SubType>Designer</SubType>

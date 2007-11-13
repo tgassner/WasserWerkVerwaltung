@@ -27,7 +27,7 @@ namespace WasserWerkVerwaltung.GUI {
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.buttonSuchen = new System.Windows.Forms.Button();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.listBoxKundenSuchenErgebnisse = new System.Windows.Forms.ListBox();
             this.buttonAuswaehlen = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -35,8 +35,9 @@ namespace WasserWerkVerwaltung.GUI {
             // 
             this.textBoxSuchen.Location = new System.Drawing.Point(48, 29);
             this.textBoxSuchen.Name = "textBoxSuchen";
-            this.textBoxSuchen.Size = new System.Drawing.Size(176, 20);
+            this.textBoxSuchen.Size = new System.Drawing.Size(262, 20);
             this.textBoxSuchen.TabIndex = 0;
+            this.textBoxSuchen.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxSuchen_KeyDown);
             // 
             // label1
             // 
@@ -58,28 +59,29 @@ namespace WasserWerkVerwaltung.GUI {
             // 
             // buttonSuchen
             // 
-            this.buttonSuchen.Location = new System.Drawing.Point(230, 27);
+            this.buttonSuchen.Location = new System.Drawing.Point(316, 26);
             this.buttonSuchen.Name = "buttonSuchen";
             this.buttonSuchen.Size = new System.Drawing.Size(75, 23);
-            this.buttonSuchen.TabIndex = 3;
+            this.buttonSuchen.TabIndex = 1;
             this.buttonSuchen.Text = "Suchen";
             this.buttonSuchen.UseVisualStyleBackColor = true;
             this.buttonSuchen.Click += new System.EventHandler(this.buttonSuchen_Click);
             // 
-            // listBox1
+            // listBoxKundenSuchenErgebnisse
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(48, 55);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(176, 108);
-            this.listBox1.TabIndex = 4;
+            this.listBoxKundenSuchenErgebnisse.FormattingEnabled = true;
+            this.listBoxKundenSuchenErgebnisse.Location = new System.Drawing.Point(48, 55);
+            this.listBoxKundenSuchenErgebnisse.Name = "listBoxKundenSuchenErgebnisse";
+            this.listBoxKundenSuchenErgebnisse.Size = new System.Drawing.Size(262, 108);
+            this.listBoxKundenSuchenErgebnisse.TabIndex = 2;
+            this.listBoxKundenSuchenErgebnisse.DoubleClick += new System.EventHandler(this.listBoxKundenSuchenErgebnisse_DoubleClick);
             // 
             // buttonAuswaehlen
             // 
-            this.buttonAuswaehlen.Location = new System.Drawing.Point(230, 140);
+            this.buttonAuswaehlen.Location = new System.Drawing.Point(316, 139);
             this.buttonAuswaehlen.Name = "buttonAuswaehlen";
             this.buttonAuswaehlen.Size = new System.Drawing.Size(75, 23);
-            this.buttonAuswaehlen.TabIndex = 5;
+            this.buttonAuswaehlen.TabIndex = 3;
             this.buttonAuswaehlen.Text = "Auswählen";
             this.buttonAuswaehlen.UseVisualStyleBackColor = true;
             this.buttonAuswaehlen.Click += new System.EventHandler(this.buttonAuswaehlen_Click);
@@ -89,13 +91,13 @@ namespace WasserWerkVerwaltung.GUI {
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.buttonAuswaehlen);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.listBoxKundenSuchenErgebnisse);
             this.Controls.Add(this.buttonSuchen);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxSuchen);
             this.Name = "KundenSuchenControl";
-            this.Size = new System.Drawing.Size(308, 181);
+            this.Size = new System.Drawing.Size(459, 181);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -107,7 +109,7 @@ namespace WasserWerkVerwaltung.GUI {
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button buttonSuchen;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox listBoxKundenSuchenErgebnisse;
         private System.Windows.Forms.Button buttonAuswaehlen;
     }
 }

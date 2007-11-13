@@ -32,7 +32,8 @@ namespace WasserWerkVerwaltung.GUI {
         private void stammdatenpflegeToolStripMenuItem_Click(object sender, EventArgs e) {
             this.stammdatenControl.Location = new System.Drawing.Point(2, 28);
             this.Clear();
-            this.Controls.Add(stammdatenControl);
+            this.Controls.Add(this.stammdatenControl);
+            this.stammdatenControl.Init(this.wwvBLComp);
         }
 
         private void zählerständeToolStripMenuItem_Click(object sender, EventArgs e) {

@@ -11,12 +11,14 @@ namespace WasserWerkVerwaltung.DAL {
     class JahresDaten : IJahresDaten {
 
         const string SQL_FIND_BY_ID = "SELECT * FROM JahresDaten WHERE JahresDatenID = ?";
+        const string SQL_FIND_BY_KUNDEN_ID = "SELECT * FROM JahresDaten WHERE KundeID = ?";
         const string SQL_FIND_ALL = "SELECT * FROM JahresDaten";
         const string SQL_LAST_INSERTED_ROW = "SELECT @@Identity";
         readonly string SQL_UPDATE_BY_ID = "UPDATE JahresDaten SET KundeID = ?, Rechnungssumme = ?, ZaehlerStandAlt = ?, ZaehlerStandNeu = ?, Ablesedatum = ?, Jahr = ?, BereitsBezahlt = ? WHERE JahresDatenID = ?";
         readonly string SQL_INSERT_BY_ID = "INSERT INTO JahresDaten (KundeID, Rechnungssumme, ZaehlerStandAlt, ZaehlerStandNeu, Ablesedatum, Jahr, BereitsBezahlt) VALUES(?,?,?,?,?,?,?)";
         readonly string SQL_DELETE_BY_ID = "DELETE FROM JahresDaten WHERE JahresDatenID = ?";
         static IDbCommand findByIdCmd;
+        static IDbCommand findByKundeIdCmd;
         static IDbCommand findAllCmd;
         static IDbCommand updateByIdCmd;
         static IDbCommand insertByIdCmd;
@@ -34,10 +36,10 @@ namespace WasserWerkVerwaltung.DAL {
                 }
 
                 using (IDataReader rdr = findAllCmd.ExecuteReader()) {
-                    IList<JahresDatenData> jahresDatenIDList = new List<JahresDatenData>();
+                    IList<JahresDatenData> jahresDatenList = new List<JahresDatenData>();
                     while (rdr.Read()) {
 
-                        jahresDatenIDList.Add(new JahresDatenData(
+                        jahresDatenList.Add(new JahresDatenData(
                                      (long)(int)rdr["JahresDatenID"], 
                                      (long)(int)rdr["KundeID"],
                                      (double) rdr["Rechnungssumme"],
@@ -48,7 +50,7 @@ namespace WasserWerkVerwaltung.DAL {
                                      (double) rdr["BereitsBezahlt"]
                                     ));
                     }
-                    return jahresDatenIDList;
+                    return jahresDatenList;
                 }
             } finally {
                 DbUtil.CloseConnection();
@@ -85,6 +87,39 @@ namespace WasserWerkVerwaltung.DAL {
                 DbUtil.CloseConnection();
             }
             return null;
+        }
+
+        public IList<JahresDatenData> FindByKundenId(long kundenId) {
+            try {
+                DbUtil.OpenConnection();
+
+                if (findByKundeIdCmd == null) {
+                    findByKundeIdCmd = DbUtil.CreateCommand(SQL_FIND_BY_KUNDEN_ID, DbUtil.CurrentConnection);
+                    findByKundeIdCmd.Parameters.Add(DbUtil.CreateParameter("@KundeID", DbType.Int64));
+                }
+
+                ((IDataParameter)findByKundeIdCmd.Parameters["@KundeID"]).Value = kundenId;
+
+                using (IDataReader rdr = findByKundeIdCmd.ExecuteReader()) {
+                    IList<JahresDatenData> jahresDatenList = new List<JahresDatenData>();
+                    while (rdr.Read()) {
+
+                        jahresDatenList.Add( new JahresDatenData(
+                                     (long)(int)rdr["JahresDatenID"],
+                                     (long)(int)rdr["KundeID"],
+                                     (double)rdr["Rechnungssumme"],
+                                     (long)(int)rdr["ZaehlerStandAlt"],
+                                     (long)(int)rdr["ZaehlerStandNeu"],
+                                     (long)(int)rdr["Jahr"],
+                                     (DateTime)rdr["Ablesedatum"],
+                                     (double)rdr["BereitsBezahlt"]
+                                    ));
+                    }
+                    return jahresDatenList;
+                }
+            } finally {
+                DbUtil.CloseConnection();
+            }
         }
 
         public long Insert(JahresDatenData jahresDatenData) {
@@ -172,6 +207,5 @@ namespace WasserWerkVerwaltung.DAL {
                 DbUtil.CloseConnection();
             }
         }
-
     }
 }

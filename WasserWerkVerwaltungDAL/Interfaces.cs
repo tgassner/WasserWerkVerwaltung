@@ -16,6 +16,7 @@ namespace WasserWerkVerwaltung.DAL {
     public interface IJahresDaten {
         IList<JahresDatenData> FindAll();
         JahresDatenData FindByID(long id);
+        IList<JahresDatenData> FindByKundenId(long kundenId);
         long Insert(JahresDatenData kunde);
         bool Update(JahresDatenData kunde);
         bool Delete(long id);

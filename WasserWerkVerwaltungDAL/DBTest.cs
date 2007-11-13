@@ -5,52 +5,6 @@ using NUnit.Framework;
 using WasserWerkVerwaltung.CommonObjects;
 using WasserWerkVerwaltung.DAL;
 
-/*
-public interface IPatient {
-        ***IList<PatientData> FindAll();
-        ***PatientData FindByID(long id);
-        ***long Insert(PatientData patient);
-        ***bool Update(PatientData patient);
-        ***bool Delete(long id);
-
-        IList<PatientData> FindDiagnose(string searchString);
-        IList<PatientData> FindProcedure(string searchString);
-        IList<PatientData> FindTreatment(string searchString);
-        
-        ***bool InsertFurtherTreatment(string ft,long pID);
-        ***string GetFurtherTreatmentByPatentID(object pID);
-    }
-
-    public interface IVisit {
-        IList<VisitData> FindAll();
-        ***VisitData FindByID(long id);
-        ***IList<VisitData> FindByPatientID(long id);
-        ***long Insert(VisitData visit);
-        bool Update(VisitData visit);
-        ***bool Delete(long id);
-    }
-    
-    public interface IOperation{
-        IList<OperationData> FindAll();
-        IList<OperationData> FindByPatientId(long patientId);
-        ***OperationData FindByOperationId(long operationId);
-        ***long Insert(OperationData odata);
-        ***bool Delete(long operationId);
-        bool Update(OperationData operation);
-    }
-
-    public interface IPhoto {
-        IList<ImageData> FindAll();
-        IList<ImageData> FindByPatientId(long patientId);
-        ***ImageData FindByPhotoId(long photoID);
-        ***long Insert(ImageData idata);
-        ***bool Delete(long photoId);
-        bool Update(ImageData photo);
-    }
- 
-    ToDo Count
- */
-
 
 namespace SimplePatientDocumentation.DAL.Tests {
 
@@ -219,6 +173,43 @@ namespace SimplePatientDocumentation.DAL.Tests {
             Assert.AreEqual(jahredData2.Rechnungssumme, this.jahresdaten.Rechnungssumme);
             Assert.AreEqual(jahredData2.ZaehlerStandAlt, this.jahresdaten.ZaehlerStandAlt);
             Assert.AreEqual(jahredData2.ZaehlerStandNeu, this.jahresdaten.ZaehlerStandNeu);
+        }
+
+        [Test]
+        public void JahresdatenFindByKundenIdTest() {
+            IJahresDaten jahredDatenDB = Database.CreateJahresDaten();
+            JahresDatenData jd1 = new JahresDatenData(0, 1, 234, 234, 345, 2006, DateTime.Now, 234.9);
+            JahresDatenData jd2 = new JahresDatenData(0, 1, 2344, 2534, 3545, 2006, DateTime.Now, 233.9);
+            long jdid1 = jahredDatenDB.Insert(jd1);
+            long jdid2 = jahredDatenDB.Insert(jd2);
+            IList<JahresDatenData> jahresdataList = jahredDatenDB.FindByKundenId(1);
+            Assert.IsTrue(jahresdataList.Count >= 2);
+            bool jd1exists = false;
+            bool jd2exists = false;
+
+            foreach (JahresDatenData jd in jahresdataList) {
+                if (jd.Id == jdid1) {
+                    jd1exists = !jd1exists;
+                    Assert.AreEqual(jd.AbleseDatum.Date, jd1.AbleseDatum.Date);
+                    Assert.AreEqual(jd.BereitsBezahlt, jd1.BereitsBezahlt);
+                    Assert.AreEqual(jd.Jahr, jd1.Jahr);
+                    Assert.AreEqual(jd.KundenId, jd1.KundenId);
+                    Assert.AreEqual(jd.Rechnungssumme, jd1.Rechnungssumme);
+                    Assert.AreEqual(jd.ZaehlerStandAlt, jd1.ZaehlerStandAlt);
+                    Assert.AreEqual(jd.ZaehlerStandNeu, jd1.ZaehlerStandNeu);
+                }
+                if (jd.Id == jdid2) {
+                    jd2exists = !jd2exists;
+                    Assert.AreEqual(jd.AbleseDatum.Date, jd2.AbleseDatum.Date);
+                    Assert.AreEqual(jd.BereitsBezahlt, jd2.BereitsBezahlt);
+                    Assert.AreEqual(jd.Jahr, jd2.Jahr);
+                    Assert.AreEqual(jd.KundenId, jd2.KundenId);
+                    Assert.AreEqual(jd.Rechnungssumme, jd2.Rechnungssumme);
+                    Assert.AreEqual(jd.ZaehlerStandAlt, jd2.ZaehlerStandAlt);
+                    Assert.AreEqual(jd.ZaehlerStandNeu, jd2.ZaehlerStandNeu);
+                }
+            }
+            Assert.IsTrue(jd1exists && jd2exists);
         }
 
         [Test]
