@@ -5,23 +5,39 @@ using System.Drawing;
 using System.Data;
 using System.Text;
 using System.Windows.Forms;
+using WasserWerkVerwaltung.BL;
+using WasserWerkVerwaltung.CommonObjects;
 
 namespace WasserWerkVerwaltung.GUI {
-    public partial class ZaehlerstaendeControl : UserControl {
-        public ZaehlerstaendeControl() {
+    public partial class ZaehlerStaendeControl : UserControl {
+
+        private IWWVBL wwvBLComp;
+        private ZaehlerStaendDetailsControl zaehlerStaendDetailsControl;
+
+        public ZaehlerStaendeControl() {
             InitializeComponent();
+            this.zaehlerStaendDetailsControl = new ZaehlerStaendDetailsControl();
+            this.zaehlerStaendDetailsControl.Location = new System.Drawing.Point(200, 0);
+            this.Controls.Add(this.zaehlerStaendDetailsControl);
         }
 
-        private void buttonSpeichern_Click(object sender, EventArgs e) {
-            MessageBox.Show("Speichern noch nicht implementiert");
+        public void Init(IWWVBL wwvBLComp) {
+            this.wwvBLComp = wwvBLComp;
+            this.zaehlerStaendDetailsControl.Init(this.wwvBLComp);
+            this.updateListBoxKunden();
         }
 
-        private void buttonNeu_Click(object sender, EventArgs e) {
-            MessageBox.Show("Neu noch nicht implementiert");
+        private void updateListBoxKunden() {
+            this.listBoxKunden.Items.Clear();
+            foreach (KundenData kunde in wwvBLComp.GetAllKunden()) {
+                this.listBoxKunden.Items.Add(kunde);
+            }
         }
 
-        private void buttonLoeschen_Click(object sender, EventArgs e) {
-            MessageBox.Show("Löschen noch nicht implementiert");
+        private void listBoxKunden_SelectedIndexChanged(object sender, EventArgs e) {
+            if (this.listBoxKunden.SelectedItem != null) {
+                this.zaehlerStaendDetailsControl.SetCurrentCustomer((KundenData)this.listBoxKunden.SelectedItem);
+            }
         }
     }
 }

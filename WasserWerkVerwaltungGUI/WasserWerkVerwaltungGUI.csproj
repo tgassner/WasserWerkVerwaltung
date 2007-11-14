@@ -97,9 +97,21 @@
       <SubType>Designer</SubType>
       <DependentUpon>StammdatenControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ZaehlerstaendeControl.resx">
+    <EmbeddedResource Include="ZaehlerStaendDetailsControl.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>ZaehlerstaendeControl.cs</DependentUpon>
+      <DependentUpon>ZaehlerStaendDetailsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ZaehlerStaendeControl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ZaehlerStaendeControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ZaehlerstaendeInfoControl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ZaehlerstaendeInfoControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ZaehlerStandElementControl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ZaehlerStandElementControl.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -121,11 +133,29 @@
     <Compile Include="StammdatenControl.Designer.cs">
       <DependentUpon>StammdatenControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="ZaehlerstaendeControl.cs">
+    <Compile Include="ZaehlerStaendDetailsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ZaehlerstaendeControl.Designer.cs">
-      <DependentUpon>ZaehlerstaendeControl.cs</DependentUpon>
+    <Compile Include="ZaehlerStaendDetailsControl.Designer.cs">
+      <DependentUpon>ZaehlerStaendDetailsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ZaehlerStaendeControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ZaehlerStaendeControl.Designer.cs">
+      <DependentUpon>ZaehlerStaendeControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ZaehlerstaendeInfoControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ZaehlerstaendeInfoControl.Designer.cs">
+      <DependentUpon>ZaehlerstaendeInfoControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ZaehlerStandElementControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ZaehlerStandElementControl.Designer.cs">
+      <DependentUpon>ZaehlerStandElementControl.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

@@ -11,6 +11,7 @@ namespace WasserWerkVerwaltung.GUI {
     public partial class MainForm : Form {
 
         private StammdatenControl stammdatenControl;
+        private ZaehlerStaendeControl zaehlerStaendeControl;
         private DruckenControl druckenControl;
         private IWWVBL wwvBLComp;
 
@@ -18,6 +19,7 @@ namespace WasserWerkVerwaltung.GUI {
             InitializeComponent();
 
             this.stammdatenControl = new StammdatenControl();
+            this.zaehlerStaendeControl = new ZaehlerStaendeControl();
             this.druckenControl = new DruckenControl();
             wwvBLComp = WWVBLFactory.GetBussinessLogicObject();
             this.stammdatenControl.Init(wwvBLComp);
@@ -37,7 +39,10 @@ namespace WasserWerkVerwaltung.GUI {
         }
 
         private void zählerständeToolStripMenuItem_Click(object sender, EventArgs e) {
-            MessageBox.Show("Zählerstände noch nicht implementiert");
+            this.zaehlerStaendeControl.Location = new System.Drawing.Point(2, 28);
+            this.Clear();
+            this.Controls.Add(this.zaehlerStaendeControl);
+            this.zaehlerStaendeControl.Init(this.wwvBLComp);
         }
 
         private void druckenToolStripMenuItem_Click(object sender, EventArgs e) {
