@@ -25,8 +25,9 @@ namespace WasserWerkVerwaltung.GUI {
         private void InitializeComponent() {
             this.buttonJahrHinzufuegen = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBoxJahr = new System.Windows.Forms.TextBox();
             this.buttonJahrLoeschen = new System.Windows.Forms.Button();
+            this.buttonPreisImJahrAendern = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonJahrHinzufuegen
@@ -48,16 +49,16 @@ namespace WasserWerkVerwaltung.GUI {
             this.label1.TabIndex = 1;
             this.label1.Text = "Neues Jahr für den Kunden anlegen:";
             // 
-            // textBox1
+            // textBoxJahr
             // 
-            this.textBox1.Location = new System.Drawing.Point(181, 7);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(74, 20);
-            this.textBox1.TabIndex = 2;
+            this.textBoxJahr.Location = new System.Drawing.Point(181, 7);
+            this.textBoxJahr.Name = "textBoxJahr";
+            this.textBoxJahr.Size = new System.Drawing.Size(74, 20);
+            this.textBoxJahr.TabIndex = 2;
             // 
             // buttonJahrLoeschen
             // 
-            this.buttonJahrLoeschen.Location = new System.Drawing.Point(359, 5);
+            this.buttonJahrLoeschen.Location = new System.Drawing.Point(479, 5);
             this.buttonJahrLoeschen.Name = "buttonJahrLoeschen";
             this.buttonJahrLoeschen.Size = new System.Drawing.Size(92, 23);
             this.buttonJahrLoeschen.TabIndex = 0;
@@ -65,13 +66,24 @@ namespace WasserWerkVerwaltung.GUI {
             this.buttonJahrLoeschen.UseVisualStyleBackColor = true;
             this.buttonJahrLoeschen.Click += new System.EventHandler(this.buttonJahrLoeschen_Click);
             // 
+            // buttonPreisImJahrAendern
+            // 
+            this.buttonPreisImJahrAendern.Location = new System.Drawing.Point(359, 5);
+            this.buttonPreisImJahrAendern.Name = "buttonPreisImJahrAendern";
+            this.buttonPreisImJahrAendern.Size = new System.Drawing.Size(114, 23);
+            this.buttonPreisImJahrAendern.TabIndex = 0;
+            this.buttonPreisImJahrAendern.Text = "Preis im Jahr ändern";
+            this.buttonPreisImJahrAendern.UseVisualStyleBackColor = true;
+            this.buttonPreisImJahrAendern.Click += new System.EventHandler(this.buttonPreisImJahrAendern_Click);
+            // 
             // ZaehlerStaendDetailsControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.textBoxJahr);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.buttonPreisImJahrAendern);
             this.Controls.Add(this.buttonJahrLoeschen);
             this.Controls.Add(this.buttonJahrHinzufuegen);
             this.Name = "ZaehlerStaendDetailsControl";
@@ -85,7 +97,8 @@ namespace WasserWerkVerwaltung.GUI {
 
         private System.Windows.Forms.Button buttonJahrHinzufuegen;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBoxJahr;
         private System.Windows.Forms.Button buttonJahrLoeschen;
+        private System.Windows.Forms.Button buttonPreisImJahrAendern;
     }
 }

@@ -25,6 +25,8 @@ namespace WasserWerkVerwaltung.GUI {
             this.wwvBLComp = wwvBLComp;
             this.zaehlerStaendDetailsControl.Init(this.wwvBLComp);
             this.updateListBoxKunden();
+            this.zaehlerStaendDetailsControl.Clear();
+            this.zaehlerStaendDetailsControl.Enabled = false;
         }
 
         private void updateListBoxKunden() {
@@ -37,6 +39,7 @@ namespace WasserWerkVerwaltung.GUI {
         private void listBoxKunden_SelectedIndexChanged(object sender, EventArgs e) {
             if (this.listBoxKunden.SelectedItem != null) {
                 this.zaehlerStaendDetailsControl.SetCurrentCustomer((KundenData)this.listBoxKunden.SelectedItem);
+                this.zaehlerStaendDetailsControl.Enabled = true;
             }
         }
     }

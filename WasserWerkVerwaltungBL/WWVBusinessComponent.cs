@@ -67,5 +67,55 @@ namespace WasserWerkVerwaltung.BL {
             IJahresDaten jahresdatenDB = Database.CreateJahresDaten();
             return jahresdatenDB.FindByKundenId(kundenID);
         }
+
+        public bool UpdateJahresDaten(JahresDatenData jahresDatum) {
+            IJahresDaten jahredDataDB = Database.CreateJahresDaten();
+            return jahredDataDB.Update(jahresDatum);
+            //if (jahredDataDB.Update(jahresDatum)) {
+            //    return true;
+            //} else {
+            //    return false;
+            //}   
+        }
+
+        public JahresDatenData InsertJahresDaten(JahresDatenData jahresDatum) {
+            IJahresDaten jahredDataDB = Database.CreateJahresDaten();
+            long jdID = jahredDataDB.Insert(jahresDatum);
+            if (jdID > 0) {
+                jahresDatum = new JahresDatenData(jdID,
+                            jahresDatum.KundenId,
+                            jahresDatum.Rechnungssumme,
+                            jahresDatum.ZaehlerStandAlt,
+                            jahresDatum.ZaehlerStandNeu,
+                            jahresDatum.Jahr,
+                            jahresDatum.AbleseDatum,
+                            jahresDatum.BereitsBezahlt);
+                return jahresDatum;
+            } else {
+                return null;
+            }
+        }
+
+        public PreisData GetPreisDataByJahr(long jahr) {
+            IPreis preisDB = Database.CreatePreis();
+            return preisDB.FindByJahr(jahr);
+        }
+
+        public PreisData InsertPreis(PreisData preis) {
+            IPreis preisDB = Database.CreatePreis();
+            bool b = preisDB.Insert(preis);
+            if (b) {
+                preis = new PreisData(preis.Jahr,
+                            preis.Preis);
+                return preis;
+            } else {
+                return null;
+            }
+        }
+
+        public bool UpdatePreis(PreisData jahresDatum) {
+            throw new Exception("The method or operation is not implemented.");
+        }
+
     }
 }

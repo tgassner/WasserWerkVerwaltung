@@ -28,17 +28,18 @@ namespace WasserWerkVerwaltung.GUI {
             this.textBoxZaehlerStandAlt = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.textBoxZaehlerStandNeu = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.textBoxAblesedatum = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.textBoxNichtGespeichert = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.textBoxRechnungssumme = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.textBoxBereitsbezahlt = new System.Windows.Forms.TextBox();
-            this.textBoxRechnungssumme = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.buttonBerechnen = new System.Windows.Forms.Button();
-            this.buttonSpeichern = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.textBoxAblesedatum = new System.Windows.Forms.TextBox();
+            this.textBoxZaehlerStandNeu = new System.Windows.Forms.TextBox();
             this.buttonRestore = new System.Windows.Forms.Button();
+            this.buttonSpeichern = new System.Windows.Forms.Button();
+            this.buttonBerechnen = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -79,6 +80,7 @@ namespace WasserWerkVerwaltung.GUI {
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.textBoxNichtGespeichert);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.textBoxRechnungssumme);
             this.groupBox1.Controls.Add(this.label4);
@@ -101,37 +103,30 @@ namespace WasserWerkVerwaltung.GUI {
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "groupBox1";
             // 
-            // textBoxZaehlerStandNeu
+            // textBoxNichtGespeichert
             // 
-            this.textBoxZaehlerStandNeu.Location = new System.Drawing.Point(98, 65);
-            this.textBoxZaehlerStandNeu.Name = "textBoxZaehlerStandNeu";
-            this.textBoxZaehlerStandNeu.Size = new System.Drawing.Size(107, 20);
-            this.textBoxZaehlerStandNeu.TabIndex = 2;
+            this.textBoxNichtGespeichert.Location = new System.Drawing.Point(488, 90);
+            this.textBoxNichtGespeichert.Name = "textBoxNichtGespeichert";
+            this.textBoxNichtGespeichert.ReadOnly = true;
+            this.textBoxNichtGespeichert.Size = new System.Drawing.Size(100, 20);
+            this.textBoxNichtGespeichert.TabIndex = 10;
+            this.textBoxNichtGespeichert.Text = "nicht gespeichert";
             // 
-            // label2
+            // label5
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 68);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(90, 13);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "Zählerstand neu: ";
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(219, 22);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(101, 13);
+            this.label5.TabIndex = 9;
+            this.label5.Text = "Rechnungssumme: ";
             // 
-            // textBoxAblesedatum
+            // textBoxRechnungssumme
             // 
-            this.textBoxAblesedatum.Location = new System.Drawing.Point(98, 85);
-            this.textBoxAblesedatum.Name = "textBoxAblesedatum";
-            this.textBoxAblesedatum.Size = new System.Drawing.Size(107, 20);
-            this.textBoxAblesedatum.TabIndex = 3;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 88);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(74, 13);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "Ablesedatum: ";
+            this.textBoxRechnungssumme.Location = new System.Drawing.Point(321, 19);
+            this.textBoxRechnungssumme.Name = "textBoxRechnungssumme";
+            this.textBoxRechnungssumme.Size = new System.Drawing.Size(74, 20);
+            this.textBoxRechnungssumme.TabIndex = 5;
             // 
             // label4
             // 
@@ -149,31 +144,47 @@ namespace WasserWerkVerwaltung.GUI {
             this.textBoxBereitsbezahlt.Size = new System.Drawing.Size(107, 20);
             this.textBoxBereitsbezahlt.TabIndex = 4;
             // 
-            // textBoxRechnungssumme
+            // label3
             // 
-            this.textBoxRechnungssumme.Location = new System.Drawing.Point(321, 19);
-            this.textBoxRechnungssumme.Name = "textBoxRechnungssumme";
-            this.textBoxRechnungssumme.Size = new System.Drawing.Size(74, 20);
-            this.textBoxRechnungssumme.TabIndex = 5;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 88);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(74, 13);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "Ablesedatum: ";
             // 
-            // label5
+            // label2
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(219, 22);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(101, 13);
-            this.label5.TabIndex = 9;
-            this.label5.Text = "Rechnungssumme: ";
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 68);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(90, 13);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "Zählerstand neu: ";
             // 
-            // buttonBerechnen
+            // textBoxAblesedatum
             // 
-            this.buttonBerechnen.Location = new System.Drawing.Point(398, 18);
-            this.buttonBerechnen.Name = "buttonBerechnen";
-            this.buttonBerechnen.Size = new System.Drawing.Size(107, 23);
-            this.buttonBerechnen.TabIndex = 6;
-            this.buttonBerechnen.Text = "Berechnen";
-            this.buttonBerechnen.UseVisualStyleBackColor = true;
-            this.buttonBerechnen.Click += new System.EventHandler(this.buttonBerechnen_Click);
+            this.textBoxAblesedatum.Location = new System.Drawing.Point(98, 85);
+            this.textBoxAblesedatum.Name = "textBoxAblesedatum";
+            this.textBoxAblesedatum.Size = new System.Drawing.Size(107, 20);
+            this.textBoxAblesedatum.TabIndex = 3;
+            // 
+            // textBoxZaehlerStandNeu
+            // 
+            this.textBoxZaehlerStandNeu.Location = new System.Drawing.Point(98, 65);
+            this.textBoxZaehlerStandNeu.Name = "textBoxZaehlerStandNeu";
+            this.textBoxZaehlerStandNeu.Size = new System.Drawing.Size(107, 20);
+            this.textBoxZaehlerStandNeu.TabIndex = 2;
+            // 
+            // buttonRestore
+            // 
+            this.buttonRestore.Location = new System.Drawing.Point(365, 88);
+            this.buttonRestore.Name = "buttonRestore";
+            this.buttonRestore.Size = new System.Drawing.Size(107, 23);
+            this.buttonRestore.TabIndex = 8;
+            this.buttonRestore.Text = "Restore";
+            this.buttonRestore.UseVisualStyleBackColor = true;
+            this.buttonRestore.Click += new System.EventHandler(this.buttonRestore_Click);
             // 
             // buttonSpeichern
             // 
@@ -185,15 +196,15 @@ namespace WasserWerkVerwaltung.GUI {
             this.buttonSpeichern.UseVisualStyleBackColor = true;
             this.buttonSpeichern.Click += new System.EventHandler(this.buttonSpeichern_Click);
             // 
-            // buttonRestore
+            // buttonBerechnen
             // 
-            this.buttonRestore.Location = new System.Drawing.Point(365, 88);
-            this.buttonRestore.Name = "buttonRestore";
-            this.buttonRestore.Size = new System.Drawing.Size(107, 23);
-            this.buttonRestore.TabIndex = 8;
-            this.buttonRestore.Text = "Restore";
-            this.buttonRestore.UseVisualStyleBackColor = true;
-            this.buttonRestore.Click += new System.EventHandler(this.buttonRestore_Click);
+            this.buttonBerechnen.Location = new System.Drawing.Point(398, 18);
+            this.buttonBerechnen.Name = "buttonBerechnen";
+            this.buttonBerechnen.Size = new System.Drawing.Size(107, 23);
+            this.buttonBerechnen.TabIndex = 6;
+            this.buttonBerechnen.Text = "Berechnen";
+            this.buttonBerechnen.UseVisualStyleBackColor = true;
+            this.buttonBerechnen.Click += new System.EventHandler(this.buttonBerechnen_Click);
             // 
             // ZaehlerStandElementControl
             // 
@@ -226,5 +237,6 @@ namespace WasserWerkVerwaltung.GUI {
         private System.Windows.Forms.Button buttonBerechnen;
         private System.Windows.Forms.Button buttonRestore;
         private System.Windows.Forms.Button buttonSpeichern;
+        private System.Windows.Forms.TextBox textBoxNichtGespeichert;
     }
 }
