@@ -50,6 +50,7 @@ namespace WasserWerkVerwaltung.GUI {
             this.buttonAlleSelektieren.TabIndex = 1;
             this.buttonAlleSelektieren.Text = "Alle Selektieren";
             this.buttonAlleSelektieren.UseVisualStyleBackColor = true;
+            this.buttonAlleSelektieren.Click += new System.EventHandler(this.buttonAlleSelektieren_Click);
             // 
             // buttonAlleSelektierungenAufheben
             // 
@@ -59,6 +60,7 @@ namespace WasserWerkVerwaltung.GUI {
             this.buttonAlleSelektierungenAufheben.TabIndex = 2;
             this.buttonAlleSelektierungenAufheben.Text = "Alle Selektierungen Aufheben";
             this.buttonAlleSelektierungenAufheben.UseVisualStyleBackColor = true;
+            this.buttonAlleSelektierungenAufheben.Click += new System.EventHandler(this.buttonAlleSelektierungenAufheben_Click);
             // 
             // buttonAlleSelektierenDieEineRechnungBekommen
             // 
@@ -68,6 +70,7 @@ namespace WasserWerkVerwaltung.GUI {
             this.buttonAlleSelektierenDieEineRechnungBekommen.TabIndex = 3;
             this.buttonAlleSelektierenDieEineRechnungBekommen.Text = "Alle Selektieren Die Eine Rechnung Bekommen";
             this.buttonAlleSelektierenDieEineRechnungBekommen.UseVisualStyleBackColor = true;
+            this.buttonAlleSelektierenDieEineRechnungBekommen.Click += new System.EventHandler(this.buttonAlleSelektierenDieEineRechnungBekommen_Click);
             // 
             // buttonGanzJahresRechnungDrucken
             // 
@@ -77,6 +80,7 @@ namespace WasserWerkVerwaltung.GUI {
             this.buttonGanzJahresRechnungDrucken.TabIndex = 4;
             this.buttonGanzJahresRechnungDrucken.Text = "GanzjahresRechnung Drucken";
             this.buttonGanzJahresRechnungDrucken.UseVisualStyleBackColor = true;
+            this.buttonGanzJahresRechnungDrucken.Click += new System.EventHandler(this.buttonGanzJahresRechnungDrucken_Click);
             // 
             // buttonHalbJahresRechnungDrucken
             // 
@@ -86,6 +90,7 @@ namespace WasserWerkVerwaltung.GUI {
             this.buttonHalbJahresRechnungDrucken.TabIndex = 5;
             this.buttonHalbJahresRechnungDrucken.Text = "HalbjahresRechnung Drucken";
             this.buttonHalbJahresRechnungDrucken.UseVisualStyleBackColor = true;
+            this.buttonHalbJahresRechnungDrucken.Click += new System.EventHandler(this.buttonHalbJahresRechnungDrucken_Click);
             // 
             // buttonBezahltchecklisteDrucken
             // 
@@ -95,6 +100,7 @@ namespace WasserWerkVerwaltung.GUI {
             this.buttonBezahltchecklisteDrucken.TabIndex = 6;
             this.buttonBezahltchecklisteDrucken.Text = "Bezahltcheckliste Drucken";
             this.buttonBezahltchecklisteDrucken.UseVisualStyleBackColor = true;
+            this.buttonBezahltchecklisteDrucken.Click += new System.EventHandler(this.buttonBezahltchecklisteDrucken_Click);
             // 
             // buttonAuszugDrucken
             // 
@@ -104,6 +110,7 @@ namespace WasserWerkVerwaltung.GUI {
             this.buttonAuszugDrucken.TabIndex = 7;
             this.buttonAuszugDrucken.Text = "Auszug Drucken";
             this.buttonAuszugDrucken.UseVisualStyleBackColor = true;
+            this.buttonAuszugDrucken.Click += new System.EventHandler(this.buttonAuszugDrucken_Click);
             // 
             // buttonKontrollzettelDrucken
             // 
@@ -113,6 +120,7 @@ namespace WasserWerkVerwaltung.GUI {
             this.buttonKontrollzettelDrucken.TabIndex = 8;
             this.buttonKontrollzettelDrucken.Text = "Kontrollzettel Drucken";
             this.buttonKontrollzettelDrucken.UseVisualStyleBackColor = true;
+            this.buttonKontrollzettelDrucken.Click += new System.EventHandler(this.buttonKontrollzettelDrucken_Click);
             // 
             // DruckenControl
             // 

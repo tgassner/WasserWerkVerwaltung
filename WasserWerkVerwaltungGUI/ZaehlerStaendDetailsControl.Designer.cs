@@ -34,9 +34,9 @@ namespace WasserWerkVerwaltung.GUI {
             // 
             this.buttonJahrHinzufuegen.Location = new System.Drawing.Point(261, 5);
             this.buttonJahrHinzufuegen.Name = "buttonJahrHinzufuegen";
-            this.buttonJahrHinzufuegen.Size = new System.Drawing.Size(92, 23);
+            this.buttonJahrHinzufuegen.Size = new System.Drawing.Size(187, 23);
             this.buttonJahrHinzufuegen.TabIndex = 0;
-            this.buttonJahrHinzufuegen.Text = "Jahr hinzufügen";
+            this.buttonJahrHinzufuegen.Text = "Jahr (beim Kunden) hinzufügen";
             this.buttonJahrHinzufuegen.UseVisualStyleBackColor = true;
             this.buttonJahrHinzufuegen.Click += new System.EventHandler(this.buttonJahrHinzufuegen_Click);
             // 
@@ -58,21 +58,21 @@ namespace WasserWerkVerwaltung.GUI {
             // 
             // buttonJahrLoeschen
             // 
-            this.buttonJahrLoeschen.Location = new System.Drawing.Point(479, 5);
+            this.buttonJahrLoeschen.Location = new System.Drawing.Point(454, 5);
             this.buttonJahrLoeschen.Name = "buttonJahrLoeschen";
-            this.buttonJahrLoeschen.Size = new System.Drawing.Size(92, 23);
+            this.buttonJahrLoeschen.Size = new System.Drawing.Size(187, 23);
             this.buttonJahrLoeschen.TabIndex = 0;
-            this.buttonJahrLoeschen.Text = "Jahr löschen";
+            this.buttonJahrLoeschen.Text = "Jahr (beim Kunden) löschen";
             this.buttonJahrLoeschen.UseVisualStyleBackColor = true;
             this.buttonJahrLoeschen.Click += new System.EventHandler(this.buttonJahrLoeschen_Click);
             // 
             // buttonPreisImJahrAendern
             // 
-            this.buttonPreisImJahrAendern.Location = new System.Drawing.Point(359, 5);
+            this.buttonPreisImJahrAendern.Location = new System.Drawing.Point(261, 34);
             this.buttonPreisImJahrAendern.Name = "buttonPreisImJahrAendern";
-            this.buttonPreisImJahrAendern.Size = new System.Drawing.Size(114, 23);
+            this.buttonPreisImJahrAendern.Size = new System.Drawing.Size(187, 23);
             this.buttonPreisImJahrAendern.TabIndex = 0;
-            this.buttonPreisImJahrAendern.Text = "Preis im Jahr ändern";
+            this.buttonPreisImJahrAendern.Text = "Preis im Jahr ändern (global)";
             this.buttonPreisImJahrAendern.UseVisualStyleBackColor = true;
             this.buttonPreisImJahrAendern.Click += new System.EventHandler(this.buttonPreisImJahrAendern_Click);
             // 

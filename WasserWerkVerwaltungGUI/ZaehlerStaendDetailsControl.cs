@@ -52,10 +52,13 @@ namespace WasserWerkVerwaltung.GUI {
                 zaehlerStandElementControlList.Add(zsc);
             }
 
-            int pos = 40;
+            placeZaehlerStandElementControl();
+        }
+
+        void placeZaehlerStandElementControl() {
+            int pos = 50;
 
             zaehlerStandElementControlList = SortOperationListByDate(zaehlerStandElementControlList);
-            //zaehlerStandElementControlList.Sort(new ZaehlerStandElementControlComparer());
 
             foreach (ZaehlerStandElementControl zsc in zaehlerStandElementControlList) {
                 zsc.Location = new System.Drawing.Point(0, pos);
@@ -87,14 +90,22 @@ namespace WasserWerkVerwaltung.GUI {
             }
         }
 
-        private void buttonJahrHinzufuegen_Click(object sender, EventArgs e) {
-            long currentJahr;
+        private bool checkJahr(){
             try {
-                currentJahr = Int64.Parse(textBoxJahr.Text);
+                Int64.Parse(textBoxJahr.Text);
             } catch (FormatException){ 
                 MessageBox.Show("Das Jahr scheint ungültig zu sein!") ;
-                return;
+                return false;
             }
+            return true;
+        }
+
+        private void buttonJahrHinzufuegen_Click(object sender, EventArgs e) {
+            long currentJahr;
+
+            if (!checkJahr())
+                return;
+            currentJahr = Int64.Parse(textBoxJahr.Text);
 
             PreisData preis = this.wwvBLComp.GetPreisDataByJahr(currentJahr);
             if (preis == null){
@@ -111,22 +122,90 @@ namespace WasserWerkVerwaltung.GUI {
                 wwvBLComp.InsertPreis(preis);
                 preis = new PreisData(currentJahr,pf.Preis);
                 if (preis == null){
-                    MessageBox.Show("Preis konnte nicht festgelegt werden!");
+                    MessageBox.Show("Preis konnte nicht erstellt werden!");
                     return;
                 }
             }
-            //ToDo check ob das JAhr nicht existiert....
+            
             JahresDatenData jahresDatenData = new JahresDatenData(0,currentKunde.Id,0,0,0,currentJahr,DateTime.Now,0);
             jahresDataList.Add(jahresDatenData);
-            this.fillDataFromCurrentCustomer();
+
+            foreach (ZaehlerStandElementControl zsecl in zaehlerStandElementControlList) {
+                this.Controls.Remove(zsecl);
+            }
+
+            ZaehlerStandElementControl zsc = new ZaehlerStandElementControl();
+            zsc.Init(this.wwvBLComp, jahresDatenData, currentKunde);
+            zaehlerStandElementControlList.Add(zsc);
+
+            this.placeZaehlerStandElementControl();
         }
 
         private void buttonJahrLoeschen_Click(object sender, EventArgs e) {
-            MessageBox.Show("löschen nicht implementiert");
+            if (!checkJahr())
+                return;
+
+            long currentJahr = Int64.Parse(textBoxJahr.Text);
+            JahresDatenData jddel = null;
+
+            foreach (JahresDatenData jdd in jahresDataList) {
+                if (jdd.Jahr == currentJahr) {
+                    if (jdd.Id == 0) { // noch nicht in der DB
+                        jddel = jdd;
+                    } else { // muß aus der DB gelöscht werden.
+                        if (!wwvBLComp.DeleteJahresDaten(jdd.Id)) {
+                            MessageBox.Show("Jahresdaten konnten nicht gelöscht werden.");
+                            return;
+                        }
+                        jddel = jdd;
+                    }
+                }
+            }
+
+            ZaehlerStandElementControl zseldel = null;
+
+            foreach (ZaehlerStandElementControl zsel in zaehlerStandElementControlList) {
+                if (zsel.Jahr == currentJahr) {
+                    zseldel = zsel;
+                }
+            }
+
+            if (jddel != null && zseldel != null){
+                foreach (ZaehlerStandElementControl zsecl in zaehlerStandElementControlList) {
+                    this.Controls.Remove(zsecl);
+                }
+
+                jahresDataList.Remove(jddel);
+                zaehlerStandElementControlList.Remove(zseldel);
+                this.placeZaehlerStandElementControl();
+            }
         }
 
         private void buttonPreisImJahrAendern_Click(object sender, EventArgs e) {
-            MessageBox.Show("ändern nicht implementiert");
+            if (!checkJahr())
+                return;
+
+            long currentJahr;
+            currentJahr = Int64.Parse(textBoxJahr.Text);
+
+            PreisForm pf = new PreisForm();
+            PreisData pd = wwvBLComp.GetPreisDataByJahr(currentJahr);
+            if (pd == null) {
+                pf.Init(currentJahr);
+            } else {
+                pf.Init(currentJahr, wwvBLComp.GetPreisDataByJahr(currentJahr).Preis);
+            }
+            pf.ShowDialog();
+            if (!pf.OK) {
+                MessageBox.Show("Kein neuer Preis für das Jahr festgelegt speichern abgebrochen!");
+                return;
+            }
+            PreisData preis = new PreisData(currentJahr, pf.Preis);
+
+            if (!wwvBLComp.UpdatePreis(preis)) {
+                MessageBox.Show("Preis konnte nicht gespeichert werden!");
+                return;
+            }
         }
     }
 }

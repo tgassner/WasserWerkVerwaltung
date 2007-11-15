@@ -18,12 +18,16 @@ namespace WasserWerkVerwaltung.GUI {
         
         private KundenData currentKunde;
         private IWWVBL wwvBLComp;
+        private bool changed = false;
 
         public event ChangeKundeEventHandler ChangeKunde;
         public event NewKundeEventHandler NewKunde;
 
         public KundenDetailsControl() {
             InitializeComponent();
+            this.textBoxNichtGespeichert.BackColor = Color.Red;
+            this.textBoxNichtGespeichert.ForeColor = Color.Black;
+            this.textBoxNichtGespeichert.Visible = changed;
         }
 
         public void Init(IWWVBL wwvBLComp) {
@@ -33,6 +37,12 @@ namespace WasserWerkVerwaltung.GUI {
         public void SetCurrentCustomer(KundenData kunde){
             this.currentKunde = kunde;
             this.fillDataFromCurrentCustomer();
+            if (this.currentKunde.Id == 0) {
+                this.changed = true;
+            } else {
+                this.changed = false;
+            }
+            this.textBoxNichtGespeichert.Visible = this.changed;
         }
 
         private void fillDataFromCurrentCustomer() {
@@ -100,7 +110,7 @@ namespace WasserWerkVerwaltung.GUI {
             }
 
             try {
-                double d = Double.Parse(this.textBoxZaehlermiete.Text);
+                double d = Double.Parse(this.textBoxZaehlermiete.Text.Replace(".", ","));
             } catch (FormatException) {
                 MessageBox.Show("Bitte Zählermiete Überprüfen: Wert ungültig.");
                 return false;
@@ -135,7 +145,7 @@ namespace WasserWerkVerwaltung.GUI {
             tempKunde.Erkl = this.textBoxErkl.Text;
             tempKunde.Hausbesitzer = this.textBoxHausbesitzer.Text;
             tempKunde.TauschDatum = DateTime.Parse(this.textBoxTauschdatum.Text, DateTimeFormatInfo.CurrentInfo);
-            tempKunde.Zaehlermiete = Double.Parse(this.textBoxZaehlermiete.Text);
+            tempKunde.Zaehlermiete = Double.Parse(this.textBoxZaehlermiete.Text.Replace(".", ","));
             tempKunde.Zahlung = this.textBoxZahlung.Text;
             tempKunde.Bemerkung = this.textBoxBemerkung.Text;
             tempKunde.BekommtRechnung = this.radioButtonBekommtRechnung.Checked;
@@ -157,17 +167,30 @@ namespace WasserWerkVerwaltung.GUI {
                     return;
                 }
             }
+            this.changed = true;
+            this.textBoxNichtGespeichert.Visible = changed;
             ChangeKunde(this, new KundeEventArgs(currentKunde));
         }
 
         private void buttonRestore_Click(object sender, EventArgs e) {
             this.fillDataFromCurrentCustomer();
+            if (currentKunde.Id != 0) {
+                this.changed = false;
+                this.textBoxNichtGespeichert.Visible = this.changed;
+            }
         }
 
         private void buttonNewKunde_Click(object sender, EventArgs e) {
             currentKunde = new KundenData(0, "", "", "", "", "", "", "", true, 0, 0, DateTime.Now.Date, "", DateTime.Now.Date, "", DateTime.Now.Date, 0, "", "");
             this.fillDataFromCurrentCustomer();
+            this.changed = true;
+            this.textBoxNichtGespeichert.Visible = this.changed;
             this.NewKunde(this, new EventArgs());
+        }
+
+        private void textChanged(object sender, EventArgs e) {
+            this.changed = true;
+            this.textBoxNichtGespeichert.Visible = changed;
         }
     }
 }

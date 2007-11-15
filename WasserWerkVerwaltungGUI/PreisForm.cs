@@ -22,7 +22,13 @@ namespace WasserWerkVerwaltung.GUI {
             this.textBoxJahr.Text = jahr.ToString();
         }
 
+        public void Init(long jahr,double alterPreis) {
+            Init(jahr);
+            textBoxPreis.Text = alterPreis.ToString();
+        }
+
         private void buttonOK_Click(object sender, EventArgs e) {
+            textBoxPreis.Text = textBoxPreis.Text.Replace(".", ",");
             try {
                 this.preis = Double.Parse(textBoxPreis.Text);
             } catch (FormatException) {

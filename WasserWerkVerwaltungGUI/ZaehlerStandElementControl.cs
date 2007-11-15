@@ -15,6 +15,7 @@ namespace WasserWerkVerwaltung.GUI {
         private IWWVBL wwvBLComp;
         private JahresDatenData currentJahresData;
         private KundenData currentKunde;
+        private bool changed = false;
 
         public long Jahr {
             get {
@@ -26,7 +27,7 @@ namespace WasserWerkVerwaltung.GUI {
             InitializeComponent();
             this.textBoxNichtGespeichert.BackColor = Color.Red;
             this.textBoxNichtGespeichert.ForeColor = Color.Black;
-            //this.textBoxNichtGespeichert.Visible = false;
+            this.textBoxNichtGespeichert.Visible = changed;
         }
 
         internal void Init(IWWVBL wwvBLComp, JahresDatenData currentJahresData, KundenData currentKunde) {
@@ -34,15 +35,22 @@ namespace WasserWerkVerwaltung.GUI {
             this.currentKunde = currentKunde;
             this.currentJahresData = currentJahresData;
             this.fillDataFromCurrentJahresData();
+            if (this.currentJahresData.Id == 0) {
+                this.changed = true;
+                this.textBoxNichtGespeichert.Visible = this.changed;
+            }
         }
 
         private void fillDataFromCurrentJahresData() {
             this.groupBox1.Text = this.currentJahresData.Jahr.ToString();
+            bool changetmp = this.changed;
             this.textBoxZaehlerStandAlt.Text = this.currentJahresData.ZaehlerStandAlt.ToString();
             this.textBoxZaehlerStandNeu.Text = this.currentJahresData.ZaehlerStandNeu.ToString();
             this.textBoxAblesedatum.Text = this.currentJahresData.AbleseDatum.Date.ToString("dd.MM.yyyy", DateTimeFormatInfo.InvariantInfo);
             this.textBoxBereitsbezahlt.Text = this.currentJahresData.BereitsBezahlt.ToString();
             this.textBoxRechnungssumme.Text = this.currentJahresData.Rechnungssumme.ToString();
+            this.changed = changetmp;
+            this.textBoxNichtGespeichert.Visible = changed;
         }
 
         private bool checkZaehlerStandAlt() {
@@ -77,7 +85,7 @@ namespace WasserWerkVerwaltung.GUI {
 
         private bool checkBereitsBezahlt() {
             try {
-                double bb = Double.Parse(this.textBoxBereitsbezahlt.Text);
+                double bb = Double.Parse(this.textBoxBereitsbezahlt.Text.Replace(".", ","));
             } catch (FormatException) {
                 MessageBox.Show("Bitte Bereitsbezahlt Überprüfen: Wert ungültig.");
                 return false;
@@ -87,7 +95,7 @@ namespace WasserWerkVerwaltung.GUI {
 
         private bool checkRechnungssumme() {
             try {
-                double rs = Double.Parse(this.textBoxRechnungssumme.Text);
+                double rs = Double.Parse(this.textBoxRechnungssumme.Text.Replace(".", ","));
             } catch (FormatException) {
                 MessageBox.Show("Bitte Rechnungssumme Überprüfen: Wert ungültig.");
                 return false;
@@ -127,12 +135,12 @@ namespace WasserWerkVerwaltung.GUI {
 
             JahresDatenData jahresdataTemp = new JahresDatenData(this.currentJahresData.Id,
                 this.currentJahresData.KundenId,
-                Double.Parse(textBoxRechnungssumme.Text),
+                Double.Parse(textBoxRechnungssumme.Text.Replace(".",",")),
                 Int64.Parse(textBoxZaehlerStandAlt.Text),
                 Int64.Parse(textBoxZaehlerStandNeu.Text),
                 currentJahresData.Jahr,
                 DateTime.Parse(this.textBoxAblesedatum.Text, DateTimeFormatInfo.CurrentInfo),
-                Double.Parse(textBoxBereitsbezahlt.Text));
+                Double.Parse(textBoxBereitsbezahlt.Text.Replace(".", ",")));
 
             if (currentJahresData.Id == 0){ // Neue Jahresdata -> insert
                 JahresDatenData jahresdataTemp2 = this.wwvBLComp.InsertJahresDaten(jahresdataTemp);
@@ -148,18 +156,57 @@ namespace WasserWerkVerwaltung.GUI {
                 }
                 currentJahresData = jahresdataTemp;
             }
+            this.changed = false;
+            this.fillDataFromCurrentJahresData();
         }
 
         private void buttonRestore_Click(object sender, EventArgs e) {
             fillDataFromCurrentJahresData();
+            if (currentJahresData.Id != 0) {
+                this.changed = false;
+                this.textBoxNichtGespeichert.Visible = this.changed;
+            }
         }
 
         private void buttonBerechnen_Click(object sender, EventArgs e) {
-            MessageBox.Show("Berechnen noch nicht implementiert!");
+            if (!checkZaehlerStandAlt()) return;
+            if (!checkZaehlerStandNeu()) return;
+
+            long verbrauch = (Int64.Parse(textBoxZaehlerStandNeu.Text) - Int64.Parse(textBoxZaehlerStandAlt.Text));
+            double preis = wwvBLComp.GetPreisDataByJahr(currentJahresData.Jahr).Preis;
+            double zaehlermiete = currentKunde.Zaehlermiete;
+            double ust = 1.1;
+
+            double rechnungssumme = ((verbrauch * preis) + zaehlermiete) * ust;
+            if (rechnungssumme < 0) {
+                MessageBox.Show("Rechnungssumme negativ! Bitte Zählerstände kontrollieren");
+                return;
+            }
+
+            textBoxRechnungssumme.Text = rechnungssumme.ToString();
         }
 
         private void buttonVomVorjahr_Click(object sender, EventArgs e) {
-            MessageBox.Show("Vom Vorjahr noch nicht implementiert!");
+            IList<JahresDatenData> jahresdataList = this.wwvBLComp.GetJahresdataByKundenID(currentKunde.Id);
+            bool found = false;
+            long alterStand = 0;
+            foreach(JahresDatenData jahresDatum in jahresdataList){
+                if (jahresDatum.Jahr == (currentJahresData.Jahr-1)){
+                    alterStand = jahresDatum.ZaehlerStandNeu;
+                    found = true;
+                }
+            }
+
+            if (found){
+                this.textBoxZaehlerStandAlt.Text = alterStand.ToString();
+            }else{
+                MessageBox.Show("Stand vom Vorjahr wurde nicht gefunden!");
+            }
+        }
+
+        private void textChanged(object sender, EventArgs e) {
+            this.changed = true;
+            this.textBoxNichtGespeichert.Visible = changed;
         }
     }
 }

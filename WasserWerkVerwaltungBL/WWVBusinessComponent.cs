@@ -96,6 +96,11 @@ namespace WasserWerkVerwaltung.BL {
             }
         }
 
+        public bool DeleteJahresDaten(long jahresDatumID) {
+            IJahresDaten jahredDataDB = Database.CreateJahresDaten();
+            return jahredDataDB.Delete(jahresDatumID);
+        }
+
         public PreisData GetPreisDataByJahr(long jahr) {
             IPreis preisDB = Database.CreatePreis();
             return preisDB.FindByJahr(jahr);
@@ -116,6 +121,5 @@ namespace WasserWerkVerwaltung.BL {
         public bool UpdatePreis(PreisData jahresDatum) {
             throw new Exception("The method or operation is not implemented.");
         }
-
     }
 }

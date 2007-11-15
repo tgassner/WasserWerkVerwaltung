@@ -342,7 +342,7 @@ namespace WasserWerkVerwaltung.CommonObjects {
             JahresDatenData abl = obj as JahresDatenData;
             if (abl == null)
                 return false;
-            return abl.Id == this.id;
+            return abl.Id == this.id && abl.Jahr == this.jahr;
         }
 
         public override int GetHashCode() {

@@ -68,6 +68,7 @@ namespace WasserWerkVerwaltung.GUI {
             this.textBoxZaehlerStandAlt.Name = "textBoxZaehlerStandAlt";
             this.textBoxZaehlerStandAlt.Size = new System.Drawing.Size(107, 20);
             this.textBoxZaehlerStandAlt.TabIndex = 1;
+            this.textBoxZaehlerStandAlt.TextChanged += new System.EventHandler(this.textChanged);
             // 
             // label1
             // 
@@ -127,6 +128,7 @@ namespace WasserWerkVerwaltung.GUI {
             this.textBoxRechnungssumme.Name = "textBoxRechnungssumme";
             this.textBoxRechnungssumme.Size = new System.Drawing.Size(74, 20);
             this.textBoxRechnungssumme.TabIndex = 5;
+            this.textBoxRechnungssumme.TextChanged += new System.EventHandler(this.textChanged);
             // 
             // label4
             // 
@@ -143,6 +145,7 @@ namespace WasserWerkVerwaltung.GUI {
             this.textBoxBereitsbezahlt.Name = "textBoxBereitsbezahlt";
             this.textBoxBereitsbezahlt.Size = new System.Drawing.Size(107, 20);
             this.textBoxBereitsbezahlt.TabIndex = 4;
+            this.textBoxBereitsbezahlt.TextChanged += new System.EventHandler(this.textChanged);
             // 
             // label3
             // 
@@ -168,6 +171,7 @@ namespace WasserWerkVerwaltung.GUI {
             this.textBoxAblesedatum.Name = "textBoxAblesedatum";
             this.textBoxAblesedatum.Size = new System.Drawing.Size(107, 20);
             this.textBoxAblesedatum.TabIndex = 3;
+            this.textBoxAblesedatum.TextChanged += new System.EventHandler(this.textChanged);
             // 
             // textBoxZaehlerStandNeu
             // 
@@ -175,6 +179,7 @@ namespace WasserWerkVerwaltung.GUI {
             this.textBoxZaehlerStandNeu.Name = "textBoxZaehlerStandNeu";
             this.textBoxZaehlerStandNeu.Size = new System.Drawing.Size(107, 20);
             this.textBoxZaehlerStandNeu.TabIndex = 2;
+            this.textBoxZaehlerStandNeu.TextChanged += new System.EventHandler(this.textChanged);
             // 
             // buttonRestore
             // 
