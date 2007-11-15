@@ -54,7 +54,8 @@ namespace WasserWerkVerwaltung.BL {
                             kunde.TauschDatum,
                             kunde.Zaehlermiete,
                             kunde.Bemerkung,
-                            kunde.Zahlung);
+                            kunde.Zahlung,
+                            kunde.Leitungskreis);
                 this.allKunden.Add(kunde);
                 return kunde;
             } else {

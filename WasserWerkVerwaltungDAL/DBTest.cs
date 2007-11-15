@@ -17,7 +17,7 @@ namespace SimplePatientDocumentation.DAL.Tests {
         [SetUp]
         public void InitVisitTest() {
             IKunde kundeDB = Database.CreateKunde();
-            kunde = new KundenData(0, "vorname", "Nachname", "Strasse", "ort", "tel", "hausbesetzer", "Datenbank", true, 987, 876, DateTime.Now, "zNr", DateTime.Now, "erkl", DateTime.Now, 234.1, "Bemerkung", "asdf");
+            kunde = new KundenData(0, "vorname", "Nachname", "Strasse", "ort", "tel", "hausbesetzer", "Datenbank", true, 987, 876, DateTime.Now, "zNr", DateTime.Now, "erkl", DateTime.Now, 234.1, "Bemerkung", "asdf",11);
             kID = kundeDB.Insert(kunde);
         }
 
@@ -45,6 +45,7 @@ namespace SimplePatientDocumentation.DAL.Tests {
                     Assert.AreEqual(kundefoeach.ZaehlerNeuStand, this.kunde.ZaehlerNeuStand);
                     Assert.AreEqual(kundefoeach.ZaehlerNummer, this.kunde.ZaehlerNummer);
                     Assert.AreEqual(kundefoeach.Zahlung, this.kunde.Zahlung);
+                    Assert.AreEqual(kundefoeach.Leitungskreis, this.kunde.Leitungskreis);
                 }
             }
         }
@@ -72,6 +73,7 @@ namespace SimplePatientDocumentation.DAL.Tests {
             Assert.AreEqual(kunde2.ZaehlerNeuStand, this.kunde.ZaehlerNeuStand);
             Assert.AreEqual(kunde2.ZaehlerNummer, this.kunde.ZaehlerNummer);
             Assert.AreEqual(kunde2.Zahlung, this.kunde.Zahlung);
+            Assert.AreEqual(kunde2.Leitungskreis, this.kunde.Leitungskreis);
         }
 
         [Test]
@@ -96,6 +98,7 @@ namespace SimplePatientDocumentation.DAL.Tests {
             kunde2.ZaehlerNeuStand = kunde.ZaehlerNeuStand = 87654;
             kunde2.ZaehlerNummer = kunde.ZaehlerNummer = "ZNo2";
             kunde2.Zahlung = kunde.Zahlung = "Zahlung2";
+            kunde2.Leitungskreis = kunde.Leitungskreis = 22;
 
             Assert.IsTrue(kundeDB.Update(kunde2));
             KundenData kunde3 = kundeDB.FindByID(kID);
@@ -119,6 +122,7 @@ namespace SimplePatientDocumentation.DAL.Tests {
             Assert.AreEqual(kunde3.ZaehlerNeuStand, this.kunde.ZaehlerNeuStand);
             Assert.AreEqual(kunde3.ZaehlerNummer, this.kunde.ZaehlerNummer);
             Assert.AreEqual(kunde3.Zahlung, this.kunde.Zahlung);
+            Assert.AreEqual(kunde3.Leitungskreis, this.kunde.Leitungskreis);
         }
 
         [Test]

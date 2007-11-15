@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WasserWerkVerwaltungDAL", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WasserWerkVerwaltungBL", "WasserWerkVerwaltungBL\WasserWerkVerwaltungBL.csproj", "{19857CCA-D1DB-46B5-8156-C5BDBAA9E15D}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SetupWWV", "SetupWWV\SetupWWV.vdproj", "{139344DF-4C56-4CF9-9155-9F2890B8CE80}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,8 @@ Global
 		{19857CCA-D1DB-46B5-8156-C5BDBAA9E15D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19857CCA-D1DB-46B5-8156-C5BDBAA9E15D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{19857CCA-D1DB-46B5-8156-C5BDBAA9E15D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{139344DF-4C56-4CF9-9155-9F2890B8CE80}.Debug|Any CPU.ActiveCfg = Debug
+		{139344DF-4C56-4CF9-9155-9F2890B8CE80}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

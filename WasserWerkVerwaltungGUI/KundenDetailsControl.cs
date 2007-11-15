@@ -64,6 +64,7 @@ namespace WasserWerkVerwaltung.GUI {
             this.textBoxZaehlermiete.Text = currentKunde.Zaehlermiete.ToString();
             this.textBoxZahlung.Text = currentKunde.Zahlung;
             this.textBoxBemerkung.Text = currentKunde.Bemerkung;
+            this.textBoxLeitungskreis.Text = currentKunde.Leitungskreis.ToString();
             if (currentKunde.BekommtRechnung) {
                 this.radioButtonBekommtRechnung.Checked = true;
                 this.radioButtonBekommtKeineRechnung.Checked = false;
@@ -116,6 +117,12 @@ namespace WasserWerkVerwaltung.GUI {
                 return false;
             }
 
+            try {
+                long l = Int64.Parse(this.textBoxLeitungskreis.Text);
+            } catch (FormatException) {
+                MessageBox.Show("Bitte Leitungskreis Überprüfen: Wert ungültig.");
+                return false;
+            }
 
             return true;
         }
@@ -127,7 +134,7 @@ namespace WasserWerkVerwaltung.GUI {
                 return;
             }
 
-            KundenData tempKunde = new KundenData(currentKunde.Id, "", "", "", "", "", "", "", false, 0, 0, DateTime.Now, "", DateTime.Now, "", DateTime.Now, 0, "", "");
+            KundenData tempKunde = new KundenData(currentKunde.Id, "", "", "", "", "", "", "", false, 0, 0, DateTime.Now, "", DateTime.Now, "", DateTime.Now, 0, "", "",0);
 
             if (!checkFields())
                 return;
@@ -149,6 +156,7 @@ namespace WasserWerkVerwaltung.GUI {
             tempKunde.Zahlung = this.textBoxZahlung.Text;
             tempKunde.Bemerkung = this.textBoxBemerkung.Text;
             tempKunde.BekommtRechnung = this.radioButtonBekommtRechnung.Checked;
+            tempKunde.Leitungskreis = Int64.Parse(this.textBoxLeitungskreis.Text);
 
             if (currentKunde.Id == 0) {  // Neuer Kunde
                 KundenData tempKunde2 = this.wwvBLComp.InsertKunde(tempKunde);
@@ -181,7 +189,7 @@ namespace WasserWerkVerwaltung.GUI {
         }
 
         private void buttonNewKunde_Click(object sender, EventArgs e) {
-            currentKunde = new KundenData(0, "", "", "", "", "", "", "", true, 0, 0, DateTime.Now.Date, "", DateTime.Now.Date, "", DateTime.Now.Date, 0, "", "");
+            currentKunde = new KundenData(0, "", "", "", "", "", "", "", true, 0, 0, DateTime.Now.Date, "", DateTime.Now.Date, "", DateTime.Now.Date, 0, "", "",0);
             this.fillDataFromCurrentCustomer();
             this.changed = true;
             this.textBoxNichtGespeichert.Visible = this.changed;

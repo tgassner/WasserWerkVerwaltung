@@ -23,6 +23,7 @@ namespace WasserWerkVerwaltung.GUI {
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.stammdatenpflegeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zählerständeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -78,9 +79,10 @@ namespace WasserWerkVerwaltung.GUI {
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(892, 673);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
-            this.Text = "WasserWerkVerwaltung";
+            this.Text = "Wasser Werk Verwaltung by Thomas Gassner Version 0.5";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);

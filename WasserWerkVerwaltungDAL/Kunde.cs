@@ -13,8 +13,8 @@ namespace WasserWerkVerwaltung.DAL {
         const string SQL_FIND_BY_ID = "SELECT * FROM Kunde WHERE KundeID = ?";
         const string SQL_FIND_ALL = "SELECT * FROM Kunde";
         const string SQL_LAST_INSERTED_ROW = "SELECT @@Identity";
-        readonly string SQL_UPDATE_BY_ID = "UPDATE Kunde SET Vorname = ?, Nachname = ?, Strasse = ?, Ort = ?, Tel = ?, Hausbesitzer = ?, Bankverbindung = ?, bekommtRechnung = ?, ZaehlerEinbauStand = ?, ZaehlerNeuStand = ?, Eichdatum = ?, ZaehlerNr = ?, Einbaudatum = ?, Erkl = ?, Tauschdatum = ?, Zaehlermiete = ?, Bemerkung = ?, Zahlung = ? WHERE KundeID = ?";
-        readonly string SQL_INSERT_BY_ID = "INSERT INTO Kunde (Vorname, Nachname, Strasse, Ort, Tel, Hausbesitzer, Bankverbindung, bekommtRechnung, ZaehlerEinbauStand, ZaehlerNeuStand, Eichdatum, ZaehlerNr, Einbaudatum, Erkl, Tauschdatum, Zaehlermiete, Bemerkung, Zahlung) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        readonly string SQL_UPDATE_BY_ID = "UPDATE Kunde SET Vorname = ?, Nachname = ?, Strasse = ?, Ort = ?, Tel = ?, Hausbesitzer = ?, Bankverbindung = ?, bekommtRechnung = ?, ZaehlerEinbauStand = ?, ZaehlerNeuStand = ?, Eichdatum = ?, ZaehlerNr = ?, Einbaudatum = ?, Erkl = ?, Tauschdatum = ?, Zaehlermiete = ?, Bemerkung = ?, Zahlung = ?, Leitungskreis = ? WHERE KundeID = ?";
+        readonly string SQL_INSERT_BY_ID = "INSERT INTO Kunde (Vorname, Nachname, Strasse, Ort, Tel, Hausbesitzer, Bankverbindung, bekommtRechnung, ZaehlerEinbauStand, ZaehlerNeuStand, Eichdatum, ZaehlerNr, Einbaudatum, Erkl, Tauschdatum, Zaehlermiete, Bemerkung, Zahlung, Leitungskreis) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         readonly string SQL_DELETE_BY_ID = "DELETE FROM Kunde WHERE KundeID = ?";
         static IDbCommand findByIdCmd;
         static IDbCommand findAllCmd;
@@ -49,7 +49,8 @@ namespace WasserWerkVerwaltung.DAL {
                                     (string)rdr["Erkl"],
                                     (DateTime)rdr["Tauschdatum"],
                                     (double)rdr["Zaehlermiete"],(string)rdr["Bemerkung"],
-                                    (string) rdr["Zahlung"]));
+                                    (string) rdr["Zahlung"],
+                                    (long)(int)rdr["Leitungskreis"]));
                     }
                     return kundenList;
                 }
@@ -83,7 +84,8 @@ namespace WasserWerkVerwaltung.DAL {
                                     (string)rdr["Erkl"],
                                     (DateTime)rdr["Tauschdatum"],
                                     (double)rdr["Zaehlermiete"], (string)rdr["Bemerkung"],
-                                    (string) rdr["Zahlung"]);
+                                    (string) rdr["Zahlung"],
+                                    (long)(int)rdr["Leitungskreis"]);
                     }
                 }
             } finally {
@@ -116,6 +118,7 @@ namespace WasserWerkVerwaltung.DAL {
                     insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Zaehlermiete", DbType.Double));
                     insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Bemerkung", DbType.String));
                     insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Zahlung", DbType.String));
+                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Leitungskreis", DbType.Int64));
                 }
 
                 ((IDataParameter)insertByIdCmd.Parameters["@Vorname"]).Value = kunde.Vorname;
@@ -136,6 +139,7 @@ namespace WasserWerkVerwaltung.DAL {
                 ((IDataParameter)insertByIdCmd.Parameters["@Zaehlermiete"]).Value = kunde.Zaehlermiete;
                 ((IDataParameter)insertByIdCmd.Parameters["@Bemerkung"]).Value = kunde.Bemerkung;
                 ((IDataParameter)insertByIdCmd.Parameters["@Zahlung"]).Value = kunde.Zahlung;
+                ((IDataParameter)insertByIdCmd.Parameters["@Leitungskreis"]).Value = kunde.Leitungskreis;
 
                 if (insertByIdCmd.ExecuteNonQuery() != 1)
                     return 0;
@@ -176,6 +180,7 @@ namespace WasserWerkVerwaltung.DAL {
                     updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Zaehlermiete", DbType.Double));
                     updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Bemerkung", DbType.String));
                     updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Zahlung", DbType.String));
+                    updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Leitungskreis", DbType.Int64));
                     updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@KundeID", DbType.Int64));
                 }
 
@@ -197,6 +202,7 @@ namespace WasserWerkVerwaltung.DAL {
                 ((IDataParameter)updateByIdCmd.Parameters["@Zaehlermiete"]).Value = kunde.Zaehlermiete;
                 ((IDataParameter)updateByIdCmd.Parameters["@Bemerkung"]).Value = kunde.Bemerkung;
                 ((IDataParameter)updateByIdCmd.Parameters["@Zahlung"]).Value = kunde.Zahlung;
+                ((IDataParameter)updateByIdCmd.Parameters["@Leitungskreis"]).Value = kunde.Leitungskreis;
                 ((IDataParameter)updateByIdCmd.Parameters["@KundeID"]).Value = kunde.Id;
 
                 return updateByIdCmd.ExecuteNonQuery() == 1;
