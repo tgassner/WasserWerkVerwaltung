@@ -36,10 +36,22 @@ namespace WasserWerkVerwaltung.GUI {
             }
         }
 
-        private void buttonAlleSelektierenDieEineRechnungBekommen_Click(object sender, EventArgs e) {
+        private void buttonAlleSelektierenDieEineJahresRechnungBekommen_Click(object sender, EventArgs e) {
             for (int i = 0; i < checkedListBoxKunden.Items.Count; i++) {
-                if (((KundenData)checkedListBoxKunden.Items[i]).BekommtRechnung){
+                if (((KundenData)checkedListBoxKunden.Items[i]).BekommtRechnung == Rechnung.Jahres) {
                     checkedListBoxKunden.SetItemChecked(i, true);
+                } else {
+                    checkedListBoxKunden.SetItemChecked(i, false);
+                }
+            }
+        }
+
+        private void buttonAlleSelektierenDieEineHalbJahresRechnungBekommen_Click(object sender, EventArgs e) {
+            for (int i = 0; i < checkedListBoxKunden.Items.Count; i++) {
+                if (((KundenData)checkedListBoxKunden.Items[i]).BekommtRechnung == Rechnung.Halbjahres) {
+                    checkedListBoxKunden.SetItemChecked(i, true);
+                } else {
+                    checkedListBoxKunden.SetItemChecked(i, false);
                 }
             }
         }

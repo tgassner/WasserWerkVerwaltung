@@ -6,6 +6,7 @@ using System.Data;
 using System.Text;
 using System.Windows.Forms;
 using WasserWerkVerwaltung.CommonObjects;
+using WasserWerkVerwaltung.CommonUtilities;
 using WasserWerkVerwaltung.BL;
 
 namespace WasserWerkVerwaltung.GUI {
@@ -61,9 +62,13 @@ namespace WasserWerkVerwaltung.GUI {
 
         private void updateListBoxKunden() {
             this.listBoxKunden.Items.Clear();
-            foreach (KundenData kunde in wwvBLComp.GetAllKunden()) {
+
+            this.listBoxKunden.Sorted = false;
+            foreach (KundenData kunde in StaticUtilities.SortByNachname(wwvBLComp.GetAllKunden())) {
                 this.listBoxKunden.Items.Add(kunde);
             }
+
+            
         }
 
         public void Init(IWWVBL wwvBLComp) {

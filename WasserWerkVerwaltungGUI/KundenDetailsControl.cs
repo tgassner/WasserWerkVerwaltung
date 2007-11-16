@@ -65,12 +65,24 @@ namespace WasserWerkVerwaltung.GUI {
             this.textBoxZahlung.Text = currentKunde.Zahlung;
             this.textBoxBemerkung.Text = currentKunde.Bemerkung;
             this.textBoxLeitungskreis.Text = currentKunde.Leitungskreis.ToString();
-            if (currentKunde.BekommtRechnung) {
-                this.radioButtonBekommtRechnung.Checked = true;
-                this.radioButtonBekommtKeineRechnung.Checked = false;
-            } else {
-                this.radioButtonBekommtRechnung.Checked = false;
-                this.radioButtonBekommtKeineRechnung.Checked = true;
+            switch (currentKunde.BekommtRechnung) {
+                case Rechnung.Keine:
+                    this.radioButtonKeine.Checked = true;
+                    this.radioButtonJahres.Checked = false;
+                    this.radioButtonHalbJahres.Checked = false;
+                    break;
+                case Rechnung.Jahres:
+                    this.radioButtonKeine.Checked = false;
+                    this.radioButtonJahres.Checked = true;
+                    this.radioButtonHalbJahres.Checked = false;
+                    break;
+                case Rechnung.Halbjahres:
+                    this.radioButtonKeine.Checked = false;
+                    this.radioButtonJahres.Checked = false;
+                    this.radioButtonHalbJahres.Checked = true;
+                    break;
+                default:
+                    break;
             }
         }
 
@@ -134,7 +146,7 @@ namespace WasserWerkVerwaltung.GUI {
                 return;
             }
 
-            KundenData tempKunde = new KundenData(currentKunde.Id, "", "", "", "", "", "", "", false, 0, 0, DateTime.Now, "", DateTime.Now, "", DateTime.Now, 0, "", "",0);
+            KundenData tempKunde = new KundenData(currentKunde.Id, "", "", "", "", "", "", "", Rechnung.Keine, 0, 0, DateTime.Now, "", DateTime.Now, "", DateTime.Now, 0, "", "",0);
 
             if (!checkFields())
                 return;
@@ -155,7 +167,12 @@ namespace WasserWerkVerwaltung.GUI {
             tempKunde.Zaehlermiete = Double.Parse(this.textBoxZaehlermiete.Text.Replace(".", ","));
             tempKunde.Zahlung = this.textBoxZahlung.Text;
             tempKunde.Bemerkung = this.textBoxBemerkung.Text;
-            tempKunde.BekommtRechnung = this.radioButtonBekommtRechnung.Checked;
+            if (this.radioButtonKeine.Checked)
+                tempKunde.BekommtRechnung = Rechnung.Keine;
+            if (this.radioButtonJahres.Checked)
+                tempKunde.BekommtRechnung = Rechnung.Jahres;
+            if (this.radioButtonHalbJahres.Checked)
+                tempKunde.BekommtRechnung = Rechnung.Halbjahres;
             tempKunde.Leitungskreis = Int64.Parse(this.textBoxLeitungskreis.Text);
 
             if (currentKunde.Id == 0) {  // Neuer Kunde
@@ -189,7 +206,7 @@ namespace WasserWerkVerwaltung.GUI {
         }
 
         private void buttonNewKunde_Click(object sender, EventArgs e) {
-            currentKunde = new KundenData(0, "", "", "", "", "", "", "", true, 0, 0, DateTime.Now.Date, "", DateTime.Now.Date, "", DateTime.Now.Date, 0, "", "",0);
+            currentKunde = new KundenData(0, "", "", "", "", "", "", "", Rechnung.Keine, 0, 0, DateTime.Now.Date, "", DateTime.Now.Date, "", DateTime.Now.Date, 0, "", "",0);
             this.fillDataFromCurrentCustomer();
             this.changed = true;
             this.textBoxNichtGespeichert.Visible = this.changed;

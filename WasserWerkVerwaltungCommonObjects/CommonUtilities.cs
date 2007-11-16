@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using WasserWerkVerwaltung.CommonObjects;
 
-namespace WasserWerkVerwaltung.BL {
+namespace WasserWerkVerwaltung.CommonUtilities {
+
     //public class ListViewItemComparer : System.Collections.IComparer {
     //    private int col;
     //    public ListViewItemComparer() {
@@ -19,7 +20,38 @@ namespace WasserWerkVerwaltung.BL {
     //    }
     //}
 
-    //public class StaticUtilities {
+    public class StaticUtilities {
+
+        public static int Rechnung(Rechnung rechnung) {
+            return ((int)rechnung);
+        }
+
+        public static Rechnung Rechnung(int rechnung) {
+            return (Rechnung)rechnung;
+        }
+
+        public static IList<KundenData> SortByNachname(IList<KundenData> kunden) {
+            List<KundenData> list = new List<KundenData>(kunden);
+            list.Sort(CompareKundenByNachname);
+            return list;
+        }
+
+        public static int CompareKundenByNachname(KundenData x, KundenData y) {
+            if (x == null) {
+                if (y == null) {
+                    return 0;
+                } else {
+                    return -1;
+                }
+            } else {
+                if (y == null) {
+                    return 1;
+                } else {
+                    return x.Nachname.CompareTo(y.Nachname);
+                }
+            }
+        }
+
     //    public static string getAgeFromBirthDate(DateTime birthDate) {
     //        DateTime dt = new DateTime(DateTime.Now.Ticks - birthDate.Ticks);
     //        int years = dt.Year - 1;
@@ -88,6 +120,6 @@ namespace WasserWerkVerwaltung.BL {
     //        list.Sort(CompareVisitsByDate);
     //        return list;
     //    }
-    //}
+    }
 
 }

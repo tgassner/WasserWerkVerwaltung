@@ -17,7 +17,7 @@ namespace SimplePatientDocumentation.DAL.Tests {
         [SetUp]
         public void InitVisitTest() {
             IKunde kundeDB = Database.CreateKunde();
-            kunde = new KundenData(0, "vorname", "Nachname", "Strasse", "ort", "tel", "hausbesetzer", "Datenbank", true, 987, 876, DateTime.Now, "zNr", DateTime.Now, "erkl", DateTime.Now, 234.1, "Bemerkung", "asdf",11);
+            kunde = new KundenData(0, "vorname", "Nachname", "Strasse", "ort", "tel", "hausbesetzer", "Datenbank", Rechnung.Keine, 987, 876, DateTime.Now, "zNr", DateTime.Now, "erkl", DateTime.Now, 234.1, "Bemerkung", "asdf",11);
             kID = kundeDB.Insert(kunde);
         }
 
@@ -81,7 +81,7 @@ namespace SimplePatientDocumentation.DAL.Tests {
             IKunde kundeDB = Database.CreateKunde();
             KundenData kunde2 = kundeDB.FindByID(this.kID);
             kunde2.BankVerbindung = kunde.BankVerbindung = "bank2";
-            kunde2.BekommtRechnung = kunde.BekommtRechnung = false;
+            kunde2.BekommtRechnung = kunde.BekommtRechnung = Rechnung.Jahres;
             kunde2.Bemerkung = kunde.Bemerkung = "Bemerkung2";
             kunde2.EichDatum = kunde.EichDatum = DateTime.Now;
             kunde2.EinbauDatum = kunde.EinbauDatum = DateTime.Now;
@@ -144,7 +144,7 @@ namespace SimplePatientDocumentation.DAL.Tests {
         [SetUp]
         public void InitVisitTest() {
             IJahresDaten jahresDatenDB = Database.CreateJahresDaten();
-            jahresdaten = new JahresDatenData(0, 1, 0.4, 23, 234, 2006, DateTime.Now, 87.0);
+            jahresdaten = new JahresDatenData(0, 1, 0.4, 23, 234, 2007, DateTime.Now, 87.0);
             this.jdID = jahresDatenDB.Insert(jahresdaten);
         }
 
@@ -182,8 +182,8 @@ namespace SimplePatientDocumentation.DAL.Tests {
         [Test]
         public void JahresdatenFindByKundenIdTest() {
             IJahresDaten jahredDatenDB = Database.CreateJahresDaten();
-            JahresDatenData jd1 = new JahresDatenData(0, 1, 234, 234, 345, 2006, DateTime.Now, 234.9);
-            JahresDatenData jd2 = new JahresDatenData(0, 1, 2344, 2534, 3545, 2006, DateTime.Now, 233.9);
+            JahresDatenData jd1 = new JahresDatenData(0, 1, 234, 234, 345, 2007, DateTime.Now, 234.9);
+            JahresDatenData jd2 = new JahresDatenData(0, 1, 2344, 2534, 3545, 2007, DateTime.Now, 233.9);
             long jdid1 = jahredDatenDB.Insert(jd1);
             long jdid2 = jahredDatenDB.Insert(jd2);
             IList<JahresDatenData> jahresdataList = jahredDatenDB.FindByKundenId(1);
@@ -222,7 +222,7 @@ namespace SimplePatientDocumentation.DAL.Tests {
             JahresDatenData jahredData2 = jahredDatenDB.FindByID(this.jdID);
             jahredData2.AbleseDatum = jahresdaten.AbleseDatum = DateTime.Now;
             jahredData2.BereitsBezahlt = jahresdaten.BereitsBezahlt = 88.8;
-            jahredData2.Jahr = jahresdaten.Jahr = 2006;
+            jahredData2.Jahr = jahresdaten.Jahr = 2007;
             jahredData2.KundenId = jahresdaten.KundenId = 5;
             jahredData2.Rechnungssumme = jahresdaten.Rechnungssumme = 436.9;
             jahredData2.ZaehlerStandAlt = jahresdaten.ZaehlerStandAlt = 8765;

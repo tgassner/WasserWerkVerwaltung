@@ -61,14 +61,15 @@ namespace WasserWerkVerwaltung.GUI {
             this.textBoxTauschdatum = new System.Windows.Forms.TextBox();
             this.textBoxZahlung = new System.Windows.Forms.TextBox();
             this.label20 = new System.Windows.Forms.Label();
-            this.radioButtonBekommtRechnung = new System.Windows.Forms.RadioButton();
-            this.radioButtonBekommtKeineRechnung = new System.Windows.Forms.RadioButton();
+            this.radioButtonKeine = new System.Windows.Forms.RadioButton();
+            this.radioButtonJahres = new System.Windows.Forms.RadioButton();
             this.buttonNewKunde = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.textBoxBemerkung = new System.Windows.Forms.TextBox();
             this.textBoxNichtGespeichert = new System.Windows.Forms.TextBox();
             this.label21 = new System.Windows.Forms.Label();
             this.textBoxLeitungskreis = new System.Windows.Forms.TextBox();
+            this.radioButtonHalbJahres = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();
             // 
             // label1
@@ -116,9 +117,9 @@ namespace WasserWerkVerwaltung.GUI {
             // 
             // buttonRestore
             // 
-            this.buttonRestore.Location = new System.Drawing.Point(298, 399);
+            this.buttonRestore.Location = new System.Drawing.Point(320, 399);
             this.buttonRestore.Name = "buttonRestore";
-            this.buttonRestore.Size = new System.Drawing.Size(78, 23);
+            this.buttonRestore.Size = new System.Drawing.Size(56, 23);
             this.buttonRestore.TabIndex = 20;
             this.buttonRestore.Text = "Restore";
             this.buttonRestore.UseVisualStyleBackColor = true;
@@ -126,9 +127,9 @@ namespace WasserWerkVerwaltung.GUI {
             // 
             // buttonSpeichern
             // 
-            this.buttonSpeichern.Location = new System.Drawing.Point(214, 399);
+            this.buttonSpeichern.Location = new System.Drawing.Point(249, 399);
             this.buttonSpeichern.Name = "buttonSpeichern";
-            this.buttonSpeichern.Size = new System.Drawing.Size(78, 23);
+            this.buttonSpeichern.Size = new System.Drawing.Size(65, 23);
             this.buttonSpeichern.TabIndex = 19;
             this.buttonSpeichern.Text = "Speichern";
             this.buttonSpeichern.UseVisualStyleBackColor = true;
@@ -394,33 +395,33 @@ namespace WasserWerkVerwaltung.GUI {
             this.label20.AutoSize = true;
             this.label20.Location = new System.Drawing.Point(8, 401);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(107, 13);
+            this.label20.Size = new System.Drawing.Size(60, 13);
             this.label20.TabIndex = 4;
-            this.label20.Text = "Bekommt Rechnung:";
+            this.label20.Text = "Rechnung:";
             // 
-            // radioButtonBekommtRechnung
+            // radioButtonKeine
             // 
-            this.radioButtonBekommtRechnung.AutoSize = true;
-            this.radioButtonBekommtRechnung.Location = new System.Drawing.Point(121, 399);
-            this.radioButtonBekommtRechnung.Name = "radioButtonBekommtRechnung";
-            this.radioButtonBekommtRechnung.Size = new System.Drawing.Size(33, 17);
-            this.radioButtonBekommtRechnung.TabIndex = 17;
-            this.radioButtonBekommtRechnung.TabStop = true;
-            this.radioButtonBekommtRechnung.Text = "ja";
-            this.radioButtonBekommtRechnung.UseVisualStyleBackColor = true;
-            this.radioButtonBekommtRechnung.CheckedChanged += new System.EventHandler(this.textChanged);
+            this.radioButtonKeine.AutoSize = true;
+            this.radioButtonKeine.Location = new System.Drawing.Point(68, 399);
+            this.radioButtonKeine.Name = "radioButtonKeine";
+            this.radioButtonKeine.Size = new System.Drawing.Size(51, 17);
+            this.radioButtonKeine.TabIndex = 17;
+            this.radioButtonKeine.TabStop = true;
+            this.radioButtonKeine.Text = "keine";
+            this.radioButtonKeine.UseVisualStyleBackColor = true;
+            this.radioButtonKeine.CheckedChanged += new System.EventHandler(this.textChanged);
             // 
-            // radioButtonBekommtKeineRechnung
+            // radioButtonJahres
             // 
-            this.radioButtonBekommtKeineRechnung.AutoSize = true;
-            this.radioButtonBekommtKeineRechnung.Location = new System.Drawing.Point(151, 399);
-            this.radioButtonBekommtKeineRechnung.Name = "radioButtonBekommtKeineRechnung";
-            this.radioButtonBekommtKeineRechnung.Size = new System.Drawing.Size(45, 17);
-            this.radioButtonBekommtKeineRechnung.TabIndex = 18;
-            this.radioButtonBekommtKeineRechnung.TabStop = true;
-            this.radioButtonBekommtKeineRechnung.Text = "nein";
-            this.radioButtonBekommtKeineRechnung.UseVisualStyleBackColor = true;
-            this.radioButtonBekommtKeineRechnung.CheckedChanged += new System.EventHandler(this.textChanged);
+            this.radioButtonJahres.AutoSize = true;
+            this.radioButtonJahres.Location = new System.Drawing.Point(119, 399);
+            this.radioButtonJahres.Name = "radioButtonJahres";
+            this.radioButtonJahres.Size = new System.Drawing.Size(53, 17);
+            this.radioButtonJahres.TabIndex = 18;
+            this.radioButtonJahres.TabStop = true;
+            this.radioButtonJahres.Text = "jahres";
+            this.radioButtonJahres.UseVisualStyleBackColor = true;
+            this.radioButtonJahres.CheckedChanged += new System.EventHandler(this.textChanged);
             // 
             // buttonNewKunde
             // 
@@ -475,15 +476,27 @@ namespace WasserWerkVerwaltung.GUI {
             this.textBoxLeitungskreis.TabIndex = 16;
             this.textBoxLeitungskreis.TextChanged += new System.EventHandler(this.textChanged);
             // 
+            // radioButtonHalbJahres
+            // 
+            this.radioButtonHalbJahres.AutoSize = true;
+            this.radioButtonHalbJahres.Location = new System.Drawing.Point(174, 399);
+            this.radioButtonHalbJahres.Name = "radioButtonHalbJahres";
+            this.radioButtonHalbJahres.Size = new System.Drawing.Size(70, 17);
+            this.radioButtonHalbJahres.TabIndex = 24;
+            this.radioButtonHalbJahres.TabStop = true;
+            this.radioButtonHalbJahres.Text = "1/2jahres";
+            this.radioButtonHalbJahres.UseVisualStyleBackColor = true;
+            // 
             // KundenDetailsControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.radioButtonHalbJahres);
             this.Controls.Add(this.textBoxNichtGespeichert);
             this.Controls.Add(this.textBoxBemerkung);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.radioButtonBekommtKeineRechnung);
-            this.Controls.Add(this.radioButtonBekommtRechnung);
+            this.Controls.Add(this.radioButtonJahres);
+            this.Controls.Add(this.radioButtonKeine);
             this.Controls.Add(this.buttonSpeichern);
             this.Controls.Add(this.buttonNewKunde);
             this.Controls.Add(this.buttonRestore);
@@ -572,13 +585,14 @@ namespace WasserWerkVerwaltung.GUI {
         private System.Windows.Forms.TextBox textBoxTauschdatum;
         private System.Windows.Forms.TextBox textBoxZahlung;
         private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.RadioButton radioButtonBekommtRechnung;
-        private System.Windows.Forms.RadioButton radioButtonBekommtKeineRechnung;
+        private System.Windows.Forms.RadioButton radioButtonKeine;
+        private System.Windows.Forms.RadioButton radioButtonJahres;
         private System.Windows.Forms.Button buttonNewKunde;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox textBoxBemerkung;
         private System.Windows.Forms.TextBox textBoxNichtGespeichert;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.TextBox textBoxLeitungskreis;
+        private System.Windows.Forms.RadioButton radioButtonHalbJahres;
     }
 }

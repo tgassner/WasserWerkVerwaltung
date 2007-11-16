@@ -4,6 +4,12 @@ using System.Text;
 
 namespace WasserWerkVerwaltung.CommonObjects {
 
+    public enum Rechnung {
+        Keine,
+        Jahres,
+        Halbjahres
+    }
+
     [Serializable]
     public class KundenData{
         private long id;
@@ -14,7 +20,7 @@ namespace WasserWerkVerwaltung.CommonObjects {
         private string tel;
         private string hausbesitzer;
         private string bankVerbindung;
-        private bool bekommtRechnung;
+        private Rechnung bekommtRechnung;
         private long zaehlerEinbauStand;
         private long zaehlerNeuStand;
         private DateTime eichDatum;
@@ -29,7 +35,7 @@ namespace WasserWerkVerwaltung.CommonObjects {
 
         public KundenData(long id, string vorname, string nachname, string strasse,
                     string ort, string tel, string hausbesitzer, string bankVerbindung, 
-                    bool bekommtRechnung, long zaehlerEinbauStand, long zaehlerNeuStand, 
+                    Rechnung bekommtRechnung, long zaehlerEinbauStand, long zaehlerNeuStand, 
                     DateTime eichDatum, string zaehlerNummer, DateTime einbauDatum, 
                     string erkl, DateTime tauschDatum, double zaehlermiete, 
                     string bemerkung, string zahlung, long leitungskreis){
@@ -125,7 +131,7 @@ namespace WasserWerkVerwaltung.CommonObjects {
             }
         }
 
-        public bool BekommtRechnung {
+        public Rechnung BekommtRechnung {
             get {
                 return this.bekommtRechnung;
             }
