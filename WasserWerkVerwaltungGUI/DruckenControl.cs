@@ -11,7 +11,7 @@ using WasserWerkVerwaltung.CommonObjects;
 namespace WasserWerkVerwaltung.GUI {
     public partial class DruckenControl : UserControl {
 
-        //private IWWVBL wwvBLComp;
+        private IWWVBL wwvBLComp;
 
         public DruckenControl() {
             InitializeComponent();
@@ -21,6 +21,17 @@ namespace WasserWerkVerwaltung.GUI {
             this.checkedListBoxKunden.Items.Clear();
             foreach (KundenData kunde in wwvBLComp.GetAllKunden()) {
                 this.checkedListBoxKunden.Items.Add(kunde);
+            }
+
+            this.wwvBLComp = wwvBLComp;
+
+            this.listBoxJahre.Items.Clear();
+
+            foreach (PreisData preis in wwvBLComp.GetAllPreise()){
+                listBoxJahre.Items.Add(preis);
+            }
+            if (listBoxJahre.Items.Count > 0) {
+                listBoxJahre.SelectedIndex = 0;
             }
         }
 
@@ -57,7 +68,18 @@ namespace WasserWerkVerwaltung.GUI {
         }
 
         private void buttonGanzJahresRechnungDrucken_Click(object sender, EventArgs e) {
-            MessageBox.Show("Noch nicht implementiert!");
+            if (checkedListBoxKunden.CheckedItems.Count <= 0) {
+                MessageBox.Show("Keine Kunden markiert!");
+                return;
+            }
+            PreisData pd = listBoxJahre.SelectedItem as PreisData;
+
+            IList<KundenData> selectedKundenList = new List<KundenData>();
+            foreach (KundenData kunde in checkedListBoxKunden.CheckedItems) {
+                selectedKundenList.Add(kunde);
+            }
+
+            this.wwvBLComp.PrintJahresRechnungen(selectedKundenList, (PreisData)listBoxJahre.SelectedItem);
         }
 
         private void buttonHalbJahresRechnungDrucken_Click(object sender, EventArgs e) {
@@ -73,6 +95,10 @@ namespace WasserWerkVerwaltung.GUI {
         }
 
         private void buttonKontrollzettelDrucken_Click(object sender, EventArgs e) {
+            MessageBox.Show("Noch nicht implementiert!");
+        }
+
+        private void buttonHalbJahresRechnungPart2Drucken_Click(object sender, EventArgs e) {
             MessageBox.Show("Noch nicht implementiert!");
         }
     }

@@ -4,11 +4,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{19857CCA-D1DB-46B5-8156-C5BDBAA9E15D}</ProjectGuid>
+    <ProjectGuid>{DA673AE1-7DAF-40F2-98A4-CE52C2C2B960}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WasserWerkVerwaltung.BL</RootNamespace>
-    <AssemblyName>WWVBL</AssemblyName>
+    <RootNamespace>WasserWerkVerwaltung.Print</RootNamespace>
+    <AssemblyName>WWVPrint</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,27 +31,14 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interfaces.cs" />
+    <Compile Include="PrintDocumentData.cs" />
+    <Compile Include="PrintPageData.cs" />
+    <Compile Include="PrintTextElement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WWVBLFactory.cs" />
-    <Compile Include="WWVBusinessComponent.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\WasserWerkVerwaltungCommonObjects\WasserWerkVerwaltungCommonObjects.csproj">
-      <Project>{72EA8889-FBBC-485E-B9E9-4C47A35D8E7A}</Project>
-      <Name>WasserWerkVerwaltungCommonObjects</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WasserWerkVerwaltungDAL\WasserWerkVerwaltungDAL.csproj">
-      <Project>{1C12ABA9-0051-44A0-96FE-0A6ED6E28FBC}</Project>
-      <Name>WasserWerkVerwaltungDAL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WasserWerkVerwaltungPrint\WasserWerkVerwaltungPrint.csproj">
-      <Project>{DA673AE1-7DAF-40F2-98A4-CE52C2C2B960}</Project>
-      <Name>WasserWerkVerwaltungPrint</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

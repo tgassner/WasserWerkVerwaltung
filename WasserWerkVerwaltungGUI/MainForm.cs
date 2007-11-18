@@ -22,8 +22,9 @@ namespace WasserWerkVerwaltung.GUI {
             this.zaehlerStaendeControl = new ZaehlerStaendeControl();
             this.druckenControl = new DruckenControl();
             wwvBLComp = WWVBLFactory.GetBussinessLogicObject();
-            this.stammdatenControl.Init(wwvBLComp);
-            this.druckenControl.Init(wwvBLComp);
+            this.stammdatenControl.Init(this.wwvBLComp);
+            this.zaehlerStaendeControl.Init(this.wwvBLComp);
+            this.druckenControl.Init(this.wwvBLComp);
         }
 
         private void Clear() {
@@ -49,6 +50,7 @@ namespace WasserWerkVerwaltung.GUI {
             this.druckenControl.Location = new System.Drawing.Point(2, 28);
             this.Clear();
             this.Controls.Add(druckenControl);
+            this.druckenControl.Init(this.wwvBLComp);
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e) {

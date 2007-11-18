@@ -22,6 +22,7 @@ namespace WasserWerkVerwaltung.GUI {
 
         public void Init(IWWVBL wwvBLComp) {
             this.wwvBLComp = wwvBLComp;
+            this.textBoxJahr.Text = "";
         }
 
         public void Clear() {

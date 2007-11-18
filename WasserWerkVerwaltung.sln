@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WasserWerkVerwaltungBL", "W
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SetupWWV", "SetupWWV\SetupWWV.vdproj", "{139344DF-4C56-4CF9-9155-9F2890B8CE80}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WasserWerkVerwaltungPrint", "WasserWerkVerwaltungPrint\WasserWerkVerwaltungPrint.csproj", "{DA673AE1-7DAF-40F2-98A4-CE52C2C2B960}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{19857CCA-D1DB-46B5-8156-C5BDBAA9E15D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{139344DF-4C56-4CF9-9155-9F2890B8CE80}.Debug|Any CPU.ActiveCfg = Debug
 		{139344DF-4C56-4CF9-9155-9F2890B8CE80}.Release|Any CPU.ActiveCfg = Release
+		{DA673AE1-7DAF-40F2-98A4-CE52C2C2B960}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA673AE1-7DAF-40F2-98A4-CE52C2C2B960}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA673AE1-7DAF-40F2-98A4-CE52C2C2B960}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA673AE1-7DAF-40F2-98A4-CE52C2C2B960}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

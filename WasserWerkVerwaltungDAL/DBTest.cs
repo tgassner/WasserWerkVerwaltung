@@ -17,7 +17,7 @@ namespace SimplePatientDocumentation.DAL.Tests {
         [SetUp]
         public void InitVisitTest() {
             IKunde kundeDB = Database.CreateKunde();
-            kunde = new KundenData(0, "vorname", "Nachname", "Strasse", "ort", "tel", "hausbesetzer", "Datenbank", Rechnung.Keine, 987, 876, DateTime.Now, "zNr", DateTime.Now, "erkl", DateTime.Now, 234.1, "Bemerkung", "asdf",11);
+            kunde = new KundenData(0, "vorname", "Nachname", "Strasse", "ort", "objekt", "tel", "hausbesetzer", "Datenbank", Rechnung.Keine, 987, 876, DateTime.Now, "zNr", DateTime.Now, "erkl", DateTime.Now, 234.1, "Bemerkung", "asdf",11);
             kID = kundeDB.Insert(kunde);
         }
 
@@ -36,6 +36,7 @@ namespace SimplePatientDocumentation.DAL.Tests {
                     Assert.AreEqual(kundefoeach.Hausbesitzer, this.kunde.Hausbesitzer);
                     Assert.AreEqual(kundefoeach.Nachname, this.kunde.Nachname);
                     Assert.AreEqual(kundefoeach.Ort, this.kunde.Ort);
+                    Assert.AreEqual(kundefoeach.Objekt, this.kunde.Objekt);
                     Assert.AreEqual(kundefoeach.Strasse, this.kunde.Strasse);
                     Assert.AreEqual(kundefoeach.TauschDatum.Date, this.kunde.TauschDatum.Date);
                     Assert.AreEqual(kundefoeach.Tel, this.kunde.Tel);
@@ -64,6 +65,7 @@ namespace SimplePatientDocumentation.DAL.Tests {
             Assert.AreEqual(kunde2.Hausbesitzer, this.kunde.Hausbesitzer);
             Assert.AreEqual(kunde2.Nachname, this.kunde.Nachname);
             Assert.AreEqual(kunde2.Ort, this.kunde.Ort);
+            Assert.AreEqual(kunde2.Objekt, this.kunde.Objekt);
             Assert.AreEqual(kunde2.Strasse, this.kunde.Strasse);
             Assert.AreEqual(kunde2.TauschDatum.Date, this.kunde.TauschDatum.Date);
             Assert.AreEqual(kunde2.Tel, this.kunde.Tel);
@@ -89,6 +91,7 @@ namespace SimplePatientDocumentation.DAL.Tests {
             kunde2.Hausbesitzer = kunde.Hausbesitzer = "Hausbesitzer2";
             kunde2.Nachname = kunde.Nachname = "Nachnane2";
             kunde2.Ort = kunde.Ort = "Ort2";
+            kunde2.Objekt = kunde.Objekt = "Objekt2";
             kunde2.Strasse = kunde.Strasse = "Strasse2";
             kunde2.TauschDatum = kunde.TauschDatum = DateTime.Now;
             kunde2.Tel = kunde.Tel = "Tel2";
@@ -113,6 +116,7 @@ namespace SimplePatientDocumentation.DAL.Tests {
             Assert.AreEqual(kunde3.Hausbesitzer, this.kunde.Hausbesitzer);
             Assert.AreEqual(kunde3.Nachname, this.kunde.Nachname);
             Assert.AreEqual(kunde3.Ort, this.kunde.Ort);
+            Assert.AreEqual(kunde3.Objekt, this.kunde.Objekt);
             Assert.AreEqual(kunde3.Strasse, this.kunde.Strasse);
             Assert.AreEqual(kunde3.TauschDatum.Date, this.kunde.TauschDatum.Date);
             Assert.AreEqual(kunde3.Tel, this.kunde.Tel);

@@ -17,6 +17,7 @@ namespace WasserWerkVerwaltung.CommonObjects {
         private string nachname;
         private string strasse;
         private string ort;
+        private string objekt;
         private string tel;
         private string hausbesitzer;
         private string bankVerbindung;
@@ -34,7 +35,7 @@ namespace WasserWerkVerwaltung.CommonObjects {
         private long leitungskreis;
 
         public KundenData(long id, string vorname, string nachname, string strasse,
-                    string ort, string tel, string hausbesitzer, string bankVerbindung, 
+                    string ort, string objekt, string tel, string hausbesitzer, string bankVerbindung, 
                     Rechnung bekommtRechnung, long zaehlerEinbauStand, long zaehlerNeuStand, 
                     DateTime eichDatum, string zaehlerNummer, DateTime einbauDatum, 
                     string erkl, DateTime tauschDatum, double zaehlermiete, 
@@ -45,6 +46,7 @@ namespace WasserWerkVerwaltung.CommonObjects {
             this.nachname = nachname;
             this.strasse = strasse;
             this.ort = ort;
+            this.objekt = objekt;
             this.tel = tel;
             this.hausbesitzer = hausbesitzer;
             this.bankVerbindung = bankVerbindung;
@@ -101,6 +103,15 @@ namespace WasserWerkVerwaltung.CommonObjects {
             }
             set {
                 this.ort = value;
+            }
+        }
+
+        public string Objekt {
+            get {
+                return this.objekt;
+            }
+            set {
+                this.objekt = value;
             }
         }
 
@@ -396,7 +407,7 @@ namespace WasserWerkVerwaltung.CommonObjects {
         }       
 
         public override string ToString() {
-            return this.jahr + this.jahr.ToString() + " " + this.preis.ToString();
+            return this.jahr.ToString() + " - " + this.preis.ToString() + " EUR/m³";
         }
 
         public override bool Equals(object obj) {

@@ -20,9 +20,14 @@ namespace WasserWerkVerwaltung.BL {
         #endregion JahresDaten
 
         #region Preis
+            IList<PreisData> GetAllPreise();
             PreisData GetPreisDataByJahr(long jahr);
             PreisData InsertPreis(PreisData preis);
             bool UpdatePreis(PreisData jahresDatum);
         #endregion Preis
-    }
+
+        #region Print
+            void PrintJahresRechnungen(IList<KundenData> kunden, PreisData preis);
+        #endregion Print
+        }
 }

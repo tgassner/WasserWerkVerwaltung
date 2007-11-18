@@ -13,8 +13,8 @@ namespace WasserWerkVerwaltung.DAL {
         const string SQL_FIND_BY_ID = "SELECT * FROM Kunde WHERE KundeID = ?";
         const string SQL_FIND_ALL = "SELECT * FROM Kunde";
         const string SQL_LAST_INSERTED_ROW = "SELECT @@Identity";
-        readonly string SQL_UPDATE_BY_ID = "UPDATE Kunde SET Vorname = ?, Nachname = ?, Strasse = ?, Ort = ?, Tel = ?, Hausbesitzer = ?, Bankverbindung = ?, bekommtRechnung = ?, ZaehlerEinbauStand = ?, ZaehlerNeuStand = ?, Eichdatum = ?, ZaehlerNr = ?, Einbaudatum = ?, Erkl = ?, Tauschdatum = ?, Zaehlermiete = ?, Bemerkung = ?, Zahlung = ?, Leitungskreis = ? WHERE KundeID = ?";
-        readonly string SQL_INSERT_BY_ID = "INSERT INTO Kunde (Vorname, Nachname, Strasse, Ort, Tel, Hausbesitzer, Bankverbindung, bekommtRechnung, ZaehlerEinbauStand, ZaehlerNeuStand, Eichdatum, ZaehlerNr, Einbaudatum, Erkl, Tauschdatum, Zaehlermiete, Bemerkung, Zahlung, Leitungskreis) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        readonly string SQL_UPDATE_BY_ID = "UPDATE Kunde SET Vorname = ?, Nachname = ?, Strasse = ?, Ort = ?, Objekt = ?, Tel = ?, Hausbesitzer = ?, Bankverbindung = ?, bekommtRechnung = ?, ZaehlerEinbauStand = ?, ZaehlerNeuStand = ?, Eichdatum = ?, ZaehlerNr = ?, Einbaudatum = ?, Erkl = ?, Tauschdatum = ?, Zaehlermiete = ?, Bemerkung = ?, Zahlung = ?, Leitungskreis = ? WHERE KundeID = ?";
+        readonly string SQL_INSERT_BY_ID = "INSERT INTO Kunde (Vorname, Nachname, Strasse, Ort, Objekt, Tel, Hausbesitzer, Bankverbindung, bekommtRechnung, ZaehlerEinbauStand, ZaehlerNeuStand, Eichdatum, ZaehlerNr, Einbaudatum, Erkl, Tauschdatum, Zaehlermiete, Bemerkung, Zahlung, Leitungskreis) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         readonly string SQL_DELETE_BY_ID = "DELETE FROM Kunde WHERE KundeID = ?";
         static IDbCommand findByIdCmd;
         static IDbCommand findAllCmd;
@@ -38,17 +38,25 @@ namespace WasserWerkVerwaltung.DAL {
                 using (IDataReader rdr = findAllCmd.ExecuteReader()) {
                     IList<KundenData> kundenList = new List<KundenData>();
                     while (rdr.Read()) {
-                        kundenList.Add(new KundenData( (long)(int)rdr["KundeID"], (string)rdr["Vorname"], (string)rdr["Nachname"], 
-                                    (string)rdr["Strasse"], (string)rdr["Ort"],  (string)rdr["Tel"],  
-                                    (string)rdr["Hausbesitzer"], (string)rdr["Bankverbindung"],
-                                    StaticUtilities.Rechnung((int)rdr["bekommtRechnung"]), (long)(int)rdr["ZaehlerEinbauStand"], 
+                        kundenList.Add(new KundenData( (long)(int)rdr["KundeID"],
+                                    (string)rdr["Vorname"],
+                                    (string)rdr["Nachname"], 
+                                    (string)rdr["Strasse"],
+                                    (string)rdr["Ort"],
+                                    (string)rdr["Objekt"],
+                                    (string)rdr["Tel"],  
+                                    (string)rdr["Hausbesitzer"],
+                                    (string)rdr["Bankverbindung"],
+                                    StaticUtilities.Rechnung((int)rdr["bekommtRechnung"]),
+                                    (long)(int)rdr["ZaehlerEinbauStand"], 
                                     (long)(int)rdr["ZaehlerNeuStand"],
                                     (DateTime)rdr["Eichdatum"],
                                     (string)rdr["ZaehlerNr"],
                                     (DateTime)rdr["Einbaudatum"],
                                     (string)rdr["Erkl"],
                                     (DateTime)rdr["Tauschdatum"],
-                                    (double)rdr["Zaehlermiete"],(string)rdr["Bemerkung"],
+                                    (double)rdr["Zaehlermiete"],
+                                    (string)rdr["Bemerkung"],
                                     (string) rdr["Zahlung"],
                                     (long)(int)rdr["Leitungskreis"]));
                     }
@@ -73,17 +81,25 @@ namespace WasserWerkVerwaltung.DAL {
                 using (IDataReader rdr = findByIdCmd.ExecuteReader()) {
                     IList<KundenData> kundenList = new List<KundenData>();
                     if (rdr.Read()) {
-                        return new KundenData((long)(int)rdr["KundeID"], (string)rdr["Vorname"], (string)rdr["Nachname"],
-                                    (string)rdr["Strasse"], (string)rdr["Ort"], (string)rdr["Tel"],
-                                    (string)rdr["Hausbesitzer"], (string)rdr["Bankverbindung"],
-                                    StaticUtilities.Rechnung((int)rdr["bekommtRechnung"]), (long)(int)rdr["ZaehlerEinbauStand"],
+                        return new KundenData((long)(int)rdr["KundeID"], 
+                                    (string)rdr["Vorname"], 
+                                    (string)rdr["Nachname"],
+                                    (string)rdr["Strasse"], 
+                                    (string)rdr["Ort"], 
+                                    (string)rdr["Objekt"],
+                                    (string)rdr["Tel"],
+                                    (string)rdr["Hausbesitzer"], 
+                                    (string)rdr["Bankverbindung"],
+                                    StaticUtilities.Rechnung((int)rdr["bekommtRechnung"]), 
+                                    (long)(int)rdr["ZaehlerEinbauStand"],
                                     (long)(int)rdr["ZaehlerNeuStand"],
                                     (DateTime)rdr["Eichdatum"],
                                     (string)rdr["ZaehlerNr"],
                                     (DateTime)rdr["Einbaudatum"],
                                     (string)rdr["Erkl"],
                                     (DateTime)rdr["Tauschdatum"],
-                                    (double)rdr["Zaehlermiete"], (string)rdr["Bemerkung"],
+                                    (double)rdr["Zaehlermiete"], 
+                                    (string)rdr["Bemerkung"],
                                     (string) rdr["Zahlung"],
                                     (long)(int)rdr["Leitungskreis"]);
                     }
@@ -104,6 +120,7 @@ namespace WasserWerkVerwaltung.DAL {
                     insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Nachname", DbType.String));
                     insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Strasse", DbType.String));
                     insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Ort", DbType.String));
+                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Objekt", DbType.String));
                     insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Tel", DbType.String));
                     insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Hausbesitzer", DbType.String));
                     insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Bankverbindung", DbType.String));
@@ -125,6 +142,7 @@ namespace WasserWerkVerwaltung.DAL {
                 ((IDataParameter)insertByIdCmd.Parameters["@Nachname"]).Value = kunde.Nachname;
                 ((IDataParameter)insertByIdCmd.Parameters["@Strasse"]).Value = kunde.Strasse;
                 ((IDataParameter)insertByIdCmd.Parameters["@Ort"]).Value = kunde.Ort;
+                ((IDataParameter)insertByIdCmd.Parameters["@Objekt"]).Value = kunde.Objekt;
                 ((IDataParameter)insertByIdCmd.Parameters["@Tel"]).Value = kunde.Tel;
                 ((IDataParameter)insertByIdCmd.Parameters["@Hausbesitzer"]).Value = kunde.Hausbesitzer;
                 ((IDataParameter)insertByIdCmd.Parameters["@Bankverbindung"]).Value = kunde.BankVerbindung;
@@ -166,6 +184,7 @@ namespace WasserWerkVerwaltung.DAL {
                     updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Nachname", DbType.String));
                     updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Strasse", DbType.String));
                     updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Ort", DbType.String));
+                    updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Objekt", DbType.String));
                     updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Tel", DbType.String));
                     updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Hausbesitzer", DbType.String));
                     updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Bankverbindung", DbType.String));
@@ -188,6 +207,7 @@ namespace WasserWerkVerwaltung.DAL {
                 ((IDataParameter)updateByIdCmd.Parameters["@Nachname"]).Value = kunde.Nachname;
                 ((IDataParameter)updateByIdCmd.Parameters["@Strasse"]).Value = kunde.Strasse;
                 ((IDataParameter)updateByIdCmd.Parameters["@Ort"]).Value = kunde.Ort;
+                ((IDataParameter)updateByIdCmd.Parameters["@Objekt"]).Value = kunde.Objekt;
                 ((IDataParameter)updateByIdCmd.Parameters["@Tel"]).Value = kunde.Tel;
                 ((IDataParameter)updateByIdCmd.Parameters["@Hausbesitzer"]).Value = kunde.Hausbesitzer;
                 ((IDataParameter)updateByIdCmd.Parameters["@Bankverbindung"]).Value = kunde.BankVerbindung;
