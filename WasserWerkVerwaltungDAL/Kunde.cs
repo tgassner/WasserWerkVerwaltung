@@ -13,8 +13,8 @@ namespace WasserWerkVerwaltung.DAL {
         const string SQL_FIND_BY_ID = "SELECT * FROM Kunde WHERE KundeID = ?";
         const string SQL_FIND_ALL = "SELECT * FROM Kunde";
         const string SQL_LAST_INSERTED_ROW = "SELECT @@Identity";
-        readonly string SQL_UPDATE_BY_ID = "UPDATE Kunde SET Vorname = ?, Nachname = ?, Strasse = ?, Ort = ?, Objekt = ?, Tel = ?, Hausbesitzer = ?, Bankverbindung = ?, bekommtRechnung = ?, ZaehlerEinbauStand = ?, ZaehlerNeuStand = ?, Eichdatum = ?, ZaehlerNr = ?, Einbaudatum = ?, Erkl = ?, Tauschdatum = ?, Zaehlermiete = ?, Bemerkung = ?, Zahlung = ?, Leitungskreis = ? WHERE KundeID = ?";
-        readonly string SQL_INSERT_BY_ID = "INSERT INTO Kunde (Vorname, Nachname, Strasse, Ort, Objekt, Tel, Hausbesitzer, Bankverbindung, bekommtRechnung, ZaehlerEinbauStand, ZaehlerNeuStand, Eichdatum, ZaehlerNr, Einbaudatum, Erkl, Tauschdatum, Zaehlermiete, Bemerkung, Zahlung, Leitungskreis) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        readonly string SQL_UPDATE_BY_ID = "UPDATE Kunde SET Vorname = ?, Nachname = ?, Strasse = ?, Ort = ?, Objekt = ?, Tel = ?, Hausbesitzer = ?, Bankverbindung = ?, bekommtRechnung = ?, Eichdatum = ?, ZaehlerNr = ?, Einbaudatum = ?, Erkl = ?, Tauschdatum = ?, Zaehlermiete = ?, Bemerkung = ?, Zahlung = ?, Leitungskreis = ? WHERE KundeID = ?";
+        readonly string SQL_INSERT_BY_ID = "INSERT INTO Kunde (Vorname, Nachname, Strasse, Ort, Objekt, Tel, Hausbesitzer, Bankverbindung, bekommtRechnung, Eichdatum, ZaehlerNr, Einbaudatum, Erkl, Tauschdatum, Zaehlermiete, Bemerkung, Zahlung, Leitungskreis) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         readonly string SQL_DELETE_BY_ID = "DELETE FROM Kunde WHERE KundeID = ?";
         static IDbCommand findByIdCmd;
         static IDbCommand findAllCmd;
@@ -48,8 +48,6 @@ namespace WasserWerkVerwaltung.DAL {
                                     (string)rdr["Hausbesitzer"],
                                     (string)rdr["Bankverbindung"],
                                     StaticUtilities.Rechnung((int)rdr["bekommtRechnung"]),
-                                    (long)(int)rdr["ZaehlerEinbauStand"], 
-                                    (long)(int)rdr["ZaehlerNeuStand"],
                                     (DateTime)rdr["Eichdatum"],
                                     (string)rdr["ZaehlerNr"],
                                     (DateTime)rdr["Einbaudatum"],
@@ -91,8 +89,6 @@ namespace WasserWerkVerwaltung.DAL {
                                     (string)rdr["Hausbesitzer"], 
                                     (string)rdr["Bankverbindung"],
                                     StaticUtilities.Rechnung((int)rdr["bekommtRechnung"]), 
-                                    (long)(int)rdr["ZaehlerEinbauStand"],
-                                    (long)(int)rdr["ZaehlerNeuStand"],
                                     (DateTime)rdr["Eichdatum"],
                                     (string)rdr["ZaehlerNr"],
                                     (DateTime)rdr["Einbaudatum"],
@@ -125,8 +121,6 @@ namespace WasserWerkVerwaltung.DAL {
                     insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Hausbesitzer", DbType.String));
                     insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Bankverbindung", DbType.String));
                     insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@bekommtRechnung", DbType.Int64));
-                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@ZaehlerEinbauStand", DbType.Int64));
-                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@ZaehlerNeuStand", DbType.Int64));
                     insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Eichdatum", DbType.DateTime));
                     insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@ZaehlerNr", DbType.String));
                     insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Einbaudatum", DbType.DateTime));
@@ -147,8 +141,6 @@ namespace WasserWerkVerwaltung.DAL {
                 ((IDataParameter)insertByIdCmd.Parameters["@Hausbesitzer"]).Value = kunde.Hausbesitzer;
                 ((IDataParameter)insertByIdCmd.Parameters["@Bankverbindung"]).Value = kunde.BankVerbindung;
                 ((IDataParameter)insertByIdCmd.Parameters["@bekommtRechnung"]).Value = StaticUtilities.Rechnung(kunde.BekommtRechnung);
-                ((IDataParameter)insertByIdCmd.Parameters["@ZaehlerEinbauStand"]).Value = kunde.ZaehlerEinbauStand;
-                ((IDataParameter)insertByIdCmd.Parameters["@ZaehlerNeuStand"]).Value = kunde.ZaehlerNeuStand;
                 ((IDataParameter)insertByIdCmd.Parameters["@Eichdatum"]).Value = kunde.EichDatum.Date;
                 ((IDataParameter)insertByIdCmd.Parameters["@ZaehlerNr"]).Value = kunde.ZaehlerNummer;
                 ((IDataParameter)insertByIdCmd.Parameters["@Einbaudatum"]).Value = kunde.EinbauDatum.Date;
@@ -189,8 +181,6 @@ namespace WasserWerkVerwaltung.DAL {
                     updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Hausbesitzer", DbType.String));
                     updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Bankverbindung", DbType.String));
                     updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@bekommtRechnung", DbType.Int64));
-                    updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@ZaehlerEinbauStand", DbType.Int64));
-                    updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@ZaehlerNeuStand", DbType.Int64));
                     updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Eichdatum", DbType.DateTime));
                     updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@ZaehlerNr", DbType.String));
                     updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Einbaudatum", DbType.DateTime));
@@ -212,8 +202,6 @@ namespace WasserWerkVerwaltung.DAL {
                 ((IDataParameter)updateByIdCmd.Parameters["@Hausbesitzer"]).Value = kunde.Hausbesitzer;
                 ((IDataParameter)updateByIdCmd.Parameters["@Bankverbindung"]).Value = kunde.BankVerbindung;
                 ((IDataParameter)updateByIdCmd.Parameters["@bekommtRechnung"]).Value = StaticUtilities.Rechnung(kunde.BekommtRechnung);;
-                ((IDataParameter)updateByIdCmd.Parameters["@ZaehlerEinbauStand"]).Value = kunde.ZaehlerEinbauStand;
-                ((IDataParameter)updateByIdCmd.Parameters["@ZaehlerNeuStand"]).Value = kunde.ZaehlerNeuStand;
                 ((IDataParameter)updateByIdCmd.Parameters["@Eichdatum"]).Value = kunde.EichDatum.Date;
                 ((IDataParameter)updateByIdCmd.Parameters["@ZaehlerNr"]).Value = kunde.ZaehlerNummer;
                 ((IDataParameter)updateByIdCmd.Parameters["@Einbaudatum"]).Value = kunde.EinbauDatum.Date;

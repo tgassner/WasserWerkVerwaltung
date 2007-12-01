@@ -17,7 +17,7 @@ namespace SimplePatientDocumentation.DAL.Tests {
         [SetUp]
         public void InitVisitTest() {
             IKunde kundeDB = Database.CreateKunde();
-            kunde = new KundenData(0, "vorname", "Nachname", "Strasse", "ort", "objekt", "tel", "hausbesetzer", "Datenbank", Rechnung.Keine, 987, 876, DateTime.Now, "zNr", DateTime.Now, "erkl", DateTime.Now, 234.1, "Bemerkung", "asdf",11);
+            kunde = new KundenData(0, "vorname", "Nachname", "Strasse", "ort", "objekt", "tel", "hausbesetzer", "Datenbank", Rechnung.Keine, DateTime.Now, "zNr", DateTime.Now, "erkl", DateTime.Now, 234.1, "Bemerkung", "asdf",11);
             kID = kundeDB.Insert(kunde);
         }
 
@@ -41,9 +41,7 @@ namespace SimplePatientDocumentation.DAL.Tests {
                     Assert.AreEqual(kundefoeach.TauschDatum.Date, this.kunde.TauschDatum.Date);
                     Assert.AreEqual(kundefoeach.Tel, this.kunde.Tel);
                     Assert.AreEqual(kundefoeach.Vorname, this.kunde.Vorname);
-                    Assert.AreEqual(kundefoeach.ZaehlerEinbauStand, this.kunde.ZaehlerEinbauStand);
                     Assert.AreEqual(kundefoeach.Zaehlermiete, this.kunde.Zaehlermiete);
-                    Assert.AreEqual(kundefoeach.ZaehlerNeuStand, this.kunde.ZaehlerNeuStand);
                     Assert.AreEqual(kundefoeach.ZaehlerNummer, this.kunde.ZaehlerNummer);
                     Assert.AreEqual(kundefoeach.Zahlung, this.kunde.Zahlung);
                     Assert.AreEqual(kundefoeach.Leitungskreis, this.kunde.Leitungskreis);
@@ -70,9 +68,7 @@ namespace SimplePatientDocumentation.DAL.Tests {
             Assert.AreEqual(kunde2.TauschDatum.Date, this.kunde.TauschDatum.Date);
             Assert.AreEqual(kunde2.Tel, this.kunde.Tel);
             Assert.AreEqual(kunde2.Vorname, this.kunde.Vorname);
-            Assert.AreEqual(kunde2.ZaehlerEinbauStand, this.kunde.ZaehlerEinbauStand);
             Assert.AreEqual(kunde2.Zaehlermiete, this.kunde.Zaehlermiete);
-            Assert.AreEqual(kunde2.ZaehlerNeuStand, this.kunde.ZaehlerNeuStand);
             Assert.AreEqual(kunde2.ZaehlerNummer, this.kunde.ZaehlerNummer);
             Assert.AreEqual(kunde2.Zahlung, this.kunde.Zahlung);
             Assert.AreEqual(kunde2.Leitungskreis, this.kunde.Leitungskreis);
@@ -96,9 +92,7 @@ namespace SimplePatientDocumentation.DAL.Tests {
             kunde2.TauschDatum = kunde.TauschDatum = DateTime.Now;
             kunde2.Tel = kunde.Tel = "Tel2";
             kunde2.Vorname = kunde.Vorname = "Vorname2";
-            kunde2.ZaehlerEinbauStand = kunde.ZaehlerEinbauStand = 98765;
             kunde2.Zaehlermiete = kunde.Zaehlermiete = 2.09876543;
-            kunde2.ZaehlerNeuStand = kunde.ZaehlerNeuStand = 87654;
             kunde2.ZaehlerNummer = kunde.ZaehlerNummer = "ZNo2";
             kunde2.Zahlung = kunde.Zahlung = "Zahlung2";
             kunde2.Leitungskreis = kunde.Leitungskreis = 22;
@@ -121,9 +115,7 @@ namespace SimplePatientDocumentation.DAL.Tests {
             Assert.AreEqual(kunde3.TauschDatum.Date, this.kunde.TauschDatum.Date);
             Assert.AreEqual(kunde3.Tel, this.kunde.Tel);
             Assert.AreEqual(kunde3.Vorname, this.kunde.Vorname);
-            Assert.AreEqual(kunde3.ZaehlerEinbauStand, this.kunde.ZaehlerEinbauStand);
             Assert.AreEqual(kunde3.Zaehlermiete, this.kunde.Zaehlermiete);
-            Assert.AreEqual(kunde3.ZaehlerNeuStand, this.kunde.ZaehlerNeuStand);
             Assert.AreEqual(kunde3.ZaehlerNummer, this.kunde.ZaehlerNummer);
             Assert.AreEqual(kunde3.Zahlung, this.kunde.Zahlung);
             Assert.AreEqual(kunde3.Leitungskreis, this.kunde.Leitungskreis);
@@ -148,9 +140,9 @@ namespace SimplePatientDocumentation.DAL.Tests {
         [SetUp]
         public void InitVisitTest() {
             IJahresDaten jahresDatenDB = Database.CreateJahresDaten();
-            jahresdaten = new JahresDatenData(0, 1, 0.4, 23, 234, 2007, DateTime.Now, 87.0);
+            jahresdaten = new JahresDatenData(0, 1, 0.4, 23, 234, 2007, DateTime.Now, 87.0,5,8,"asdf",456.7,2345.9);
             this.jdID = jahresDatenDB.Insert(jahresdaten);
-        }
+        }   
 
         [Test]
         public void JahresdatenFindAllTest() {
@@ -165,6 +157,11 @@ namespace SimplePatientDocumentation.DAL.Tests {
                     Assert.AreEqual(jahrfoeach.Rechnungssumme, this.jahresdaten.Rechnungssumme);
                     Assert.AreEqual(jahrfoeach.ZaehlerStandAlt, this.jahresdaten.ZaehlerStandAlt);
                     Assert.AreEqual(jahrfoeach.ZaehlerStandNeu, this.jahresdaten.ZaehlerStandNeu);
+                    Assert.AreEqual(jahrfoeach.TauschZaehlerStandAlt, this.jahresdaten.TauschZaehlerStandAlt);
+                    Assert.AreEqual(jahrfoeach.TauschZaehlerStandNeu, this.jahresdaten.TauschZaehlerStandNeu);
+                    Assert.AreEqual(jahrfoeach.SonstigeForderungenText, this.jahresdaten.SonstigeForderungenText);
+                    Assert.AreEqual(jahrfoeach.SonstigeForderungenValue, this.jahresdaten.SonstigeForderungenValue);
+                    Assert.AreEqual(jahrfoeach.HalbjahresZahlung, this.jahresdaten.HalbjahresZahlung);
                 }
             }
         }
@@ -181,13 +178,18 @@ namespace SimplePatientDocumentation.DAL.Tests {
             Assert.AreEqual(jahredData2.Rechnungssumme, this.jahresdaten.Rechnungssumme);
             Assert.AreEqual(jahredData2.ZaehlerStandAlt, this.jahresdaten.ZaehlerStandAlt);
             Assert.AreEqual(jahredData2.ZaehlerStandNeu, this.jahresdaten.ZaehlerStandNeu);
+            Assert.AreEqual(jahredData2.TauschZaehlerStandAlt, this.jahresdaten.TauschZaehlerStandAlt);
+            Assert.AreEqual(jahredData2.TauschZaehlerStandNeu, this.jahresdaten.TauschZaehlerStandNeu);
+            Assert.AreEqual(jahredData2.SonstigeForderungenText, this.jahresdaten.SonstigeForderungenText);
+            Assert.AreEqual(jahredData2.SonstigeForderungenValue, this.jahresdaten.SonstigeForderungenValue);
+            Assert.AreEqual(jahredData2.HalbjahresZahlung, this.jahresdaten.HalbjahresZahlung);
         }
 
         [Test]
         public void JahresdatenFindByKundenIdTest() {
             IJahresDaten jahredDatenDB = Database.CreateJahresDaten();
-            JahresDatenData jd1 = new JahresDatenData(0, 1, 234, 234, 345, 2007, DateTime.Now, 234.9);
-            JahresDatenData jd2 = new JahresDatenData(0, 1, 2344, 2534, 3545, 2007, DateTime.Now, 233.9);
+            JahresDatenData jd1 = new JahresDatenData(0, 1, 234, 234, 345, 2007, DateTime.Now, 234.9,324,567,"asdfg",2345.7,345.7);
+            JahresDatenData jd2 = new JahresDatenData(0, 1, 2344, 2534, 3545, 2007, DateTime.Now, 233.9,76,987,"sadf",324.7,987.65);
             long jdid1 = jahredDatenDB.Insert(jd1);
             long jdid2 = jahredDatenDB.Insert(jd2);
             IList<JahresDatenData> jahresdataList = jahredDatenDB.FindByKundenId(1);
@@ -205,6 +207,11 @@ namespace SimplePatientDocumentation.DAL.Tests {
                     Assert.AreEqual(jd.Rechnungssumme, jd1.Rechnungssumme);
                     Assert.AreEqual(jd.ZaehlerStandAlt, jd1.ZaehlerStandAlt);
                     Assert.AreEqual(jd.ZaehlerStandNeu, jd1.ZaehlerStandNeu);
+                    Assert.AreEqual(jd.TauschZaehlerStandAlt, jd1.TauschZaehlerStandAlt);
+                    Assert.AreEqual(jd.TauschZaehlerStandNeu, jd1.TauschZaehlerStandNeu);
+                    Assert.AreEqual(jd.SonstigeForderungenText, jd1.SonstigeForderungenText);
+                    Assert.AreEqual(jd.SonstigeForderungenValue, jd1.SonstigeForderungenValue);
+                    Assert.AreEqual(jd.HalbjahresZahlung, jd1.HalbjahresZahlung);
                 }
                 if (jd.Id == jdid2) {
                     jd2exists = !jd2exists;
@@ -215,6 +222,11 @@ namespace SimplePatientDocumentation.DAL.Tests {
                     Assert.AreEqual(jd.Rechnungssumme, jd2.Rechnungssumme);
                     Assert.AreEqual(jd.ZaehlerStandAlt, jd2.ZaehlerStandAlt);
                     Assert.AreEqual(jd.ZaehlerStandNeu, jd2.ZaehlerStandNeu);
+                    Assert.AreEqual(jd.TauschZaehlerStandAlt, jd2.TauschZaehlerStandAlt);
+                    Assert.AreEqual(jd.TauschZaehlerStandNeu, jd2.TauschZaehlerStandNeu);
+                    Assert.AreEqual(jd.SonstigeForderungenText, jd2.SonstigeForderungenText);
+                    Assert.AreEqual(jd.SonstigeForderungenValue, jd2.SonstigeForderungenValue);
+                    Assert.AreEqual(jd.HalbjahresZahlung, jd2.HalbjahresZahlung);
                 }
             }
             Assert.IsTrue(jd1exists && jd2exists);
@@ -231,6 +243,11 @@ namespace SimplePatientDocumentation.DAL.Tests {
             jahredData2.Rechnungssumme = jahresdaten.Rechnungssumme = 436.9;
             jahredData2.ZaehlerStandAlt = jahresdaten.ZaehlerStandAlt = 8765;
             jahredData2.ZaehlerStandNeu = jahresdaten.ZaehlerStandNeu = 234;
+            jahredData2.TauschZaehlerStandAlt = jahresdaten.TauschZaehlerStandAlt = 2345;
+            jahredData2.TauschZaehlerStandNeu = jahresdaten.TauschZaehlerStandNeu = 987;
+            jahredData2.SonstigeForderungenText = jahresdaten.SonstigeForderungenText = "assdfﬂ";
+            jahredData2.SonstigeForderungenValue = jahresdaten.SonstigeForderungenValue = 98.9;
+            jahredData2.HalbjahresZahlung = jahresdaten.HalbjahresZahlung = 234.09;
 
 
             Assert.IsTrue(jahredDatenDB.Update(jahredData2));
@@ -245,6 +262,11 @@ namespace SimplePatientDocumentation.DAL.Tests {
             Assert.AreEqual(jahres3.Rechnungssumme, this.jahresdaten.Rechnungssumme);
             Assert.AreEqual(jahres3.ZaehlerStandAlt, this.jahresdaten.ZaehlerStandAlt);
             Assert.AreEqual(jahres3.ZaehlerStandNeu, this.jahresdaten.ZaehlerStandNeu);
+            Assert.AreEqual(jahres3.TauschZaehlerStandAlt, this.jahresdaten.TauschZaehlerStandAlt);
+            Assert.AreEqual(jahres3.TauschZaehlerStandNeu, this.jahresdaten.TauschZaehlerStandNeu);
+            Assert.AreEqual(jahres3.SonstigeForderungenText, this.jahresdaten.SonstigeForderungenText);
+            Assert.AreEqual(jahres3.SonstigeForderungenValue, this.jahresdaten.SonstigeForderungenValue);
+            Assert.AreEqual(jahres3.HalbjahresZahlung, this.jahresdaten.HalbjahresZahlung);
         }
 
         [Test]

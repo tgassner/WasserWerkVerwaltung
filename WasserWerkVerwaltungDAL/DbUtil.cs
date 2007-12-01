@@ -22,6 +22,10 @@ namespace WasserWerkVerwaltung.DAL {
                     //    MessageBox.Show("Databasefile: " + DBTools.GetDatabaseFullFilename() + "does not exist!");
                     //    Environment.Exit(1);
                     //}
+                    if (!File.Exists("wasser.mdb")) {
+                        MessageBox.Show("Databasefile: wasser.mdb does not exist!");
+                        Environment.Exit(1);
+                    }
                     connString = "Data Source=" + "wasser.mdb" + ";Provider=Microsoft.Jet.OLEDB.4.0;";
                 }
                 conn = new OleDbConnection(connString);

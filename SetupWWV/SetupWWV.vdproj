@@ -39,6 +39,18 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_52012AA9614AA778DD61EE91EDA1FD94"
+        "OwnerKey" = "8:_5D40842C24D9B58F63F8D635AE87EE03"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_52012AA9614AA778DD61EE91EDA1FD94"
+        "OwnerKey" = "8:_E99B2413BB1E4ADE9E868DEB8354D995"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_5D40842C24D9B58F63F8D635AE87EE03"
         "OwnerKey" = "8:_E99B2413BB1E4ADE9E868DEB8354D995"
         "MsmSig" = "8:_UNDEFINED"
@@ -64,13 +76,19 @@
         "Entry"
         {
         "MsmKey" = "8:_F87283B2FA2F4998BE769DD5789A4C84"
-        "OwnerKey" = "8:_E99B2413BB1E4ADE9E868DEB8354D995"
+        "OwnerKey" = "8:_E2747F710D7F4337CE182307EF8A206A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_F87283B2FA2F4998BE769DD5789A4C84"
-        "OwnerKey" = "8:_E2747F710D7F4337CE182307EF8A206A"
+        "OwnerKey" = "8:_E99B2413BB1E4ADE9E868DEB8354D995"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_E99B2413BB1E4ADE9E868DEB8354D995"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -82,25 +100,25 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_52012AA9614AA778DD61EE91EDA1FD94"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_E2747F710D7F4337CE182307EF8A206A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_4A5FB8DB4992FD8E8C99F29341D9FC59"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_E99B2413BB1E4ADE9E868DEB8354D995"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_F87283B2FA2F4998BE769DD5789A4C84"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_4A5FB8DB4992FD8E8C99F29341D9FC59"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -121,6 +139,17 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                }
+            }
         }
         "Release"
         {
@@ -137,6 +166,17 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                }
+            }
         }
     }
     "Deployable"
@@ -200,6 +240,37 @@
                     }
                 }
             "SourcePath" = "8:WWVCO.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_83695022A3E8470F93DA329AD6324ADF"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_52012AA9614AA778DD61EE91EDA1FD94"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:WWVPrint, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_52012AA9614AA778DD61EE91EDA1FD94"
+                    {
+                    "Name" = "8:WWVPrint.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:WWVPrint.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_83695022A3E8470F93DA329AD6324ADF"
@@ -380,7 +451,7 @@
         "PackageCode" = "8:{4D3C5DA9-E15F-4997-B399-FACEA8B17016}"
         "UpgradeCode" = "8:{31F2A098-8994-4E49-A69D-1EA408F017D3}"
         "RestartWWWService" = "11:FALSE"
-        "RemovePreviousVersions" = "11:FALSE"
+        "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
         "ProductVersion" = "8:1.0.0"
@@ -940,7 +1011,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_E99B2413BB1E4ADE9E868DEB8354D995"
             {
-            "SourcePath" = "8:..\\WasserWerkVerwaltungGUI\\obj\\Release\\WWV.exe"
+            "SourcePath" = "8:..\\WasserWerkVerwaltungGUI\\obj\\Debug\\WWV.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_83695022A3E8470F93DA329AD6324ADF"

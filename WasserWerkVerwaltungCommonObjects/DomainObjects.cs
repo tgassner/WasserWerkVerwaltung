@@ -22,8 +22,6 @@ namespace WasserWerkVerwaltung.CommonObjects {
         private string hausbesitzer;
         private string bankVerbindung;
         private Rechnung bekommtRechnung;
-        private long zaehlerEinbauStand;
-        private long zaehlerNeuStand;
         private DateTime eichDatum;
         private string zaehlerNummer;
         private DateTime einbauDatum;
@@ -36,9 +34,8 @@ namespace WasserWerkVerwaltung.CommonObjects {
 
         public KundenData(long id, string vorname, string nachname, string strasse,
                     string ort, string objekt, string tel, string hausbesitzer, string bankVerbindung, 
-                    Rechnung bekommtRechnung, long zaehlerEinbauStand, long zaehlerNeuStand, 
-                    DateTime eichDatum, string zaehlerNummer, DateTime einbauDatum, 
-                    string erkl, DateTime tauschDatum, double zaehlermiete, 
+                    Rechnung bekommtRechnung, DateTime eichDatum, string zaehlerNummer, 
+                    DateTime einbauDatum, string erkl, DateTime tauschDatum, double zaehlermiete, 
                     string bemerkung, string zahlung, long leitungskreis){
 
             this.id = id;
@@ -51,8 +48,6 @@ namespace WasserWerkVerwaltung.CommonObjects {
             this.hausbesitzer = hausbesitzer;
             this.bankVerbindung = bankVerbindung;
             this.bekommtRechnung = bekommtRechnung;
-            this.zaehlerEinbauStand = zaehlerEinbauStand;
-            this.zaehlerNeuStand = zaehlerNeuStand;
             this.eichDatum = eichDatum;
             this.zaehlerNummer = zaehlerNummer;
             this.einbauDatum = einbauDatum;
@@ -148,24 +143,6 @@ namespace WasserWerkVerwaltung.CommonObjects {
             }
             set {
                 this.bekommtRechnung = value;
-            }
-        }
-
-        public long ZaehlerEinbauStand {
-            get {
-                return this.zaehlerEinbauStand;
-            }
-            set {
-                this.zaehlerEinbauStand = value;
-            }
-        }
-
-        public long ZaehlerNeuStand {
-            get {
-                return this.zaehlerNeuStand;
-            }
-            set {
-                this.zaehlerNeuStand = value;
             }
         }
 
@@ -276,10 +253,17 @@ namespace WasserWerkVerwaltung.CommonObjects {
         private long jahr;
         private DateTime ableseDatum;
         private double bereitsBezahlt;
+        private long tauschZaehlerStandAlt;
+        private long tauschZaehlerStandNeu;
+        private string sonstigeForderungenText;
+        private double sonstigeForderungenValue;
+        private double halbjahresZahlung;
 
         public JahresDatenData(long id, long kundenId, double rechnungssumme, 
                     long zaehlerStandAlt, long zaehlerStandNeu, long jahr, 
-                    DateTime ableseDatum, double bereitsBezahlt) {
+                    DateTime ableseDatum, double bereitsBezahlt, long tauschZaehlerStandAlt,
+                    long tauschZaehlerStandNeu, string sonstigeForderungenText,
+                    double sonstigeForderungenValue, double halbjahresZahlung) {
             this.id = id;
             this.kundenId = kundenId;
             this.rechnungssumme = rechnungssumme;
@@ -288,6 +272,11 @@ namespace WasserWerkVerwaltung.CommonObjects {
             this.jahr = jahr;
             this.ableseDatum = ableseDatum;
             this.bereitsBezahlt = bereitsBezahlt;
+            this.tauschZaehlerStandAlt = tauschZaehlerStandAlt;
+            this.tauschZaehlerStandNeu = tauschZaehlerStandNeu;
+            this.sonstigeForderungenText = sonstigeForderungenText;
+            this.sonstigeForderungenValue = sonstigeForderungenValue;
+            this.halbjahresZahlung = halbjahresZahlung;
         }
 
         public long Id {
@@ -359,6 +348,51 @@ namespace WasserWerkVerwaltung.CommonObjects {
             }
             set {
                 this.bereitsBezahlt = value;
+            }
+        }
+
+        public long TauschZaehlerStandAlt{
+            get {
+                return this.tauschZaehlerStandAlt;
+            }
+            set {
+                this.tauschZaehlerStandAlt = value;
+            }
+        }
+
+        public long TauschZaehlerStandNeu{
+            get {
+                return this.tauschZaehlerStandNeu;
+            }
+            set {
+                this.tauschZaehlerStandNeu = value;
+            }
+        }
+
+        public string SonstigeForderungenText{
+            get {
+                return this.sonstigeForderungenText;
+            }
+            set {
+                this.sonstigeForderungenText = value;
+            }
+        }
+
+        public double SonstigeForderungenValue{
+            get {
+                return this.sonstigeForderungenValue;
+            }
+            set {
+                this.sonstigeForderungenValue = value;
+            }
+        }
+
+        public double HalbjahresZahlung{
+            get {
+                return this.halbjahresZahlung;
+            }
+            set {
+                this.halbjahresZahlung = value;
             }
         }
 

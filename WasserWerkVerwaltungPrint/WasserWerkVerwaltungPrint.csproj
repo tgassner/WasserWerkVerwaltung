@@ -35,9 +35,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PrintDocumentData.cs" />
-    <Compile Include="PrintPageData.cs" />
-    <Compile Include="PrintTextElement.cs" />
+    <Compile Include="IPrintableObject.cs" />
+    <Compile Include="PrintableLineObject.cs" />
+    <Compile Include="PrintableTextObject.cs" />
+    <Compile Include="PrintableDocument.cs" />
+    <Compile Include="PrintablePage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
