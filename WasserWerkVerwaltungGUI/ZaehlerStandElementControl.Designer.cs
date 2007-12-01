@@ -26,37 +26,43 @@ namespace WasserWerkVerwaltung.GUI {
             this.label6 = new System.Windows.Forms.Label();
             this.buttonVomVorjahr = new System.Windows.Forms.Button();
             this.textBoxZaehlerStandAlt = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.textBoxNichtGespeichert = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.textBoxRechnungssumme = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.textBoxBereitsbezahlt = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.textBoxHalbJahresWert = new System.Windows.Forms.TextBox();
             this.textBoxAblesedatum = new System.Windows.Forms.TextBox();
+            this.textBoxSonstigeForderungenWert = new System.Windows.Forms.TextBox();
+            this.textBoxTauschZaehlerstandNeu = new System.Windows.Forms.TextBox();
             this.textBoxZaehlerStandNeu = new System.Windows.Forms.TextBox();
             this.buttonRestore = new System.Windows.Forms.Button();
             this.buttonSpeichern = new System.Windows.Forms.Button();
-            this.buttonBerechnen = new System.Windows.Forms.Button();
+            this.textBoxSonstigeForderungenText = new System.Windows.Forms.TextBox();
+            this.textBoxTauschZaehlerstandAlt = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 48);
+            this.label6.Location = new System.Drawing.Point(21, 33);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(83, 13);
+            this.label6.Size = new System.Drawing.Size(80, 13);
             this.label6.TabIndex = 5;
-            this.label6.Text = "Zählerstand alt: ";
+            this.label6.Text = "Zählerstand alt:";
             // 
             // buttonVomVorjahr
             // 
-            this.buttonVomVorjahr.Location = new System.Drawing.Point(98, 16);
+            this.buttonVomVorjahr.Location = new System.Drawing.Point(64, 8);
             this.buttonVomVorjahr.Name = "buttonVomVorjahr";
-            this.buttonVomVorjahr.Size = new System.Drawing.Size(107, 23);
+            this.buttonVomVorjahr.Size = new System.Drawing.Size(107, 20);
             this.buttonVomVorjahr.TabIndex = 0;
             this.buttonVomVorjahr.Text = "Stand vom Vorjahr";
             this.buttonVomVorjahr.UseVisualStyleBackColor = true;
@@ -64,38 +70,35 @@ namespace WasserWerkVerwaltung.GUI {
             // 
             // textBoxZaehlerStandAlt
             // 
-            this.textBoxZaehlerStandAlt.Location = new System.Drawing.Point(98, 45);
+            this.textBoxZaehlerStandAlt.Location = new System.Drawing.Point(103, 30);
             this.textBoxZaehlerStandAlt.Name = "textBoxZaehlerStandAlt";
-            this.textBoxZaehlerStandAlt.Size = new System.Drawing.Size(107, 20);
+            this.textBoxZaehlerStandAlt.Size = new System.Drawing.Size(98, 20);
             this.textBoxZaehlerStandAlt.TabIndex = 1;
             this.textBoxZaehlerStandAlt.TextChanged += new System.EventHandler(this.textChanged);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(212, 45);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(296, 13);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "Rechnung = (Verbrauch * Preis/m³ + Zählermiete) * UST (1.1)";
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.textBoxNichtGespeichert);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.textBoxRechnungssumme);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.textBoxBereitsbezahlt);
             this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.label11);
+            this.groupBox1.Controls.Add(this.label10);
+            this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.label9);
+            this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.textBoxHalbJahresWert);
             this.groupBox1.Controls.Add(this.textBoxAblesedatum);
-            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.textBoxSonstigeForderungenWert);
+            this.groupBox1.Controls.Add(this.textBoxTauschZaehlerstandNeu);
             this.groupBox1.Controls.Add(this.textBoxZaehlerStandNeu);
             this.groupBox1.Controls.Add(this.buttonRestore);
             this.groupBox1.Controls.Add(this.buttonSpeichern);
-            this.groupBox1.Controls.Add(this.buttonBerechnen);
+            this.groupBox1.Controls.Add(this.textBoxSonstigeForderungenText);
             this.groupBox1.Controls.Add(this.buttonVomVorjahr);
+            this.groupBox1.Controls.Add(this.textBoxTauschZaehlerstandAlt);
             this.groupBox1.Controls.Add(this.textBoxZaehlerStandAlt);
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
@@ -106,84 +109,136 @@ namespace WasserWerkVerwaltung.GUI {
             // 
             // textBoxNichtGespeichert
             // 
-            this.textBoxNichtGespeichert.Location = new System.Drawing.Point(488, 90);
+            this.textBoxNichtGespeichert.Location = new System.Drawing.Point(481, 50);
             this.textBoxNichtGespeichert.Name = "textBoxNichtGespeichert";
             this.textBoxNichtGespeichert.ReadOnly = true;
-            this.textBoxNichtGespeichert.Size = new System.Drawing.Size(100, 20);
+            this.textBoxNichtGespeichert.Size = new System.Drawing.Size(107, 20);
             this.textBoxNichtGespeichert.TabIndex = 10;
             this.textBoxNichtGespeichert.Text = "nicht gespeichert";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(219, 22);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(101, 13);
-            this.label5.TabIndex = 9;
-            this.label5.Text = "Rechnungssumme: ";
-            // 
-            // textBoxRechnungssumme
-            // 
-            this.textBoxRechnungssumme.Location = new System.Drawing.Point(321, 19);
-            this.textBoxRechnungssumme.Name = "textBoxRechnungssumme";
-            this.textBoxRechnungssumme.Size = new System.Drawing.Size(74, 20);
-            this.textBoxRechnungssumme.TabIndex = 5;
-            this.textBoxRechnungssumme.TextChanged += new System.EventHandler(this.textChanged);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 108);
+            this.label4.Location = new System.Drawing.Point(22, 93);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(83, 13);
+            this.label4.Size = new System.Drawing.Size(80, 13);
             this.label4.TabIndex = 9;
-            this.label4.Text = "Bereits Bezahlt: ";
+            this.label4.Text = "Bereits Bezahlt:";
             // 
             // textBoxBereitsbezahlt
             // 
-            this.textBoxBereitsbezahlt.Location = new System.Drawing.Point(98, 105);
+            this.textBoxBereitsbezahlt.Location = new System.Drawing.Point(103, 90);
             this.textBoxBereitsbezahlt.Name = "textBoxBereitsbezahlt";
-            this.textBoxBereitsbezahlt.Size = new System.Drawing.Size(107, 20);
+            this.textBoxBereitsbezahlt.Size = new System.Drawing.Size(98, 20);
             this.textBoxBereitsbezahlt.TabIndex = 4;
             this.textBoxBereitsbezahlt.TextChanged += new System.EventHandler(this.textChanged);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 88);
+            this.label3.Location = new System.Drawing.Point(31, 73);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(74, 13);
+            this.label3.Size = new System.Drawing.Size(71, 13);
             this.label3.TabIndex = 5;
-            this.label3.Text = "Ablesedatum: ";
+            this.label3.Text = "Ablesedatum:";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(263, 93);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(86, 13);
+            this.label11.TabIndex = 5;
+            this.label11.Text = "Halbjahres Wert:";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(249, 73);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(101, 13);
+            this.label10.TabIndex = 5;
+            this.label10.Text = "Sonstige Ford Wert:";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(250, 53);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(100, 13);
+            this.label8.TabIndex = 5;
+            this.label8.Text = "TauschZstand neu:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 68);
+            this.label2.Location = new System.Drawing.Point(15, 53);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(90, 13);
+            this.label2.Size = new System.Drawing.Size(87, 13);
             this.label2.TabIndex = 5;
-            this.label2.Text = "Zählerstand neu: ";
+            this.label2.Text = "Zählerstand neu:";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(1, 114);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(102, 13);
+            this.label9.TabIndex = 5;
+            this.label9.Text = "Sonstige Ford. Text:";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(256, 33);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(93, 13);
+            this.label7.TabIndex = 5;
+            this.label7.Text = "TauschZstand alt:";
+            // 
+            // textBoxHalbJahresWert
+            // 
+            this.textBoxHalbJahresWert.Location = new System.Drawing.Point(350, 90);
+            this.textBoxHalbJahresWert.Name = "textBoxHalbJahresWert";
+            this.textBoxHalbJahresWert.Size = new System.Drawing.Size(98, 20);
+            this.textBoxHalbJahresWert.TabIndex = 2;
+            this.textBoxHalbJahresWert.TextChanged += new System.EventHandler(this.textChanged);
             // 
             // textBoxAblesedatum
             // 
-            this.textBoxAblesedatum.Location = new System.Drawing.Point(98, 85);
+            this.textBoxAblesedatum.Location = new System.Drawing.Point(103, 70);
             this.textBoxAblesedatum.Name = "textBoxAblesedatum";
-            this.textBoxAblesedatum.Size = new System.Drawing.Size(107, 20);
+            this.textBoxAblesedatum.Size = new System.Drawing.Size(98, 20);
             this.textBoxAblesedatum.TabIndex = 3;
             this.textBoxAblesedatum.TextChanged += new System.EventHandler(this.textChanged);
             // 
+            // textBoxSonstigeForderungenWert
+            // 
+            this.textBoxSonstigeForderungenWert.Location = new System.Drawing.Point(350, 70);
+            this.textBoxSonstigeForderungenWert.Name = "textBoxSonstigeForderungenWert";
+            this.textBoxSonstigeForderungenWert.Size = new System.Drawing.Size(98, 20);
+            this.textBoxSonstigeForderungenWert.TabIndex = 2;
+            this.textBoxSonstigeForderungenWert.TextChanged += new System.EventHandler(this.textChanged);
+            // 
+            // textBoxTauschZaehlerstandNeu
+            // 
+            this.textBoxTauschZaehlerstandNeu.Location = new System.Drawing.Point(350, 50);
+            this.textBoxTauschZaehlerstandNeu.Name = "textBoxTauschZaehlerstandNeu";
+            this.textBoxTauschZaehlerstandNeu.Size = new System.Drawing.Size(98, 20);
+            this.textBoxTauschZaehlerstandNeu.TabIndex = 2;
+            this.textBoxTauschZaehlerstandNeu.TextChanged += new System.EventHandler(this.textChanged);
+            // 
             // textBoxZaehlerStandNeu
             // 
-            this.textBoxZaehlerStandNeu.Location = new System.Drawing.Point(98, 65);
+            this.textBoxZaehlerStandNeu.Location = new System.Drawing.Point(103, 50);
             this.textBoxZaehlerStandNeu.Name = "textBoxZaehlerStandNeu";
-            this.textBoxZaehlerStandNeu.Size = new System.Drawing.Size(107, 20);
+            this.textBoxZaehlerStandNeu.Size = new System.Drawing.Size(98, 20);
             this.textBoxZaehlerStandNeu.TabIndex = 2;
             this.textBoxZaehlerStandNeu.TextChanged += new System.EventHandler(this.textChanged);
             // 
             // buttonRestore
             // 
-            this.buttonRestore.Location = new System.Drawing.Point(365, 88);
+            this.buttonRestore.Location = new System.Drawing.Point(481, 107);
             this.buttonRestore.Name = "buttonRestore";
             this.buttonRestore.Size = new System.Drawing.Size(107, 23);
             this.buttonRestore.TabIndex = 8;
@@ -193,7 +248,7 @@ namespace WasserWerkVerwaltung.GUI {
             // 
             // buttonSpeichern
             // 
-            this.buttonSpeichern.Location = new System.Drawing.Point(252, 88);
+            this.buttonSpeichern.Location = new System.Drawing.Point(481, 78);
             this.buttonSpeichern.Name = "buttonSpeichern";
             this.buttonSpeichern.Size = new System.Drawing.Size(107, 23);
             this.buttonSpeichern.TabIndex = 7;
@@ -201,15 +256,21 @@ namespace WasserWerkVerwaltung.GUI {
             this.buttonSpeichern.UseVisualStyleBackColor = true;
             this.buttonSpeichern.Click += new System.EventHandler(this.buttonSpeichern_Click);
             // 
-            // buttonBerechnen
+            // textBoxSonstigeForderungenText
             // 
-            this.buttonBerechnen.Location = new System.Drawing.Point(398, 18);
-            this.buttonBerechnen.Name = "buttonBerechnen";
-            this.buttonBerechnen.Size = new System.Drawing.Size(107, 23);
-            this.buttonBerechnen.TabIndex = 6;
-            this.buttonBerechnen.Text = "Berechnen";
-            this.buttonBerechnen.UseVisualStyleBackColor = true;
-            this.buttonBerechnen.Click += new System.EventHandler(this.buttonBerechnen_Click);
+            this.textBoxSonstigeForderungenText.Location = new System.Drawing.Point(103, 110);
+            this.textBoxSonstigeForderungenText.Name = "textBoxSonstigeForderungenText";
+            this.textBoxSonstigeForderungenText.Size = new System.Drawing.Size(345, 20);
+            this.textBoxSonstigeForderungenText.TabIndex = 1;
+            this.textBoxSonstigeForderungenText.TextChanged += new System.EventHandler(this.textChanged);
+            // 
+            // textBoxTauschZaehlerstandAlt
+            // 
+            this.textBoxTauschZaehlerstandAlt.Location = new System.Drawing.Point(350, 30);
+            this.textBoxTauschZaehlerstandAlt.Name = "textBoxTauschZaehlerstandAlt";
+            this.textBoxTauschZaehlerstandAlt.Size = new System.Drawing.Size(98, 20);
+            this.textBoxTauschZaehlerstandAlt.TabIndex = 1;
+            this.textBoxTauschZaehlerstandAlt.TextChanged += new System.EventHandler(this.textChanged);
             // 
             // ZaehlerStandElementControl
             // 
@@ -229,19 +290,25 @@ namespace WasserWerkVerwaltung.GUI {
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button buttonVomVorjahr;
         private System.Windows.Forms.TextBox textBoxZaehlerStandAlt;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBoxZaehlerStandNeu;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBoxAblesedatum;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBoxRechnungssumme;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textBoxBereitsbezahlt;
-        private System.Windows.Forms.Button buttonBerechnen;
         private System.Windows.Forms.Button buttonRestore;
         private System.Windows.Forms.Button buttonSpeichern;
         private System.Windows.Forms.TextBox textBoxNichtGespeichert;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox textBoxTauschZaehlerstandNeu;
+        private System.Windows.Forms.TextBox textBoxTauschZaehlerstandAlt;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox textBoxSonstigeForderungenWert;
+        private System.Windows.Forms.TextBox textBoxSonstigeForderungenText;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox textBoxHalbJahresWert;
     }
 }

@@ -50,14 +50,14 @@ namespace WasserWerkVerwaltung.GUI {
         private void listBoxJahre_SelectedIndexChanged(object sender, EventArgs e) {
             if (this.listBoxJahre.SelectedItem != null) {
 
-                this.labelRechnungssumme.Text = ((JahresDatenData)this.listBoxJahre.SelectedItem).Rechnungssumme.ToString();
-                this.labelRechnungssummehalbe.Text = (((JahresDatenData)this.listBoxJahre.SelectedItem).Rechnungssumme / 2).ToString();
+                //this.labelRechnungssumme.Text = wwvBLComp.calcJahresrechnungBrutto().ToString();//((JahresDatenData)this.listBoxJahre.SelectedItem).Rechnungssumme.ToString();
+                //this.labelRechnungssummehalbe.Text = (((JahresDatenData)this.listBoxJahre.SelectedItem).Rechnungssumme / 2).ToString();
                 this.labelZaehlerStandAlt.Text = ((JahresDatenData)this.listBoxJahre.SelectedItem).ZaehlerStandAlt.ToString();
                 this.labelZaehlerstandNeu.Text = ((JahresDatenData)this.listBoxJahre.SelectedItem).ZaehlerStandNeu.ToString();
                 this.labelAbleseDatum.Text = ((JahresDatenData)this.listBoxJahre.SelectedItem).AbleseDatum.Date.ToString("dd.MM.yyyy", DateTimeFormatInfo.InvariantInfo);
                 this.labelJahr.Text = ((JahresDatenData)this.listBoxJahre.SelectedItem).Jahr.ToString();
                 this.labelBereitsBezahlt.Text = ((JahresDatenData)this.listBoxJahre.SelectedItem).BereitsBezahlt.ToString();
-                this.labelRechnungsSummeMinusBereitsBezahlt.Text = (((JahresDatenData)this.listBoxJahre.SelectedItem).Rechnungssumme - ((JahresDatenData)this.listBoxJahre.SelectedItem).BereitsBezahlt).ToString();
+                //this.labelRechnungsSummeMinusBereitsBezahlt.Text = (((JahresDatenData)this.listBoxJahre.SelectedItem).Rechnungssumme - ((JahresDatenData)this.listBoxJahre.SelectedItem).BereitsBezahlt).ToString();
 
             }
         }

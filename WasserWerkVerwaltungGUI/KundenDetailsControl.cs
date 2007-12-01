@@ -54,8 +54,6 @@ namespace WasserWerkVerwaltung.GUI {
             this.textBoxObjekt.Text = currentKunde.Objekt;
             this.textBoxTel.Text = currentKunde.Tel;
             this.textBoxBankverbindung.Text = currentKunde.BankVerbindung;
-            this.textBoxZaehlerStandEinbau.Text = currentKunde.ZaehlerEinbauStand.ToString();
-            this.textBoxZaehlerStandNeu.Text = currentKunde.ZaehlerNeuStand.ToString();
             this.textBoxEichdatum.Text = currentKunde.EichDatum.Date.ToString("dd.MM.yyyy", DateTimeFormatInfo.InvariantInfo);
             this.textBoxZaehlerNummer.Text = currentKunde.ZaehlerNummer;
             this.textBoxEinbaudatum.Text = currentKunde.EinbauDatum.Date.ToString("dd.MM.yyyy", DateTimeFormatInfo.InvariantInfo);
@@ -88,19 +86,6 @@ namespace WasserWerkVerwaltung.GUI {
         }
 
         private bool checkFields() {
-            try {
-                long l = Int64.Parse(this.textBoxZaehlerStandEinbau.Text);
-            } catch (FormatException) {
-                MessageBox.Show("Bitte ZaehlerStandEinbau überprüfen: Wert ungültig.");
-                return false;
-            }
-
-            try {
-                long l = Int64.Parse(this.textBoxZaehlerStandNeu.Text);
-            } catch (FormatException) {
-                MessageBox.Show("Bitte ZaehlerStandNeu überprüfen: Wert ungültig.");
-                return false;
-            }
 
             try {
                 DateTime dt = DateTime.Parse(this.textBoxEichdatum.Text, DateTimeFormatInfo.CurrentInfo);
@@ -147,7 +132,7 @@ namespace WasserWerkVerwaltung.GUI {
                 return;
             }
 
-            KundenData tempKunde = new KundenData(currentKunde.Id, "", "","", "", "", "", "", "", Rechnung.Keine, 0, 0, DateTime.Now, "", DateTime.Now, "", DateTime.Now, 0, "", "",0);
+            KundenData tempKunde = new KundenData(currentKunde.Id, "", "","", "", "", "", "", "", Rechnung.Keine, DateTime.Now, "", DateTime.Now, "", DateTime.Now, 0, "", "",0);
 
             if (!checkFields())
                 return;
@@ -158,8 +143,6 @@ namespace WasserWerkVerwaltung.GUI {
             tempKunde.Objekt = this.textBoxObjekt.Text;
             tempKunde.Tel = this.textBoxTel.Text;
             tempKunde.BankVerbindung = this.textBoxBankverbindung.Text;
-            tempKunde.ZaehlerEinbauStand = Int64.Parse(this.textBoxZaehlerStandEinbau.Text);
-            tempKunde.ZaehlerNeuStand = Int64.Parse(this.textBoxZaehlerStandNeu.Text);
             tempKunde.EichDatum = DateTime.Parse(this.textBoxEichdatum.Text, DateTimeFormatInfo.CurrentInfo);
             tempKunde.ZaehlerNummer = this.textBoxZaehlerNummer.Text;
             tempKunde.EinbauDatum = DateTime.Parse(this.textBoxEinbaudatum.Text, DateTimeFormatInfo.CurrentInfo);
@@ -208,7 +191,7 @@ namespace WasserWerkVerwaltung.GUI {
         }
 
         private void buttonNewKunde_Click(object sender, EventArgs e) {
-            currentKunde = new KundenData(0, "", "", "", "", "", "", "", "", Rechnung.Keine, 0, 0, DateTime.Now.Date, "", DateTime.Now.Date, "", DateTime.Now.Date, 0, "", "",0);
+            currentKunde = new KundenData(0, "", "", "", "", "", "", "", "", Rechnung.Keine, DateTime.Now.Date, "", DateTime.Now.Date, "", DateTime.Now.Date, 0, "", "",0);
             this.fillDataFromCurrentCustomer();
             this.changed = true;
             this.textBoxNichtGespeichert.Visible = this.changed;

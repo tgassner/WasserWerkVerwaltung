@@ -14,8 +14,8 @@ namespace WasserWerkVerwaltung.DAL {
         const string SQL_FIND_BY_KUNDEN_ID = "SELECT * FROM JahresDaten WHERE KundeID = ?";
         const string SQL_FIND_ALL = "SELECT * FROM JahresDaten";
         const string SQL_LAST_INSERTED_ROW = "SELECT @@Identity";
-        readonly string SQL_UPDATE_BY_ID = "UPDATE JahresDaten SET KundeID = ?, Rechnungssumme = ?, ZaehlerStandAlt = ?, ZaehlerStandNeu = ?, Ablesedatum = ?, Jahr = ?, BereitsBezahlt = ?, TauschZaehlerStandAlt = ?, TauschZaehlerStandNeu = ?, SonstigeForderungenText = ?, SonstigeForderungenValue = ?, HalbjahresZahlung = ? WHERE JahresDatenID = ?";
-        readonly string SQL_INSERT_BY_ID = "INSERT INTO JahresDaten (KundeID, Rechnungssumme, ZaehlerStandAlt, ZaehlerStandNeu, Ablesedatum, Jahr, BereitsBezahlt, TauschZaehlerStandAlt, TauschZaehlerStandNeu, SonstigeForderungenText, SonstigeForderungenValue, HalbjahresZahlung) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+        readonly string SQL_UPDATE_BY_ID = "UPDATE JahresDaten SET KundeID = ?, ZaehlerStandAlt = ?, ZaehlerStandNeu = ?, Ablesedatum = ?, Jahr = ?, BereitsBezahlt = ?, TauschZaehlerStandAlt = ?, TauschZaehlerStandNeu = ?, SonstigeForderungenText = ?, SonstigeForderungenValue = ?, HalbjahresZahlung = ? WHERE JahresDatenID = ?";
+        readonly string SQL_INSERT_BY_ID = "INSERT INTO JahresDaten (KundeID, ZaehlerStandAlt, ZaehlerStandNeu, Ablesedatum, Jahr, BereitsBezahlt, TauschZaehlerStandAlt, TauschZaehlerStandNeu, SonstigeForderungenText, SonstigeForderungenValue, HalbjahresZahlung) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
         readonly string SQL_DELETE_BY_ID = "DELETE FROM JahresDaten WHERE JahresDatenID = ?";
         static IDbCommand findByIdCmd;
         static IDbCommand findByKundeIdCmd;
@@ -42,7 +42,6 @@ namespace WasserWerkVerwaltung.DAL {
                         jahresDatenList.Add(new JahresDatenData(
                                      (long)(int)rdr["JahresDatenID"], 
                                      (long)(int)rdr["KundeID"],
-                                     (double) rdr["Rechnungssumme"],
                                      (long) (int) rdr["ZaehlerStandAlt"],
                                      (long) (int) rdr["ZaehlerStandNeu"],
                                      (long) (int) rdr["Jahr"],
@@ -79,7 +78,6 @@ namespace WasserWerkVerwaltung.DAL {
                         return new JahresDatenData(
                                      (long)(int)rdr["JahresDatenID"],
                                      (long)(int)rdr["KundeID"],
-                                     (double)rdr["Rechnungssumme"],
                                      (long)(int)rdr["ZaehlerStandAlt"],
                                      (long)(int)rdr["ZaehlerStandNeu"],
                                      (long)(int)rdr["Jahr"],
@@ -117,7 +115,6 @@ namespace WasserWerkVerwaltung.DAL {
                         jahresDatenList.Add( new JahresDatenData(
                                      (long)(int)rdr["JahresDatenID"],
                                      (long)(int)rdr["KundeID"],
-                                     (double)rdr["Rechnungssumme"],
                                      (long)(int)rdr["ZaehlerStandAlt"],
                                      (long)(int)rdr["ZaehlerStandNeu"],
                                      (long)(int)rdr["Jahr"],
@@ -145,7 +142,6 @@ namespace WasserWerkVerwaltung.DAL {
 
                     insertByIdCmd = DbUtil.CreateCommand(SQL_INSERT_BY_ID, DbUtil.CurrentConnection);
                     insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@KundeID", DbType.Int64));
-                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Rechnungssumme", DbType.Double));
                     insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@ZaehlerStandAlt", DbType.Int64));
                     insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@ZaehlerStandNeu", DbType.Int64));
                     insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Ablesedatum", DbType.DateTime));
@@ -159,7 +155,6 @@ namespace WasserWerkVerwaltung.DAL {
                 }
 
                 ((IDataParameter)insertByIdCmd.Parameters["@KundeID"]).Value = jahresDatenData.KundenId;
-                ((IDataParameter)insertByIdCmd.Parameters["@Rechnungssumme"]).Value = jahresDatenData.Rechnungssumme;
                 ((IDataParameter)insertByIdCmd.Parameters["@ZaehlerStandAlt"]).Value = jahresDatenData.ZaehlerStandAlt;
                 ((IDataParameter)insertByIdCmd.Parameters["@ZaehlerStandNeu"]).Value = jahresDatenData.ZaehlerStandNeu;
                 ((IDataParameter)insertByIdCmd.Parameters["@Ablesedatum"]).Value = jahresDatenData.AbleseDatum.Date;
@@ -192,7 +187,6 @@ namespace WasserWerkVerwaltung.DAL {
                     updateByIdCmd = DbUtil.CreateCommand(SQL_UPDATE_BY_ID, DbUtil.CurrentConnection);
 
                     updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@KundeID", DbType.Int64));
-                    updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Rechnungssumme", DbType.Double));
                     updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@ZaehlerStandAlt", DbType.Int64));
                     updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@ZaehlerStandNeu", DbType.Int64));
                     updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@Ablesedatum", DbType.DateTime));
@@ -207,7 +201,6 @@ namespace WasserWerkVerwaltung.DAL {
                 }
 
                 ((IDataParameter)updateByIdCmd.Parameters["@KundeID"]).Value = jahresDatenData.KundenId;
-                ((IDataParameter)updateByIdCmd.Parameters["@Rechnungssumme"]).Value = jahresDatenData.Rechnungssumme;
                 ((IDataParameter)updateByIdCmd.Parameters["@ZaehlerStandAlt"]).Value = jahresDatenData.ZaehlerStandAlt;
                 ((IDataParameter)updateByIdCmd.Parameters["@ZaehlerStandNeu"]).Value = jahresDatenData.ZaehlerStandNeu;
                 ((IDataParameter)updateByIdCmd.Parameters["@Ablesedatum"]).Value = jahresDatenData.AbleseDatum.Date;

@@ -140,7 +140,7 @@ namespace SimplePatientDocumentation.DAL.Tests {
         [SetUp]
         public void InitVisitTest() {
             IJahresDaten jahresDatenDB = Database.CreateJahresDaten();
-            jahresdaten = new JahresDatenData(0, 1, 0.4, 23, 234, 2007, DateTime.Now, 87.0,5,8,"asdf",456.7,2345.9);
+            jahresdaten = new JahresDatenData(0, 1, 23, 234, 2007, DateTime.Now, 87.0,5,8,"asdf",456.7,2345.9);
             this.jdID = jahresDatenDB.Insert(jahresdaten);
         }   
 
@@ -154,7 +154,6 @@ namespace SimplePatientDocumentation.DAL.Tests {
                     Assert.AreEqual(jahrfoeach.BereitsBezahlt, this.jahresdaten.BereitsBezahlt);
                     Assert.AreEqual(jahrfoeach.Jahr, this.jahresdaten.Jahr);
                     Assert.AreEqual(jahrfoeach.KundenId, this.jahresdaten.KundenId);
-                    Assert.AreEqual(jahrfoeach.Rechnungssumme, this.jahresdaten.Rechnungssumme);
                     Assert.AreEqual(jahrfoeach.ZaehlerStandAlt, this.jahresdaten.ZaehlerStandAlt);
                     Assert.AreEqual(jahrfoeach.ZaehlerStandNeu, this.jahresdaten.ZaehlerStandNeu);
                     Assert.AreEqual(jahrfoeach.TauschZaehlerStandAlt, this.jahresdaten.TauschZaehlerStandAlt);
@@ -175,7 +174,6 @@ namespace SimplePatientDocumentation.DAL.Tests {
             Assert.AreEqual(jahredData2.BereitsBezahlt, this.jahresdaten.BereitsBezahlt);
             Assert.AreEqual(jahredData2.Jahr, this.jahresdaten.Jahr);
             Assert.AreEqual(jahredData2.KundenId, this.jahresdaten.KundenId);
-            Assert.AreEqual(jahredData2.Rechnungssumme, this.jahresdaten.Rechnungssumme);
             Assert.AreEqual(jahredData2.ZaehlerStandAlt, this.jahresdaten.ZaehlerStandAlt);
             Assert.AreEqual(jahredData2.ZaehlerStandNeu, this.jahresdaten.ZaehlerStandNeu);
             Assert.AreEqual(jahredData2.TauschZaehlerStandAlt, this.jahresdaten.TauschZaehlerStandAlt);
@@ -188,8 +186,8 @@ namespace SimplePatientDocumentation.DAL.Tests {
         [Test]
         public void JahresdatenFindByKundenIdTest() {
             IJahresDaten jahredDatenDB = Database.CreateJahresDaten();
-            JahresDatenData jd1 = new JahresDatenData(0, 1, 234, 234, 345, 2007, DateTime.Now, 234.9,324,567,"asdfg",2345.7,345.7);
-            JahresDatenData jd2 = new JahresDatenData(0, 1, 2344, 2534, 3545, 2007, DateTime.Now, 233.9,76,987,"sadf",324.7,987.65);
+            JahresDatenData jd1 = new JahresDatenData(0, 1, 234, 345, 2007, DateTime.Now, 234.9,324,567,"asdfg",2345.7,345.7);
+            JahresDatenData jd2 = new JahresDatenData(0, 1, 234, 3545, 2007, DateTime.Now, 233.9,76,987,"sadf",324.7,987.65);
             long jdid1 = jahredDatenDB.Insert(jd1);
             long jdid2 = jahredDatenDB.Insert(jd2);
             IList<JahresDatenData> jahresdataList = jahredDatenDB.FindByKundenId(1);
@@ -204,7 +202,6 @@ namespace SimplePatientDocumentation.DAL.Tests {
                     Assert.AreEqual(jd.BereitsBezahlt, jd1.BereitsBezahlt);
                     Assert.AreEqual(jd.Jahr, jd1.Jahr);
                     Assert.AreEqual(jd.KundenId, jd1.KundenId);
-                    Assert.AreEqual(jd.Rechnungssumme, jd1.Rechnungssumme);
                     Assert.AreEqual(jd.ZaehlerStandAlt, jd1.ZaehlerStandAlt);
                     Assert.AreEqual(jd.ZaehlerStandNeu, jd1.ZaehlerStandNeu);
                     Assert.AreEqual(jd.TauschZaehlerStandAlt, jd1.TauschZaehlerStandAlt);
@@ -219,7 +216,6 @@ namespace SimplePatientDocumentation.DAL.Tests {
                     Assert.AreEqual(jd.BereitsBezahlt, jd2.BereitsBezahlt);
                     Assert.AreEqual(jd.Jahr, jd2.Jahr);
                     Assert.AreEqual(jd.KundenId, jd2.KundenId);
-                    Assert.AreEqual(jd.Rechnungssumme, jd2.Rechnungssumme);
                     Assert.AreEqual(jd.ZaehlerStandAlt, jd2.ZaehlerStandAlt);
                     Assert.AreEqual(jd.ZaehlerStandNeu, jd2.ZaehlerStandNeu);
                     Assert.AreEqual(jd.TauschZaehlerStandAlt, jd2.TauschZaehlerStandAlt);
@@ -240,7 +236,6 @@ namespace SimplePatientDocumentation.DAL.Tests {
             jahredData2.BereitsBezahlt = jahresdaten.BereitsBezahlt = 88.8;
             jahredData2.Jahr = jahresdaten.Jahr = 2007;
             jahredData2.KundenId = jahresdaten.KundenId = 5;
-            jahredData2.Rechnungssumme = jahresdaten.Rechnungssumme = 436.9;
             jahredData2.ZaehlerStandAlt = jahresdaten.ZaehlerStandAlt = 8765;
             jahredData2.ZaehlerStandNeu = jahresdaten.ZaehlerStandNeu = 234;
             jahredData2.TauschZaehlerStandAlt = jahresdaten.TauschZaehlerStandAlt = 2345;
@@ -259,7 +254,6 @@ namespace SimplePatientDocumentation.DAL.Tests {
             Assert.AreEqual(jahres3.BereitsBezahlt, this.jahresdaten.BereitsBezahlt);
             Assert.AreEqual(jahres3.Jahr, this.jahresdaten.Jahr);
             Assert.AreEqual(jahres3.KundenId, this.jahresdaten.KundenId);
-            Assert.AreEqual(jahres3.Rechnungssumme, this.jahresdaten.Rechnungssumme);
             Assert.AreEqual(jahres3.ZaehlerStandAlt, this.jahresdaten.ZaehlerStandAlt);
             Assert.AreEqual(jahres3.ZaehlerStandNeu, this.jahresdaten.ZaehlerStandNeu);
             Assert.AreEqual(jahres3.TauschZaehlerStandAlt, this.jahresdaten.TauschZaehlerStandAlt);
