@@ -191,7 +191,7 @@ namespace WasserWerkVerwaltung.BL {
                     ppd.AddPrintableObject(new PrintableTextObject("Zählermiete =", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 17 * zeilenabstand));
                     ppd.AddPrintableObject(new PrintableTextObject("EUR " + kunde.Zaehlermiete + " netto", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, mittlererRand, obererRand + 17 * zeilenabstand));
                     ppd.AddPrintableObject(new PrintableTextObject("Sonstige Forderungen: " + jdd.SonstigeForderungenText + " =", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 18 * zeilenabstand));
-                    ppd.AddPrintableObject(new PrintableTextObject("EUR " + (jdd.SonstigeForderungenValue * -1) + " netto", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, mittlererRand, obererRand + 18 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("EUR " + jdd.SonstigeForderungenValue + " netto", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, mittlererRand, obererRand + 18 * zeilenabstand));
                     ppd.AddPrintableObject(new PrintableLineObject(Pens.Black, (int)linkerRand, (int)(obererRand + 19 * zeilenabstand), (int)linkerRand + 650, (int)(obererRand + 19 * zeilenabstand)));
                     
                     ppd.AddPrintableObject(new PrintableTextObject("Rechnungssumme netto =", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 19 * zeilenabstand));
@@ -229,11 +229,11 @@ namespace WasserWerkVerwaltung.BL {
 
         #region Tools
         public double calcJahresrechnungNetto(JahresDatenData jdd, KundenData kunde, PreisData preis) {
-            return Math.Round((((double)this.calcVerbrauch(jdd)) * preis.Preis) + kunde.Zaehlermiete, 2);
+            return Math.Round((((double)this.calcVerbrauch(jdd)) * preis.Preis) + kunde.Zaehlermiete + jdd.SonstigeForderungenValue, 2);
         }
 
-        public double calcMwSt() {
-            throw new NotImplementedException();
+        public double calcMwSt(JahresDatenData jdd, KundenData kunde, PreisData preis) {
+            return Math.Round(calcJahresrechnungNetto(jdd, kunde, preis) * 0.1,2);
         }
 
         public double calcJahresrechnungBrutto(JahresDatenData jdd, KundenData kunde, PreisData preis) {

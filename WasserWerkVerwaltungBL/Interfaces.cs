@@ -32,7 +32,7 @@ namespace WasserWerkVerwaltung.BL {
 
         #region Tools
         double calcJahresrechnungNetto(JahresDatenData jdd, KundenData kunde, PreisData preis);
-        double calcMwSt();
+        double calcMwSt(JahresDatenData jdd, KundenData kunde, PreisData preis);
         double calcJahresrechnungBrutto(JahresDatenData jdd, KundenData kunde, PreisData preis);
         int calcVerbrauch(JahresDatenData jdd);
         #endregion Tools
