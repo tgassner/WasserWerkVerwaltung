@@ -52,7 +52,6 @@ namespace WasserWerkVerwaltung.GUI {
             this.textBoxTauschZaehlerstandNeu.Text = this.currentJahresData.TauschZaehlerStandNeu.ToString();
             this.textBoxSonstigeForderungenText.Text = this.currentJahresData.SonstigeForderungenText;
             this.textBoxSonstigeForderungenWert.Text = this.currentJahresData.SonstigeForderungenValue.ToString();
-            this.textBoxHalbJahresWert.Text = this.currentJahresData.HalbjahresZahlung.ToString();
 
             this.changed = changetmp;
             this.textBoxNichtGespeichert.Visible = changed;
@@ -128,16 +127,6 @@ namespace WasserWerkVerwaltung.GUI {
             return true;
         }
 
-        private bool checkHalbjahresWert() {
-            try {
-                double hjw = Double.Parse(this.textBoxHalbJahresWert.Text.Replace(".", ","));
-            } catch (FormatException) {
-                MessageBox.Show("Bitte Halbjahreswert Überprüfen: Wert ungültig.");
-                return false;
-            }
-            return true;
-        }
-
         private bool checkFields() {
             bool ok;
 
@@ -169,10 +158,6 @@ namespace WasserWerkVerwaltung.GUI {
             if (!ok)
                 return false;
 
-            ok = checkHalbjahresWert();
-            if (!ok)
-                return false;
-            
             return true;
         }
 
@@ -190,11 +175,10 @@ namespace WasserWerkVerwaltung.GUI {
                 long.Parse(textBoxTauschZaehlerstandAlt.Text),
                 long.Parse(textBoxTauschZaehlerstandNeu.Text),
                 textBoxSonstigeForderungenText.Text,
-                Double.Parse(textBoxSonstigeForderungenWert.Text.Replace(".", ",")),
-                Double.Parse(textBoxHalbJahresWert.Text.Replace(".", ","))
+                Double.Parse(textBoxSonstigeForderungenWert.Text.Replace(".", ","))
                 );
 
-            if (currentJahresData.Id == 0){ // Neue Jahresdata -> insert
+            if (currentJahresData.Id == 0) { // Neue Jahresdata -> insert
                 JahresDatenData jahresdataTemp2 = this.wwvBLComp.InsertJahresDaten(jahresdataTemp);
                 if (jahresdataTemp2 == null) {
                     MessageBox.Show("Speichern fehlgeschlagen!");
@@ -224,16 +208,16 @@ namespace WasserWerkVerwaltung.GUI {
             IList<JahresDatenData> jahresdataList = this.wwvBLComp.GetJahresdataByKundenID(currentKunde.Id);
             bool found = false;
             long alterStand = 0;
-            foreach(JahresDatenData jahresDatum in jahresdataList){
-                if (jahresDatum.Jahr == (currentJahresData.Jahr-1)){
+            foreach (JahresDatenData jahresDatum in jahresdataList) {
+                if (jahresDatum.Jahr == (currentJahresData.Jahr - 1)) {
                     alterStand = jahresDatum.ZaehlerStandNeu;
                     found = true;
                 }
             }
 
-            if (found){
+            if (found) {
                 this.textBoxZaehlerStandAlt.Text = alterStand.ToString();
-            }else{
+            } else {
                 MessageBox.Show("Stand vom Vorjahr wurde nicht gefunden!");
             }
         }
@@ -242,5 +226,6 @@ namespace WasserWerkVerwaltung.GUI {
             this.changed = true;
             this.textBoxNichtGespeichert.Visible = changed;
         }
+
     }
 }

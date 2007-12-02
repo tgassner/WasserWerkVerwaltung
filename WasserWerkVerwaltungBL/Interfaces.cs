@@ -13,6 +13,7 @@ namespace WasserWerkVerwaltung.BL {
         #endregion Kunde
 
         #region JahresDaten
+            IList<JahresDatenData> GetAllJahresdata();
             IList<JahresDatenData> GetJahresdataByKundenID(long kundenID);
             bool UpdateJahresDaten(JahresDatenData jahresDatum);
             JahresDatenData InsertJahresDaten(JahresDatenData jahresDatum);
@@ -25,6 +26,10 @@ namespace WasserWerkVerwaltung.BL {
             PreisData InsertPreis(PreisData preis);
             bool UpdatePreis(PreisData jahresDatum);
         #endregion Preis
+
+        #region Join
+        bool hasKundeJahresdataByPreis(KundenData kunde, PreisData preis);
+        #endregion Join
 
         #region Print
             void PrintJahresRechnungen(IList<KundenData> kunden, PreisData preis);

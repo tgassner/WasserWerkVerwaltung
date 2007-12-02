@@ -11,6 +11,7 @@ namespace WasserWerkVerwaltung.BL {
     public class WWVBusinessObject : IWWVBL {
 
         private IList<KundenData> allKunden = null;
+        private IList<JahresDatenData> allJahresData = null;
 
         internal WWVBusinessObject() {
         }
@@ -70,19 +71,44 @@ namespace WasserWerkVerwaltung.BL {
         #endregion Kunde
 
         #region JahresDaten
+
+        public IList<JahresDatenData> GetAllJahresdata() {
+            if (allJahresData == null) {
+                IJahresDaten jahresdatenDB = Database.CreateJahresDaten();
+                allJahresData = jahresdatenDB.FindAll();
+            }
+            return allJahresData;
+        }
+
         public IList<JahresDatenData> GetJahresdataByKundenID(long kundenID) {
-            IJahresDaten jahresdatenDB = Database.CreateJahresDaten();
-            return jahresdatenDB.FindByKundenId(kundenID);
+            if (allJahresData == null) {
+                //Todo: asyncron einbauen für alle und nur da eine jetzt suchen!!
+                //IJahresDaten jahresdatenDB = Database.CreateJahresDaten();
+                //return jahresdatenDB.FindByKundenId(kundenID);
+                this.GetAllJahresdata();
+            }
+ 
+            IList<JahresDatenData> jahresDaten = new List<JahresDatenData>();
+            foreach(JahresDatenData jdd in this.allJahresData){
+                if (jdd.KundenId == kundenID) {
+                    jahresDaten.Add(jdd);
+                }
+            }
+            return jahresDaten;
         }
 
         public bool UpdateJahresDaten(JahresDatenData jahresDatum) {
             IJahresDaten jahredDataDB = Database.CreateJahresDaten();
-            return jahredDataDB.Update(jahresDatum);
-            //if (jahredDataDB.Update(jahresDatum)) {
-            //    return true;
-            //} else {
-            //    return false;
-            //}   
+
+            if (jahredDataDB.Update(jahresDatum)) {
+                if (this.allJahresData != null) {
+                    this.allJahresData.Remove(jahresDatum);
+                    this.allJahresData.Add(jahresDatum);
+                }
+                return true;
+            } else {
+                return false;
+            }  
         }
 
         public JahresDatenData InsertJahresDaten(JahresDatenData jahresDatum) {
@@ -99,8 +125,10 @@ namespace WasserWerkVerwaltung.BL {
                             jahresDatum.TauschZaehlerStandAlt,
                             jahresDatum.TauschZaehlerStandNeu,
                             jahresDatum.SonstigeForderungenText,
-                            jahresDatum.SonstigeForderungenValue,
-                            jahresDatum.HalbjahresZahlung);
+                            jahresDatum.SonstigeForderungenValue);
+                if (this.allJahresData != null){
+                    this.allJahresData.Add(jahresDatum);
+                }
                 return jahresDatum;
             } else {
                 return null;
@@ -109,12 +137,25 @@ namespace WasserWerkVerwaltung.BL {
 
         public bool DeleteJahresDaten(long jahresDatumID) {
             IJahresDaten jahredDataDB = Database.CreateJahresDaten();
-            return jahredDataDB.Delete(jahresDatumID);
+            bool ok = jahredDataDB.Delete(jahresDatumID);
+            JahresDatenData jdd = null;
+            if (ok) {
+                foreach (JahresDatenData jddforeach in this.allJahresData) {
+                    if (jddforeach.Id == jahresDatumID) {
+                        jdd = jddforeach;
+                    }
+                }
+                if (jdd != null) {
+                    this.allJahresData.Remove(jdd);
+                }
+            }
+            return ok;
         }
 
         public JahresDatenData GetJahresdataByKundenIDandYear(long kundenID, long year) {
-            IJahresDaten jahresdatenDB = Database.CreateJahresDaten();
-            foreach (JahresDatenData jdd in jahresdatenDB.FindByKundenId(kundenID)) {
+            //IJahresDaten jahresdatenDB = Database.CreateJahresDaten();
+            //foreach (JahresDatenData jdd in jahresdatenDB.FindByKundenId(kundenID)) {
+            foreach (JahresDatenData jdd in this.GetJahresdataByKundenID(kundenID)) {
                 if (jdd.Jahr == year) {
                     return jdd;
                 }
@@ -143,7 +184,8 @@ namespace WasserWerkVerwaltung.BL {
         }
 
         public bool UpdatePreis(PreisData jahresDatum) {
-            throw new Exception("The method or operation is not implemented.");
+            IPreis preisDB = Database.CreatePreis();
+            return preisDB.Update(jahresDatum);
         }
 
         public IList<PreisData> GetAllPreise() {
@@ -152,7 +194,14 @@ namespace WasserWerkVerwaltung.BL {
         }
         #endregion Preis
 
+        #region Join
 
+        public bool hasKundeJahresdataByPreis(KundenData kunde, PreisData preis) {
+            JahresDatenData jdd = this.GetJahresdataByKundenIDandYear(kunde.Id, preis.Jahr);
+            return (jdd == null) ? false : true;
+        }
+        
+        #endregion Join
 
         #region Print
 
@@ -198,18 +247,27 @@ namespace WasserWerkVerwaltung.BL {
                     ppd.AddPrintableObject(new PrintableTextObject("EUR " + this.calcJahresrechnungNetto(jdd, kunde, preis), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, mittlererRand, obererRand + 19 * zeilenabstand));
 
                     ppd.AddPrintableObject(new PrintableTextObject("zuzügl 10% Mwst =", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 20 * zeilenabstand));
-                    ppd.AddPrintableObject(new PrintableTextObject("EUR " + Math.Round((this.calcJahresrechnungNetto(jdd, kunde, preis) * 0.1), 2), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, mittlererRand, obererRand + 20 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("EUR " + this.calcMwSt(jdd,kunde,preis), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, mittlererRand, obererRand + 20 * zeilenabstand));
                     ppd.AddPrintableObject(new PrintableLineObject(Pens.Black, (int)linkerRand, (int)(obererRand + 21 * zeilenabstand), (int)linkerRand + 650, (int)(obererRand + 21 * zeilenabstand)));
 
                     ppd.AddPrintableObject(new PrintableTextObject("Jahressumme gesamt =", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 21 * zeilenabstand));
                     ppd.AddPrintableObject(new PrintableTextObject("EUR " + this.calcJahresrechnungBrutto(jdd,kunde,preis) + " incl. Mwst.", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, mittlererRand, obererRand + 21 * zeilenabstand));
 
-                    ppd.AddPrintableObject(new PrintableTextObject("Abzüglich Akontozahlung Halbjahr inkl. Mwst =", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 22 * zeilenabstand));
-                    ppd.AddPrintableObject(new PrintableTextObject("EUR -" + jdd.HalbjahresZahlung, new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, mittlererRand, obererRand + 22 * zeilenabstand));
+                    if (kunde.BekommtRechnung == Rechnung.Halbjahres) {
+                        ppd.AddPrintableObject(new PrintableTextObject("Abzüglich Akontozahlung Halbjahr inkl. Mwst =", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 22 * zeilenabstand));
+                        ppd.AddPrintableObject(new PrintableTextObject("EUR -" + (this.calcJahresrechnungBrutto(jdd, kunde, preis) / 2), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, mittlererRand, obererRand + 22 * zeilenabstand));
+                    }
+
                     ppd.AddPrintableObject(new PrintableLineObject(Pens.Black, (int)linkerRand, (int)(obererRand + 24 * zeilenabstand), (int)linkerRand + 650, (int)(obererRand + 24 * zeilenabstand)));
 
                     ppd.AddPrintableObject(new PrintableTextObject("Einzuzahlender Betrag = ", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 24 * zeilenabstand));
-                    ppd.AddPrintableObject(new PrintableTextObject("EUR " + (this.calcJahresrechnungBrutto(jdd,kunde,preis) - jdd.HalbjahresZahlung), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, mittlererRand, obererRand + 24 * zeilenabstand));
+                    if (kunde.BekommtRechnung == Rechnung.Halbjahres) {
+                        ppd.AddPrintableObject(new PrintableTextObject("EUR " + (this.calcJahresrechnungBrutto(jdd, kunde, preis) / 2), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, mittlererRand, obererRand + 24 * zeilenabstand));
+                    } 
+                    if (kunde.BekommtRechnung == Rechnung.Jahres) {
+                        ppd.AddPrintableObject(new PrintableTextObject("EUR " + (this.calcJahresrechnungBrutto(jdd, kunde, preis)), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, mittlererRand, obererRand + 24 * zeilenabstand));
+                    }
+
                     ppd.AddPrintableObject(new PrintableLineObject(Pens.Black, (int)linkerRand, (int)(obererRand + 25 * zeilenabstand), (int)linkerRand + 650, (int)(obererRand + 25 * zeilenabstand)));
 
                     ppd.AddPrintableObject(new PrintableTextObject(kunde.Zahlung, new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 26 * zeilenabstand));
@@ -237,11 +295,11 @@ namespace WasserWerkVerwaltung.BL {
         }
 
         public double calcJahresrechnungBrutto(JahresDatenData jdd, KundenData kunde, PreisData preis) {
-            return Math.Round(this.calcJahresrechnungNetto(jdd, kunde, preis) * 1.1, 2);
+            return Math.Round(this.calcJahresrechnungNetto(jdd, kunde, preis) + this.calcMwSt(jdd,kunde,preis), 2);
         }
 
         public int calcVerbrauch(JahresDatenData jdd) {
-            return (int)(jdd.ZaehlerStandNeu - jdd.ZaehlerStandAlt) + (int)(jdd.TauschZaehlerStandAlt - jdd.TauschZaehlerStandNeu);
+            return (int)(jdd.ZaehlerStandNeu - jdd.ZaehlerStandAlt) + (int)(jdd.TauschZaehlerStandNeu - jdd.TauschZaehlerStandAlt);
         }
 
         #endregion Tools

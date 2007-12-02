@@ -18,22 +18,41 @@ namespace WasserWerkVerwaltung.GUI {
         }
 
         public void Init(IWWVBL wwvBLComp) {
-            this.checkedListBoxKunden.Items.Clear();
-            foreach (KundenData kunde in wwvBLComp.GetAllKunden()) {
-                this.checkedListBoxKunden.Items.Add(kunde);
-            }
-
             this.wwvBLComp = wwvBLComp;
-
+            
             this.listBoxJahre.Items.Clear();
 
-            foreach (PreisData preis in wwvBLComp.GetAllPreise()){
+            foreach (PreisData preis in wwvBLComp.GetAllPreise()) {
                 listBoxJahre.Items.Add(preis);
             }
             if (listBoxJahre.Items.Count > 0) {
                 listBoxJahre.SelectedIndex = 0;
             }
         }
+
+        private void fillKundenDieJahresDataEintragHaben() {
+            this.checkedListBoxKunden.Items.Clear();
+
+            if (listBoxJahre.SelectedItems.Count != 1) {
+                MessageBox.Show("Bitte ein Jahr auswählen");
+                return;
+            }
+
+            PreisData pd = listBoxJahre.SelectedItem as PreisData;
+
+            foreach (KundenData kunde in wwvBLComp.GetAllKunden()) {
+                
+                if (this.wwvBLComp.hasKundeJahresdataByPreis(kunde,pd)){
+                    this.checkedListBoxKunden.Items.Add(kunde);
+                }
+            }
+        }
+
+        private void listBoxJahre_SelectedValueChanged(object sender, EventArgs e) {
+            fillKundenDieJahresDataEintragHaben();
+        }
+
+
 
         private void buttonAlleSelektieren_Click(object sender, EventArgs e) {
             for (int i = 0; i < checkedListBoxKunden.Items.Count; i++) {

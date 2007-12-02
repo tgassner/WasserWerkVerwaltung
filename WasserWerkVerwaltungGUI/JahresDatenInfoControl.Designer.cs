@@ -41,6 +41,13 @@ namespace WasserWerkVerwaltung.GUI {
             this.label3 = new System.Windows.Forms.Label();
             this.labelRechnungsSummeMinusBereitsBezahlt = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
+            this.labelTauschzaehlerstandAlt = new System.Windows.Forms.Label();
+            this.labelTauschzaehlerstandNeu = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.labelSonstigeForderungenText = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.labelSonstigeForderungenValue = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -118,7 +125,7 @@ namespace WasserWerkVerwaltung.GUI {
             // labelAbleseDatum
             // 
             this.labelAbleseDatum.AutoSize = true;
-            this.labelAbleseDatum.Location = new System.Drawing.Point(3, 353);
+            this.labelAbleseDatum.Location = new System.Drawing.Point(3, 426);
             this.labelAbleseDatum.Name = "labelAbleseDatum";
             this.labelAbleseDatum.Size = new System.Drawing.Size(35, 13);
             this.labelAbleseDatum.TabIndex = 0;
@@ -127,7 +134,7 @@ namespace WasserWerkVerwaltung.GUI {
             // labelJahr
             // 
             this.labelJahr.AutoSize = true;
-            this.labelJahr.Location = new System.Drawing.Point(3, 390);
+            this.labelJahr.Location = new System.Drawing.Point(3, 513);
             this.labelJahr.Name = "labelJahr";
             this.labelJahr.Size = new System.Drawing.Size(35, 13);
             this.labelJahr.TabIndex = 0;
@@ -136,7 +143,7 @@ namespace WasserWerkVerwaltung.GUI {
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(3, 340);
+            this.label8.Location = new System.Drawing.Point(3, 413);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(73, 13);
             this.label8.TabIndex = 0;
@@ -145,7 +152,7 @@ namespace WasserWerkVerwaltung.GUI {
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(3, 377);
+            this.label9.Location = new System.Drawing.Point(3, 500);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(30, 13);
             this.label9.TabIndex = 0;
@@ -172,7 +179,7 @@ namespace WasserWerkVerwaltung.GUI {
             // labelBereitsBezahlt
             // 
             this.labelBereitsBezahlt.AutoSize = true;
-            this.labelBereitsBezahlt.Location = new System.Drawing.Point(3, 425);
+            this.labelBereitsBezahlt.Location = new System.Drawing.Point(3, 548);
             this.labelBereitsBezahlt.Name = "labelBereitsBezahlt";
             this.labelBereitsBezahlt.Size = new System.Drawing.Size(35, 13);
             this.labelBereitsBezahlt.TabIndex = 0;
@@ -181,7 +188,7 @@ namespace WasserWerkVerwaltung.GUI {
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 412);
+            this.label3.Location = new System.Drawing.Point(3, 535);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(80, 13);
             this.label3.TabIndex = 0;
@@ -190,7 +197,7 @@ namespace WasserWerkVerwaltung.GUI {
             // labelRechnungsSummeMinusBereitsBezahlt
             // 
             this.labelRechnungsSummeMinusBereitsBezahlt.AutoSize = true;
-            this.labelRechnungsSummeMinusBereitsBezahlt.Location = new System.Drawing.Point(3, 473);
+            this.labelRechnungsSummeMinusBereitsBezahlt.Location = new System.Drawing.Point(3, 596);
             this.labelRechnungsSummeMinusBereitsBezahlt.Name = "labelRechnungsSummeMinusBereitsBezahlt";
             this.labelRechnungsSummeMinusBereitsBezahlt.Size = new System.Drawing.Size(35, 13);
             this.labelRechnungsSummeMinusBereitsBezahlt.TabIndex = 0;
@@ -199,11 +206,74 @@ namespace WasserWerkVerwaltung.GUI {
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(3, 446);
+            this.label10.Location = new System.Drawing.Point(3, 569);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(145, 26);
             this.label10.TabIndex = 0;
-            this.label10.Text = "Noch ausständig\r\n(Rech.Sum - Bereits Bezahlt):";
+            this.label10.Text = "Noch ausständig in dem Jahr\r\n(Rech.Sum - Bereits Bezahlt):";
+            // 
+            // labelTauschzaehlerstandAlt
+            // 
+            this.labelTauschzaehlerstandAlt.AutoSize = true;
+            this.labelTauschzaehlerstandAlt.Location = new System.Drawing.Point(3, 352);
+            this.labelTauschzaehlerstandAlt.Name = "labelTauschzaehlerstandAlt";
+            this.labelTauschzaehlerstandAlt.Size = new System.Drawing.Size(35, 13);
+            this.labelTauschzaehlerstandAlt.TabIndex = 0;
+            this.labelTauschzaehlerstandAlt.Text = "label1";
+            // 
+            // labelTauschzaehlerstandNeu
+            // 
+            this.labelTauschzaehlerstandNeu.AutoSize = true;
+            this.labelTauschzaehlerstandNeu.Location = new System.Drawing.Point(3, 390);
+            this.labelTauschzaehlerstandNeu.Name = "labelTauschzaehlerstandNeu";
+            this.labelTauschzaehlerstandNeu.Size = new System.Drawing.Size(35, 13);
+            this.labelTauschzaehlerstandNeu.TabIndex = 0;
+            this.labelTauschzaehlerstandNeu.Text = "label1";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(3, 339);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(114, 13);
+            this.label12.TabIndex = 0;
+            this.label12.Text = "Tauschzählerstand alt:";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(3, 377);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(121, 13);
+            this.label13.TabIndex = 0;
+            this.label13.Text = "Tauschzählerstand neu:";
+            // 
+            // labelSonstigeForderungenText
+            // 
+            this.labelSonstigeForderungenText.AutoSize = true;
+            this.labelSonstigeForderungenText.Location = new System.Drawing.Point(3, 462);
+            this.labelSonstigeForderungenText.Name = "labelSonstigeForderungenText";
+            this.labelSonstigeForderungenText.Size = new System.Drawing.Size(35, 13);
+            this.labelSonstigeForderungenText.TabIndex = 0;
+            this.labelSonstigeForderungenText.Text = "label1";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(3, 449);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(114, 13);
+            this.label11.TabIndex = 0;
+            this.label11.Text = "Sonstige Forderungen:";
+            // 
+            // labelSonstigeForderungenValue
+            // 
+            this.labelSonstigeForderungenValue.AutoSize = true;
+            this.labelSonstigeForderungenValue.Location = new System.Drawing.Point(3, 477);
+            this.labelSonstigeForderungenValue.Name = "labelSonstigeForderungenValue";
+            this.labelSonstigeForderungenValue.Size = new System.Drawing.Size(35, 13);
+            this.labelSonstigeForderungenValue.TabIndex = 0;
+            this.labelSonstigeForderungenValue.Text = "label1";
             // 
             // JahresDatenInfoControl
             // 
@@ -213,22 +283,29 @@ namespace WasserWerkVerwaltung.GUI {
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label9);
+            this.Controls.Add(this.label13);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.labelRechnungsSummeMinusBereitsBezahlt);
+            this.Controls.Add(this.label11);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.labelBereitsBezahlt);
             this.Controls.Add(this.labelJahr);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.labelTauschzaehlerstandNeu);
             this.Controls.Add(this.label5);
+            this.Controls.Add(this.labelSonstigeForderungenValue);
+            this.Controls.Add(this.labelSonstigeForderungenText);
             this.Controls.Add(this.labelZaehlerstandNeu);
             this.Controls.Add(this.labelAbleseDatum);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label4);
+            this.Controls.Add(this.labelTauschzaehlerstandAlt);
             this.Controls.Add(this.labelRechnungssummehalbe);
             this.Controls.Add(this.labelZaehlerStandAlt);
             this.Controls.Add(this.labelRechnungssumme);
             this.Controls.Add(this.label1);
             this.Name = "JahresDatenInfoControl";
-            this.Size = new System.Drawing.Size(146, 493);
+            this.Size = new System.Drawing.Size(146, 624);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -254,5 +331,12 @@ namespace WasserWerkVerwaltung.GUI {
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label labelRechnungsSummeMinusBereitsBezahlt;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label labelTauschzaehlerstandAlt;
+        private System.Windows.Forms.Label labelTauschzaehlerstandNeu;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label labelSonstigeForderungenText;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label labelSonstigeForderungenValue;
     }
 }

@@ -26,7 +26,7 @@ namespace WasserWerkVerwaltung.DAL {
         IList<PreisData> FindAll();
         PreisData FindByJahr(long jahr);
         bool Insert(PreisData kunde);
-        bool Update(PreisData kunde);
+        bool Update(PreisData preis);
         bool Delete(long jahr);
     }
 }

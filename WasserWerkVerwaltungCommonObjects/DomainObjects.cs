@@ -256,13 +256,12 @@ namespace WasserWerkVerwaltung.CommonObjects {
         private long tauschZaehlerStandNeu;
         private string sonstigeForderungenText;
         private double sonstigeForderungenValue;
-        private double halbjahresZahlung;
 
         public JahresDatenData(long id, long kundenId, 
                     long zaehlerStandAlt, long zaehlerStandNeu, long jahr, 
                     DateTime ableseDatum, double bereitsBezahlt, long tauschZaehlerStandAlt,
                     long tauschZaehlerStandNeu, string sonstigeForderungenText,
-                    double sonstigeForderungenValue, double halbjahresZahlung) {
+                    double sonstigeForderungenValue) {
             this.id = id;
             this.kundenId = kundenId;
             this.zaehlerStandAlt = zaehlerStandAlt;
@@ -274,7 +273,6 @@ namespace WasserWerkVerwaltung.CommonObjects {
             this.tauschZaehlerStandNeu = tauschZaehlerStandNeu;
             this.sonstigeForderungenText = sonstigeForderungenText;
             this.sonstigeForderungenValue = sonstigeForderungenValue;
-            this.halbjahresZahlung = halbjahresZahlung;
         }
 
         public long Id {
@@ -376,15 +374,6 @@ namespace WasserWerkVerwaltung.CommonObjects {
             }
         }
 
-        public double HalbjahresZahlung{
-            get {
-                return this.halbjahresZahlung;
-            }
-            set {
-                this.halbjahresZahlung = value;
-            }
-        }
-
         public override string ToString() {
             return "Jahr: " + this.jahr.ToString() + " Z-Stand: " + this.zaehlerStandNeu.ToString();
         }
@@ -393,7 +382,7 @@ namespace WasserWerkVerwaltung.CommonObjects {
             JahresDatenData abl = obj as JahresDatenData;
             if (abl == null)
                 return false;
-            return abl.Id == this.id && abl.Jahr == this.jahr;
+            return abl.Id == this.id; // && abl.Jahr == this.jahr;
         }
 
         public override int GetHashCode() {

@@ -28,7 +28,11 @@ namespace WasserWerkVerwaltung.GUI {
             this.labelRechnungssummehalbe.Text = "";
             this.labelZaehlerStandAlt.Text = "";
             this.labelZaehlerstandNeu.Text = "";
+            this.labelTauschzaehlerstandAlt.Text = "";
+            this.labelTauschzaehlerstandNeu.Text = "";
             this.labelAbleseDatum.Text = "";
+            this.labelSonstigeForderungenText.Text = "";
+            this.labelSonstigeForderungenValue.Text = "";
             this.labelJahr.Text = "";
             this.labelBereitsBezahlt.Text = "";
             this.labelRechnungsSummeMinusBereitsBezahlt.Text = "";
@@ -49,16 +53,19 @@ namespace WasserWerkVerwaltung.GUI {
 
         private void listBoxJahre_SelectedIndexChanged(object sender, EventArgs e) {
             if (this.listBoxJahre.SelectedItem != null) {
-
-                //this.labelRechnungssumme.Text = wwvBLComp.calcJahresrechnungBrutto().ToString();//((JahresDatenData)this.listBoxJahre.SelectedItem).Rechnungssumme.ToString();
-                //this.labelRechnungssummehalbe.Text = (((JahresDatenData)this.listBoxJahre.SelectedItem).Rechnungssumme / 2).ToString();
-                this.labelZaehlerStandAlt.Text = ((JahresDatenData)this.listBoxJahre.SelectedItem).ZaehlerStandAlt.ToString();
-                this.labelZaehlerstandNeu.Text = ((JahresDatenData)this.listBoxJahre.SelectedItem).ZaehlerStandNeu.ToString();
-                this.labelAbleseDatum.Text = ((JahresDatenData)this.listBoxJahre.SelectedItem).AbleseDatum.Date.ToString("dd.MM.yyyy", DateTimeFormatInfo.InvariantInfo);
-                this.labelJahr.Text = ((JahresDatenData)this.listBoxJahre.SelectedItem).Jahr.ToString();
-                this.labelBereitsBezahlt.Text = ((JahresDatenData)this.listBoxJahre.SelectedItem).BereitsBezahlt.ToString();
-                //this.labelRechnungsSummeMinusBereitsBezahlt.Text = (((JahresDatenData)this.listBoxJahre.SelectedItem).Rechnungssumme - ((JahresDatenData)this.listBoxJahre.SelectedItem).BereitsBezahlt).ToString();
-
+                JahresDatenData jdd = (JahresDatenData)this.listBoxJahre.SelectedItem;
+                this.labelRechnungssumme.Text = wwvBLComp.calcJahresrechnungBrutto(jdd, this.currentKunde, this.wwvBLComp.GetPreisDataByJahr(jdd.Jahr)).ToString();//((JahresDatenData)this.listBoxJahre.SelectedItem).Rechnungssumme.ToString();
+                this.labelRechnungssummehalbe.Text = (wwvBLComp.calcJahresrechnungBrutto(jdd, this.currentKunde, this.wwvBLComp.GetPreisDataByJahr(jdd.Jahr))/2).ToString();//(((JahresDatenData)this.listBoxJahre.SelectedItem).Rechnungssumme / 2).ToString();
+                this.labelZaehlerStandAlt.Text = jdd.ZaehlerStandAlt.ToString();
+                this.labelZaehlerstandNeu.Text = jdd.ZaehlerStandNeu.ToString();
+                this.labelTauschzaehlerstandAlt.Text = jdd.TauschZaehlerStandAlt.ToString();
+                this.labelTauschzaehlerstandNeu.Text = jdd.TauschZaehlerStandNeu.ToString();
+                this.labelAbleseDatum.Text = jdd.AbleseDatum.Date.ToString("dd.MM.yyyy", DateTimeFormatInfo.InvariantInfo);
+                this.labelSonstigeForderungenText.Text = jdd.SonstigeForderungenText;
+                this.labelSonstigeForderungenValue.Text = jdd.SonstigeForderungenValue.ToString();
+                this.labelJahr.Text = jdd.Jahr.ToString();
+                this.labelBereitsBezahlt.Text = jdd.BereitsBezahlt.ToString();
+                this.labelRechnungsSummeMinusBereitsBezahlt.Text = (wwvBLComp.calcJahresrechnungBrutto(jdd, this.currentKunde, this.wwvBLComp.GetPreisDataByJahr(jdd.Jahr)) - jdd.BereitsBezahlt).ToString(); //(((JahresDatenData)this.listBoxJahre.SelectedItem).Rechnungssumme - ((JahresDatenData)this.listBoxJahre.SelectedItem).BereitsBezahlt).ToString();
             }
         }
     }

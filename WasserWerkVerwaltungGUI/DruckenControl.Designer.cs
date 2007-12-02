@@ -28,13 +28,13 @@ namespace WasserWerkVerwaltung.GUI {
             this.buttonAlleSelektierungenAufheben = new System.Windows.Forms.Button();
             this.buttonAlleSelektierenDieEineJahresRechnungBekommen = new System.Windows.Forms.Button();
             this.buttonGanzJahresRechnungDrucken = new System.Windows.Forms.Button();
-            this.buttonHalbJahresRechnungPart1Drucken = new System.Windows.Forms.Button();
             this.buttonBezahltchecklisteDrucken = new System.Windows.Forms.Button();
             this.buttonAuszugDrucken = new System.Windows.Forms.Button();
             this.buttonKontrollzettelDrucken = new System.Windows.Forms.Button();
             this.buttonAlleSelektierenDieEineHalbJahresRechnungBekommen = new System.Windows.Forms.Button();
-            this.buttonHalbJahresRechnungPart2Drucken = new System.Windows.Forms.Button();
+            this.buttonHalbJahresRechnungDrucken = new System.Windows.Forms.Button();
             this.listBoxJahre = new System.Windows.Forms.ListBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // checkedListBoxKunden
@@ -47,7 +47,7 @@ namespace WasserWerkVerwaltung.GUI {
             // 
             // buttonAlleSelektieren
             // 
-            this.buttonAlleSelektieren.Location = new System.Drawing.Point(266, 105);
+            this.buttonAlleSelektieren.Location = new System.Drawing.Point(265, 136);
             this.buttonAlleSelektieren.Name = "buttonAlleSelektieren";
             this.buttonAlleSelektieren.Size = new System.Drawing.Size(288, 23);
             this.buttonAlleSelektieren.TabIndex = 1;
@@ -57,7 +57,7 @@ namespace WasserWerkVerwaltung.GUI {
             // 
             // buttonAlleSelektierungenAufheben
             // 
-            this.buttonAlleSelektierungenAufheben.Location = new System.Drawing.Point(266, 192);
+            this.buttonAlleSelektierungenAufheben.Location = new System.Drawing.Point(265, 223);
             this.buttonAlleSelektierungenAufheben.Name = "buttonAlleSelektierungenAufheben";
             this.buttonAlleSelektierungenAufheben.Size = new System.Drawing.Size(288, 23);
             this.buttonAlleSelektierungenAufheben.TabIndex = 2;
@@ -67,7 +67,7 @@ namespace WasserWerkVerwaltung.GUI {
             // 
             // buttonAlleSelektierenDieEineJahresRechnungBekommen
             // 
-            this.buttonAlleSelektierenDieEineJahresRechnungBekommen.Location = new System.Drawing.Point(266, 134);
+            this.buttonAlleSelektierenDieEineJahresRechnungBekommen.Location = new System.Drawing.Point(265, 165);
             this.buttonAlleSelektierenDieEineJahresRechnungBekommen.Name = "buttonAlleSelektierenDieEineJahresRechnungBekommen";
             this.buttonAlleSelektierenDieEineJahresRechnungBekommen.Size = new System.Drawing.Size(288, 23);
             this.buttonAlleSelektierenDieEineJahresRechnungBekommen.TabIndex = 3;
@@ -77,7 +77,7 @@ namespace WasserWerkVerwaltung.GUI {
             // 
             // buttonGanzJahresRechnungDrucken
             // 
-            this.buttonGanzJahresRechnungDrucken.Location = new System.Drawing.Point(266, 250);
+            this.buttonGanzJahresRechnungDrucken.Location = new System.Drawing.Point(265, 281);
             this.buttonGanzJahresRechnungDrucken.Name = "buttonGanzJahresRechnungDrucken";
             this.buttonGanzJahresRechnungDrucken.Size = new System.Drawing.Size(288, 23);
             this.buttonGanzJahresRechnungDrucken.TabIndex = 4;
@@ -85,19 +85,9 @@ namespace WasserWerkVerwaltung.GUI {
             this.buttonGanzJahresRechnungDrucken.UseVisualStyleBackColor = true;
             this.buttonGanzJahresRechnungDrucken.Click += new System.EventHandler(this.buttonGanzJahresRechnungDrucken_Click);
             // 
-            // buttonHalbJahresRechnungPart1Drucken
-            // 
-            this.buttonHalbJahresRechnungPart1Drucken.Location = new System.Drawing.Point(266, 279);
-            this.buttonHalbJahresRechnungPart1Drucken.Name = "buttonHalbJahresRechnungPart1Drucken";
-            this.buttonHalbJahresRechnungPart1Drucken.Size = new System.Drawing.Size(288, 23);
-            this.buttonHalbJahresRechnungPart1Drucken.TabIndex = 5;
-            this.buttonHalbJahresRechnungPart1Drucken.Text = "HalbjahresRechnung Part 1 Drucken";
-            this.buttonHalbJahresRechnungPart1Drucken.UseVisualStyleBackColor = true;
-            this.buttonHalbJahresRechnungPart1Drucken.Click += new System.EventHandler(this.buttonHalbJahresRechnungDrucken_Click);
-            // 
             // buttonBezahltchecklisteDrucken
             // 
-            this.buttonBezahltchecklisteDrucken.Location = new System.Drawing.Point(266, 337);
+            this.buttonBezahltchecklisteDrucken.Location = new System.Drawing.Point(265, 339);
             this.buttonBezahltchecklisteDrucken.Name = "buttonBezahltchecklisteDrucken";
             this.buttonBezahltchecklisteDrucken.Size = new System.Drawing.Size(288, 23);
             this.buttonBezahltchecklisteDrucken.TabIndex = 6;
@@ -107,7 +97,7 @@ namespace WasserWerkVerwaltung.GUI {
             // 
             // buttonAuszugDrucken
             // 
-            this.buttonAuszugDrucken.Location = new System.Drawing.Point(266, 366);
+            this.buttonAuszugDrucken.Location = new System.Drawing.Point(265, 368);
             this.buttonAuszugDrucken.Name = "buttonAuszugDrucken";
             this.buttonAuszugDrucken.Size = new System.Drawing.Size(288, 23);
             this.buttonAuszugDrucken.TabIndex = 7;
@@ -117,7 +107,7 @@ namespace WasserWerkVerwaltung.GUI {
             // 
             // buttonKontrollzettelDrucken
             // 
-            this.buttonKontrollzettelDrucken.Location = new System.Drawing.Point(266, 395);
+            this.buttonKontrollzettelDrucken.Location = new System.Drawing.Point(265, 397);
             this.buttonKontrollzettelDrucken.Name = "buttonKontrollzettelDrucken";
             this.buttonKontrollzettelDrucken.Size = new System.Drawing.Size(288, 23);
             this.buttonKontrollzettelDrucken.TabIndex = 8;
@@ -127,7 +117,7 @@ namespace WasserWerkVerwaltung.GUI {
             // 
             // buttonAlleSelektierenDieEineHalbJahresRechnungBekommen
             // 
-            this.buttonAlleSelektierenDieEineHalbJahresRechnungBekommen.Location = new System.Drawing.Point(266, 163);
+            this.buttonAlleSelektierenDieEineHalbJahresRechnungBekommen.Location = new System.Drawing.Point(265, 194);
             this.buttonAlleSelektierenDieEineHalbJahresRechnungBekommen.Name = "buttonAlleSelektierenDieEineHalbJahresRechnungBekommen";
             this.buttonAlleSelektierenDieEineHalbJahresRechnungBekommen.Size = new System.Drawing.Size(288, 23);
             this.buttonAlleSelektierenDieEineHalbJahresRechnungBekommen.TabIndex = 3;
@@ -135,15 +125,15 @@ namespace WasserWerkVerwaltung.GUI {
             this.buttonAlleSelektierenDieEineHalbJahresRechnungBekommen.UseVisualStyleBackColor = true;
             this.buttonAlleSelektierenDieEineHalbJahresRechnungBekommen.Click += new System.EventHandler(this.buttonAlleSelektierenDieEineHalbJahresRechnungBekommen_Click);
             // 
-            // buttonHalbJahresRechnungPart2Drucken
+            // buttonHalbJahresRechnungDrucken
             // 
-            this.buttonHalbJahresRechnungPart2Drucken.Location = new System.Drawing.Point(266, 308);
-            this.buttonHalbJahresRechnungPart2Drucken.Name = "buttonHalbJahresRechnungPart2Drucken";
-            this.buttonHalbJahresRechnungPart2Drucken.Size = new System.Drawing.Size(288, 23);
-            this.buttonHalbJahresRechnungPart2Drucken.TabIndex = 5;
-            this.buttonHalbJahresRechnungPart2Drucken.Text = "HalbjahresRechnung Part 2 Drucken";
-            this.buttonHalbJahresRechnungPart2Drucken.UseVisualStyleBackColor = true;
-            this.buttonHalbJahresRechnungPart2Drucken.Click += new System.EventHandler(this.buttonHalbJahresRechnungPart2Drucken_Click);
+            this.buttonHalbJahresRechnungDrucken.Location = new System.Drawing.Point(265, 310);
+            this.buttonHalbJahresRechnungDrucken.Name = "buttonHalbJahresRechnungDrucken";
+            this.buttonHalbJahresRechnungDrucken.Size = new System.Drawing.Size(288, 23);
+            this.buttonHalbJahresRechnungDrucken.TabIndex = 5;
+            this.buttonHalbJahresRechnungDrucken.Text = "HalbjahresRechnung Drucken";
+            this.buttonHalbJahresRechnungDrucken.UseVisualStyleBackColor = true;
+            this.buttonHalbJahresRechnungDrucken.Click += new System.EventHandler(this.buttonHalbJahresRechnungPart2Drucken_Click);
             // 
             // listBoxJahre
             // 
@@ -152,17 +142,27 @@ namespace WasserWerkVerwaltung.GUI {
             this.listBoxJahre.Name = "listBoxJahre";
             this.listBoxJahre.Size = new System.Drawing.Size(287, 95);
             this.listBoxJahre.TabIndex = 9;
+            this.listBoxJahre.SelectedValueChanged += new System.EventHandler(this.listBoxJahre_SelectedValueChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(263, 102);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(279, 13);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "<- nur die Kunden, die für das ^ Jahr einen Eintrag haben.";
             // 
             // DruckenControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.listBoxJahre);
             this.Controls.Add(this.buttonKontrollzettelDrucken);
             this.Controls.Add(this.buttonAuszugDrucken);
             this.Controls.Add(this.buttonBezahltchecklisteDrucken);
-            this.Controls.Add(this.buttonHalbJahresRechnungPart2Drucken);
-            this.Controls.Add(this.buttonHalbJahresRechnungPart1Drucken);
+            this.Controls.Add(this.buttonHalbJahresRechnungDrucken);
             this.Controls.Add(this.buttonGanzJahresRechnungDrucken);
             this.Controls.Add(this.buttonAlleSelektierenDieEineHalbJahresRechnungBekommen);
             this.Controls.Add(this.buttonAlleSelektierenDieEineJahresRechnungBekommen);
@@ -172,6 +172,7 @@ namespace WasserWerkVerwaltung.GUI {
             this.Name = "DruckenControl";
             this.Size = new System.Drawing.Size(936, 640);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -182,12 +183,12 @@ namespace WasserWerkVerwaltung.GUI {
         private System.Windows.Forms.Button buttonAlleSelektierungenAufheben;
         private System.Windows.Forms.Button buttonAlleSelektierenDieEineJahresRechnungBekommen;
         private System.Windows.Forms.Button buttonGanzJahresRechnungDrucken;
-        private System.Windows.Forms.Button buttonHalbJahresRechnungPart1Drucken;
         private System.Windows.Forms.Button buttonBezahltchecklisteDrucken;
         private System.Windows.Forms.Button buttonAuszugDrucken;
         private System.Windows.Forms.Button buttonKontrollzettelDrucken;
         private System.Windows.Forms.Button buttonAlleSelektierenDieEineHalbJahresRechnungBekommen;
-        private System.Windows.Forms.Button buttonHalbJahresRechnungPart2Drucken;
+        private System.Windows.Forms.Button buttonHalbJahresRechnungDrucken;
         private System.Windows.Forms.ListBox listBoxJahre;
+        private System.Windows.Forms.Label label1;
     }
 }
