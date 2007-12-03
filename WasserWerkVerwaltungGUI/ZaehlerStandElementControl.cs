@@ -28,6 +28,7 @@ namespace WasserWerkVerwaltung.GUI {
             this.textBoxNichtGespeichert.BackColor = Color.Red;
             this.textBoxNichtGespeichert.ForeColor = Color.Black;
             this.textBoxNichtGespeichert.Visible = changed;
+            this.buttonDruckJahresrechnung.Enabled = !changed;
         }
 
         internal void Init(IWWVBL wwvBLComp, JahresDatenData currentJahresData, KundenData currentKunde) {
@@ -39,6 +40,7 @@ namespace WasserWerkVerwaltung.GUI {
                 this.changed = true;
                 this.textBoxNichtGespeichert.Visible = this.changed;
             }
+            this.buttonDruckJahresrechnung.Enabled = !this.changed;
         }
 
         private void fillDataFromCurrentJahresData() {
@@ -55,6 +57,7 @@ namespace WasserWerkVerwaltung.GUI {
 
             this.changed = changetmp;
             this.textBoxNichtGespeichert.Visible = changed;
+            this.buttonDruckJahresrechnung.Enabled = !this.changed;
         }
 
         private bool checkZaehlerStandAlt() {
@@ -202,6 +205,7 @@ namespace WasserWerkVerwaltung.GUI {
                 this.changed = false;
                 this.textBoxNichtGespeichert.Visible = this.changed;
             }
+            this.buttonDruckJahresrechnung.Enabled = !this.changed;
         }
 
         private void buttonVomVorjahr_Click(object sender, EventArgs e) {
@@ -224,7 +228,14 @@ namespace WasserWerkVerwaltung.GUI {
 
         private void textChanged(object sender, EventArgs e) {
             this.changed = true;
-            this.textBoxNichtGespeichert.Visible = changed;
+            this.textBoxNichtGespeichert.Visible = this.changed;
+            this.buttonDruckJahresrechnung.Enabled = !this.changed;
+        }
+
+        private void buttonDruckJahresrechnung_Click(object sender, EventArgs e) {
+            IList<KundenData> kundenlist = new List<KundenData>();
+            kundenlist.Add(this.currentKunde);
+            this.wwvBLComp.PrintJahresRechnungen(kundenlist,this.wwvBLComp.GetPreisDataByJahr(this.currentJahresData.Jahr));
         }
 
     }

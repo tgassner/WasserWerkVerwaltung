@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using WasserWerkVerwaltung.BL;
 using WasserWerkVerwaltung.CommonObjects;
+using WasserWerkVerwaltung.CommonUtilities;
 
 namespace WasserWerkVerwaltung.GUI {
     public partial class DruckenControl : UserControl {
@@ -40,7 +41,7 @@ namespace WasserWerkVerwaltung.GUI {
 
             PreisData pd = listBoxJahre.SelectedItem as PreisData;
 
-            foreach (KundenData kunde in wwvBLComp.GetAllKunden()) {
+            foreach (KundenData kunde in StaticUtilities.SortByNachname(wwvBLComp.GetAllKunden())) {
                 
                 if (this.wwvBLComp.hasKundeJahresdataByPreis(kunde,pd)){
                     this.checkedListBoxKunden.Items.Add(kunde);

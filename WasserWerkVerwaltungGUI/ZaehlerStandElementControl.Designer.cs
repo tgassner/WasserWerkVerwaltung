@@ -44,6 +44,7 @@ namespace WasserWerkVerwaltung.GUI {
             this.buttonSpeichern = new System.Windows.Forms.Button();
             this.textBoxSonstigeForderungenText = new System.Windows.Forms.TextBox();
             this.textBoxTauschZaehlerstandAlt = new System.Windows.Forms.TextBox();
+            this.buttonDruckJahresrechnung = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -76,6 +77,7 @@ namespace WasserWerkVerwaltung.GUI {
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.buttonDruckJahresrechnung);
             this.groupBox1.Controls.Add(this.textBoxNichtGespeichert);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.textBoxBereitsbezahlt);
@@ -251,6 +253,16 @@ namespace WasserWerkVerwaltung.GUI {
             this.textBoxTauschZaehlerstandAlt.TabIndex = 5;
             this.textBoxTauschZaehlerstandAlt.TextChanged += new System.EventHandler(this.textChanged);
             // 
+            // buttonDruckJahresrechnung
+            // 
+            this.buttonDruckJahresrechnung.Location = new System.Drawing.Point(481, 104);
+            this.buttonDruckJahresrechnung.Name = "buttonDruckJahresrechnung";
+            this.buttonDruckJahresrechnung.Size = new System.Drawing.Size(107, 23);
+            this.buttonDruckJahresrechnung.TabIndex = 11;
+            this.buttonDruckJahresrechnung.Text = "Drucken Jahresr.";
+            this.buttonDruckJahresrechnung.UseVisualStyleBackColor = true;
+            this.buttonDruckJahresrechnung.Click += new System.EventHandler(this.buttonDruckJahresrechnung_Click);
+            // 
             // ZaehlerStandElementControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -287,5 +299,6 @@ namespace WasserWerkVerwaltung.GUI {
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox textBoxSonstigeForderungenWert;
         private System.Windows.Forms.TextBox textBoxSonstigeForderungenText;
+        private System.Windows.Forms.Button buttonDruckJahresrechnung;
     }
 }
