@@ -31,12 +31,13 @@ namespace WasserWerkVerwaltung.CommonObjects {
         private string bemerkung;
         private string zahlung;
         private long leitungskreis;
+        private long personenImObjekt;
 
         public KundenData(long id, string vorname, string nachname, string strasse,
                     string ort, string objekt, string tel, string hausbesitzer, string bankVerbindung, 
                     Rechnung bekommtRechnung, DateTime eichDatum, string zaehlerNummer, 
-                    DateTime einbauDatum, string erkl, DateTime tauschDatum, double zaehlermiete, 
-                    string bemerkung, string zahlung, long leitungskreis){
+                    DateTime einbauDatum, string erkl, DateTime tauschDatum, double zaehlermiete,
+                    string bemerkung, string zahlung, long leitungskreis, long personenImObjekt) {
 
             this.id = id;
             this.vorname = vorname;
@@ -57,6 +58,7 @@ namespace WasserWerkVerwaltung.CommonObjects {
             this.bemerkung = bemerkung;
             this.zahlung = zahlung;
             this.leitungskreis = leitungskreis;
+            this.personenImObjekt = personenImObjekt;
         }
 
         public long Id {
@@ -224,6 +226,15 @@ namespace WasserWerkVerwaltung.CommonObjects {
             }
             set {
                 this.leitungskreis = value;
+            }
+        }
+
+        public long PersonenImObjekt {
+            get {
+                return this.personenImObjekt;
+            }
+            set {
+                this.personenImObjekt = value;
             }
         }
 

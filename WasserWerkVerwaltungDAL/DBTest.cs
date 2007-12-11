@@ -17,7 +17,7 @@ namespace SimplePatientDocumentation.DAL.Tests {
         [SetUp]
         public void InitVisitTest() {
             IKunde kundeDB = Database.CreateKunde();
-            kunde = new KundenData(0, "vorname", "Nachname", "Strasse", "ort", "objekt", "tel", "hausbesetzer", "Datenbank", Rechnung.Keine, DateTime.Now, "zNr", DateTime.Now, "erkl", DateTime.Now, 234.1, "Bemerkung", "asdf",11);
+            kunde = new KundenData(0, "vorname", "Nachname", "Strasse", "ort", "objekt", "tel", "hausbesetzer", "Datenbank", Rechnung.Keine, DateTime.Now, "zNr", DateTime.Now, "erkl", DateTime.Now, 234.1, "Bemerkung", "asdf",11,1);
             kID = kundeDB.Insert(kunde);
         }
 
@@ -45,6 +45,7 @@ namespace SimplePatientDocumentation.DAL.Tests {
                     Assert.AreEqual(kundefoeach.ZaehlerNummer, this.kunde.ZaehlerNummer);
                     Assert.AreEqual(kundefoeach.Zahlung, this.kunde.Zahlung);
                     Assert.AreEqual(kundefoeach.Leitungskreis, this.kunde.Leitungskreis);
+                    Assert.AreEqual(kundefoeach.PersonenImObjekt, this.kunde.PersonenImObjekt);
                 }
             }
         }
@@ -72,6 +73,7 @@ namespace SimplePatientDocumentation.DAL.Tests {
             Assert.AreEqual(kunde2.ZaehlerNummer, this.kunde.ZaehlerNummer);
             Assert.AreEqual(kunde2.Zahlung, this.kunde.Zahlung);
             Assert.AreEqual(kunde2.Leitungskreis, this.kunde.Leitungskreis);
+            Assert.AreEqual(kunde2.PersonenImObjekt, this.kunde.PersonenImObjekt);
         }
 
         [Test]
@@ -96,6 +98,7 @@ namespace SimplePatientDocumentation.DAL.Tests {
             kunde2.ZaehlerNummer = kunde.ZaehlerNummer = "ZNo2";
             kunde2.Zahlung = kunde.Zahlung = "Zahlung2";
             kunde2.Leitungskreis = kunde.Leitungskreis = 22;
+            kunde2.PersonenImObjekt = kunde.PersonenImObjekt = 33;
 
             Assert.IsTrue(kundeDB.Update(kunde2));
             KundenData kunde3 = kundeDB.FindByID(kID);
@@ -119,6 +122,7 @@ namespace SimplePatientDocumentation.DAL.Tests {
             Assert.AreEqual(kunde3.ZaehlerNummer, this.kunde.ZaehlerNummer);
             Assert.AreEqual(kunde3.Zahlung, this.kunde.Zahlung);
             Assert.AreEqual(kunde3.Leitungskreis, this.kunde.Leitungskreis);
+            Assert.AreEqual(kunde3.PersonenImObjekt, this.kunde.PersonenImObjekt);
         }
 
         [Test]
@@ -140,7 +144,7 @@ namespace SimplePatientDocumentation.DAL.Tests {
         [SetUp]
         public void InitVisitTest() {
             IJahresDaten jahresDatenDB = Database.CreateJahresDaten();
-            jahresdaten = new JahresDatenData(0, 1, 23, 234, 2007, DateTime.Now, 87.0,5,8,"asdf",456.7);
+            jahresdaten = new JahresDatenData(0, 1, 23, 234, 2006, DateTime.Now, 87.0,5,8,"asdf",456.7);
             this.jdID = jahresDatenDB.Insert(jahresdaten);
         }   
 
@@ -184,8 +188,8 @@ namespace SimplePatientDocumentation.DAL.Tests {
         [Test]
         public void JahresdatenFindByKundenIdTest() {
             IJahresDaten jahredDatenDB = Database.CreateJahresDaten();
-            JahresDatenData jd1 = new JahresDatenData(0, 1, 234, 345, 2007, DateTime.Now, 234.9,324,567,"asdfg",2345.7);
-            JahresDatenData jd2 = new JahresDatenData(0, 1, 234, 3545, 2007, DateTime.Now, 233.9,76,987,"sadf",324.7);
+            JahresDatenData jd1 = new JahresDatenData(0, 1, 234, 345, 2006, DateTime.Now, 234.9,324,567,"asdfg",2345.7);
+            JahresDatenData jd2 = new JahresDatenData(0, 1, 234, 3545, 2006, DateTime.Now, 233.9,76,987,"sadf",324.7);
             long jdid1 = jahredDatenDB.Insert(jd1);
             long jdid2 = jahredDatenDB.Insert(jd2);
             IList<JahresDatenData> jahresdataList = jahredDatenDB.FindByKundenId(1);
@@ -230,7 +234,7 @@ namespace SimplePatientDocumentation.DAL.Tests {
             JahresDatenData jahredData2 = jahredDatenDB.FindByID(this.jdID);
             jahredData2.AbleseDatum = jahresdaten.AbleseDatum = DateTime.Now;
             jahredData2.BereitsBezahlt = jahresdaten.BereitsBezahlt = 88.8;
-            jahredData2.Jahr = jahresdaten.Jahr = 2007;
+            jahredData2.Jahr = jahresdaten.Jahr = 2006;
             jahredData2.KundenId = jahresdaten.KundenId = 5;
             jahredData2.ZaehlerStandAlt = jahresdaten.ZaehlerStandAlt = 8765;
             jahredData2.ZaehlerStandNeu = jahresdaten.ZaehlerStandNeu = 234;

@@ -29,6 +29,7 @@ namespace WasserWerkVerwaltung.BL {
 
         #region Join
         bool hasKundeJahresdataByPreis(KundenData kunde, PreisData preis);
+        bool hasKundeJahresdataByJahr(KundenData kunde, long jahr);
         #endregion Join
 
         #region Print

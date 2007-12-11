@@ -68,6 +68,8 @@ namespace WasserWerkVerwaltung.GUI {
             this.radioButtonHalbJahres = new System.Windows.Forms.RadioButton();
             this.label22 = new System.Windows.Forms.Label();
             this.textBoxObjekt = new System.Windows.Forms.TextBox();
+            this.textBoxPersonenImObjekt = new System.Windows.Forms.TextBox();
+            this.labelPersonenImObjekt = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -115,7 +117,7 @@ namespace WasserWerkVerwaltung.GUI {
             // 
             // buttonRestore
             // 
-            this.buttonRestore.Location = new System.Drawing.Point(320, 379);
+            this.buttonRestore.Location = new System.Drawing.Point(320, 400);
             this.buttonRestore.Name = "buttonRestore";
             this.buttonRestore.Size = new System.Drawing.Size(56, 23);
             this.buttonRestore.TabIndex = 20;
@@ -125,7 +127,7 @@ namespace WasserWerkVerwaltung.GUI {
             // 
             // buttonSpeichern
             // 
-            this.buttonSpeichern.Location = new System.Drawing.Point(249, 379);
+            this.buttonSpeichern.Location = new System.Drawing.Point(249, 400);
             this.buttonSpeichern.Name = "buttonSpeichern";
             this.buttonSpeichern.Size = new System.Drawing.Size(65, 23);
             this.buttonSpeichern.TabIndex = 19;
@@ -357,7 +359,7 @@ namespace WasserWerkVerwaltung.GUI {
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(8, 381);
+            this.label20.Location = new System.Drawing.Point(8, 402);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(60, 13);
             this.label20.TabIndex = 4;
@@ -366,7 +368,7 @@ namespace WasserWerkVerwaltung.GUI {
             // radioButtonKeine
             // 
             this.radioButtonKeine.AutoSize = true;
-            this.radioButtonKeine.Location = new System.Drawing.Point(68, 379);
+            this.radioButtonKeine.Location = new System.Drawing.Point(68, 400);
             this.radioButtonKeine.Name = "radioButtonKeine";
             this.radioButtonKeine.Size = new System.Drawing.Size(51, 17);
             this.radioButtonKeine.TabIndex = 17;
@@ -378,7 +380,7 @@ namespace WasserWerkVerwaltung.GUI {
             // radioButtonJahres
             // 
             this.radioButtonJahres.AutoSize = true;
-            this.radioButtonJahres.Location = new System.Drawing.Point(119, 379);
+            this.radioButtonJahres.Location = new System.Drawing.Point(119, 400);
             this.radioButtonJahres.Name = "radioButtonJahres";
             this.radioButtonJahres.Size = new System.Drawing.Size(53, 17);
             this.radioButtonJahres.TabIndex = 18;
@@ -389,7 +391,7 @@ namespace WasserWerkVerwaltung.GUI {
             // 
             // buttonNewKunde
             // 
-            this.buttonNewKunde.Location = new System.Drawing.Point(382, 379);
+            this.buttonNewKunde.Location = new System.Drawing.Point(382, 400);
             this.buttonNewKunde.Name = "buttonNewKunde";
             this.buttonNewKunde.Size = new System.Drawing.Size(78, 23);
             this.buttonNewKunde.TabIndex = 21;
@@ -443,7 +445,7 @@ namespace WasserWerkVerwaltung.GUI {
             // radioButtonHalbJahres
             // 
             this.radioButtonHalbJahres.AutoSize = true;
-            this.radioButtonHalbJahres.Location = new System.Drawing.Point(174, 379);
+            this.radioButtonHalbJahres.Location = new System.Drawing.Point(174, 400);
             this.radioButtonHalbJahres.Name = "radioButtonHalbJahres";
             this.radioButtonHalbJahres.Size = new System.Drawing.Size(70, 17);
             this.radioButtonHalbJahres.TabIndex = 24;
@@ -468,6 +470,23 @@ namespace WasserWerkVerwaltung.GUI {
             this.textBoxObjekt.TabIndex = 3;
             this.textBoxObjekt.TextChanged += new System.EventHandler(this.textChanged);
             // 
+            // textBoxPersonenImObjekt
+            // 
+            this.textBoxPersonenImObjekt.Location = new System.Drawing.Point(96, 377);
+            this.textBoxPersonenImObjekt.Name = "textBoxPersonenImObjekt";
+            this.textBoxPersonenImObjekt.Size = new System.Drawing.Size(364, 20);
+            this.textBoxPersonenImObjekt.TabIndex = 16;
+            this.textBoxPersonenImObjekt.TextChanged += new System.EventHandler(this.textChanged);
+            // 
+            // labelPersonenImObjekt
+            // 
+            this.labelPersonenImObjekt.AutoSize = true;
+            this.labelPersonenImObjekt.Location = new System.Drawing.Point(8, 380);
+            this.labelPersonenImObjekt.Name = "labelPersonenImObjekt";
+            this.labelPersonenImObjekt.Size = new System.Drawing.Size(87, 13);
+            this.labelPersonenImObjekt.TabIndex = 4;
+            this.labelPersonenImObjekt.Text = "Personen im Obj:";
+            // 
             // KundenDetailsControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -482,6 +501,7 @@ namespace WasserWerkVerwaltung.GUI {
             this.Controls.Add(this.buttonNewKunde);
             this.Controls.Add(this.buttonRestore);
             this.Controls.Add(this.label2);
+            this.Controls.Add(this.textBoxPersonenImObjekt);
             this.Controls.Add(this.textBoxLeitungskreis);
             this.Controls.Add(this.textBoxZahlung);
             this.Controls.Add(this.textBoxEinbaudatum);
@@ -489,6 +509,7 @@ namespace WasserWerkVerwaltung.GUI {
             this.Controls.Add(this.textBoxEichdatum);
             this.Controls.Add(this.textBoxErkl);
             this.Controls.Add(this.textBoxTel);
+            this.Controls.Add(this.labelPersonenImObjekt);
             this.Controls.Add(this.label21);
             this.Controls.Add(this.label20);
             this.Controls.Add(this.label19);
@@ -518,7 +539,7 @@ namespace WasserWerkVerwaltung.GUI {
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label1);
             this.Name = "KundenDetailsControl";
-            this.Size = new System.Drawing.Size(467, 412);
+            this.Size = new System.Drawing.Size(467, 460);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -571,5 +592,7 @@ namespace WasserWerkVerwaltung.GUI {
         private System.Windows.Forms.RadioButton radioButtonHalbJahres;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.TextBox textBoxObjekt;
+        private System.Windows.Forms.TextBox textBoxPersonenImObjekt;
+        private System.Windows.Forms.Label labelPersonenImObjekt;
     }
 }
