@@ -267,12 +267,13 @@ namespace WasserWerkVerwaltung.CommonObjects {
         private long tauschZaehlerStandNeu;
         private string sonstigeForderungenText;
         private double sonstigeForderungenValue;
+        private double halbJahresBetrag;
 
         public JahresDatenData(long id, long kundenId, 
                     long zaehlerStandAlt, long zaehlerStandNeu, long jahr, 
                     DateTime ableseDatum, double bereitsBezahlt, long tauschZaehlerStandAlt,
                     long tauschZaehlerStandNeu, string sonstigeForderungenText,
-                    double sonstigeForderungenValue) {
+                    double sonstigeForderungenValue, double halbJahresBetrag) {
             this.id = id;
             this.kundenId = kundenId;
             this.zaehlerStandAlt = zaehlerStandAlt;
@@ -284,6 +285,7 @@ namespace WasserWerkVerwaltung.CommonObjects {
             this.tauschZaehlerStandNeu = tauschZaehlerStandNeu;
             this.sonstigeForderungenText = sonstigeForderungenText;
             this.sonstigeForderungenValue = sonstigeForderungenValue;
+            this.halbJahresBetrag = halbJahresBetrag;
         }
 
         public long Id {
@@ -382,6 +384,15 @@ namespace WasserWerkVerwaltung.CommonObjects {
             }
             set {
                 this.sonstigeForderungenValue = value;
+            }
+        }
+
+        public double HalbJahresBetrag {
+            get {
+                return this.halbJahresBetrag;
+            }
+            set {
+                this.halbJahresBetrag = value;
             }
         }
 

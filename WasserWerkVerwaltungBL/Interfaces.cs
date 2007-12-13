@@ -18,6 +18,7 @@ namespace WasserWerkVerwaltung.BL {
             bool UpdateJahresDaten(JahresDatenData jahresDatum);
             JahresDatenData InsertJahresDaten(JahresDatenData jahresDatum);
             bool DeleteJahresDaten(long jahresDatumID);
+            JahresDatenData GetJahresdataByKundenIDandYear(long kundenID, long year);
         #endregion JahresDaten
 
         #region Preis

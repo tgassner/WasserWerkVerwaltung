@@ -27,6 +27,7 @@ namespace WasserWerkVerwaltung.GUI {
             this.buttonVomVorjahr = new System.Windows.Forms.Button();
             this.textBoxZaehlerStandAlt = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.buttonDruckJahresrechnung = new System.Windows.Forms.Button();
             this.textBoxNichtGespeichert = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.textBoxBereitsbezahlt = new System.Windows.Forms.TextBox();
@@ -44,7 +45,9 @@ namespace WasserWerkVerwaltung.GUI {
             this.buttonSpeichern = new System.Windows.Forms.Button();
             this.textBoxSonstigeForderungenText = new System.Windows.Forms.TextBox();
             this.textBoxTauschZaehlerstandAlt = new System.Windows.Forms.TextBox();
-            this.buttonDruckJahresrechnung = new System.Windows.Forms.Button();
+            this.textBoxHalbJahresBetrag = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.buttonBerechneHalbJahresBetrag = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -77,12 +80,14 @@ namespace WasserWerkVerwaltung.GUI {
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.buttonBerechneHalbJahresBetrag);
             this.groupBox1.Controls.Add(this.buttonDruckJahresrechnung);
             this.groupBox1.Controls.Add(this.textBoxNichtGespeichert);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.textBoxBereitsbezahlt);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label10);
+            this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label9);
@@ -90,6 +95,7 @@ namespace WasserWerkVerwaltung.GUI {
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.textBoxAblesedatum);
             this.groupBox1.Controls.Add(this.textBoxSonstigeForderungenWert);
+            this.groupBox1.Controls.Add(this.textBoxHalbJahresBetrag);
             this.groupBox1.Controls.Add(this.textBoxTauschZaehlerstandNeu);
             this.groupBox1.Controls.Add(this.textBoxZaehlerStandNeu);
             this.groupBox1.Controls.Add(this.buttonRestore);
@@ -105,9 +111,19 @@ namespace WasserWerkVerwaltung.GUI {
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "groupBox1";
             // 
+            // buttonDruckJahresrechnung
+            // 
+            this.buttonDruckJahresrechnung.Location = new System.Drawing.Point(481, 104);
+            this.buttonDruckJahresrechnung.Name = "buttonDruckJahresrechnung";
+            this.buttonDruckJahresrechnung.Size = new System.Drawing.Size(107, 23);
+            this.buttonDruckJahresrechnung.TabIndex = 11;
+            this.buttonDruckJahresrechnung.Text = "Drucken Jahresr.";
+            this.buttonDruckJahresrechnung.UseVisualStyleBackColor = true;
+            this.buttonDruckJahresrechnung.Click += new System.EventHandler(this.buttonDruckJahresrechnung_Click);
+            // 
             // textBoxNichtGespeichert
             // 
-            this.textBoxNichtGespeichert.Location = new System.Drawing.Point(481, 53);
+            this.textBoxNichtGespeichert.Location = new System.Drawing.Point(481, 48);
             this.textBoxNichtGespeichert.Name = "textBoxNichtGespeichert";
             this.textBoxNichtGespeichert.ReadOnly = true;
             this.textBoxNichtGespeichert.Size = new System.Drawing.Size(107, 20);
@@ -219,9 +235,9 @@ namespace WasserWerkVerwaltung.GUI {
             // 
             // buttonRestore
             // 
-            this.buttonRestore.Location = new System.Drawing.Point(481, 33);
+            this.buttonRestore.Location = new System.Drawing.Point(481, 28);
             this.buttonRestore.Name = "buttonRestore";
-            this.buttonRestore.Size = new System.Drawing.Size(107, 23);
+            this.buttonRestore.Size = new System.Drawing.Size(107, 21);
             this.buttonRestore.TabIndex = 9;
             this.buttonRestore.Text = "Restore";
             this.buttonRestore.UseVisualStyleBackColor = true;
@@ -231,7 +247,7 @@ namespace WasserWerkVerwaltung.GUI {
             // 
             this.buttonSpeichern.Location = new System.Drawing.Point(481, 8);
             this.buttonSpeichern.Name = "buttonSpeichern";
-            this.buttonSpeichern.Size = new System.Drawing.Size(107, 23);
+            this.buttonSpeichern.Size = new System.Drawing.Size(107, 20);
             this.buttonSpeichern.TabIndex = 8;
             this.buttonSpeichern.Text = "Speichern";
             this.buttonSpeichern.UseVisualStyleBackColor = true;
@@ -253,15 +269,32 @@ namespace WasserWerkVerwaltung.GUI {
             this.textBoxTauschZaehlerstandAlt.TabIndex = 5;
             this.textBoxTauschZaehlerstandAlt.TextChanged += new System.EventHandler(this.textChanged);
             // 
-            // buttonDruckJahresrechnung
+            // textBoxHalbJahresBetrag
             // 
-            this.buttonDruckJahresrechnung.Location = new System.Drawing.Point(481, 104);
-            this.buttonDruckJahresrechnung.Name = "buttonDruckJahresrechnung";
-            this.buttonDruckJahresrechnung.Size = new System.Drawing.Size(107, 23);
-            this.buttonDruckJahresrechnung.TabIndex = 11;
-            this.buttonDruckJahresrechnung.Text = "Drucken Jahresr.";
-            this.buttonDruckJahresrechnung.UseVisualStyleBackColor = true;
-            this.buttonDruckJahresrechnung.Click += new System.EventHandler(this.buttonDruckJahresrechnung_Click);
+            this.textBoxHalbJahresBetrag.Location = new System.Drawing.Point(350, 69);
+            this.textBoxHalbJahresBetrag.Name = "textBoxHalbJahresBetrag";
+            this.textBoxHalbJahresBetrag.Size = new System.Drawing.Size(98, 20);
+            this.textBoxHalbJahresBetrag.TabIndex = 6;
+            this.textBoxHalbJahresBetrag.TextChanged += new System.EventHandler(this.textChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(256, 73);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(94, 13);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "HalbJahresBetrag:";
+            // 
+            // buttonBerechneHalbJahresBetrag
+            // 
+            this.buttonBerechneHalbJahresBetrag.Location = new System.Drawing.Point(451, 70);
+            this.buttonBerechneHalbJahresBetrag.Name = "buttonBerechneHalbJahresBetrag";
+            this.buttonBerechneHalbJahresBetrag.Size = new System.Drawing.Size(75, 21);
+            this.buttonBerechneHalbJahresBetrag.TabIndex = 12;
+            this.buttonBerechneHalbJahresBetrag.Text = "Berechnen";
+            this.buttonBerechneHalbJahresBetrag.UseVisualStyleBackColor = true;
+            this.buttonBerechneHalbJahresBetrag.Click += new System.EventHandler(this.buttonBerechneHalbJahresBetrag_Click);
             // 
             // ZaehlerStandElementControl
             // 
@@ -300,5 +333,8 @@ namespace WasserWerkVerwaltung.GUI {
         private System.Windows.Forms.TextBox textBoxSonstigeForderungenWert;
         private System.Windows.Forms.TextBox textBoxSonstigeForderungenText;
         private System.Windows.Forms.Button buttonDruckJahresrechnung;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox textBoxHalbJahresBetrag;
+        private System.Windows.Forms.Button buttonBerechneHalbJahresBetrag;
     }
 }

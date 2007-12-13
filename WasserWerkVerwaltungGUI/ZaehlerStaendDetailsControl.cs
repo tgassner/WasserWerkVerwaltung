@@ -128,7 +128,7 @@ namespace WasserWerkVerwaltung.GUI {
                 }
             }
             
-            JahresDatenData jahresDatenData = new JahresDatenData(0,currentKunde.Id,0,0,currentJahr,DateTime.Now,0.0,0,0,"",0.0);
+            JahresDatenData jahresDatenData = new JahresDatenData(0,currentKunde.Id,0,0,currentJahr,DateTime.Now,0.0,0,0,"",0.0,0.0);
             jahresDataList.Add(jahresDatenData);
 
             foreach (ZaehlerStandElementControl zsecl in zaehlerStandElementControlList) {

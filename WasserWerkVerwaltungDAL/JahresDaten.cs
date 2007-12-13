@@ -14,8 +14,8 @@ namespace WasserWerkVerwaltung.DAL {
         const string SQL_FIND_BY_KUNDEN_ID = "SELECT * FROM JahresDaten WHERE KundeID = ?";
         const string SQL_FIND_ALL = "SELECT * FROM JahresDaten";
         const string SQL_LAST_INSERTED_ROW = "SELECT @@Identity";
-        readonly string SQL_UPDATE_BY_ID = "UPDATE JahresDaten SET KundeID = ?, ZaehlerStandAlt = ?, ZaehlerStandNeu = ?, Ablesedatum = ?, Jahr = ?, BereitsBezahlt = ?, TauschZaehlerStandAlt = ?, TauschZaehlerStandNeu = ?, SonstigeForderungenText = ?, SonstigeForderungenValue = ? WHERE JahresDatenID = ?";
-        readonly string SQL_INSERT_BY_ID = "INSERT INTO JahresDaten (KundeID, ZaehlerStandAlt, ZaehlerStandNeu, Ablesedatum, Jahr, BereitsBezahlt, TauschZaehlerStandAlt, TauschZaehlerStandNeu, SonstigeForderungenText, SonstigeForderungenValue) VALUES(?,?,?,?,?,?,?,?,?,?)";
+        readonly string SQL_UPDATE_BY_ID = "UPDATE JahresDaten SET KundeID = ?, ZaehlerStandAlt = ?, ZaehlerStandNeu = ?, Ablesedatum = ?, Jahr = ?, BereitsBezahlt = ?, TauschZaehlerStandAlt = ?, TauschZaehlerStandNeu = ?, SonstigeForderungenText = ?, SonstigeForderungenValue = ?, HalbJahresBetrag = ? WHERE JahresDatenID = ?";
+        readonly string SQL_INSERT_BY_ID = "INSERT INTO JahresDaten (KundeID, ZaehlerStandAlt, ZaehlerStandNeu, Ablesedatum, Jahr, BereitsBezahlt, TauschZaehlerStandAlt, TauschZaehlerStandNeu, SonstigeForderungenText, SonstigeForderungenValue, HalbJahresBetrag) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
         readonly string SQL_DELETE_BY_ID = "DELETE FROM JahresDaten WHERE JahresDatenID = ?";
         static IDbCommand findByIdCmd;
         static IDbCommand findByKundeIdCmd;
@@ -26,7 +26,7 @@ namespace WasserWerkVerwaltung.DAL {
         static IDbCommand lastInsertedRowCmd;
        
         //JahresDatenID, KundeID, Rechnungssumme, ZaehlerStandAlt, ZaehlerStandNeu, Ablesedatum, Jahr, BereitsBezahlt
-        // TauschZaehlerStandAlt, TauschZaehlerStandNeu, SonstigeForderungenText, SonstigeForderungenValue, HalbjahresZahlung
+        // TauschZaehlerStandAlt, TauschZaehlerStandNeu, SonstigeForderungenText, SonstigeForderungenValue, HalbJahresBetrag
         public IList<JahresDatenData> FindAll() {
             try {
                 DbUtil.OpenConnection();
@@ -50,7 +50,8 @@ namespace WasserWerkVerwaltung.DAL {
                                      (long)(int)rdr["TauschZaehlerStandAlt"],
                                      (long)(int)rdr["TauschZaehlerStandNeu"],
                                      (string)rdr["SonstigeForderungenText"],
-                                     (double)rdr["SonstigeForderungenValue"]
+                                     (double)rdr["SonstigeForderungenValue"],
+                                     (double)rdr["HalbJahresBetrag"]
                                     ));
                     }
                     return jahresDatenList;
@@ -85,7 +86,8 @@ namespace WasserWerkVerwaltung.DAL {
                                      (long)(int)rdr["TauschZaehlerStandAlt"],
                                      (long)(int)rdr["TauschZaehlerStandNeu"],
                                      (string)rdr["SonstigeForderungenText"],
-                                     (double)rdr["SonstigeForderungenValue"]
+                                     (double)rdr["SonstigeForderungenValue"],
+                                     (double)rdr["HalbJahresBetrag"]
                                     );
                     }
                 }
@@ -121,7 +123,8 @@ namespace WasserWerkVerwaltung.DAL {
                                      (long)(int)rdr["TauschZaehlerStandAlt"],
                                      (long)(int)rdr["TauschZaehlerStandNeu"],
                                      (string)rdr["SonstigeForderungenText"],
-                                     (double)rdr["SonstigeForderungenValue"]
+                                     (double)rdr["SonstigeForderungenValue"],
+                                     (double)rdr["HalbJahresBetrag"]
                                     ));
                     }
                     return jahresDatenList;
@@ -148,6 +151,7 @@ namespace WasserWerkVerwaltung.DAL {
                     insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@TauschZaehlerStandNeu", DbType.Int64));
                     insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@SonstigeForderungenText", DbType.String));
                     insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@SonstigeForderungenValue", DbType.Double));
+                    insertByIdCmd.Parameters.Add(DbUtil.CreateParameter("@HalbJahresBetrag", DbType.Double));
                 }
 
                 ((IDataParameter)insertByIdCmd.Parameters["@KundeID"]).Value = jahresDatenData.KundenId;
@@ -160,6 +164,7 @@ namespace WasserWerkVerwaltung.DAL {
                 ((IDataParameter)insertByIdCmd.Parameters["@TauschZaehlerStandNeu"]).Value = jahresDatenData.TauschZaehlerStandNeu;
                 ((IDataParameter)insertByIdCmd.Parameters["@SonstigeForderungenText"]).Value = jahresDatenData.SonstigeForderungenText;
                 ((IDataParameter)insertByIdCmd.Parameters["@SonstigeForderungenValue"]).Value = jahresDatenData.SonstigeForderungenValue;
+                ((IDataParameter)insertByIdCmd.Parameters["@HalbJahresBetrag"]).Value = jahresDatenData.HalbJahresBetrag;
 
                 if (insertByIdCmd.ExecuteNonQuery() != 1)
                     return 0;
@@ -191,6 +196,7 @@ namespace WasserWerkVerwaltung.DAL {
                     updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@TauschZaehlerStandNeu", DbType.Int64));
                     updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@SonstigeForderungenText", DbType.String));
                     updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@SonstigeForderungenValue", DbType.Double));
+                    updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@HalbJahresBetrag", DbType.Double));
                     updateByIdCmd.Parameters.Add(DbUtil.CreateParameter("@JahresDatenID", DbType.Int64));
                 }
 
@@ -204,6 +210,7 @@ namespace WasserWerkVerwaltung.DAL {
                 ((IDataParameter)updateByIdCmd.Parameters["@TauschZaehlerStandNeu"]).Value = jahresDatenData.TauschZaehlerStandNeu;
                 ((IDataParameter)updateByIdCmd.Parameters["@SonstigeForderungenText"]).Value = jahresDatenData.SonstigeForderungenText;
                 ((IDataParameter)updateByIdCmd.Parameters["@SonstigeForderungenValue"]).Value = jahresDatenData.SonstigeForderungenValue;
+                ((IDataParameter)updateByIdCmd.Parameters["@HalbJahresBetrag"]).Value = jahresDatenData.HalbJahresBetrag;
                 ((IDataParameter)updateByIdCmd.Parameters["@JahresDatenID"]).Value = jahresDatenData.Id;
 
                 return updateByIdCmd.ExecuteNonQuery() == 1;

@@ -126,7 +126,8 @@ namespace WasserWerkVerwaltung.BL {
                             jahresDatum.TauschZaehlerStandAlt,
                             jahresDatum.TauschZaehlerStandNeu,
                             jahresDatum.SonstigeForderungenText,
-                            jahresDatum.SonstigeForderungenValue);
+                            jahresDatum.SonstigeForderungenValue,
+                            jahresDatum.HalbJahresBetrag);
                 if (this.allJahresData != null){
                     this.allJahresData.Add(jahresDatum);
                 }
@@ -277,14 +278,14 @@ namespace WasserWerkVerwaltung.BL {
 
                     if (kunde.BekommtRechnung == Rechnung.Halbjahres) {
                         ppd.AddPrintableObject(new PrintableTextObject("Abzüglich Akontozahlung Halbjahr inkl. Mwst =", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 29 * zeilenabstand));
-                        ppd.AddPrintableObject(new PrintableTextObject("EUR -" + (this.calcJahresrechnungBrutto(jdd, kunde, preis) / 2), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, mittlererRand, obererRand + 29 * zeilenabstand));
+                        ppd.AddPrintableObject(new PrintableTextObject("EUR -" + jdd.HalbJahresBetrag, new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, mittlererRand, obererRand + 29 * zeilenabstand));
                     }
 
                     ppd.AddPrintableObject(new PrintableLineObject(Pens.Black, (int)linkerRand, (int)(obererRand + 31 * zeilenabstand), (int)linkerRand + 680, (int)(obererRand + 31 * zeilenabstand)));
 
                     ppd.AddPrintableObject(new PrintableTextObject("Einzuzahlender Betrag = ", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 31 * zeilenabstand));
                     if (kunde.BekommtRechnung == Rechnung.Halbjahres) {
-                        ppd.AddPrintableObject(new PrintableTextObject("EUR " + (this.calcJahresrechnungBrutto(jdd, kunde, preis) / 2), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, mittlererRand, obererRand + 31 * zeilenabstand));
+                        ppd.AddPrintableObject(new PrintableTextObject("EUR " + (this.calcJahresrechnungBrutto(jdd, kunde, preis) - jdd.HalbJahresBetrag), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, mittlererRand, obererRand + 31 * zeilenabstand));
                     } 
                     if (kunde.BekommtRechnung == Rechnung.Jahres) {
                         ppd.AddPrintableObject(new PrintableTextObject("EUR " + (this.calcJahresrechnungBrutto(jdd, kunde, preis)), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, mittlererRand, obererRand + 31 * zeilenabstand));

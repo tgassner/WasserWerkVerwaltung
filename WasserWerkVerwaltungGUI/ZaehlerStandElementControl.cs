@@ -54,6 +54,7 @@ namespace WasserWerkVerwaltung.GUI {
             this.textBoxTauschZaehlerstandNeu.Text = this.currentJahresData.TauschZaehlerStandNeu.ToString();
             this.textBoxSonstigeForderungenText.Text = this.currentJahresData.SonstigeForderungenText;
             this.textBoxSonstigeForderungenWert.Text = this.currentJahresData.SonstigeForderungenValue.ToString();
+            this.textBoxHalbJahresBetrag.Text = this.currentJahresData.HalbJahresBetrag.ToString();
 
             this.changed = changetmp;
             this.textBoxNichtGespeichert.Visible = changed;
@@ -130,6 +131,16 @@ namespace WasserWerkVerwaltung.GUI {
             return true;
         }
 
+        private bool checkHalbJahresBetrag() {
+            try {
+                double hjb = Double.Parse(this.textBoxSonstigeForderungenWert.Text.Replace(".", ","));
+            } catch (FormatException) {
+                MessageBox.Show("Bitte Sonstige Froderungen Wert Überprüfen: Wert ungültig.");
+                return false;
+            }
+            return true;
+        }
+        
         private bool checkFields() {
             bool ok;
 
@@ -161,6 +172,10 @@ namespace WasserWerkVerwaltung.GUI {
             if (!ok)
                 return false;
 
+            ok = checkHalbJahresBetrag();
+            if (!ok)
+                return false;
+
             return true;
         }
 
@@ -178,7 +193,8 @@ namespace WasserWerkVerwaltung.GUI {
                 long.Parse(textBoxTauschZaehlerstandAlt.Text),
                 long.Parse(textBoxTauschZaehlerstandNeu.Text),
                 textBoxSonstigeForderungenText.Text,
-                Double.Parse(textBoxSonstigeForderungenWert.Text.Replace(".", ","))
+                Double.Parse(textBoxSonstigeForderungenWert.Text.Replace(".", ",")),
+                Double.Parse(textBoxHalbJahresBetrag.Text.Replace(".", ","))
                 );
 
             if (currentJahresData.Id == 0) { // Neue Jahresdata -> insert
@@ -236,6 +252,16 @@ namespace WasserWerkVerwaltung.GUI {
             IList<KundenData> kundenlist = new List<KundenData>();
             kundenlist.Add(this.currentKunde);
             this.wwvBLComp.PrintJahresRechnungen(kundenlist,this.wwvBLComp.GetPreisDataByJahr(this.currentJahresData.Jahr));
+        }
+
+        private void buttonBerechneHalbJahresBetrag_Click(object sender, EventArgs e) {
+            JahresDatenData jdd = this.wwvBLComp.GetJahresdataByKundenIDandYear(this.currentKunde.Id,this.currentJahresData.Jahr - 1);
+            PreisData pd = this.wwvBLComp.GetPreisDataByJahr(this.currentJahresData.Jahr-1);
+            if (jdd == null || pd == null){
+                MessageBox.Show("Halbjahreswert konnte leider nicht berechnet werden!");
+                return;
+            }
+            this.textBoxHalbJahresBetrag.Text = ((double)Math.Round(this.wwvBLComp.calcJahresrechnungBrutto(jdd, this.currentKunde, pd) / 2, 2)).ToString();
         }
 
     }

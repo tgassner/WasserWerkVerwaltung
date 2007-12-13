@@ -55,7 +55,7 @@ namespace WasserWerkVerwaltung.GUI {
             if (this.listBoxJahre.SelectedItem != null) {
                 JahresDatenData jdd = (JahresDatenData)this.listBoxJahre.SelectedItem;
                 this.labelRechnungssumme.Text = wwvBLComp.calcJahresrechnungBrutto(jdd, this.currentKunde, this.wwvBLComp.GetPreisDataByJahr(jdd.Jahr)).ToString();//((JahresDatenData)this.listBoxJahre.SelectedItem).Rechnungssumme.ToString();
-                this.labelRechnungssummehalbe.Text = (wwvBLComp.calcJahresrechnungBrutto(jdd, this.currentKunde, this.wwvBLComp.GetPreisDataByJahr(jdd.Jahr))/2).ToString();//(((JahresDatenData)this.listBoxJahre.SelectedItem).Rechnungssumme / 2).ToString();
+                this.labelRechnungssummehalbe.Text = jdd.HalbJahresBetrag.ToString();
                 this.labelZaehlerStandAlt.Text = jdd.ZaehlerStandAlt.ToString();
                 this.labelZaehlerstandNeu.Text = jdd.ZaehlerStandNeu.ToString();
                 this.labelTauschzaehlerstandAlt.Text = jdd.TauschZaehlerStandAlt.ToString();
