@@ -54,7 +54,8 @@ namespace WasserWerkVerwaltung.GUI {
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e) {
-            MessageBox.Show("About noch nicht implementiert");
+            WWVAboutBox wwvAboutBox = new WWVAboutBox();
+            wwvAboutBox.ShowDialog();
         }
     }
 }

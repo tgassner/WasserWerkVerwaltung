@@ -108,6 +108,10 @@
       <SubType>Designer</SubType>
       <DependentUpon>StammdatenControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="WWVAboutBox.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>WWVAboutBox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ZaehlerStaendDetailsControl.resx">
       <SubType>Designer</SubType>
       <DependentUpon>ZaehlerStaendDetailsControl.cs</DependentUpon>
@@ -143,6 +147,12 @@
     </Compile>
     <Compile Include="StammdatenControl.Designer.cs">
       <DependentUpon>StammdatenControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WWVAboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WWVAboutBox.Designer.cs">
+      <DependentUpon>WWVAboutBox.cs</DependentUpon>
     </Compile>
     <Compile Include="ZaehlerStaendDetailsControl.cs">
       <SubType>UserControl</SubType>

@@ -133,7 +133,7 @@ namespace WasserWerkVerwaltung.GUI {
             this.buttonHalbJahresRechnungDrucken.TabIndex = 5;
             this.buttonHalbJahresRechnungDrucken.Text = "HalbjahresRechnung Drucken";
             this.buttonHalbJahresRechnungDrucken.UseVisualStyleBackColor = true;
-            this.buttonHalbJahresRechnungDrucken.Click += new System.EventHandler(this.buttonHalbJahresRechnungPart2Drucken_Click);
+            this.buttonHalbJahresRechnungDrucken.Click += new System.EventHandler(this.buttonHalbJahresRechnungDrucken_Click);
             // 
             // listBoxJahre
             // 

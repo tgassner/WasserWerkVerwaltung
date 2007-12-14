@@ -94,6 +94,11 @@ namespace WasserWerkVerwaltung.GUI {
             }
             PreisData pd = listBoxJahre.SelectedItem as PreisData;
 
+            if (pd == null) {
+                MessageBox.Show("Bitte oben ein Jahr auswählen!");
+                return;
+            }
+
             IList<KundenData> selectedKundenList = new List<KundenData>();
             foreach (KundenData kunde in checkedListBoxKunden.CheckedItems) {
                 selectedKundenList.Add(kunde);
@@ -103,7 +108,23 @@ namespace WasserWerkVerwaltung.GUI {
         }
 
         private void buttonHalbJahresRechnungDrucken_Click(object sender, EventArgs e) {
-            MessageBox.Show("Noch nicht implementiert!");
+            if (checkedListBoxKunden.CheckedItems.Count <= 0) {
+                MessageBox.Show("Keine Kunden markiert!");
+                return;
+            }
+            PreisData pd = listBoxJahre.SelectedItem as PreisData;
+
+            if (pd == null) {
+                MessageBox.Show("Bitte oben ein Jahr auswählen!");
+                return;
+            }
+
+            IList<KundenData> selectedKundenList = new List<KundenData>();
+            foreach (KundenData kunde in checkedListBoxKunden.CheckedItems) {
+                selectedKundenList.Add(kunde);
+            }
+
+            this.wwvBLComp.PrintHalbJahresRechnungen(selectedKundenList, (PreisData)listBoxJahre.SelectedItem);
         }
 
         private void buttonBezahltchecklisteDrucken_Click(object sender, EventArgs e) {
@@ -115,11 +136,24 @@ namespace WasserWerkVerwaltung.GUI {
         }
 
         private void buttonKontrollzettelDrucken_Click(object sender, EventArgs e) {
-            MessageBox.Show("Noch nicht implementiert!");
+            if (checkedListBoxKunden.CheckedItems.Count <= 0) {
+                MessageBox.Show("Keine Kunden markiert!");
+                return;
+            }
+            PreisData pd = listBoxJahre.SelectedItem as PreisData;
+
+            if (pd == null) {
+                MessageBox.Show("Bitte oben ein Jahr auswählen!");
+                return;
+            }
+
+            IList<KundenData> selectedKundenList = new List<KundenData>();
+            foreach (KundenData kunde in checkedListBoxKunden.CheckedItems) {
+                selectedKundenList.Add(kunde);
+            }
+
+            this.wwvBLComp.PrintKontrollZettel(selectedKundenList, (PreisData)listBoxJahre.SelectedItem);
         }
 
-        private void buttonHalbJahresRechnungPart2Drucken_Click(object sender, EventArgs e) {
-            MessageBox.Show("Noch nicht implementiert!");
-        }
     }
 }

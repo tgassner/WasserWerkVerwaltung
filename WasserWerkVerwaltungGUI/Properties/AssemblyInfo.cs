@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("WasserWerkVerwaltung")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("WasserWerkVerwaltung ist eine einfache Software zur Verwaltung eines Kundenstamms und der laufenden Rechnungen eines Wasserwerks.\r\n\r\nWWV wurde für das Wasserwerk Weinberger implementiert.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Thomas Gassner, B.Sc.")]
 [assembly: AssemblyProduct("WasserWerkVerwaltung")]
 [assembly: AssemblyCopyright("Copyright ©  2007")]
 [assembly: AssemblyTrademark("")]
@@ -29,5 +29,5 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("0.9.5.0")]
+[assembly: AssemblyFileVersion("0.9.5.0")]

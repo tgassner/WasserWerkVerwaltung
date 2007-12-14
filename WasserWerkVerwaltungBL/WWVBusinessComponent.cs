@@ -6,6 +6,7 @@ using WasserWerkVerwaltung.CommonObjects;
 using WasserWerkVerwaltung.Print;
 using System.Drawing;
 using System.Globalization;
+using System.Windows.Forms;
 
 namespace WasserWerkVerwaltung.BL {
     public class WWVBusinessObject : IWWVBL {
@@ -221,6 +222,12 @@ namespace WasserWerkVerwaltung.BL {
         const float stdFontSize = 13;
 
         public void PrintJahresRechnungen(IList<KundenData> kunden, PreisData preis) {
+            foreach (KundenData kunde in kunden) {
+                if (kunde.BekommtRechnung == Rechnung.Keine) {
+                    MessageBox.Show("Mindestens ein Kunde bekommt keine Rechnung!\r\nVorgang abgebrochen!");
+                    return;
+                }
+            }
             PrintableDocument pdd = new PrintableDocument();
             pdd.DocumentName = "Wasser Werk Verwaltung";
 
@@ -285,7 +292,7 @@ namespace WasserWerkVerwaltung.BL {
 
                     ppd.AddPrintableObject(new PrintableTextObject("Einzuzahlender Betrag = ", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 31 * zeilenabstand));
                     if (kunde.BekommtRechnung == Rechnung.Halbjahres) {
-                        ppd.AddPrintableObject(new PrintableTextObject("EUR " + (this.calcJahresrechnungBrutto(jdd, kunde, preis) - jdd.HalbJahresBetrag), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, mittlererRand, obererRand + 31 * zeilenabstand));
+                        ppd.AddPrintableObject(new PrintableTextObject("EUR " + Math.Round((this.calcJahresrechnungBrutto(jdd, kunde, preis) - jdd.HalbJahresBetrag),2), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, mittlererRand, obererRand + 31 * zeilenabstand));
                     } 
                     if (kunde.BekommtRechnung == Rechnung.Jahres) {
                         ppd.AddPrintableObject(new PrintableTextObject("EUR " + (this.calcJahresrechnungBrutto(jdd, kunde, preis)), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, mittlererRand, obererRand + 31 * zeilenabstand));
@@ -296,7 +303,7 @@ namespace WasserWerkVerwaltung.BL {
                     ppd.AddPrintableObject(new PrintableTextObject(kunde.Zahlung, new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 33 * zeilenabstand));
 
                     ppd.AddPrintableObject(new PrintableTextObject("Unsere ATU Nummer: ATU 563 88 929", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 37 * zeilenabstand));
-                    ppd.AddPrintableObject(new PrintableTextObject("Bankverbindung: Erste Bank Haag BLZ 20111 Kontonummer 267 12 769 00", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 38 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("Bankverbindung: Erste Bank Haag BLZ 20111 Kontonummer 267 126 769 00", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 38 * zeilenabstand));
                     ppd.AddPrintableObject(new PrintableTextObject("Tel/Fax: 07434/44398 oder 0676/620 32 38", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 39 * zeilenabstand));
                     
                     pdd.AddPrintPage(ppd);
@@ -306,9 +313,102 @@ namespace WasserWerkVerwaltung.BL {
             pdd.DoPrint();
         }
 
+        public void PrintHalbJahresRechnungen(IList<KundenData> kunden, PreisData preis) {
+            foreach (KundenData kunde in kunden) {
+                if (kunde.BekommtRechnung != Rechnung.Halbjahres){
+                    MessageBox.Show("Mindestens ein Kunde bekommt keine Halbjahresrechnung!\r\nVorgang abgebrochen!");
+                    return;
+                }
+            }
+            
+            PrintableDocument pdd = new PrintableDocument();
+            pdd.DocumentName = "Wasser Werk Verwaltung";
+
+            PrintablePage ppd;
+            foreach (KundenData kunde in kunden) {
+                ppd = new PrintablePage();
+                JahresDatenData jdd = this.GetJahresdataByKundenIDandYear(kunde.Id, preis.Jahr);
+                if (jdd != null) {
+                    ppd.AddPrintableObject(new PrintableTextObject("WASSERWERK WEINBERGER", new Font("Arial", 15, FontStyle.Bold), Brushes.Black, linkerRand, obererRand + 0 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("Bahnhofstraße 27", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 1 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("3350 Haag", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 2 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("Tel: 07434/44398", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 3 * zeilenabstand));
+
+                    ppd.AddPrintableObject(new PrintableTextObject("Herr/Frau/Fa", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 6 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject(kunde.Vorname + " " + kunde.Nachname, new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 7 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject(kunde.Strasse, new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 8 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject(kunde.Ort, new Font("Arial", stdFontSize, FontStyle.Bold | FontStyle.Underline), Brushes.Black, linkerRand, obererRand + 9 * zeilenabstand));
+
+                    ppd.AddPrintableObject(new PrintableTextObject("Halbjahreswasserrechnung " + preis.Jahr, new Font("Arial", 15, FontStyle.Bold), Brushes.Black, linkerRand + 180, obererRand + 13 * zeilenabstand));
+
+                    ppd.AddPrintableObject(new PrintableTextObject(DateTime.Now.Date.ToString("dd.MM.yyyy", DateTimeFormatInfo.InvariantInfo), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand + 575, obererRand + 15 * zeilenabstand));
+
+                    ppd.AddPrintableObject(new PrintableTextObject("für das Objekt:", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 17 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject(kunde.Objekt, new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, mittelinkerRand, obererRand + 17 * zeilenabstand));
+
+                    ppd.AddPrintableObject(new PrintableTextObject("Die Rechnung ist eine Akontierung und entspricht ca. der Hälfte der Vorjahresrechnung.", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 18 * zeilenabstand));
+                    
+
+                    ppd.AddPrintableObject(new PrintableTextObject("Nettobetrag =", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 21 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("EUR " + Math.Round(jdd.HalbJahresBetrag/1.2,2) + " 10% Mwst = EUR " + jdd.HalbJahresBetrag, new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, mittelinkerRand, obererRand + 21 * zeilenabstand));
+                    
+                    
+                    ppd.AddPrintableObject(new PrintableTextObject("Einzuzahlender Betrag =", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 24 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("EUR " + jdd.HalbJahresBetrag, new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, mittelinkerRand, obererRand + 24 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableLineObject(Pens.Black, (int)linkerRand, (int)(obererRand + 25 * zeilenabstand), (int)linkerRand + 680, (int)(obererRand + 25 * zeilenabstand)));
+
+                    ppd.AddPrintableObject(new PrintableTextObject(kunde.Zahlung, new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 28 * zeilenabstand));
+
+                    ppd.AddPrintableObject(new PrintableTextObject("Unsere ATU Nummer: ATU 563 88 929", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 34 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("Bankverbindung: Erste Bank Haag BLZ 20111 Kontonummer 267 126 769 00", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 35 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("Tel/Fax: 07434/44398 oder 0676/620 32 38", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 36 * zeilenabstand));
+
+                    pdd.AddPrintPage(ppd);
+                }
+            }
+
+            pdd.DoPrint();
+        }
+
+        public void PrintKontrollZettel(IList<KundenData> kunden, PreisData preis) {
+            PrintableDocument pdd = new PrintableDocument();
+            pdd.DocumentName = "Wasser Werk Verwaltung";
+
+            PrintablePage ppd = new PrintablePage();
+            int counter = 0;
+            int zeile = 0;
+            foreach (KundenData kunde in kunden) {
+                JahresDatenData jdd = this.GetJahresdataByKundenIDandYear(kunde.Id, preis.Jahr);
+                counter++;
+                ppd.AddPrintableObject(new PrintableTextObject(kunde.Nachname + " " + kunde.Vorname + "  Objekt: " + kunde.Objekt + "  Jahreswasserre. " + DateTime.Now.Year.ToString(), new Font("Arial", stdFontSize, FontStyle.Bold), Brushes.Black, linkerRand, obererRand + zeile++ * zeilenabstand));
+                ppd.AddPrintableObject(new PrintableTextObject("Zählerstand alt/neu m³ " + jdd.ZaehlerStandAlt + "/" + jdd.ZaehlerStandNeu + "  Tz " + jdd.TauschZaehlerStandAlt + "/" + jdd.TauschZaehlerStandNeu, new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + zeile++ * zeilenabstand));
+                ppd.AddPrintableObject(new PrintableTextObject("Wasserverbrauch = " + this.calcVerbrauch(jdd) + "     Wassergebühr pro m³ = " + preis.Preis.ToString(), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + zeile++ * zeilenabstand));
+                ppd.AddPrintableObject(new PrintableTextObject("Wasserkosten = EUR " + Math.Round(this.calcVerbrauch(jdd) * preis.Preis,2) + "     Zählermiete = EUR " + kunde.Zaehlermiete + " netto", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + zeile++ * zeilenabstand));
+                ppd.AddPrintableObject(new PrintableTextObject("Sonstige Forderungen: " + jdd.SonstigeForderungenText + " = " + jdd.SonstigeForderungenValue, new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + zeile++ * zeilenabstand));
+                ppd.AddPrintableObject(new PrintableTextObject("Rechnungssumme netto = EUR " + this.calcJahresrechnungNetto(jdd,kunde,preis) + "    zuzügl 10% Mwst = EUR " + this.calcMwSt(jdd,kunde,preis), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + zeile++ * zeilenabstand));
+                ppd.AddPrintableObject(new PrintableTextObject("Jahresrechnungssumme gesamt incl. Mwst = EUR " + this.calcJahresrechnungBrutto(jdd,kunde,preis), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + zeile++ * zeilenabstand));
+                ppd.AddPrintableObject(new PrintableTextObject("Abzüglich 1/2 Jahresrechnung = EUR " + jdd.HalbJahresBetrag, new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + zeile++ * zeilenabstand));
+                ppd.AddPrintableObject(new PrintableTextObject("Zahlbetrag = " + (this.calcJahresrechnungBrutto(jdd,kunde,preis) - jdd.HalbJahresBetrag) + "   Bankverbindung: " + kunde.BankVerbindung, new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + zeile++ * zeilenabstand));
+                ppd.AddPrintableObject(new PrintableTextObject("Bekommt Rechnung: " + kunde.BekommtRechnung.ToString() + "   Bemerkung: " + kunde.Bemerkung, new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + zeile++ * zeilenabstand));
+                
+                if ((counter % 5) == 0) {
+                    pdd.AddPrintPage(ppd);
+                    ppd = new PrintablePage();
+                    zeile = 0;
+                } else {
+                    ppd.AddPrintableObject(new PrintableLineObject(Pens.Black, (int)linkerRand, (int)(obererRand + zeile * zeilenabstand), (int)linkerRand + 680, (int)(obererRand + zeile * zeilenabstand)));
+                }
+            }
+            if ((counter % 5) != 0) {
+                pdd.AddPrintPage(ppd);
+            }
+            pdd.DoPrint();
+        }
+
         #endregion Print
 
         #region Tools
+
         public double calcJahresrechnungNetto(JahresDatenData jdd, KundenData kunde, PreisData preis) {
             return Math.Round((((double)this.calcVerbrauch(jdd)) * preis.Preis) + kunde.Zaehlermiete + jdd.SonstigeForderungenValue, 2);
         }
