@@ -20,6 +20,17 @@ namespace WasserWerkVerwaltung.CommonUtilities {
     //    }
     //}
 
+//    public static string Math.formatedRound=function(wert,stellen){
+//wert=Math.round(wert*Math.pow(10,stellen))/Math.po w(10,stellen);
+//var wert_str=wert.toString();
+//var wert_array=wert_str.split(".");
+//while(wert_array[1].length<stellen){
+//wert_array[1]+="0";
+//}
+//wert_str=wert_array[0]+"."+wert_array[1];
+//return(wert_str);
+//}
+
     public class StaticUtilities {
 
         public static int Rechnung(Rechnung rechnung) {
