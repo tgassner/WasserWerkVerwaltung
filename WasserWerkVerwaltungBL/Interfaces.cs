@@ -19,6 +19,7 @@ namespace WasserWerkVerwaltung.BL {
             JahresDatenData InsertJahresDaten(JahresDatenData jahresDatum);
             bool DeleteJahresDaten(long jahresDatumID);
             JahresDatenData GetJahresdataByKundenIDandYear(long kundenID, long year);
+            void GenerateHalbJahresBetragFuerJahr(long jahr);
         #endregion JahresDaten
 
         #region Preis
@@ -45,5 +46,5 @@ namespace WasserWerkVerwaltung.BL {
         double calcJahresrechnungBrutto(JahresDatenData jdd, KundenData kunde, PreisData preis);
         int calcVerbrauch(JahresDatenData jdd);
         #endregion Tools
-        }
+    }
 }

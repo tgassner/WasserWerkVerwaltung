@@ -135,7 +135,17 @@ namespace WasserWerkVerwaltung.GUI {
             try {
                 double hjb = Double.Parse(this.textBoxSonstigeForderungenWert.Text.Replace(".", ","));
             } catch (FormatException) {
-                MessageBox.Show("Bitte Sonstige Froderungen Wert Überprüfen: Wert ungültig.");
+                MessageBox.Show("Bitte Sonstige Froderungen überprüfen: Wert ungültig.");
+                return false;
+            }
+            return true;
+        }
+
+        private bool checkBereitsBezahltSummand() {
+            try {
+                double hjb = Double.Parse(this.textBoxBereitsBezahltSummand.Text.Replace(".", ","));
+            } catch (FormatException) {
+                MessageBox.Show("Bitte BereitsBezahlt Summand überprüfen: Wert ungültig.");
                 return false;
             }
             return true;
@@ -262,6 +272,18 @@ namespace WasserWerkVerwaltung.GUI {
                 return;
             }
             this.textBoxHalbJahresBetrag.Text = ((double)Math.Round(this.wwvBLComp.calcJahresrechnungBrutto(jdd, this.currentKunde, pd) / 2, 2)).ToString();
+        }
+
+        private void buttonCalcBereitsBezahlt_Click(object sender, EventArgs e) {
+            bool ok;
+            ok = checkBereitsBezahltSummand();
+            ok = ok && checkBereitsBezahlt();
+            if (!ok) {
+                return;
+            }
+            double summe = Double.Parse(textBoxBereitsbezahlt.Text.Replace(".", ",")) + Double.Parse(textBoxBereitsBezahltSummand.Text.Replace(".", ","));
+            textBoxBereitsbezahlt.Text = summe.ToString();
+            textBoxBereitsBezahltSummand.Text = "";
         }
 
     }

@@ -167,6 +167,73 @@ namespace WasserWerkVerwaltung.BL {
             return null;
         }
 
+        /*
+         * Die Semantik dieses Buttons ist, daß er für ein Jahr alle Kunden 
+         * die noch keinen Zählerstandeintrag für das Jahr haben den 
+         * Halbjahreszählerstand vom Jahr davor berechnet, (mit Überprüfung, 
+         * daß mindestens ein Kunde im Vorjahr einen Eintrag haben muß.) Kunden 
+         * die bereits einen Jahreszählerstand eintrag für das JAhr haben werden 
+         * ignoriert um einen bestehenden Betrag nicht zu überschreiben. 
+         * (Sollte zwar eh der selbe sein, aber du hast ja immer die Möglichkeit 
+         * den Betrag anzupassen.) 
+         */
+
+        public void GenerateHalbJahresBetragFuerJahr(long jahr) {
+            int countKeinenAltenEintrag = 0;
+            int countBereitsEinenNeuenEintrag = 0;
+            int countEintraegerErstellt = 0;
+            int countFehlerBeimEintragen = 0;
+
+            PreisData pd = this.GetPreisDataByJahr(jahr);
+            if (pd == null){
+                MessageBox.Show("Kein Wasserpreis / m³ fürs Jahr " + jahr + " definiert -> bitte zuvor definieren.");
+                return;
+            }
+
+            foreach (KundenData kunde in this.GetAllKunden()) {
+                
+
+                if (this.hasKundeJahresdataByJahr(kunde, jahr)) {
+                    countBereitsEinenNeuenEintrag++;
+                }
+
+                if (!this.hasKundeJahresdataByJahr(kunde, jahr-1)) {
+                    countKeinenAltenEintrag++;
+                }
+
+                if (! this.hasKundeJahresdataByJahr(kunde,jahr) &&
+                    this.hasKundeJahresdataByJahr(kunde, jahr-1)){
+
+                    // Kunde hat im Vorjahr einen Eintrag und im aktuellen nicht!
+                    // Es wird eine neue JahresDatenzeile erstellt in der 
+                    // also wird HalbjahresWert eingrtragen
+
+                    JahresDatenData jdd = new JahresDatenData(0,
+                                                                kunde.Id,
+                                                                0,
+                                                                0,
+                                                                jahr,
+                                                                DateTime.MinValue,
+                                                                0.0,
+                                                                0,
+                                                                0,
+                                                                "",
+                                                                0.0,
+                                                                ((double)Math.Round(this.calcJahresrechnungBrutto(this.GetJahresdataByKundenIDandYear(kunde.Id,jahr - 1), kunde, pd) / 2, 2)));
+
+                    JahresDatenData jdd2 = this.InsertJahresDaten(jdd);
+
+                    if (jdd2 != null) {
+                        countEintraegerErstellt++;
+                    } else {
+                        countFehlerBeimEintragen++;
+                    }
+                }
+                
+            }
+            MessageBox.Show(countEintraegerErstellt + " Einträge erstellt für das Jahr " + jahr + " auf Basis vom Jahr: " + (jahr - 1) + "\r\n" + countKeinenAltenEintrag + " hatten keinen Eintrag im Jahr " + (jahr - 1) + "\r\n" + countBereitsEinenNeuenEintrag + " hatten bereits einen Eintrag im Jahr " + jahr + "\r\n" + countFehlerBeimEintragen + " Einträge konnten nicht erstellt werden.");
+        }
+
         #endregion JahresDaten
 
         #region Preis
@@ -354,7 +421,7 @@ namespace WasserWerkVerwaltung.BL {
                     
 
                     ppd.AddPrintableObject(new PrintableTextObject("Nettobetrag =", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 22 * zeilenabstand));
-                    ppd.AddPrintableObject(new PrintableTextObject("EUR " + FormatDezimal(Math.Round(jdd.HalbJahresBetrag/1.2,2)) + " + 10% Mwst = EUR " + FormatDezimal(jdd.HalbJahresBetrag), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, mittelinkerRand, obererRand + 22 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("EUR " + FormatDezimal(Math.Round(calcJahresRechnungMinusBereitsBezahlt(jdd, kunde, preis) / 1.2, 2)) + " + 10% Mwst = EUR " + FormatDezimal(calcJahresRechnungMinusBereitsBezahlt(jdd, kunde, preis)), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, mittelinkerRand, obererRand + 22 * zeilenabstand));
                     
                     
                     ppd.AddPrintableObject(new PrintableTextObject("Einzuzahlender Betrag =", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 25 * zeilenabstand));
@@ -415,6 +482,10 @@ namespace WasserWerkVerwaltung.BL {
 
         public string FormatDezimal(double d) {
             return String.Format("{0:F}", d);
+        }
+
+        public double calcJahresRechnungMinusBereitsBezahlt(JahresDatenData jdd, KundenData kunde, PreisData preis) {
+            return Math.Round(calcJahresrechnungBrutto(jdd,kunde,preis) - jdd.BereitsBezahlt,2);
         }
 
         public double calcJahresrechnungNetto(JahresDatenData jdd, KundenData kunde, PreisData preis) {

@@ -83,6 +83,7 @@ namespace WasserWerkVerwaltung.GUI {
             if (this.listBoxKunden.SelectedItem != null) {
                 this.kundenDetailsControl.SetCurrentCustomer((KundenData)this.listBoxKunden.SelectedItem);
                 this.jahresDatenInfoControl.Visible = true;
+                this.jahresDatenInfoControl.Clear();
                 this.jahresDatenInfoControl.SetCurrentCustomer((KundenData)this.listBoxKunden.SelectedItem);
             }
         }

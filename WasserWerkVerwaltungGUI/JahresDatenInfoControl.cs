@@ -24,18 +24,7 @@ namespace WasserWerkVerwaltung.GUI {
             this.Enabled = true;
             this.Visible = true;
 
-            this.labelRechnungssumme.Text = "";
-            this.labelRechnungssummehalbe.Text = "";
-            this.labelZaehlerStandAlt.Text = "";
-            this.labelZaehlerstandNeu.Text = "";
-            this.labelTauschzaehlerstandAlt.Text = "";
-            this.labelTauschzaehlerstandNeu.Text = "";
-            this.labelAbleseDatum.Text = "";
-            this.labelSonstigeForderungenText.Text = "";
-            this.labelSonstigeForderungenValue.Text = "";
-            this.labelJahr.Text = "";
-            this.labelBereitsBezahlt.Text = "";
-            this.labelRechnungsSummeMinusBereitsBezahlt.Text = "";
+            this.Clear();
         }
 
         public void SetCurrentCustomer(KundenData kunde) {
@@ -67,6 +56,21 @@ namespace WasserWerkVerwaltung.GUI {
                 this.labelBereitsBezahlt.Text = jdd.BereitsBezahlt.ToString();
                 this.labelRechnungsSummeMinusBereitsBezahlt.Text = (wwvBLComp.calcJahresrechnungBrutto(jdd, this.currentKunde, this.wwvBLComp.GetPreisDataByJahr(jdd.Jahr)) - jdd.BereitsBezahlt).ToString(); //(((JahresDatenData)this.listBoxJahre.SelectedItem).Rechnungssumme - ((JahresDatenData)this.listBoxJahre.SelectedItem).BereitsBezahlt).ToString();
             }
+        }
+
+        internal void Clear() {
+            this.labelRechnungssumme.Text = "";
+            this.labelRechnungssummehalbe.Text = "";
+            this.labelZaehlerStandAlt.Text = "";
+            this.labelZaehlerstandNeu.Text = "";
+            this.labelTauschzaehlerstandAlt.Text = "";
+            this.labelTauschzaehlerstandNeu.Text = "";
+            this.labelAbleseDatum.Text = "";
+            this.labelSonstigeForderungenText.Text = "";
+            this.labelSonstigeForderungenValue.Text = "";
+            this.labelJahr.Text = "";
+            this.labelBereitsBezahlt.Text = "";
+            this.labelRechnungsSummeMinusBereitsBezahlt.Text = "";
         }
     }
 }

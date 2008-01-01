@@ -19,7 +19,7 @@ namespace WasserWerkVerwaltung.GUI {
         public ZaehlerStaendeControl() {
             InitializeComponent();
             this.zaehlerStaendDetailsControl = new ZaehlerStaendDetailsControl();
-            this.zaehlerStaendDetailsControl.Location = new System.Drawing.Point(200, 0);
+            this.zaehlerStaendDetailsControl.Location = new System.Drawing.Point(400, 0);
             this.Controls.Add(this.zaehlerStaendDetailsControl);
         }
 
@@ -106,6 +106,77 @@ namespace WasserWerkVerwaltung.GUI {
             this.textBoxSuchen.Text = "";
             foreach (KundenData kunde in StaticUtilities.SortByNachname(wwvBLComp.GetAllKunden())) {
                 this.listBoxKunden.Items.Add(kunde);
+            }
+        }
+
+        private void buttonGeneriereMehrereHalbjahresWerte_Click(object sender, EventArgs e) {
+            long jahr;
+            try {
+                jahr = Int64.Parse(textBoxJahr.Text);
+            } catch (Exception){
+                MessageBox.Show("Das Format des Jahres ist ungültig");
+                return;
+            }
+            this.wwvBLComp.GenerateHalbJahresBetragFuerJahr(jahr);
+        }
+
+        private void buttonPreisImJahrAendern_Click(object sender, EventArgs e) {
+            long currentJahr;
+
+            try {
+                currentJahr = Int64.Parse(textBoxJahrWasserpreis.Text);
+            } catch (FormatException) {
+                MessageBox.Show("Das Format vom Jahr scheint ungültig zu sein!");
+                return;
+            }            
+
+            PreisForm pf = new PreisForm();
+            PreisData pd = wwvBLComp.GetPreisDataByJahr(currentJahr);
+            if (pd == null) {
+                MessageBox.Show("Für dieses Jahr gibt es noch keinen Preis - bitte vor dem ändern anlegen");
+                return;
+            } else {
+                pf.Init(currentJahr, wwvBLComp.GetPreisDataByJahr(currentJahr).Preis);
+            }
+            pf.ShowDialog();
+            if (!pf.OK) {
+                MessageBox.Show("Kein neuer Preis für das Jahr festgelegt speichern abgebrochen!");
+                return;
+            }
+            PreisData preis = new PreisData(currentJahr, pf.Preis);
+
+            if (!wwvBLComp.UpdatePreis(preis)) {
+                MessageBox.Show("Preis konnte nicht gespeichert werden!");
+                return;
+            }
+        }
+
+        private void buttonJahreswasserpreisErstellen_Click(object sender, EventArgs e) {
+            long currentJahr;
+
+            try {
+                currentJahr = Int64.Parse(textBoxJahrWasserpreis.Text);
+            } catch (FormatException) {
+                MessageBox.Show("Das Format vom Jahr scheint ungültig zu sein!");
+                return;
+            }   
+            
+            PreisData preis = this.wwvBLComp.GetPreisDataByJahr(currentJahr);
+            if (preis == null) {
+                PreisForm pf = new PreisForm();
+                pf.Init(currentJahr);
+                pf.ShowDialog();
+                if (!pf.OK) {
+                    MessageBox.Show("Kein Preis für das Jahr festgelegt speichern abgebrochen!");
+                    return;
+                }
+                preis = new PreisData(currentJahr, pf.Preis);
+
+                wwvBLComp.InsertPreis(preis);
+                preis = new PreisData(currentJahr, pf.Preis);
+                if (preis == null) {
+                    MessageBox.Show("Preis konnte nicht erstellt werden!");
+                }
             }
         }
     }

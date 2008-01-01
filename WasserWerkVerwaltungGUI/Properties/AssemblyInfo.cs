@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Thomas Gassner, B.Sc.")]
 [assembly: AssemblyProduct("WasserWerkVerwaltung")]
-[assembly: AssemblyCopyright("Copyright ©  2007")]
+[assembly: AssemblyCopyright("Copyright ©  2008")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -29,5 +29,5 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("0.9.6.0")]
-[assembly: AssemblyFileVersion("0.9.6.0")]
+[assembly: AssemblyVersion("0.9.7.0")]
+[assembly: AssemblyFileVersion("0.9.7.0")]

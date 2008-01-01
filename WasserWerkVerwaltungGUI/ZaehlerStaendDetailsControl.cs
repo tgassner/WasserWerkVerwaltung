@@ -181,32 +181,5 @@ namespace WasserWerkVerwaltung.GUI {
                 this.placeZaehlerStandElementControl();
             }
         }
-
-        private void buttonPreisImJahrAendern_Click(object sender, EventArgs e) {
-            if (!checkJahr())
-                return;
-
-            long currentJahr;
-            currentJahr = Int64.Parse(textBoxJahr.Text);
-
-            PreisForm pf = new PreisForm();
-            PreisData pd = wwvBLComp.GetPreisDataByJahr(currentJahr);
-            if (pd == null) {
-                pf.Init(currentJahr);
-            } else {
-                pf.Init(currentJahr, wwvBLComp.GetPreisDataByJahr(currentJahr).Preis);
-            }
-            pf.ShowDialog();
-            if (!pf.OK) {
-                MessageBox.Show("Kein neuer Preis für das Jahr festgelegt speichern abgebrochen!");
-                return;
-            }
-            PreisData preis = new PreisData(currentJahr, pf.Preis);
-
-            if (!wwvBLComp.UpdatePreis(preis)) {
-                MessageBox.Show("Preis konnte nicht gespeichert werden!");
-                return;
-            }
-        }
     }
 }
