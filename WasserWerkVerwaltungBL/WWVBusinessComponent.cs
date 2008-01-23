@@ -421,11 +421,12 @@ namespace WasserWerkVerwaltung.BL {
                     
 
                     ppd.AddPrintableObject(new PrintableTextObject("Nettobetrag =", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 22 * zeilenabstand));
-                    ppd.AddPrintableObject(new PrintableTextObject("EUR " + FormatDezimal(Math.Round(calcJahresRechnungMinusBereitsBezahlt(jdd, kunde, preis) / 1.2, 2)) + " + 10% Mwst = EUR " + FormatDezimal(calcJahresRechnungMinusBereitsBezahlt(jdd, kunde, preis)), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, mittelinkerRand, obererRand + 22 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("EUR " + FormatDezimal(Math.Round(calcJahresRechnungMinusBereitsBezahlt(jdd, kunde, preis) / 1.1, 2)) + " + 10% Mwst = EUR " + FormatDezimal(calcJahresRechnungMinusBereitsBezahlt(jdd, kunde, preis)), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, mittelinkerRand, obererRand + 22 * zeilenabstand));
                     
                     
                     ppd.AddPrintableObject(new PrintableTextObject("Einzuzahlender Betrag =", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 25 * zeilenabstand));
-                    ppd.AddPrintableObject(new PrintableTextObject("EUR " + FormatDezimal(jdd.HalbJahresBetrag), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, mittelinkerRand, obererRand + 25 * zeilenabstand));
+                    //ppd.AddPrintableObject(new PrintableTextObject("EUR " + FormatDezimal(jdd.HalbJahresBetrag), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, mittelinkerRand, obererRand + 25 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("EUR " + FormatDezimal(calcJahresRechnungMinusBereitsBezahlt(jdd, kunde, preis)), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, mittelinkerRand, obererRand + 25 * zeilenabstand));
                     ppd.AddPrintableObject(new PrintableLineObject(Pens.Black, (int)linkerRand, (int)(obererRand + 26 * zeilenabstand), (int)linkerRand + 680, (int)(obererRand + 26 * zeilenabstand)));
 
                     ppd.AddPrintableObject(new PrintableTextObject(kunde.Zahlung, new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 29 * zeilenabstand));

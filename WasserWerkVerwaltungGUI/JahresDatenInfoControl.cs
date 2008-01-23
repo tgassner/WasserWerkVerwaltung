@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using WasserWerkVerwaltung.BL;
 using WasserWerkVerwaltung.CommonObjects;
 using System.Globalization;
+using WasserWerkVerwaltung.CommonUtilities;
 
 namespace WasserWerkVerwaltung.GUI {
     public partial class JahresDatenInfoControl : UserControl {
@@ -35,8 +36,11 @@ namespace WasserWerkVerwaltung.GUI {
         private void fillDataFromCurrentCustomer() {
             this.listBoxJahre.Items.Clear();
             IList<JahresDatenData> jahresDatenList = wwvBLComp.GetJahresdataByKundenID(currentKunde.Id);
-            foreach (JahresDatenData jdd in jahresDatenList) {
+            foreach (JahresDatenData jdd in StaticUtilities.SortJahresDataByJahr(jahresDatenList,false)) {
                 listBoxJahre.Items.Add(jdd);
+            }
+            if (listBoxJahre.Items.Count > 0) {
+                listBoxJahre.SelectedIndex = 0;
             }
         }
 
@@ -59,18 +63,19 @@ namespace WasserWerkVerwaltung.GUI {
         }
 
         internal void Clear() {
-            this.labelRechnungssumme.Text = "";
-            this.labelRechnungssummehalbe.Text = "";
-            this.labelZaehlerStandAlt.Text = "";
-            this.labelZaehlerstandNeu.Text = "";
-            this.labelTauschzaehlerstandAlt.Text = "";
-            this.labelTauschzaehlerstandNeu.Text = "";
-            this.labelAbleseDatum.Text = "";
-            this.labelSonstigeForderungenText.Text = "";
-            this.labelSonstigeForderungenValue.Text = "";
-            this.labelJahr.Text = "";
-            this.labelBereitsBezahlt.Text = "";
-            this.labelRechnungsSummeMinusBereitsBezahlt.Text = "";
+            this.listBoxJahre.Items.Clear();
+            this.labelRechnungssumme.Text = String.Empty;
+            this.labelRechnungssummehalbe.Text = String.Empty;
+            this.labelZaehlerStandAlt.Text = String.Empty;
+            this.labelZaehlerstandNeu.Text = String.Empty;
+            this.labelTauschzaehlerstandAlt.Text = String.Empty;
+            this.labelTauschzaehlerstandNeu.Text = String.Empty;
+            this.labelAbleseDatum.Text = String.Empty;
+            this.labelSonstigeForderungenText.Text = String.Empty;
+            this.labelSonstigeForderungenValue.Text = String.Empty;
+            this.labelJahr.Text = String.Empty;
+            this.labelBereitsBezahlt.Text = String.Empty;
+            this.labelRechnungsSummeMinusBereitsBezahlt.Text = String.Empty;
         }
     }
 }

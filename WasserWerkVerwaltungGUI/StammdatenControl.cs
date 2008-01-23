@@ -64,7 +64,7 @@ namespace WasserWerkVerwaltung.GUI {
             this.listBoxKunden.Items.Clear();
 
             this.listBoxKunden.Sorted = false;
-            foreach (KundenData kunde in StaticUtilities.SortByNachname(wwvBLComp.GetAllKunden())) {
+            foreach (KundenData kunde in StaticUtilities.SortByNachname(wwvBLComp.GetAllKunden(),true)) {
                 this.listBoxKunden.Items.Add(kunde);
             }
 

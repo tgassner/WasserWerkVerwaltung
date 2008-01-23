@@ -41,9 +41,12 @@ namespace WasserWerkVerwaltung.CommonUtilities {
             return (Rechnung)rechnung;
         }
 
-        public static IList<KundenData> SortByNachname(IList<KundenData> kunden) {
+        public static IList<KundenData> SortByNachname(IList<KundenData> kunden, bool asc) {
             List<KundenData> list = new List<KundenData>(kunden);
             list.Sort(CompareKundenByNachname);
+            if (!asc) {
+                list.Reverse();
+            }
             return list;
         }
 
@@ -59,6 +62,56 @@ namespace WasserWerkVerwaltung.CommonUtilities {
                     return 1;
                 } else {
                     return x.Nachname.CompareTo(y.Nachname);
+                }
+            }
+        }
+
+        public static IList<PreisData> SortByJahr(IList<PreisData> preise, bool asc) {
+            List<PreisData> list = new List<PreisData>(preise);
+            list.Sort(ComparePreiseByJahr);
+            if (!asc) {
+                list.Reverse();
+            }
+            return list;
+        }
+
+        public static int ComparePreiseByJahr(PreisData x, PreisData y) {
+            if (x == null) {
+                if (y == null) {
+                    return 0;
+                } else {
+                    return -1;
+                }
+            } else {
+                if (y == null) {
+                    return 1;
+                } else {
+                    return x.Jahr.CompareTo(y.Jahr);
+                }
+            }
+        }
+
+        public static IList<JahresDatenData> SortJahresDataByJahr(IList<JahresDatenData> jahresdaten, bool asc) {
+            List<JahresDatenData> list = new List<JahresDatenData>(jahresdaten);
+            list.Sort(CompareJahresdatenByJahr);
+            if (!asc) {
+                list.Reverse();
+            }
+            return list;
+        }
+
+        public static int CompareJahresdatenByJahr(JahresDatenData x, JahresDatenData y) {
+            if (x == null) {
+                if (y == null) {
+                    return 0;
+                } else {
+                    return -1;
+                }
+            } else {
+                if (y == null) {
+                    return 1;
+                } else {
+                    return x.Jahr.CompareTo(y.Jahr);
                 }
             }
         }

@@ -23,9 +23,10 @@ namespace WasserWerkVerwaltung.GUI {
             
             this.listBoxJahre.Items.Clear();
 
-            foreach (PreisData preis in wwvBLComp.GetAllPreise()) {
+            foreach (PreisData preis in StaticUtilities.SortByJahr(wwvBLComp.GetAllPreise(), false)) {
                 listBoxJahre.Items.Add(preis);
             }
+
             if (listBoxJahre.Items.Count > 0) {
                 listBoxJahre.SelectedIndex = 0;
             }
@@ -41,7 +42,7 @@ namespace WasserWerkVerwaltung.GUI {
 
             PreisData pd = listBoxJahre.SelectedItem as PreisData;
 
-            foreach (KundenData kunde in StaticUtilities.SortByNachname(wwvBLComp.GetAllKunden())) {
+            foreach (KundenData kunde in StaticUtilities.SortByNachname(wwvBLComp.GetAllKunden(), true)) {
                 
                 if (this.wwvBLComp.hasKundeJahresdataByPreis(kunde,pd)){
                     this.checkedListBoxKunden.Items.Add(kunde);

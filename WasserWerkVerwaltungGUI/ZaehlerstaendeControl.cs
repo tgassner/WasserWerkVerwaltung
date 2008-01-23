@@ -36,7 +36,7 @@ namespace WasserWerkVerwaltung.GUI {
         private void updateListBoxKunden() {
             this.listBoxKunden.Items.Clear();
             this.listBoxKunden.Sorted = false;
-            foreach (KundenData kunde in StaticUtilities.SortByNachname(wwvBLComp.GetAllKunden())) {
+            foreach (KundenData kunde in StaticUtilities.SortByNachname(wwvBLComp.GetAllKunden(),true)) {
                 this.listBoxKunden.Items.Add(kunde);
             }
             this.comboBoxJahr.Items.Clear();
@@ -85,7 +85,7 @@ namespace WasserWerkVerwaltung.GUI {
                 return;
             }
 
-            foreach (KundenData kunde in StaticUtilities.SortByNachname(wwvBLComp.GetAllKunden())) {
+            foreach (KundenData kunde in StaticUtilities.SortByNachname(wwvBLComp.GetAllKunden(),true)) {
                 if (!wwvBLComp.hasKundeJahresdataByJahr(kunde, jahr)) {
                     this.listBoxKunden.Items.Add(kunde);
                 }
@@ -104,7 +104,7 @@ namespace WasserWerkVerwaltung.GUI {
             this.listBoxKunden.Items.Clear();
             this.listBoxSuchen.Items.Clear();
             this.textBoxSuchen.Text = "";
-            foreach (KundenData kunde in StaticUtilities.SortByNachname(wwvBLComp.GetAllKunden())) {
+            foreach (KundenData kunde in StaticUtilities.SortByNachname(wwvBLComp.GetAllKunden(),true)) {
                 this.listBoxKunden.Items.Add(kunde);
             }
         }
