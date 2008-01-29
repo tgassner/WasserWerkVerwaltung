@@ -442,6 +442,76 @@ namespace WasserWerkVerwaltung.BL {
             pdd.DoPrint();
         }
 
+        public void PrintBezahltCheckListe(IList<KundenData> kunden, PreisData preis) {
+            PrintableDocument pdd = new PrintableDocument();
+            pdd.DocumentName = "Wasser Werk Verwaltung";
+            int seitencounter = 1;
+            PrintablePage ppd = new PrintablePage();
+            ppd.AddPrintableObject(new PrintableTextObject("Seite " + seitencounter, new Font("Arial", 9, FontStyle.Bold), Brushes.Black, linkerRand - 30, obererRand - 30));
+            ppd.AddPrintableObject(new PrintableTextObject("OFFENE RECHNUNGEN  " + preis.Jahr, new Font("Arial", 12, FontStyle.Bold),Brushes.Black,mittelinkerRand - 20,obererRand - 30));
+            ppd.AddPrintableObject(new PrintableTextObject(DateTime.Now.ToShortDateString(), new Font("Arial", 9, FontStyle.Bold),Brushes.Black,rechterRand,obererRand - 30));
+            ppd.AddPrintableObject(new PrintableTextObject("Name, Vorname", new Font("Arial", 9, FontStyle.Bold),Brushes.Black,linkerRand - 30,obererRand + 15));
+            ppd.AddPrintableObject(new PrintableTextObject("Objekt", new Font("Arial", 9, FontStyle.Bold),Brushes.Black,linkerRand + 190,obererRand + 15));
+            ppd.AddPrintableObject(new PrintableTextObject("Rechnunssum", new Font("Arial", 9, FontStyle.Bold),Brushes.Black,linkerRand + 410,obererRand + 15));
+            ppd.AddPrintableObject(new PrintableTextObject("bereits bezahlt", new Font("Arial", 9, FontStyle.Bold),Brushes.Black,linkerRand + 510,obererRand + 15));
+            ppd.AddPrintableObject(new PrintableTextObject("Noch ausständig", new Font("Arial", 9, FontStyle.Bold), Brushes.Black, linkerRand + 610, obererRand + 15));
+
+            int kleinerZeilenabstand = 15;
+            int zeile = 8;
+            int counter = 0;
+            ppd.AddPrintableObject(new PrintableLineObject(Pens.Black, (int)linkerRand - 30, (int)kleinerZeilenabstand * (int)(zeile), (int)linkerRand + 700, (int)kleinerZeilenabstand * (int)(zeile)));
+            double sumSum = 0;
+            double bereitsBezahlt = 0;
+            double ausstaendig = 0;
+            foreach (KundenData kunde in kunden) {
+                JahresDatenData jdd = this.GetJahresdataByKundenIDandYear(kunde.Id, preis.Jahr);
+
+                ppd.AddPrintableObject(new PrintableTextObject(kunde.Nachname + " " + kunde.Vorname, new Font("Arial", 9, FontStyle.Bold), Brushes.Black, linkerRand - 30, zeile * kleinerZeilenabstand));
+                ppd.AddPrintableObject(new PrintableFillRectangleObject(Brushes.White,(int)linkerRand+188,zeile * kleinerZeilenabstand + 1,300,13));
+                ppd.AddPrintableObject(new PrintableTextObject(kunde.Objekt, new Font("Arial", 9, FontStyle.Bold), Brushes.Black, linkerRand + 190, zeile * kleinerZeilenabstand));
+                ppd.AddPrintableObject(new PrintableTextObject(this.FormatDezimal(this.calcJahresrechnungNetto(jdd, kunde, preis)) + " EUR", new Font("Arial", 9, FontStyle.Bold), Brushes.Black, linkerRand + 410, zeile * kleinerZeilenabstand));
+                ppd.AddPrintableObject(new PrintableTextObject(this.FormatDezimal(jdd.BereitsBezahlt) + " EUR", new Font("Arial", 9, FontStyle.Bold), Brushes.Black, linkerRand + 510, zeile * kleinerZeilenabstand));
+                ppd.AddPrintableObject(new PrintableTextObject(this.FormatDezimal(this.calcJahresrechnungNetto(jdd, kunde, preis) - jdd.BereitsBezahlt) + " EUR", new Font("Arial", 9, FontStyle.Bold), Brushes.Black, linkerRand + 610, zeile * kleinerZeilenabstand));
+
+                ppd.AddPrintableObject(new PrintableLineObject(Pens.LightGray, (int)linkerRand - 30, (int)kleinerZeilenabstand * (int)(zeile+1), (int)linkerRand + 700, (int)kleinerZeilenabstand * (int)(zeile+1)));
+                sumSum += this.calcJahresrechnungNetto(jdd, kunde, preis);
+                bereitsBezahlt += jdd.BereitsBezahlt;
+                ausstaendig += (this.calcJahresrechnungNetto(jdd, kunde, preis) - jdd.BereitsBezahlt);
+                zeile++;
+                counter++;
+
+                if ((counter % 65) == 0) {
+                    pdd.AddPrintPage(ppd);
+                    ppd = new PrintablePage();
+                    zeile = 8;
+                    seitencounter++;
+
+                    ppd.AddPrintableObject(new PrintableTextObject("Seite " + seitencounter, new Font("Arial", 9, FontStyle.Bold), Brushes.Black, linkerRand - 30, obererRand - 30));
+                    ppd.AddPrintableObject(new PrintableTextObject("OFFENE RECHNUNGEN  " + preis.Jahr, new Font("Arial", 12, FontStyle.Bold), Brushes.Black, mittelinkerRand - 20, obererRand - 30));
+                    ppd.AddPrintableObject(new PrintableTextObject(DateTime.Now.ToShortDateString(), new Font("Arial", 9, FontStyle.Bold), Brushes.Black, rechterRand, obererRand - 30));
+                    ppd.AddPrintableObject(new PrintableTextObject("Name, Vorname", new Font("Arial", 9, FontStyle.Bold), Brushes.Black, linkerRand - 30, obererRand + 15));
+                    ppd.AddPrintableObject(new PrintableTextObject("Objekt", new Font("Arial", 9, FontStyle.Bold), Brushes.Black, linkerRand + 190, obererRand + 15));
+                    ppd.AddPrintableObject(new PrintableTextObject("Rechnunssum", new Font("Arial", 9, FontStyle.Bold), Brushes.Black, linkerRand + 410, obererRand + 15));
+                    ppd.AddPrintableObject(new PrintableTextObject("bereits bezahlt", new Font("Arial", 9, FontStyle.Bold), Brushes.Black, linkerRand + 510, obererRand + 15));
+                    ppd.AddPrintableObject(new PrintableTextObject("Noch ausständig", new Font("Arial", 9, FontStyle.Bold), Brushes.Black, linkerRand + 610, obererRand + 15));
+
+                    ppd.AddPrintableObject(new PrintableLineObject(Pens.Black, (int)linkerRand - 30, (int)kleinerZeilenabstand * (int)(zeile), (int)linkerRand + 700, (int)kleinerZeilenabstand * (int)(zeile)));
+                }
+            }
+            
+            ppd.AddPrintableObject(new PrintableLineObject(Pens.Black, (int)linkerRand - 30, (int)kleinerZeilenabstand * (int)(zeile), (int)linkerRand + 700, (int)kleinerZeilenabstand * (int)(zeile)));
+
+            ppd.AddPrintableObject(new PrintableTextObject("Summe", new Font("Arial", 9, FontStyle.Bold), Brushes.Black, linkerRand - 30, zeile * kleinerZeilenabstand));
+            ppd.AddPrintableObject(new PrintableTextObject(this.FormatDezimal(sumSum) + " EUR", new Font("Arial", 9, FontStyle.Bold), Brushes.Black, linkerRand + 410, zeile * kleinerZeilenabstand));
+            ppd.AddPrintableObject(new PrintableTextObject(this.FormatDezimal(bereitsBezahlt) + " EUR", new Font("Arial", 9, FontStyle.Bold), Brushes.Black, linkerRand + 510, zeile * kleinerZeilenabstand));
+            ppd.AddPrintableObject(new PrintableTextObject(this.FormatDezimal(ausstaendig) + " EUR", new Font("Arial", 9, FontStyle.Bold), Brushes.Black, linkerRand + 610, zeile * kleinerZeilenabstand));
+
+            if ((counter % 65) != 0) {
+                pdd.AddPrintPage(ppd);
+            }
+            pdd.DoPrint();
+        }
+
         public void PrintKontrollZettel(IList<KundenData> kunden, PreisData preis) {
             PrintableDocument pdd = new PrintableDocument();
             pdd.DocumentName = "Wasser Werk Verwaltung";
@@ -482,7 +552,7 @@ namespace WasserWerkVerwaltung.BL {
         #region Tools
 
         public string FormatDezimal(double d) {
-            return String.Format("{0:F}", d);
+            return String.Format("{0:F}", Math.Round(d,2));
         }
 
         public double calcJahresRechnungMinusBereitsBezahlt(JahresDatenData jdd, KundenData kunde, PreisData preis) {

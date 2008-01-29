@@ -36,6 +36,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IPrintableObject.cs" />
+    <Compile Include="PrintableFillRectangleObject.cs" />
     <Compile Include="PrintableLineObject.cs" />
     <Compile Include="PrintableTextObject.cs" />
     <Compile Include="PrintableDocument.cs" />
