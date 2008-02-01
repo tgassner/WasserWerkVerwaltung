@@ -355,14 +355,14 @@ namespace WasserWerkVerwaltung.BL {
 
                     if (kunde.BekommtRechnung == Rechnung.Halbjahres) {
                         ppd.AddPrintableObject(new PrintableTextObject("Abzüglich Akontozahlung Halbjahr inkl. Mwst =", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 29 * zeilenabstand));
-                        ppd.AddPrintableObject(new PrintableTextObject("EUR -" + FormatDezimal(jdd.HalbJahresBetrag), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, mittlererRand, obererRand + 29 * zeilenabstand));
+                        ppd.AddPrintableObject(new PrintableTextObject("EUR -" + FormatDezimal(this.calcJahresRechnungMinusBereitsBezahlt(jdd,kunde,preis)), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, mittlererRand, obererRand + 29 * zeilenabstand));
                     }
 
                     ppd.AddPrintableObject(new PrintableLineObject(Pens.Black, (int)linkerRand, (int)(obererRand + 31 * zeilenabstand), (int)linkerRand + 680, (int)(obererRand + 31 * zeilenabstand)));
 
                     ppd.AddPrintableObject(new PrintableTextObject("Einzuzahlender Betrag = ", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 31 * zeilenabstand));
                     if (kunde.BekommtRechnung == Rechnung.Halbjahres) {
-                        ppd.AddPrintableObject(new PrintableTextObject("EUR " + FormatDezimal(Math.Round((this.calcJahresrechnungBrutto(jdd, kunde, preis) - jdd.HalbJahresBetrag),2)), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, mittlererRand, obererRand + 31 * zeilenabstand));
+                        ppd.AddPrintableObject(new PrintableTextObject("EUR " + FormatDezimal(this.calcJahresrechnungBrutto(jdd, kunde, preis) - this.calcJahresRechnungMinusBereitsBezahlt(jdd,kunde,preis)), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, mittlererRand, obererRand + 31 * zeilenabstand));
                     } 
                     if (kunde.BekommtRechnung == Rechnung.Jahres) {
                         ppd.AddPrintableObject(new PrintableTextObject("EUR " + FormatDezimal((this.calcJahresrechnungBrutto(jdd, kunde, preis))), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, mittlererRand, obererRand + 31 * zeilenabstand));
@@ -421,12 +421,11 @@ namespace WasserWerkVerwaltung.BL {
                     
 
                     ppd.AddPrintableObject(new PrintableTextObject("Nettobetrag =", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 22 * zeilenabstand));
-                    ppd.AddPrintableObject(new PrintableTextObject("EUR " + FormatDezimal(Math.Round(calcJahresRechnungMinusBereitsBezahlt(jdd, kunde, preis) / 1.1, 2)) + " + 10% Mwst = EUR " + FormatDezimal(calcJahresRechnungMinusBereitsBezahlt(jdd, kunde, preis)), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, mittelinkerRand, obererRand + 22 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("EUR " + FormatDezimal(jdd.HalbJahresBetrag / 1.1) + " + 10% Mwst = EUR " + FormatDezimal(jdd.HalbJahresBetrag), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, mittelinkerRand, obererRand + 22 * zeilenabstand));
                     
                     
                     ppd.AddPrintableObject(new PrintableTextObject("Einzuzahlender Betrag =", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 25 * zeilenabstand));
-                    //ppd.AddPrintableObject(new PrintableTextObject("EUR " + FormatDezimal(jdd.HalbJahresBetrag), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, mittelinkerRand, obererRand + 25 * zeilenabstand));
-                    ppd.AddPrintableObject(new PrintableTextObject("EUR " + FormatDezimal(calcJahresRechnungMinusBereitsBezahlt(jdd, kunde, preis)), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, mittelinkerRand, obererRand + 25 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("EUR " + FormatDezimal(jdd.HalbJahresBetrag), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, mittelinkerRand, obererRand + 25 * zeilenabstand));
                     ppd.AddPrintableObject(new PrintableLineObject(Pens.Black, (int)linkerRand, (int)(obererRand + 26 * zeilenabstand), (int)linkerRand + 680, (int)(obererRand + 26 * zeilenabstand)));
 
                     ppd.AddPrintableObject(new PrintableTextObject(kunde.Zahlung, new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 29 * zeilenabstand));
@@ -471,7 +470,7 @@ namespace WasserWerkVerwaltung.BL {
                 ppd.AddPrintableObject(new PrintableTextObject(kunde.Objekt, new Font("Arial", 9, FontStyle.Bold), Brushes.Black, linkerRand + 190, zeile * kleinerZeilenabstand));
                 ppd.AddPrintableObject(new PrintableTextObject(this.FormatDezimal(this.calcJahresrechnungNetto(jdd, kunde, preis)) + " EUR", new Font("Arial", 9, FontStyle.Bold), Brushes.Black, linkerRand + 410, zeile * kleinerZeilenabstand));
                 ppd.AddPrintableObject(new PrintableTextObject(this.FormatDezimal(jdd.BereitsBezahlt) + " EUR", new Font("Arial", 9, FontStyle.Bold), Brushes.Black, linkerRand + 510, zeile * kleinerZeilenabstand));
-                ppd.AddPrintableObject(new PrintableTextObject(this.FormatDezimal(this.calcJahresrechnungNetto(jdd, kunde, preis) - jdd.BereitsBezahlt) + " EUR", new Font("Arial", 9, FontStyle.Bold), Brushes.Black, linkerRand + 610, zeile * kleinerZeilenabstand));
+                ppd.AddPrintableObject(new PrintableTextObject(this.FormatDezimal(calcJahresRechnungMinusBereitsBezahlt(jdd,kunde,preis)) + " EUR", new Font("Arial", 9, FontStyle.Bold), Brushes.Black, linkerRand + 610, zeile * kleinerZeilenabstand));
 
                 ppd.AddPrintableObject(new PrintableLineObject(Pens.LightGray, (int)linkerRand - 30, (int)kleinerZeilenabstand * (int)(zeile+1), (int)linkerRand + 700, (int)kleinerZeilenabstand * (int)(zeile+1)));
                 sumSum += this.calcJahresrechnungNetto(jdd, kunde, preis);

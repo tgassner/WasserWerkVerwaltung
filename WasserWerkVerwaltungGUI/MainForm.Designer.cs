@@ -82,7 +82,7 @@ namespace WasserWerkVerwaltung.GUI {
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
-            this.Text = "Wasser Werk Verwaltung by Thomas Gassner Version 0.9.9";
+            this.Text = "Wasser Werk Verwaltung by Thomas Gassner Version 1.0.0";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);

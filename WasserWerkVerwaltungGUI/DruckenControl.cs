@@ -148,10 +148,6 @@ namespace WasserWerkVerwaltung.GUI {
             this.wwvBLComp.PrintBezahltCheckListe(selectedKundenList, (PreisData)listBoxJahre.SelectedItem);
         }
 
-        private void buttonAuszugDrucken_Click(object sender, EventArgs e) {
-            MessageBox.Show("Noch nicht implementiert!");
-        }
-
         private void buttonKontrollzettelDrucken_Click(object sender, EventArgs e) {
             if (checkedListBoxKunden.CheckedItems.Count <= 0) {
                 MessageBox.Show("Keine Kunden markiert!");
@@ -170,6 +166,10 @@ namespace WasserWerkVerwaltung.GUI {
             }
 
             this.wwvBLComp.PrintKontrollZettel(selectedKundenList, (PreisData)listBoxJahre.SelectedItem);
+        }
+
+        private void buttonMahnungenDrucken_Click(object sender, EventArgs e) {
+            MessageBox.Show("Noch nicht implementiert");
         }
 
     }

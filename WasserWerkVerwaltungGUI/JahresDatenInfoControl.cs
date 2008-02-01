@@ -47,8 +47,8 @@ namespace WasserWerkVerwaltung.GUI {
         private void listBoxJahre_SelectedIndexChanged(object sender, EventArgs e) {
             if (this.listBoxJahre.SelectedItem != null) {
                 JahresDatenData jdd = (JahresDatenData)this.listBoxJahre.SelectedItem;
-                this.labelRechnungssumme.Text = wwvBLComp.calcJahresrechnungBrutto(jdd, this.currentKunde, this.wwvBLComp.GetPreisDataByJahr(jdd.Jahr)).ToString();//((JahresDatenData)this.listBoxJahre.SelectedItem).Rechnungssumme.ToString();
-                this.labelRechnungssummehalbe.Text = jdd.HalbJahresBetrag.ToString();
+                this.labelRechnungssumme.Text = wwvBLComp.FormatDezimal(wwvBLComp.calcJahresrechnungBrutto(jdd, this.currentKunde, this.wwvBLComp.GetPreisDataByJahr(jdd.Jahr)));
+                this.labelRechnungssummehalbe.Text = wwvBLComp.FormatDezimal(jdd.HalbJahresBetrag);
                 this.labelZaehlerStandAlt.Text = jdd.ZaehlerStandAlt.ToString();
                 this.labelZaehlerstandNeu.Text = jdd.ZaehlerStandNeu.ToString();
                 this.labelTauschzaehlerstandAlt.Text = jdd.TauschZaehlerStandAlt.ToString();
@@ -58,7 +58,7 @@ namespace WasserWerkVerwaltung.GUI {
                 this.labelSonstigeForderungenValue.Text = jdd.SonstigeForderungenValue.ToString();
                 this.labelJahr.Text = jdd.Jahr.ToString();
                 this.labelBereitsBezahlt.Text = jdd.BereitsBezahlt.ToString();
-                this.labelRechnungsSummeMinusBereitsBezahlt.Text = (wwvBLComp.calcJahresrechnungBrutto(jdd, this.currentKunde, this.wwvBLComp.GetPreisDataByJahr(jdd.Jahr)) - jdd.BereitsBezahlt).ToString(); //(((JahresDatenData)this.listBoxJahre.SelectedItem).Rechnungssumme - ((JahresDatenData)this.listBoxJahre.SelectedItem).BereitsBezahlt).ToString();
+                this.labelRechnungsSummeMinusBereitsBezahlt.Text = wwvBLComp.FormatDezimal(wwvBLComp.calcJahresRechnungMinusBereitsBezahlt(jdd, this.currentKunde, this.wwvBLComp.GetPreisDataByJahr(jdd.Jahr)));
             }
         }
 

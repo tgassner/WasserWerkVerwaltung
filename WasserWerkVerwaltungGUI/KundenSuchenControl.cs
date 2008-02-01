@@ -23,14 +23,14 @@ namespace WasserWerkVerwaltung.GUI {
         }
 
         public void Init(IWWVBL wwvBLComp) {
-            this.textBoxSuchen.Clear();
+            this.textBoxNamenSuchen.Clear();
             this.listBoxKundenSuchenErgebnisse.Items.Clear();
             this.wwvBLComp = wwvBLComp;
         }
 
-        private void doSearch() {
+        private void doSearchName() {
             listBoxKundenSuchenErgebnisse.Items.Clear();
-            string pattern = textBoxSuchen.Text.ToLower();
+            string pattern = textBoxNamenSuchen.Text.ToLower();
             string[] patterns = pattern.Split(' ');
             foreach (KundenData kunde in wwvBLComp.GetAllKunden()) {
                 string toSearchIn = kunde.Vorname.ToLower() + " " + kunde.Nachname.ToLower();
@@ -46,8 +46,42 @@ namespace WasserWerkVerwaltung.GUI {
             }
         }
 
+        private void doSearchObjekt() {
+            listBoxKundenSuchenErgebnisse.Items.Clear();
+            string pattern = textBoxObjektSuchen.Text.ToLower();
+            string[] patterns = pattern.Split(' ');
+            foreach (KundenData kunde in wwvBLComp.GetAllKunden()) {
+                string toSearchIn = kunde.Objekt.ToLower();//kunde.Vorname.ToLower() + " " + kunde.Nachname.ToLower();
+                bool found = true;
+                foreach (string patt in patterns) {
+                    if (!toSearchIn.Contains(patt)) {
+                        found = false;
+                    }
+                }
+                if (found) {
+                    listBoxKundenSuchenErgebnisse.Items.Add(kunde);
+                }
+            }
+        }
+
         private void buttonSuchen_Click(object sender, EventArgs e) {
-            doSearch();
+            doSearchName();
+        }
+
+        private void textBoxSuchen_KeyDown(object sender, KeyEventArgs e) {
+            if (e.KeyCode == Keys.Enter) {
+                doSearchName();
+            }
+        }
+
+        private void buttonObjektSuchen_Click(object sender, EventArgs e) {
+            doSearchObjekt();
+        }
+
+        private void textBoxObjektSuchErgebnisse_KeyDown(object sender, KeyEventArgs e) {
+            if (e.KeyCode == Keys.Enter) {
+                doSearchObjekt();
+            }
         }
 
         private void doAuswaehlen() {
@@ -66,16 +100,9 @@ namespace WasserWerkVerwaltung.GUI {
             doAuswaehlen();
         }
 
-
-        private void textBoxSuchen_KeyDown(object sender, KeyEventArgs e) {
-            if (e.KeyCode == Keys.Enter) {
-                doSearch();
-            }
-        }
-
         private void listBoxKundenSuchenErgebnisse_DoubleClick(object sender, EventArgs e) {
             doAuswaehlen();
-        }
+        }        
     }
 
     public class KundeEventArgs : EventArgs {

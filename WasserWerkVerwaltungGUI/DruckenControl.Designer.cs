@@ -29,12 +29,12 @@ namespace WasserWerkVerwaltung.GUI {
             this.buttonAlleSelektierenDieEineJahresRechnungBekommen = new System.Windows.Forms.Button();
             this.buttonGanzJahresRechnungDrucken = new System.Windows.Forms.Button();
             this.buttonBezahltchecklisteDrucken = new System.Windows.Forms.Button();
-            this.buttonAuszugDrucken = new System.Windows.Forms.Button();
             this.buttonKontrollzettelDrucken = new System.Windows.Forms.Button();
             this.buttonAlleSelektierenDieEineHalbJahresRechnungBekommen = new System.Windows.Forms.Button();
             this.buttonHalbJahresRechnungDrucken = new System.Windows.Forms.Button();
             this.listBoxJahre = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.buttonMahnungenDrucken = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // checkedListBoxKunden
@@ -95,19 +95,9 @@ namespace WasserWerkVerwaltung.GUI {
             this.buttonBezahltchecklisteDrucken.UseVisualStyleBackColor = true;
             this.buttonBezahltchecklisteDrucken.Click += new System.EventHandler(this.buttonBezahltchecklisteDrucken_Click);
             // 
-            // buttonAuszugDrucken
-            // 
-            this.buttonAuszugDrucken.Location = new System.Drawing.Point(265, 368);
-            this.buttonAuszugDrucken.Name = "buttonAuszugDrucken";
-            this.buttonAuszugDrucken.Size = new System.Drawing.Size(288, 23);
-            this.buttonAuszugDrucken.TabIndex = 7;
-            this.buttonAuszugDrucken.Text = "Auszug Drucken";
-            this.buttonAuszugDrucken.UseVisualStyleBackColor = true;
-            this.buttonAuszugDrucken.Click += new System.EventHandler(this.buttonAuszugDrucken_Click);
-            // 
             // buttonKontrollzettelDrucken
             // 
-            this.buttonKontrollzettelDrucken.Location = new System.Drawing.Point(265, 397);
+            this.buttonKontrollzettelDrucken.Location = new System.Drawing.Point(265, 368);
             this.buttonKontrollzettelDrucken.Name = "buttonKontrollzettelDrucken";
             this.buttonKontrollzettelDrucken.Size = new System.Drawing.Size(288, 23);
             this.buttonKontrollzettelDrucken.TabIndex = 8;
@@ -153,14 +143,24 @@ namespace WasserWerkVerwaltung.GUI {
             this.label1.TabIndex = 10;
             this.label1.Text = "<- nur die Kunden, die für das ^ Jahr einen Eintrag haben.";
             // 
+            // buttonMahnungenDrucken
+            // 
+            this.buttonMahnungenDrucken.Location = new System.Drawing.Point(265, 397);
+            this.buttonMahnungenDrucken.Name = "buttonMahnungenDrucken";
+            this.buttonMahnungenDrucken.Size = new System.Drawing.Size(288, 23);
+            this.buttonMahnungenDrucken.TabIndex = 11;
+            this.buttonMahnungenDrucken.Text = "Mahnungen Drucken";
+            this.buttonMahnungenDrucken.UseVisualStyleBackColor = true;
+            this.buttonMahnungenDrucken.Click += new System.EventHandler(this.buttonMahnungenDrucken_Click);
+            // 
             // DruckenControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.buttonMahnungenDrucken);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.listBoxJahre);
             this.Controls.Add(this.buttonKontrollzettelDrucken);
-            this.Controls.Add(this.buttonAuszugDrucken);
             this.Controls.Add(this.buttonBezahltchecklisteDrucken);
             this.Controls.Add(this.buttonHalbJahresRechnungDrucken);
             this.Controls.Add(this.buttonGanzJahresRechnungDrucken);
@@ -184,11 +184,11 @@ namespace WasserWerkVerwaltung.GUI {
         private System.Windows.Forms.Button buttonAlleSelektierenDieEineJahresRechnungBekommen;
         private System.Windows.Forms.Button buttonGanzJahresRechnungDrucken;
         private System.Windows.Forms.Button buttonBezahltchecklisteDrucken;
-        private System.Windows.Forms.Button buttonAuszugDrucken;
         private System.Windows.Forms.Button buttonKontrollzettelDrucken;
         private System.Windows.Forms.Button buttonAlleSelektierenDieEineHalbJahresRechnungBekommen;
         private System.Windows.Forms.Button buttonHalbJahresRechnungDrucken;
         private System.Windows.Forms.ListBox listBoxJahre;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button buttonMahnungenDrucken;
     }
 }
