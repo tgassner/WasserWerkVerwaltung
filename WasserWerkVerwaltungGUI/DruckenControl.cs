@@ -168,8 +168,44 @@ namespace WasserWerkVerwaltung.GUI {
             this.wwvBLComp.PrintKontrollZettel(selectedKundenList, (PreisData)listBoxJahre.SelectedItem);
         }
 
-        private void buttonMahnungenDrucken_Click(object sender, EventArgs e) {
-            MessageBox.Show("Noch nicht implementiert");
+        private void buttonMahnungen1Drucken_Click(object sender, EventArgs e) {
+            if (checkedListBoxKunden.CheckedItems.Count <= 0) {
+                MessageBox.Show("Keine Kunden markiert!");
+                return;
+            }
+            PreisData pd = listBoxJahre.SelectedItem as PreisData;
+
+            if (pd == null) {
+                MessageBox.Show("Bitte oben ein Jahr auswählen!");
+                return;
+            }
+
+            IList<KundenData> selectedKundenList = new List<KundenData>();
+            foreach (KundenData kunde in checkedListBoxKunden.CheckedItems) {
+                selectedKundenList.Add(kunde);
+            }
+
+            this.wwvBLComp.PrintMahnung1(selectedKundenList, (PreisData)listBoxJahre.SelectedItem);
+        }
+
+        private void buttonMahnungen2Drucken_Click(object sender, EventArgs e) {
+            if (checkedListBoxKunden.CheckedItems.Count <= 0) {
+                MessageBox.Show("Keine Kunden markiert!");
+                return;
+            }
+            PreisData pd = listBoxJahre.SelectedItem as PreisData;
+
+            if (pd == null) {
+                MessageBox.Show("Bitte oben ein Jahr auswählen!");
+                return;
+            }
+
+            IList<KundenData> selectedKundenList = new List<KundenData>();
+            foreach (KundenData kunde in checkedListBoxKunden.CheckedItems) {
+                selectedKundenList.Add(kunde);
+            }
+
+            this.wwvBLComp.PrintMahnung2(selectedKundenList, (PreisData)listBoxJahre.SelectedItem);
         }
 
     }

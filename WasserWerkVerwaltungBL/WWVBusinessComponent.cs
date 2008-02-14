@@ -1,4 +1,4 @@
-using System;
+    using System;
 using System.Collections.Generic;
 using System.Text;
 using WasserWerkVerwaltung.DAL;
@@ -546,6 +546,114 @@ namespace WasserWerkVerwaltung.BL {
             pdd.DoPrint();
         }
 
+        public void PrintMahnung1(IList<KundenData> kunden, PreisData preis) {
+
+            PrintableDocument pdd = new PrintableDocument();
+            pdd.DocumentName = "Wasser Werk Verwaltung";
+
+            PrintablePage ppd;
+            foreach (KundenData kunde in kunden) {
+                ppd = new PrintablePage();
+                JahresDatenData jdd = this.GetJahresdataByKundenIDandYear(kunde.Id, preis.Jahr);
+                if (jdd != null) {
+                    ppd.AddPrintableObject(new PrintableTextObject("WASSERWERK WEINBERGER", new Font("Arial", 15, FontStyle.Bold), Brushes.Black, linkerRand, obererRand + 0 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("Bahnhofstraße 27", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 1 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("3350 Haag", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 2 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("Tel: 07434/44398", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 3 * zeilenabstand));
+
+                    ppd.AddPrintableObject(new PrintableTextObject("Herr/Frau/Fa", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 6 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject(kunde.Vorname + " " + kunde.Nachname, new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 7 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject(kunde.Strasse, new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 8 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject(kunde.Ort, new Font("Arial", stdFontSize, FontStyle.Bold | FontStyle.Underline), Brushes.Black, linkerRand, obererRand + 9 * zeilenabstand));
+
+                    ppd.AddPrintableObject(new PrintableTextObject("Betrifft: Zahlungserinnerung Jahreswasserrechung " + preis.Jahr, new Font("Arial", 15, FontStyle.Bold), Brushes.Black, linkerRand, obererRand + 13 * zeilenabstand));
+
+                    ppd.AddPrintableObject(new PrintableTextObject(DateTime.Now.Date.ToString("dd.MM.yyyy", DateTimeFormatInfo.InvariantInfo), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand + 575, obererRand + 15 * zeilenabstand));
+
+                    ppd.AddPrintableObject(new PrintableTextObject("Sehr geehrte/r Herr/Frau " + kunde.Nachname + "!", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 17 * zeilenabstand));
+
+                    ppd.AddPrintableObject(new PrintableTextObject("Bitte denken Sie innerhalb der nächsten 14 Tagen an die Bezahlung unserer", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 20 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("Jahreswasserrechnung " + preis.Jahr, new Font("Arial", stdFontSize, FontStyle.Bold), Brushes.Black, linkerRand, obererRand + 21 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("für das Objekt " + kunde.Objekt + ",", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand + 250, obererRand + 21 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("mit € " + this.calcJahresRechnungMinusBereitsBezahlt(jdd,kunde,preis) + " zuzüglich Mahnspesen von € 3,-.", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 22 * zeilenabstand));
+
+                    ppd.AddPrintableObject(new PrintableTextObject("Sollte Ihre Bezahlung inzwischen schon unterwegs sein, betrachten Sie dieses ", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 24 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("Schreiben bitte als gegenstandslos. Andernfalls überweisen Sie bitte den", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 25 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("Betrag von € 113,59 auf unser Konto Nummer 267 126 769 00, BLZ 20111, Erste Bank.", new Font("Arial", stdFontSize, FontStyle.Underline), Brushes.Black, linkerRand, obererRand + 26 * zeilenabstand));
+
+                    ppd.AddPrintableObject(new PrintableTextObject("Mit bestem Dank,", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 30 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("Ing. Waltraud Weinberger-Hairas", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 33 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("Wasserwerk Weinberger", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 34 * zeilenabstand));                    
+
+                    ppd.AddPrintableObject(new PrintableTextObject("Unsere ATU Nummer: ATU 563 88 929", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 40 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("Bankverbindung: Erste Bank Haag BLZ 20111 Kontonummer 267 126 769 00", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 41 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("Tel/Fax: 07434/44398 oder 0676/620 32 38", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 42 * zeilenabstand));
+
+                    pdd.AddPrintPage(ppd);
+                }
+            }
+
+            pdd.DoPrint();
+        }
+
+        public void PrintMahnung2(IList<KundenData> kunden, PreisData preis) {
+
+            PrintableDocument pdd = new PrintableDocument();
+            pdd.DocumentName = "Wasser Werk Verwaltung";
+
+            PrintablePage ppd;
+            foreach (KundenData kunde in kunden) {
+                ppd = new PrintablePage();
+                JahresDatenData jdd = this.GetJahresdataByKundenIDandYear(kunde.Id, preis.Jahr);
+                if (jdd != null) {
+                    ppd.AddPrintableObject(new PrintableTextObject("WASSERWERK WEINBERGER", new Font("Arial", 15, FontStyle.Bold), Brushes.Black, linkerRand, obererRand + 0 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("Bahnhofstraße 27", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 1 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("3350 Haag", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 2 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("Tel: 07434/44398", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 3 * zeilenabstand));
+
+                    ppd.AddPrintableObject(new PrintableTextObject("Herr/Frau/Fa", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 6 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject(kunde.Vorname + " " + kunde.Nachname, new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 7 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject(kunde.Strasse, new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 8 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject(kunde.Ort, new Font("Arial", stdFontSize, FontStyle.Bold | FontStyle.Underline), Brushes.Black, linkerRand, obererRand + 9 * zeilenabstand));
+
+                    ppd.AddPrintableObject(new PrintableTextObject("Betrifft: 2. Zahlungserinnerung Jahreswasserrechung " + preis.Jahr, new Font("Arial", 16, FontStyle.Bold), Brushes.Black, linkerRand, obererRand + 13 * zeilenabstand));
+
+                    ppd.AddPrintableObject(new PrintableTextObject(DateTime.Now.Date.ToString("dd.MM.yyyy", DateTimeFormatInfo.InvariantInfo), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand + 575, obererRand + 15 * zeilenabstand));
+
+                    ppd.AddPrintableObject(new PrintableTextObject("Sehr geehrte/r Herr/Frau " + kunde.Nachname + "!", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 17 * zeilenabstand));
+
+                    ppd.AddPrintableObject(new PrintableTextObject("Trotz Zahlungserinnerung ist die Zahlung Ihrer Jahreswasserrechnung nicht bei uns", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 20 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("eingegangen.", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 21 * zeilenabstand));
+
+                    ppd.AddPrintableObject(new PrintableTextObject("Wir ersuchen Sie dringend den Rechnungsbetrag von € " + this.calcJahresRechnungMinusBereitsBezahlt(jdd,kunde,preis) + " zuzüglich", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 23 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("Mahnspesen von € 5,-, das sind", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 24 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("€ " + (this.calcJahresRechnungMinusBereitsBezahlt(jdd,kunde,preis) + 5) + " Mahnbetrag auf unser Konto Nummer", new Font("Arial", stdFontSize, FontStyle.Underline), Brushes.Black, linkerRand + 260, obererRand + 24 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("267 126 769 00, BLZ 20111, Erste Bank,", new Font("Arial", stdFontSize, FontStyle.Underline), Brushes.Black, linkerRand, obererRand + 25 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("zu überweisen.", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand + 330, obererRand + 25 * zeilenabstand));
+
+                    ppd.AddPrintableObject(new PrintableTextObject("Sollte der Betrag bis zum", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 27 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject(DateTime.Now.AddDays(14).Date.ToString("dd.MM.yyyy", DateTimeFormatInfo.InvariantInfo), new Font("Arial", stdFontSize, FontStyle.Bold | FontStyle.Underline), Brushes.Black, linkerRand + 205, obererRand + 27 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("nicht bei uns eingelangt sein, wird Ihr Akt", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand + 300, obererRand + 27 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("automatisch an unseren Rechtsvertreter weitergeleitet, wodurch für Sie mit", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 28 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("erheblichen Mehrkosten zu rechnen ist.", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 29 * zeilenabstand));
+
+                    ppd.AddPrintableObject(new PrintableTextObject("Sollte Ihre Bezahlung inzwischen schon unterwegs sein, betrachten Sie dieses ", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 31 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("Schreiben bitte als gegenstandslos.", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 32 * zeilenabstand));
+
+                    ppd.AddPrintableObject(new PrintableTextObject("Mit bestem Dank,", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 35 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("Ing. Waltraud Weinberger-Hairas", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 38 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("Wasserwerk Weinberger", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 39 * zeilenabstand));
+
+                    ppd.AddPrintableObject(new PrintableTextObject("Unsere ATU Nummer: ATU 563 88 929", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 42 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("Bankverbindung: Erste Bank Haag BLZ 20111 Kontonummer 267 126 769 00", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 43 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("Tel/Fax: 07434/44398 oder 0676/620 32 38", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 44 * zeilenabstand));
+
+                    pdd.AddPrintPage(ppd);
+                }
+            }
+
+            pdd.DoPrint();
+        }
         #endregion Print
 
         #region Tools

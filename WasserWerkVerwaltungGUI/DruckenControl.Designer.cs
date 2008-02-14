@@ -34,7 +34,8 @@ namespace WasserWerkVerwaltung.GUI {
             this.buttonHalbJahresRechnungDrucken = new System.Windows.Forms.Button();
             this.listBoxJahre = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.buttonMahnungenDrucken = new System.Windows.Forms.Button();
+            this.buttonMahnungen1Drucken = new System.Windows.Forms.Button();
+            this.buttonMahnungen2Drucken = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // checkedListBoxKunden
@@ -143,21 +144,32 @@ namespace WasserWerkVerwaltung.GUI {
             this.label1.TabIndex = 10;
             this.label1.Text = "<- nur die Kunden, die für das ^ Jahr einen Eintrag haben.";
             // 
-            // buttonMahnungenDrucken
+            // buttonMahnungen1Drucken
             // 
-            this.buttonMahnungenDrucken.Location = new System.Drawing.Point(265, 397);
-            this.buttonMahnungenDrucken.Name = "buttonMahnungenDrucken";
-            this.buttonMahnungenDrucken.Size = new System.Drawing.Size(288, 23);
-            this.buttonMahnungenDrucken.TabIndex = 11;
-            this.buttonMahnungenDrucken.Text = "Mahnungen Drucken";
-            this.buttonMahnungenDrucken.UseVisualStyleBackColor = true;
-            this.buttonMahnungenDrucken.Click += new System.EventHandler(this.buttonMahnungenDrucken_Click);
+            this.buttonMahnungen1Drucken.Location = new System.Drawing.Point(265, 397);
+            this.buttonMahnungen1Drucken.Name = "buttonMahnungen1Drucken";
+            this.buttonMahnungen1Drucken.Size = new System.Drawing.Size(288, 23);
+            this.buttonMahnungen1Drucken.TabIndex = 11;
+            this.buttonMahnungen1Drucken.Text = "1. Mahnung Drucken";
+            this.buttonMahnungen1Drucken.UseVisualStyleBackColor = true;
+            this.buttonMahnungen1Drucken.Click += new System.EventHandler(this.buttonMahnungen1Drucken_Click);
+            // 
+            // buttonMahnungen2Drucken
+            // 
+            this.buttonMahnungen2Drucken.Location = new System.Drawing.Point(266, 426);
+            this.buttonMahnungen2Drucken.Name = "buttonMahnungen2Drucken";
+            this.buttonMahnungen2Drucken.Size = new System.Drawing.Size(288, 23);
+            this.buttonMahnungen2Drucken.TabIndex = 11;
+            this.buttonMahnungen2Drucken.Text = "2. Mahnung Drucken";
+            this.buttonMahnungen2Drucken.UseVisualStyleBackColor = true;
+            this.buttonMahnungen2Drucken.Click += new System.EventHandler(this.buttonMahnungen2Drucken_Click);
             // 
             // DruckenControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.buttonMahnungenDrucken);
+            this.Controls.Add(this.buttonMahnungen2Drucken);
+            this.Controls.Add(this.buttonMahnungen1Drucken);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.listBoxJahre);
             this.Controls.Add(this.buttonKontrollzettelDrucken);
@@ -189,6 +201,7 @@ namespace WasserWerkVerwaltung.GUI {
         private System.Windows.Forms.Button buttonHalbJahresRechnungDrucken;
         private System.Windows.Forms.ListBox listBoxJahre;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button buttonMahnungenDrucken;
+        private System.Windows.Forms.Button buttonMahnungen1Drucken;
+        private System.Windows.Forms.Button buttonMahnungen2Drucken;
     }
 }
