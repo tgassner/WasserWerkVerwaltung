@@ -36,6 +36,7 @@ namespace WasserWerkVerwaltung.GUI {
             this.label1 = new System.Windows.Forms.Label();
             this.buttonMahnungen1Drucken = new System.Windows.Forms.Button();
             this.buttonMahnungen2Drucken = new System.Windows.Forms.Button();
+            this.buttonZaehlerstandabrechnungsFormulare = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // checkedListBoxKunden
@@ -146,7 +147,7 @@ namespace WasserWerkVerwaltung.GUI {
             // 
             // buttonMahnungen1Drucken
             // 
-            this.buttonMahnungen1Drucken.Location = new System.Drawing.Point(265, 397);
+            this.buttonMahnungen1Drucken.Location = new System.Drawing.Point(265, 426);
             this.buttonMahnungen1Drucken.Name = "buttonMahnungen1Drucken";
             this.buttonMahnungen1Drucken.Size = new System.Drawing.Size(288, 23);
             this.buttonMahnungen1Drucken.TabIndex = 11;
@@ -156,7 +157,7 @@ namespace WasserWerkVerwaltung.GUI {
             // 
             // buttonMahnungen2Drucken
             // 
-            this.buttonMahnungen2Drucken.Location = new System.Drawing.Point(266, 426);
+            this.buttonMahnungen2Drucken.Location = new System.Drawing.Point(266, 455);
             this.buttonMahnungen2Drucken.Name = "buttonMahnungen2Drucken";
             this.buttonMahnungen2Drucken.Size = new System.Drawing.Size(288, 23);
             this.buttonMahnungen2Drucken.TabIndex = 11;
@@ -164,10 +165,21 @@ namespace WasserWerkVerwaltung.GUI {
             this.buttonMahnungen2Drucken.UseVisualStyleBackColor = true;
             this.buttonMahnungen2Drucken.Click += new System.EventHandler(this.buttonMahnungen2Drucken_Click);
             // 
+            // buttonZaehlerstandabrechnungsFormulare
+            // 
+            this.buttonZaehlerstandabrechnungsFormulare.Location = new System.Drawing.Point(266, 397);
+            this.buttonZaehlerstandabrechnungsFormulare.Name = "buttonZaehlerstandabrechnungsFormulare";
+            this.buttonZaehlerstandabrechnungsFormulare.Size = new System.Drawing.Size(287, 23);
+            this.buttonZaehlerstandabrechnungsFormulare.TabIndex = 12;
+            this.buttonZaehlerstandabrechnungsFormulare.Text = "Zählerstandabrechnungs Formulare";
+            this.buttonZaehlerstandabrechnungsFormulare.UseVisualStyleBackColor = true;
+            this.buttonZaehlerstandabrechnungsFormulare.Click += new System.EventHandler(this.buttonZaehlerstandabrechnungsFormulare_Click);
+            // 
             // DruckenControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.buttonZaehlerstandabrechnungsFormulare);
             this.Controls.Add(this.buttonMahnungen2Drucken);
             this.Controls.Add(this.buttonMahnungen1Drucken);
             this.Controls.Add(this.label1);
@@ -203,5 +215,6 @@ namespace WasserWerkVerwaltung.GUI {
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonMahnungen1Drucken;
         private System.Windows.Forms.Button buttonMahnungen2Drucken;
+        private System.Windows.Forms.Button buttonZaehlerstandabrechnungsFormulare;
     }
 }
