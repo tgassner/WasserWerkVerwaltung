@@ -39,7 +39,7 @@ namespace WasserWerkVerwaltung.BL {
             void PrintHalbJahresRechnungen(IList<KundenData> kunden, PreisData preis);
             void PrintBezahltCheckListe(IList<KundenData> kunden, PreisData preis);
             void PrintKontrollZettel(IList<KundenData> kunden, PreisData preis);
-            void PrintZaehlerstandabrechnungsFormular(IList<KundenData> selectedKundenList, PreisData preisData);
+            void PrintZaehlerstandabrechnungsFormular(IList<KundenData> selectedKundenList, PreisData preisData, string textZaehlerstandformular, DateTime von, DateTime bis);
             void PrintMahnung1(IList<KundenData> kunden, PreisData preis);
             void PrintMahnung2(IList<KundenData> kunden, PreisData preis);
         #endregion Print

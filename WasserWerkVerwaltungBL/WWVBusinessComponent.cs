@@ -355,14 +355,14 @@ namespace WasserWerkVerwaltung.BL {
 
                     if (kunde.BekommtRechnung == Rechnung.Halbjahres) {
                         ppd.AddPrintableObject(new PrintableTextObject("Abzüglich Akontozahlung Halbjahr inkl. Mwst =", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 29 * zeilenabstand));
-                        ppd.AddPrintableObject(new PrintableTextObject("EUR -" + FormatDezimal(this.calcJahresRechnungMinusBereitsBezahlt(jdd,kunde,preis)), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, mittlererRand, obererRand + 29 * zeilenabstand));
+                        ppd.AddPrintableObject(new PrintableTextObject("EUR -" + FormatDezimal(jdd.BereitsBezahlt), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, mittlererRand, obererRand + 29 * zeilenabstand));
                     }
 
                     ppd.AddPrintableObject(new PrintableLineObject(Pens.Black, (int)linkerRand, (int)(obererRand + 31 * zeilenabstand), (int)linkerRand + 680, (int)(obererRand + 31 * zeilenabstand)));
 
                     ppd.AddPrintableObject(new PrintableTextObject("Einzuzahlender Betrag = ", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 31 * zeilenabstand));
                     if (kunde.BekommtRechnung == Rechnung.Halbjahres) {
-                        ppd.AddPrintableObject(new PrintableTextObject("EUR " + FormatDezimal(this.calcJahresrechnungBrutto(jdd, kunde, preis) - this.calcJahresRechnungMinusBereitsBezahlt(jdd,kunde,preis)), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, mittlererRand, obererRand + 31 * zeilenabstand));
+                        ppd.AddPrintableObject(new PrintableTextObject("EUR " + FormatDezimal(this.calcJahresRechnungMinusBereitsBezahlt(jdd,kunde,preis)), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, mittlererRand, obererRand + 31 * zeilenabstand));
                     } 
                     if (kunde.BekommtRechnung == Rechnung.Jahres) {
                         ppd.AddPrintableObject(new PrintableTextObject("EUR " + FormatDezimal((this.calcJahresrechnungBrutto(jdd, kunde, preis))), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, mittlererRand, obererRand + 31 * zeilenabstand));
@@ -546,42 +546,118 @@ namespace WasserWerkVerwaltung.BL {
             pdd.DoPrint();
         }
 
-        public void PrintZaehlerstandabrechnungsFormular(IList<KundenData> selectedKundenList, PreisData preisData) {
+        public void PrintZaehlerstandabrechnungsFormular(IList<KundenData> selectedKundenList, PreisData preis, string textZaehlerstandformular, DateTime von, DateTime bis) {
             PrintableDocument pdd = new PrintableDocument();
             pdd.DocumentName = "Wasser Werk Verwaltung";
 
             PrintablePage ppd;
-            foreach (KundenData kunde in kunden) {
+            foreach (KundenData kunde in selectedKundenList) {
                 ppd = new PrintablePage();
                 JahresDatenData jdd = this.GetJahresdataByKundenIDandYear(kunde.Id, preis.Jahr);
                 if (jdd != null) {
 
-                    ppd.AddPrintableObject(new PrintableTextObject("WASSERWERK WEINBERGER", new Font("Arial", 15, FontStyle.Bold), Brushes.Black, linkerRand, obererRand + 0 * zeilenabstand));
-                    ppd.AddPrintableObject(new PrintableTextObject("Bahnhofstraße 27", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 1 * zeilenabstand));
-                    ppd.AddPrintableObject(new PrintableTextObject("3350 Haag", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 2 * zeilenabstand));
-                    ppd.AddPrintableObject(new PrintableTextObject("Tel: 07434/44398", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 3 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("WASSERWERK WEINBERGER", new Font("Arial", 15, FontStyle.Bold), Brushes.Black, linkerRand, obererRand - 2 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("Bahnhofstraße 27", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand - 1 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("3350 Haag", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 0 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("Tel: 07434/44398", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 1 * zeilenabstand));
 
-                    ppd.AddPrintableObject(new PrintableTextObject("Herr/Frau/Fa", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 6 * zeilenabstand));
-                    ppd.AddPrintableObject(new PrintableTextObject(kunde.Vorname + " " + kunde.Nachname, new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 7 * zeilenabstand));
-                    ppd.AddPrintableObject(new PrintableTextObject(kunde.Strasse, new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 8 * zeilenabstand));
-                    ppd.AddPrintableObject(new PrintableTextObject(kunde.Ort, new Font("Arial", stdFontSize, FontStyle.Bold | FontStyle.Underline), Brushes.Black, linkerRand, obererRand + 9 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("Herr/Frau/Fa", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 4 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject(kunde.Vorname + " " + kunde.Nachname, new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 5 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject(kunde.Strasse, new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 6 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject(kunde.Ort, new Font("Arial", stdFontSize, FontStyle.Bold | FontStyle.Underline), Brushes.Black, linkerRand, obererRand + 7 * zeilenabstand));
 
-                    ppd.AddPrintableObject(new PrintableTextObject("Betrifft: Jahreswasserstand" + preis.Jahr, new Font("Arial", 15, FontStyle.Bold), Brushes.Black, linkerRand, obererRand + 13 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("Ablesung des Zählerstandes " + preis.Jahr, new Font("Arial", 12, FontStyle.Bold), Brushes.Black, linkerRand, obererRand + 9 * zeilenabstand));
 
-                    ppd.AddPrintableObject(new PrintableTextObject(DateTime.Now.Date.ToString("dd.MM.yyyy", DateTimeFormatInfo.InvariantInfo), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand + 575, obererRand + 15 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableLineObject(Pens.Black, (int)linkerRand, (int)(obererRand + 11 * zeilenabstand), (int)(linkerRand + 650), (int)(obererRand + 11 * zeilenabstand)));
 
-                    ppd.AddPrintableObject(new PrintableTextObject("Sehr geehrte/r Herr/Frau " + kunde.Nachname + "!", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 17 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("Sehr geehrte/r Herr/Frau " + kunde.Nachname + "!", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 12 * zeilenabstand));
 
+                    string[] lines = textZaehlerstandformular.Split(new string[] {"\r\n"}, StringSplitOptions.None);
+                    for(int i = 0; i < lines.Length; i++) {
+                        ppd.AddPrintableObject(new PrintableTextObject(lines[i], new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + (14 + i) * zeilenabstand));
+                    }
+
+                    ppd.AddPrintableObject(new PrintableLineObject(Pens.Black, (int)linkerRand, (int)(obererRand + 23 * zeilenabstand), (int)(linkerRand + 650), (int)(obererRand + 23 * zeilenabstand)));
+
+                    ppd.AddPrintableObject(new PrintableTextObject("An das", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 24 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("WASSERWERK WEINBERGER", new Font("Arial", 14, FontStyle.Bold), Brushes.Black, linkerRand, obererRand + 25 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("Bahnhofstraße 27", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 26 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("3350 Haag", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 27 * zeilenabstand));
+
+                    ppd.AddPrintableObject(new PrintableTextObject("Abschnitt in den Briefschlitz", new Font("Arial", 10, FontStyle.Regular), Brushes.Black, linkerRand + 400, obererRand + 24 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("Bahnhofstraße 27 werfen, oder", new Font("Arial", 10, FontStyle.Regular), Brushes.Black, linkerRand + 400, obererRand + 25 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("Postgebühr beim Empfänger einheben.", new Font("Arial", 10, FontStyle.Regular), Brushes.Black, linkerRand + 400, obererRand + 26 * zeilenabstand));
+
+                    ppd.AddPrintableObject(new PrintableTextObject("Ablesezeitraum: " + von.ToString("dd.MM.yyyy", DateTimeFormatInfo.InvariantInfo) + " bis " + bis.ToString("dd.MM.yyyy", DateTimeFormatInfo.InvariantInfo) + "!!!!", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 30 * zeilenabstand));
+
+
+                    ppd.AddPrintableObject(new PrintableTextObject("Name:", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 31 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject(kunde.Vorname + " " + kunde.Nachname, new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand + 160, obererRand + 31 * zeilenabstand));
+
+                    ppd.AddPrintableObject(new PrintableTextObject("Straße:", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 32.5F * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject(kunde.Strasse, new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand + 160, obererRand + 32.5F * zeilenabstand));
+
+                    ppd.AddPrintableObject(new PrintableTextObject("PLZ, Ort:", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 34 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject(kunde.Ort, new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand + 160, obererRand + 34 * zeilenabstand));
+
+                    ppd.AddPrintableObject(new PrintableTextObject("Objekt:", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 35.5F * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject(kunde.Objekt, new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand + 160, obererRand + 35.5F * zeilenabstand));
+
+                    ppd.AddPrintableObject(new PrintableTextObject("Telefon/Handy*:", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 37 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject(kunde.Tel, new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand + 160, obererRand + 37 * zeilenabstand));
+
+                    ppd.AddPrintableObject(new PrintableTextObject("Personen wohnhaft im", new Font("Arial", 10, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 38.5F * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("Objekt (inkl. Kinder):", new Font("Arial", 10, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 39.2F * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject(kunde.PersonenImObjekt.ToString(), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand + 160, obererRand + 38.5F * zeilenabstand));
+
+                    ppd.AddPrintableObject(new PrintableTextObject("Zähler-Nummer.", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 41.5F * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject(kunde.ZaehlerNummer, new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand + 160, obererRand + 41.5F * zeilenabstand));
+
+                    ppd.AddPrintableObject(new PrintableTextObject("Zähler-Stand:", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 43 * zeilenabstand));
                     
-
+                    ppd.AddPrintableObject(new PrintableTextObject("Ablesedatum:", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 44.5F * zeilenabstand));
+                
+                    ppd.AddPrintableObject(new PrintableTextObject("Unterschrift:", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand + 350, obererRand + 44.5F * zeilenabstand));
                     
-                    ppd.AddPrintableObject(new PrintableTextObject("Mit bestem Dank,", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 30 * zeilenabstand));
-                    ppd.AddPrintableObject(new PrintableTextObject("Ing. Waltraud Weinberger-Hairas", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 33 * zeilenabstand));
-                    ppd.AddPrintableObject(new PrintableTextObject("Wasserwerk Weinberger", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 34 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("* Bitte Telefon- oder Handy-Nummer für den Fall eines Leitungsgebrechens angeben.", new Font("Arial", 10, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 46 * zeilenabstand));
 
-                    ppd.AddPrintableObject(new PrintableTextObject("Unsere ATU Nummer: ATU 563 88 929", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 40 * zeilenabstand));
-                    ppd.AddPrintableObject(new PrintableTextObject("Bankverbindung: Erste Bank Haag BLZ 20111 Kontonummer 267 126 769 00", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 41 * zeilenabstand));
-                    ppd.AddPrintableObject(new PrintableTextObject("Tel/Fax: 07434/44398 oder 0676/620 32 38", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 42 * zeilenabstand));
+                    for (int i = 0; i < 11; i++) {
+                        ppd.AddPrintableObject(new PrintableLineObject(Pens.Black, (int)linkerRand, (int)(obererRand + (31 + i * 1.5) * zeilenabstand), (int)(linkerRand + 650), (int)(obererRand + (31 + i * 1.5) * zeilenabstand)));
+                    }
+
+
+                    ppd.AddPrintableObject(new PrintableLineObject(Pens.Black, (int)(linkerRand), (int)(obererRand + (31) * zeilenabstand), (int)(linkerRand), (int)(obererRand + (31 + 10 * 1.5) * zeilenabstand)));
+                    ppd.AddPrintableObject(new PrintableLineObject(Pens.Black, (int)(linkerRand + 158), (int)(obererRand + (31) * zeilenabstand), (int)(linkerRand + 158), (int)(obererRand + (31 + 6 * 1.5) * zeilenabstand)));
+                    ppd.AddPrintableObject(new PrintableLineObject(Pens.Black, (int)(linkerRand + 403), (int)(obererRand + (31) * zeilenabstand), (int)(linkerRand + 403), (int)(obererRand + (31 + 6 * 1.5) * zeilenabstand)));
+                    ppd.AddPrintableObject(new PrintableLineObject(Pens.Black, (int)(linkerRand + 650), (int)(obererRand + (31) * zeilenabstand), (int)(linkerRand + 650), (int)(obererRand + (31 + 10 * 1.5) * zeilenabstand)));
+
+                    ppd.AddPrintableObject(new PrintableLineObject(Pens.Black, (int)(linkerRand + 158), (int)(obererRand + (31 + 7 * 1.5) * zeilenabstand), (int)(linkerRand + 158), (int)(obererRand + (31 + 10 * 1.5) * zeilenabstand)));
+                    ppd.AddPrintableObject(new PrintableLineObject(Pens.Black, (int)(linkerRand + 403), (int)(obererRand + (31 + 7 * 1.5) * zeilenabstand), (int)(linkerRand + 403), (int)(obererRand + (31 + 8 * 1.5) * zeilenabstand)));
+
+                    ppd.AddPrintableObject(new PrintableLineObject(Pens.Black, (int)(linkerRand + 348), (int)(obererRand + (31 + 9 * 1.5) * zeilenabstand), (int)(linkerRand + 348), (int)(obererRand + (31 + 10 * 1.5) * zeilenabstand)));
+                    ppd.AddPrintableObject(new PrintableLineObject(Pens.Black, (int)(linkerRand + 452), (int)(obererRand + (31 + 9 * 1.5) * zeilenabstand), (int)(linkerRand + 452), (int)(obererRand + (31 + 10 * 1.5) * zeilenabstand)));
+
+                    //Fetter
+                    ppd.AddPrintableObject(new PrintableLineObject(Pens.Black, (int)(linkerRand + 349), (int)(obererRand + (31 + 9 * 1.5) * zeilenabstand), (int)(linkerRand + 349), (int)(obererRand + (31 + 10 * 1.5) * zeilenabstand)));
+                    ppd.AddPrintableObject(new PrintableLineObject(Pens.Black, (int)(linkerRand + 453), (int)(obererRand + (31 + 9 * 1.5) * zeilenabstand), (int)(linkerRand + 453), (int)(obererRand + (31 + 10 * 1.5) * zeilenabstand)));
+                    ppd.AddPrintableObject(new PrintableLineObject(Pens.Black, (int)(linkerRand + 347), (int)(obererRand + (31 + 9 * 1.5) * zeilenabstand), (int)(linkerRand + 347), (int)(obererRand + (31 + 10 * 1.5) * zeilenabstand)));
+                    ppd.AddPrintableObject(new PrintableLineObject(Pens.Black, (int)(linkerRand + 451), (int)(obererRand + (31 + 9 * 1.5) * zeilenabstand), (int)(linkerRand + 451), (int)(obererRand + (31 + 10 * 1.5) * zeilenabstand)));
+
+                    ppd.AddPrintableObject(new PrintableLineObject(Pens.Black, (int)(linkerRand + 651), (int)(obererRand + (31 + 8 * 1.5) * zeilenabstand), (int)(linkerRand + 651), (int)(obererRand + (31 + 10 * 1.5) * zeilenabstand)));
+                    ppd.AddPrintableObject(new PrintableLineObject(Pens.Black, (int)(linkerRand + 157), (int)(obererRand + (31 + 8 * 1.5) * zeilenabstand), (int)(linkerRand + 157), (int)(obererRand + (31 + 10 * 1.5) * zeilenabstand)));
+                    ppd.AddPrintableObject(new PrintableLineObject(Pens.Black, (int)(linkerRand + 649), (int)(obererRand + (31 + 8 * 1.5) * zeilenabstand), (int)(linkerRand + 649), (int)(obererRand + (31 + 10 * 1.5) * zeilenabstand)));
+                    ppd.AddPrintableObject(new PrintableLineObject(Pens.Black, (int)(linkerRand + 159), (int)(obererRand + (31 + 8 * 1.5) * zeilenabstand), (int)(linkerRand + 159), (int)(obererRand + (31 + 10 * 1.5) * zeilenabstand)));
+
+
+                    ppd.AddPrintableObject(new PrintableLineObject(Pens.Black, (int)(linkerRand + 158), (int)(obererRand + (31 + 8 * 1.5) * zeilenabstand) - 1, (int)(linkerRand + 650), (int)(obererRand + (31 + 8 * 1.5) * zeilenabstand) - 1));
+                    ppd.AddPrintableObject(new PrintableLineObject(Pens.Black, (int)(linkerRand + 158), (int)(obererRand + (31 + 9 * 1.5) * zeilenabstand) - 1, (int)(linkerRand + 650), (int)(obererRand + (31 + 9 * 1.5) * zeilenabstand) - 1));
+                    ppd.AddPrintableObject(new PrintableLineObject(Pens.Black, (int)(linkerRand + 158), (int)(obererRand + (31 + 8 * 1.5) * zeilenabstand) + 1, (int)(linkerRand + 650), (int)(obererRand + (31 + 8 * 1.5) * zeilenabstand) + 1));
+                    ppd.AddPrintableObject(new PrintableLineObject(Pens.Black, (int)(linkerRand + 158), (int)(obererRand + (31 + 9 * 1.5) * zeilenabstand) + 1, (int)(linkerRand + 650), (int)(obererRand + (31 + 9 * 1.5) * zeilenabstand) + 1));
+
+                    ppd.AddPrintableObject(new PrintableLineObject(Pens.Black, (int)(linkerRand + 158), (int)(obererRand + (31 + 10 * 1.5) * zeilenabstand) - 1, (int)(linkerRand + 350), (int)(obererRand + (31 + 10 * 1.5) * zeilenabstand) - 1));
+                    ppd.AddPrintableObject(new PrintableLineObject(Pens.Black, (int)(linkerRand + 452), (int)(obererRand + (31 + 10 * 1.5) * zeilenabstand) - 1, (int)(linkerRand + 650), (int)(obererRand + (31 + 10 * 1.5) * zeilenabstand) - 1));
+                    ppd.AddPrintableObject(new PrintableLineObject(Pens.Black, (int)(linkerRand + 158), (int)(obererRand + (31 + 10 * 1.5) * zeilenabstand) + 1, (int)(linkerRand + 350), (int)(obererRand + (31 + 10 * 1.5) * zeilenabstand) + 1));
+                    ppd.AddPrintableObject(new PrintableLineObject(Pens.Black, (int)(linkerRand + 452), (int)(obererRand + (31 + 10 * 1.5) * zeilenabstand) + 1, (int)(linkerRand + 650), (int)(obererRand + (31 + 10 * 1.5) * zeilenabstand) + 1));
 
                     pdd.AddPrintPage(ppd);
                 }

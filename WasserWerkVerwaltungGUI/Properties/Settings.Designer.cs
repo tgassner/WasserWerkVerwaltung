@@ -22,5 +22,23 @@ namespace WasserWerkVerwaltung.GUI.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"Wir bitten Sie, Ihren Wasserzähler innerhalb des Ablesezeitraumes (25.11.07 bis 
+09.12.2007) abzulesen und den Zählerstand im unteren Feld einzutragen. 
+Vergleichen Sie bitte die anderen Daten auf ihre Richtigkeit. 
+Sollten Sie Hilfe beim Ablesen benötigen, stehen wir Ihnen gerne zur Verfügung. 
+Tel: 07434/44398 oder 0676/620 32 38 Ing. Waltraud Weinberger-Hairas
+Mit freundlichen Grüßen, Ihr Wasserwerk Weinberger
+")]
+        public string TextZaeholerstandformular {
+            get {
+                return ((string)(this["TextZaeholerstandformular"]));
+            }
+            set {
+                this["TextZaeholerstandformular"] = value;
+            }
+        }
     }
 }

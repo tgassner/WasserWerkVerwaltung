@@ -225,7 +225,10 @@ namespace WasserWerkVerwaltung.GUI {
                 selectedKundenList.Add(kunde);
             }
 
-            this.wwvBLComp.PrintZaehlerstandabrechnungsFormular(selectedKundenList, (PreisData)listBoxJahre.SelectedItem);
+            ZaehlerstandableseText zsat = new ZaehlerstandableseText();
+            if (zsat.ShowDialog() == DialogResult.OK) {
+                this.wwvBLComp.PrintZaehlerstandabrechnungsFormular(selectedKundenList, (PreisData)listBoxJahre.SelectedItem, zsat.FormularText, zsat.DatumVon, zsat.DatumBis);
+            }
         }
 
     }

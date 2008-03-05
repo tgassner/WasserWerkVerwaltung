@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.50727</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{0687BA26-783C-48A0-9BEF-74D3D8CDE2FD}</ProjectGuid>
     <OutputType>WinExe</OutputType>
@@ -48,6 +48,12 @@
     <Compile Include="DruckenControl.Designer.cs">
       <DependentUpon>DruckenControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="ZaehlerstandTextForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ZaehlerstandTextForm.Designer.cs">
+      <DependentUpon>ZaehlerstandTextForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="JahresDatenInfoControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -83,6 +89,10 @@
     <EmbeddedResource Include="DruckenControl.resx">
       <SubType>Designer</SubType>
       <DependentUpon>DruckenControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ZaehlerstandTextForm.resx">
+      <DependentUpon>ZaehlerstandTextForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="JahresDatenInfoControl.resx">
       <SubType>Designer</SubType>
@@ -138,6 +148,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
