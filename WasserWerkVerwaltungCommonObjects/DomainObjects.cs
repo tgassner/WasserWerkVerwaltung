@@ -268,12 +268,15 @@ namespace WasserWerkVerwaltung.CommonObjects {
         private string sonstigeForderungenText;
         private double sonstigeForderungenValue;
         private double halbJahresBetrag;
+        private DateTime rechnungsDatumHalbjahr;
+        private DateTime rechnungsDatumJahr;
 
         public JahresDatenData(long id, long kundenId, 
                     long zaehlerStandAlt, long zaehlerStandNeu, long jahr, 
                     DateTime ableseDatum, double bereitsBezahlt, long tauschZaehlerStandAlt,
                     long tauschZaehlerStandNeu, string sonstigeForderungenText,
-                    double sonstigeForderungenValue, double halbJahresBetrag) {
+                    double sonstigeForderungenValue, double halbJahresBetrag,
+                    DateTime rechnungsDatumHalbjahr, DateTime rechnungsDatumJahr) {
             this.id = id;
             this.kundenId = kundenId;
             this.zaehlerStandAlt = zaehlerStandAlt;
@@ -286,6 +289,8 @@ namespace WasserWerkVerwaltung.CommonObjects {
             this.sonstigeForderungenText = sonstigeForderungenText;
             this.sonstigeForderungenValue = sonstigeForderungenValue;
             this.halbJahresBetrag = halbJahresBetrag;
+            this.rechnungsDatumHalbjahr = rechnungsDatumHalbjahr;
+            this.rechnungsDatumJahr = rechnungsDatumJahr;
         }
 
         public long Id {
@@ -393,6 +398,24 @@ namespace WasserWerkVerwaltung.CommonObjects {
             }
             set {
                 this.halbJahresBetrag = value;
+            }
+        }
+
+        public DateTime RechnungsDatumHalbjahr {
+            get {
+                return this.rechnungsDatumHalbjahr;
+            }
+            set {
+                this.rechnungsDatumHalbjahr = value;
+            }
+        }
+
+        public DateTime RechnungsDatumJahr {
+            get {
+                return this.rechnungsDatumJahr;
+            }
+            set {
+                this.rechnungsDatumJahr = value;
             }
         }
 

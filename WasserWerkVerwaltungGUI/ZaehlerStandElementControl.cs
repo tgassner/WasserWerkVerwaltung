@@ -16,6 +16,8 @@ namespace WasserWerkVerwaltung.GUI {
         private JahresDatenData currentJahresData;
         private KundenData currentKunde;
         private bool changed = false;
+        private DateTime rechnungsDatumHalbjahr;
+        private DateTime rechnungsDatumJahr;
 
         public long Jahr {
             get {
@@ -55,6 +57,8 @@ namespace WasserWerkVerwaltung.GUI {
             this.textBoxSonstigeForderungenText.Text = this.currentJahresData.SonstigeForderungenText;
             this.textBoxSonstigeForderungenWert.Text = this.currentJahresData.SonstigeForderungenValue.ToString();
             this.textBoxHalbJahresBetrag.Text = this.currentJahresData.HalbJahresBetrag.ToString();
+            this.rechnungsDatumHalbjahr = this.currentJahresData.RechnungsDatumHalbjahr;
+            this.rechnungsDatumJahr = this.currentJahresData.RechnungsDatumJahr;
 
             this.changed = changetmp;
             this.textBoxNichtGespeichert.Visible = changed;
@@ -204,7 +208,9 @@ namespace WasserWerkVerwaltung.GUI {
                 long.Parse(textBoxTauschZaehlerstandNeu.Text),
                 textBoxSonstigeForderungenText.Text,
                 Double.Parse(textBoxSonstigeForderungenWert.Text.Replace(".", ",")),
-                Double.Parse(textBoxHalbJahresBetrag.Text.Replace(".", ","))
+                Double.Parse(textBoxHalbJahresBetrag.Text.Replace(".", ",")),
+                rechnungsDatumHalbjahr,
+                rechnungsDatumJahr
                 );
 
             if (currentJahresData.Id == 0) { // Neue Jahresdata -> insert

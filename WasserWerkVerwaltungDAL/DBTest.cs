@@ -144,7 +144,7 @@ namespace SimplePatientDocumentation.DAL.Tests {
         [SetUp]
         public void InitVisitTest() {
             IJahresDaten jahresDatenDB = Database.CreateJahresDaten();
-            jahresdaten = new JahresDatenData(0, 1, 23, 234, 2006, DateTime.Now, 87.0,5,8,"asdf",456.7,1.4);
+            jahresdaten = new JahresDatenData(0, 1, 23, 234, 2006, DateTime.Now, 87.0,5,8,"asdf",456.7,1.4,new DateTime(2006,10,10),new DateTime(2005,9,9));
             this.jdID = jahresDatenDB.Insert(jahresdaten);
         }   
 
@@ -165,6 +165,8 @@ namespace SimplePatientDocumentation.DAL.Tests {
                     Assert.AreEqual(jahrfoeach.SonstigeForderungenText, this.jahresdaten.SonstigeForderungenText);
                     Assert.AreEqual(jahrfoeach.SonstigeForderungenValue, this.jahresdaten.SonstigeForderungenValue);
                     Assert.AreEqual(jahrfoeach.HalbJahresBetrag, this.jahresdaten.HalbJahresBetrag);
+                    Assert.AreEqual(jahrfoeach.RechnungsDatumHalbjahr, this.jahresdaten.RechnungsDatumHalbjahr);
+                    Assert.AreEqual(jahrfoeach.RechnungsDatumJahr, this.jahresdaten.RechnungsDatumJahr);
                 }
             }
         }
@@ -185,13 +187,15 @@ namespace SimplePatientDocumentation.DAL.Tests {
             Assert.AreEqual(jahredData2.SonstigeForderungenText, this.jahresdaten.SonstigeForderungenText);
             Assert.AreEqual(jahredData2.SonstigeForderungenValue, this.jahresdaten.SonstigeForderungenValue);
             Assert.AreEqual(jahredData2.HalbJahresBetrag, this.jahresdaten.HalbJahresBetrag);
+            Assert.AreEqual(jahredData2.RechnungsDatumHalbjahr, this.jahresdaten.RechnungsDatumHalbjahr);
+            Assert.AreEqual(jahredData2.RechnungsDatumJahr, this.jahresdaten.RechnungsDatumJahr);
         }
 
         [Test]
         public void JahresdatenFindByKundenIdTest() {
             IJahresDaten jahredDatenDB = Database.CreateJahresDaten();
-            JahresDatenData jd1 = new JahresDatenData(0, 1, 234, 345, 2006, DateTime.Now, 234.9,324,567,"asdfg",2345.7,4356.8);
-            JahresDatenData jd2 = new JahresDatenData(0, 1, 234, 3545, 2006, DateTime.Now, 233.9,76,987,"sadf",324.7,456.7);
+            JahresDatenData jd1 = new JahresDatenData(0, 1, 234, 345, 2006, DateTime.Now, 234.9,324,567,"asdfg",2345.7,4356.8,new DateTime(2000,2,2),new DateTime(1999,3,3));
+            JahresDatenData jd2 = new JahresDatenData(0, 1, 234, 3545, 2006, DateTime.Now, 233.9, 76, 987, "sadf", 324.7, 456.7, new DateTime(1990,7,7), new DateTime(1995,5,5));
             long jdid1 = jahredDatenDB.Insert(jd1);
             long jdid2 = jahredDatenDB.Insert(jd2);
             IList<JahresDatenData> jahresdataList = jahredDatenDB.FindByKundenId(1);
@@ -213,6 +217,8 @@ namespace SimplePatientDocumentation.DAL.Tests {
                     Assert.AreEqual(jd.SonstigeForderungenText, jd1.SonstigeForderungenText);
                     Assert.AreEqual(jd.SonstigeForderungenValue, jd1.SonstigeForderungenValue);
                     Assert.AreEqual(jd.HalbJahresBetrag, jd1.HalbJahresBetrag);
+                    Assert.AreEqual(jd.RechnungsDatumHalbjahr, jd1.RechnungsDatumHalbjahr);
+                    Assert.AreEqual(jd.RechnungsDatumJahr, jd1.RechnungsDatumJahr);
                 }
                 if (jd.Id == jdid2) {
                     jd2exists = !jd2exists;
@@ -227,6 +233,8 @@ namespace SimplePatientDocumentation.DAL.Tests {
                     Assert.AreEqual(jd.SonstigeForderungenText, jd2.SonstigeForderungenText);
                     Assert.AreEqual(jd.SonstigeForderungenValue, jd2.SonstigeForderungenValue);
                     Assert.AreEqual(jd.HalbJahresBetrag, jd2.HalbJahresBetrag);
+                    Assert.AreEqual(jd.RechnungsDatumHalbjahr, jd2.RechnungsDatumHalbjahr);
+                    Assert.AreEqual(jd.RechnungsDatumJahr, jd2.RechnungsDatumJahr);
                 }
             }
             Assert.IsTrue(jd1exists && jd2exists);
@@ -247,6 +255,8 @@ namespace SimplePatientDocumentation.DAL.Tests {
             jahredData2.SonstigeForderungenText = jahresdaten.SonstigeForderungenText = "assdfﬂ";
             jahredData2.SonstigeForderungenValue = jahresdaten.SonstigeForderungenValue = 98.9;
             jahredData2.HalbJahresBetrag = jahresdaten.HalbJahresBetrag = 345.7;
+            jahredData2.RechnungsDatumHalbjahr = jahresdaten.RechnungsDatumHalbjahr = new DateTime(1988,12,24);
+            jahredData2.RechnungsDatumJahr = jahresdaten.RechnungsDatumJahr = new DateTime(1977,12,06);
 
             Assert.IsTrue(jahredDatenDB.Update(jahredData2));
             JahresDatenData jahres3 = jahredDatenDB.FindByID(jdID);
@@ -263,6 +273,8 @@ namespace SimplePatientDocumentation.DAL.Tests {
             Assert.AreEqual(jahres3.SonstigeForderungenText, this.jahresdaten.SonstigeForderungenText);
             Assert.AreEqual(jahres3.SonstigeForderungenValue, this.jahresdaten.SonstigeForderungenValue);
             Assert.AreEqual(jahres3.HalbJahresBetrag, this.jahresdaten.HalbJahresBetrag);
+            Assert.AreEqual(jahres3.RechnungsDatumHalbjahr.Date, this.jahresdaten.RechnungsDatumHalbjahr.Date);
+            Assert.AreEqual(jahres3.RechnungsDatumJahr.Date, this.jahresdaten.RechnungsDatumJahr.Date);
         }
 
         [Test]

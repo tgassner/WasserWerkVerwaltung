@@ -37,6 +37,8 @@ namespace WasserWerkVerwaltung.GUI {
             this.buttonMahnungen1Drucken = new System.Windows.Forms.Button();
             this.buttonMahnungen2Drucken = new System.Windows.Forms.Button();
             this.buttonZaehlerstandabrechnungsFormulare = new System.Windows.Forms.Button();
+            this.buttonHalbjahresrechnungsdatumUebersicht = new System.Windows.Forms.Button();
+            this.buttonJahresrechnungsdatumUebersicht = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // checkedListBoxKunden
@@ -175,10 +177,32 @@ namespace WasserWerkVerwaltung.GUI {
             this.buttonZaehlerstandabrechnungsFormulare.UseVisualStyleBackColor = true;
             this.buttonZaehlerstandabrechnungsFormulare.Click += new System.EventHandler(this.buttonZaehlerstandabrechnungsFormulare_Click);
             // 
+            // buttonHalbjahresrechnungsdatumUebersicht
+            // 
+            this.buttonHalbjahresrechnungsdatumUebersicht.Location = new System.Drawing.Point(265, 513);
+            this.buttonHalbjahresrechnungsdatumUebersicht.Name = "buttonHalbjahresrechnungsdatumUebersicht";
+            this.buttonHalbjahresrechnungsdatumUebersicht.Size = new System.Drawing.Size(288, 23);
+            this.buttonHalbjahresrechnungsdatumUebersicht.TabIndex = 13;
+            this.buttonHalbjahresrechnungsdatumUebersicht.Text = "Halbjahresrechnungsdatum Übersicht";
+            this.buttonHalbjahresrechnungsdatumUebersicht.UseVisualStyleBackColor = true;
+            this.buttonHalbjahresrechnungsdatumUebersicht.Click += new System.EventHandler(this.buttonHalbjahresrechnungsdatumUebersicht_Click);
+            // 
+            // buttonJahresrechnungsdatumUebersicht
+            // 
+            this.buttonJahresrechnungsdatumUebersicht.Location = new System.Drawing.Point(265, 484);
+            this.buttonJahresrechnungsdatumUebersicht.Name = "buttonJahresrechnungsdatumUebersicht";
+            this.buttonJahresrechnungsdatumUebersicht.Size = new System.Drawing.Size(289, 23);
+            this.buttonJahresrechnungsdatumUebersicht.TabIndex = 14;
+            this.buttonJahresrechnungsdatumUebersicht.Text = "Jahresrechnungsdatum Übersicht";
+            this.buttonJahresrechnungsdatumUebersicht.UseVisualStyleBackColor = true;
+            this.buttonJahresrechnungsdatumUebersicht.Click += new System.EventHandler(this.buttonJahresrechnungsdatumUebersicht_Click);
+            // 
             // DruckenControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.buttonJahresrechnungsdatumUebersicht);
+            this.Controls.Add(this.buttonHalbjahresrechnungsdatumUebersicht);
             this.Controls.Add(this.buttonZaehlerstandabrechnungsFormulare);
             this.Controls.Add(this.buttonMahnungen2Drucken);
             this.Controls.Add(this.buttonMahnungen1Drucken);
@@ -216,5 +240,7 @@ namespace WasserWerkVerwaltung.GUI {
         private System.Windows.Forms.Button buttonMahnungen1Drucken;
         private System.Windows.Forms.Button buttonMahnungen2Drucken;
         private System.Windows.Forms.Button buttonZaehlerstandabrechnungsFormulare;
+        private System.Windows.Forms.Button buttonHalbjahresrechnungsdatumUebersicht;
+        private System.Windows.Forms.Button buttonJahresrechnungsdatumUebersicht;
     }
 }
