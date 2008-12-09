@@ -44,6 +44,7 @@ namespace WasserWerkVerwaltung.BL {
             void PrintMahnung2(IList<KundenData> kunden, PreisData preis);
             void PrintJahresrechnungsdatumUebersicht(IList<KundenData> kunden, PreisData preis);
             void PrintHalbjahresrechnungsdatumUebersicht(IList<KundenData> kunden, PreisData preis);
+            void PrintStammdaten(IList<KundenData> kunden);
         #endregion Print
 
         #region Tools

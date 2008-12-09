@@ -39,6 +39,7 @@ namespace WasserWerkVerwaltung.GUI {
             this.buttonZaehlerstandabrechnungsFormulare = new System.Windows.Forms.Button();
             this.buttonHalbjahresrechnungsdatumUebersicht = new System.Windows.Forms.Button();
             this.buttonJahresrechnungsdatumUebersicht = new System.Windows.Forms.Button();
+            this.buttonStammdatenDrucken = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // checkedListBoxKunden
@@ -197,10 +198,21 @@ namespace WasserWerkVerwaltung.GUI {
             this.buttonJahresrechnungsdatumUebersicht.UseVisualStyleBackColor = true;
             this.buttonJahresrechnungsdatumUebersicht.Click += new System.EventHandler(this.buttonJahresrechnungsdatumUebersicht_Click);
             // 
+            // buttonStammdatenDrucken
+            // 
+            this.buttonStammdatenDrucken.Location = new System.Drawing.Point(266, 543);
+            this.buttonStammdatenDrucken.Name = "buttonStammdatenDrucken";
+            this.buttonStammdatenDrucken.Size = new System.Drawing.Size(287, 23);
+            this.buttonStammdatenDrucken.TabIndex = 15;
+            this.buttonStammdatenDrucken.Text = "Stammdaten Drucken";
+            this.buttonStammdatenDrucken.UseVisualStyleBackColor = true;
+            this.buttonStammdatenDrucken.Click += new System.EventHandler(this.buttonStammdatenDrucken_Click);
+            // 
             // DruckenControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.buttonStammdatenDrucken);
             this.Controls.Add(this.buttonJahresrechnungsdatumUebersicht);
             this.Controls.Add(this.buttonHalbjahresrechnungsdatumUebersicht);
             this.Controls.Add(this.buttonZaehlerstandabrechnungsFormulare);
@@ -242,5 +254,6 @@ namespace WasserWerkVerwaltung.GUI {
         private System.Windows.Forms.Button buttonZaehlerstandabrechnungsFormulare;
         private System.Windows.Forms.Button buttonHalbjahresrechnungsdatumUebersicht;
         private System.Windows.Forms.Button buttonJahresrechnungsdatumUebersicht;
+        private System.Windows.Forms.Button buttonStammdatenDrucken;
     }
 }

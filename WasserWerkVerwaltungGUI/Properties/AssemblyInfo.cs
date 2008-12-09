@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("WasserWerkVerwaltung")]
 [assembly: AssemblyDescription("WasserWerkVerwaltung ist eine einfache Software zur Verwaltung eines Kundenstamms und der laufenden Rechnungen eines Wasserwerks.\r\n\r\nWWV wurde für das Wasserwerk Weinberger implementiert.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Thomas Gassner, B.Sc.")]
+[assembly: AssemblyCompany("Thomas Gassner, M.Sc.")]
 [assembly: AssemblyProduct("WasserWerkVerwaltung")]
 [assembly: AssemblyCopyright("Copyright ©  2008")]
 [assembly: AssemblyTrademark("")]
@@ -29,5 +29,5 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("1.3.0.0")]
-[assembly: AssemblyFileVersion("1.3.0.0")]
+[assembly: AssemblyVersion("1.3.1.0")]
+[assembly: AssemblyFileVersion("1.3.1.0")]

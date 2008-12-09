@@ -25,6 +25,8 @@ namespace WasserWerkVerwaltung.GUI {
             this.stammdatenControl.Init(this.wwvBLComp);
             this.zaehlerStaendeControl.Init(this.wwvBLComp);
             this.druckenControl.Init(this.wwvBLComp);
+
+            this.Text = "Wasser Werk Verwaltung Version " + this.GetType().Assembly.GetName().Version.ToString();
         }
 
         private void Clear() {

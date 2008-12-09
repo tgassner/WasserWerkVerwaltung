@@ -270,5 +270,19 @@ namespace WasserWerkVerwaltung.GUI {
                 this.wwvBLComp.PrintZaehlerstandabrechnungsFormular(selectedKundenList, (PreisData)listBoxJahre.SelectedItem, zsat.FormularText, zsat.DatumVon, zsat.DatumBis);
             }
         }
+
+        private void buttonStammdatenDrucken_Click(object sender, EventArgs e) {
+            if (checkedListBoxKunden.CheckedItems.Count <= 0) {
+                MessageBox.Show("Keine Kunden markiert!");
+                return;
+            }
+
+            IList<KundenData> selectedKundenList = new List<KundenData>();
+            foreach (KundenData kunde in checkedListBoxKunden.CheckedItems) {
+                selectedKundenList.Add(kunde);
+            }
+
+            this.wwvBLComp.PrintStammdaten(selectedKundenList);
+        }
     }
 }
