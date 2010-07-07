@@ -479,6 +479,7 @@ namespace WasserWerkVerwaltung.CommonObjects {
         }
     }
 
+    /*
     [Serializable]
     public class ZahlungsData {
         private long jahresDatenId;
@@ -522,5 +523,5 @@ namespace WasserWerkVerwaltung.CommonObjects {
         public override int GetHashCode() {
             return this.jahr.GetHashCode() + this.preis.GetHashCode();
         }
-    }
+    } */
 }

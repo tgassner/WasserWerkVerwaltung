@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WasserWerkVerwaltungGUI", "WasserWerkVerwaltungGUI\WasserWerkVerwaltungGUI.csproj", "{0687BA26-783C-48A0-9BEF-74D3D8CDE2FD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WasserWerkVerwaltungCommonObjects", "WasserWerkVerwaltungCommonObjects\WasserWerkVerwaltungCommonObjects.csproj", "{72EA8889-FBBC-485E-B9E9-4C47A35D8E7A}"

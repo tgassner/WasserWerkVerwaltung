@@ -8,7 +8,7 @@ using WasserWerkVerwaltung.CommonUtilities;
 using NUnit.Framework;
 
 namespace WasserWerkVerwaltung.DAL {
-    class Zahlung : IZahlung {
+    class Zahlung /*: IZahlung */ {
 
         const string SQL_FIND_BY_ID = "SELECT * FROM Kunde WHERE KundeID = ?";
         const string SQL_FIND_ALL = "SELECT * FROM Kunde";

@@ -30,6 +30,7 @@ namespace WasserWerkVerwaltung.DAL {
         bool Delete(long preisId);
     }
 
+    /*
     public interface IZahlung {
         IList<ZahlungData> FindAll();
         ZahlungData FindById(long id);
@@ -37,5 +38,5 @@ namespace WasserWerkVerwaltung.DAL {
         bool Insert(ZahlungData zahlung);
         bool Update(ZahlungData zahlung);
         bool Delete(long zahlungId);
-    }
+    } */
 }

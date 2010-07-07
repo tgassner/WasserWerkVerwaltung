@@ -186,9 +186,9 @@ namespace WasserWerkVerwaltung.BL {
             int countEintraegerErstellt = 0;
             int countFehlerBeimEintragen = 0;
 
-            PreisData pd = this.GetPreisDataByJahr(jahr);
+            PreisData pd = this.GetPreisDataByJahr(jahr - 1);
             if (pd == null){
-                MessageBox.Show("Kein Wasserpreis / m³ fürs Jahr " + jahr + " definiert -> bitte zuvor definieren.");
+                MessageBox.Show("Kein Wasserpreis / m³ fürs Jahr " + (jahr - 1) + " definiert -> bitte zuvor definieren.");
                 return;
             }
 
@@ -210,6 +210,10 @@ namespace WasserWerkVerwaltung.BL {
                     // Es wird eine neue JahresDatenzeile erstellt in der 
                     // also wird HalbjahresWert eingrtragen
 
+                    double halbjahresbetrag = this.calcJahresrechnungBrutto(this.GetJahresdataByKundenIDandYear(kunde.Id, jahr - 1), kunde, pd);
+                    halbjahresbetrag = halbjahresbetrag / 2;
+                    halbjahresbetrag = Math.Round(halbjahresbetrag, 2);
+
                     JahresDatenData jdd = new JahresDatenData(0,
                                                                 kunde.Id,
                                                                 0,
@@ -221,7 +225,7 @@ namespace WasserWerkVerwaltung.BL {
                                                                 0,
                                                                 "",
                                                                 0.0,
-                                                                ((double)Math.Round(this.calcJahresrechnungBrutto(this.GetJahresdataByKundenIDandYear(kunde.Id,jahr - 1), kunde, pd) / 2, 2)),
+                                                                halbjahresbetrag,
                                                                 DateTime.MinValue,
                                                                 DateTime.MinValue);
 
