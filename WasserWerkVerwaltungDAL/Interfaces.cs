@@ -25,8 +25,17 @@ namespace WasserWerkVerwaltung.DAL {
     public interface IPreis {
         IList<PreisData> FindAll();
         PreisData FindByJahr(long jahr);
-        bool Insert(PreisData kunde);
+        bool Insert(PreisData preis);
         bool Update(PreisData preis);
-        bool Delete(long jahr);
+        bool Delete(long preisId);
+    }
+
+    public interface IZahlung {
+        IList<ZahlungData> FindAll();
+        ZahlungData FindById(long id);
+        ZahlungData FindByJahresDaten(long jahresDatenId);
+        bool Insert(ZahlungData zahlung);
+        bool Update(ZahlungData zahlung);
+        bool Delete(long zahlungId);
     }
 }

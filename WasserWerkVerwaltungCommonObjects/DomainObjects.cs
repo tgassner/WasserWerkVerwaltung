@@ -478,4 +478,49 @@ namespace WasserWerkVerwaltung.CommonObjects {
             return this.jahr.GetHashCode() + this.preis.GetHashCode();
         }
     }
+
+    [Serializable]
+    public class ZahlungsData {
+        private long jahresDatenId;
+        private double Zahlung;
+        private DateTime Zahldatum;
+
+        public ZahlungsData(long jahr, double preis) {
+            this.jahr = jahr;
+            this.preis = preis;
+        }
+
+        public long Jahr {
+            get {
+                return this.jahr;
+            }
+            set {
+                this.jahr = value;
+            }
+        }
+
+        public double Preis {
+            get {
+                return this.preis;
+            }
+            set {
+                this.preis = value;
+            }
+        }
+
+        public override string ToString() {
+            return this.jahr.ToString() + " - " + this.preis.ToString() + " EUR/m³";
+        }
+
+        public override bool Equals(object obj) {
+            JahresDatenData abl = obj as JahresDatenData;
+            if (abl == null)
+                return false;
+            return abl.Jahr == this.jahr;
+        }
+
+        public override int GetHashCode() {
+            return this.jahr.GetHashCode() + this.preis.GetHashCode();
+        }
+    }
 }

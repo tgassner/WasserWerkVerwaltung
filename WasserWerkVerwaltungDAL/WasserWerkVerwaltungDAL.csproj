@@ -65,6 +65,7 @@
     <Compile Include="DBTools.cs" />
     <Compile Include="DbUtil.cs" />
     <Compile Include="Interfaces.cs" />
+    <Compile Include="Zahlung.cs" />
     <Compile Include="Preis.cs" />
     <Compile Include="JahresDaten.cs" />
     <Compile Include="Kunde.cs" />
