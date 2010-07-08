@@ -86,7 +86,7 @@ namespace WasserWerkVerwaltung.GUI {
             this.Controls.Add(this.buttonJahrLoeschen);
             this.Controls.Add(this.buttonJahrHinzufuegen);
             this.Name = "ZaehlerStaendDetailsControl";
-            this.Size = new System.Drawing.Size(580, 640);
+            this.Size = new System.Drawing.Size(600, 640);
             this.ResumeLayout(false);
             this.PerformLayout();
 
