@@ -118,6 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="buttonGeneriereMehrereHalbjahresWerte.Text" xml:space="preserve">
-    <value>Haljahresbetrag Generieren - Alle Kunden die noch keinen Zählerstandeintrag für das Jahr haben. Den Stand vom Jahr davor berechnen.  Kunden die bereits einen Jahreszählerstand-Eintrag für das Jahr haben werden ignoriert.</value>
+    <value>Halbjahresbetrag Generieren - Alle Kunden die noch keinen Zählerstandeintrag für das Jahr haben. Den Stand vom Jahr davor berechnen.  Kunden die bereits einen Jahreszählerstand-Eintrag für das Jahr haben werden ignoriert.</value>
   </data>
 </root>

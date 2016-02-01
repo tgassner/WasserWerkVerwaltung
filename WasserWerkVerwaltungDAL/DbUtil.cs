@@ -7,31 +7,63 @@ using System.Data.Common;
 using System.Data.OleDb;
 using System.IO;
 using System.Windows.Forms;
-
+using System.Reflection;
 
 namespace WasserWerkVerwaltung.DAL {
     internal class DbUtil {
         private static IDbConnection conn = null;
         private static int nestedOpens = 0;
         private static string connString = "";
+        const string mdbFile = "wasser.mdb";
 
         private static IDbConnection GetCachedConnection() {
             if (conn == null) {
-                if (connString.Equals("")) {
-                    //if (!File.Exists(DBTools.GetDatabaseFullFilename())) {
-                    //    MessageBox.Show("Databasefile: " + DBTools.GetDatabaseFullFilename() + "does not exist!");
-                    //    Environment.Exit(1);
-                    //}
-                    if (!File.Exists("wasser.mdb")) {
-                        MessageBox.Show("Databasefile: wasser.mdb does not exist!");
-                        Environment.Exit(1);
+                if (String.IsNullOrEmpty(connString)) {
+                    if (!File.Exists(GetDatabaseFullFilename()))
+                    {
+                        MessageBox.Show("Databasefile:" + Environment.NewLine + GetDatabaseFullFilename() + Environment.NewLine + "does not exist!");
+                        //throw new Exception(null, "Databasefile:" + Environment.NewLine + mdbFile + Environment.NewLine + "does not exist!", null);
                     }
-                    connString = "Data Source=" + "wasser.mdb" + ";Provider=Microsoft.Jet.OLEDB.4.0;";
+                    FileAttributes fileAttributesMdb = File.GetAttributes(GetDatabaseFullFilename());
+                    if ((fileAttributesMdb & FileAttributes.ReadOnly) == FileAttributes.ReadOnly)
+                    {
+                        MessageBox.Show("Databasefile:" + Environment.NewLine + GetDatabaseFullFilename() + Environment.NewLine + "is Readonly!");
+                        //throw new Exception(null, "Databasefile:" + Environment.NewLine + mdbFile + Environment.NewLine + "is Readonly!", null);
+                    }
+                    connString = String.Format("Data Source={0};Provider=Microsoft.Jet.OLEDB.4.0;", GetDatabaseFullFilename());
                 }
                 conn = new OleDbConnection(connString);
             }
 
             return conn;
+        }
+
+        public static string GetDatabaseFullFilename()
+        {
+            string path = getSPDLocalChangePath() + Path.DirectorySeparatorChar + mdbFile;
+
+            if (!File.Exists(path))
+            {
+                if (File.Exists(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + Path.DirectorySeparatorChar + mdbFile))
+                {
+                    File.Copy(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + Path.DirectorySeparatorChar + mdbFile, path);
+                }
+            }
+
+            return path;
+        }
+
+        public static string getSPDLocalChangePath()
+        {
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + Path.DirectorySeparatorChar +
+                "wwv";
+
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+
+            return path;
         }
 
         public static IDbConnection OpenConnection() {

@@ -17,6 +17,8 @@ namespace WasserWerkVerwaltung.DAL {
         IList<JahresDatenData> FindAll();
         JahresDatenData FindByID(long id);
         IList<JahresDatenData> FindByKundenId(long kundenId);
+        long FindNextHalbJahresRechnungNummer();
+        long FindNextJahresRechnungNummer();
         long Insert(JahresDatenData kunde);
         bool Update(JahresDatenData kunde);
         bool Delete(long id);

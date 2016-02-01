@@ -144,7 +144,7 @@ namespace SimplePatientDocumentation.DAL.Tests {
         [SetUp]
         public void InitVisitTest() {
             IJahresDaten jahresDatenDB = Database.CreateJahresDaten();
-            jahresdaten = new JahresDatenData(0, 1, 23, 234, 2006, DateTime.Now, 87.0,5,8,"asdf",456.7,1.4,new DateTime(2006,10,10),new DateTime(2005,9,9));
+            jahresdaten = new JahresDatenData(0, 1, 23, 234, 2006, DateTime.Now, 87.0,5,8,"asdf",456.7,1.4,new DateTime(2006,10,10),new DateTime(2005,9,9), 4711L, 1234L);
             this.jdID = jahresDatenDB.Insert(jahresdaten);
         }   
 
@@ -194,8 +194,8 @@ namespace SimplePatientDocumentation.DAL.Tests {
         [Test]
         public void JahresdatenFindByKundenIdTest() {
             IJahresDaten jahredDatenDB = Database.CreateJahresDaten();
-            JahresDatenData jd1 = new JahresDatenData(0, 1, 234, 345, 2006, DateTime.Now, 234.9,324,567,"asdfg",2345.7,4356.8,new DateTime(2000,2,2),new DateTime(1999,3,3));
-            JahresDatenData jd2 = new JahresDatenData(0, 1, 234, 3545, 2006, DateTime.Now, 233.9, 76, 987, "sadf", 324.7, 456.7, new DateTime(1990,7,7), new DateTime(1995,5,5));
+            JahresDatenData jd1 = new JahresDatenData(0, 1, 234, 345, 2006, DateTime.Now, 234.9,324,567,"asdfg",2345.7,4356.8,new DateTime(2000,2,2),new DateTime(1999,3,3), null, 4711L);
+            JahresDatenData jd2 = new JahresDatenData(0, 1, 234, 3545, 2006, DateTime.Now, 233.9, 76, 987, "sadf", 324.7, 456.7, new DateTime(1990,7,7), new DateTime(1995,5,5), 4711L, null);
             long jdid1 = jahredDatenDB.Insert(jd1);
             long jdid2 = jahredDatenDB.Insert(jd2);
             IList<JahresDatenData> jahresdataList = jahredDatenDB.FindByKundenId(1);

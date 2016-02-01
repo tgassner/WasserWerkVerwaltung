@@ -131,7 +131,9 @@ namespace WasserWerkVerwaltung.BL {
                             jahresDatum.SonstigeForderungenValue,
                             jahresDatum.HalbJahresBetrag,
                             jahresDatum.RechnungsDatumHalbjahr,
-                            jahresDatum.RechnungsDatumJahr);
+                            jahresDatum.RechnungsDatumJahr,
+                            jahresDatum.RechnungsNummerHalbjahr,
+                            jahresDatum.RechnungsNummerJahr);
                 if (this.allJahresData != null){
                     this.allJahresData.Add(jahresDatum);
                 }
@@ -227,7 +229,9 @@ namespace WasserWerkVerwaltung.BL {
                                                                 0.0,
                                                                 halbjahresbetrag,
                                                                 DateTime.MinValue,
-                                                                DateTime.MinValue);
+                                                                DateTime.MinValue,
+                                                                Database.CreateJahresDaten().FindNextHalbJahresRechnungNummer(),
+                                                                null);
 
                     JahresDatenData jdd2 = this.InsertJahresDaten(jdd);
 

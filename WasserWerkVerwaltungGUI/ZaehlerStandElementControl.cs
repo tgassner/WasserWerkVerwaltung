@@ -210,7 +210,9 @@ namespace WasserWerkVerwaltung.GUI {
                 Double.Parse(textBoxSonstigeForderungenWert.Text.Replace(".", ",")),
                 Double.Parse(textBoxHalbJahresBetrag.Text.Replace(".", ",")),
                 rechnungsDatumHalbjahr,
-                rechnungsDatumJahr
+                rechnungsDatumJahr,
+                null, // FIXME TODO
+                null  // FIXME TODO
                 );
 
             if (currentJahresData.Id == 0) { // Neue Jahresdata -> insert

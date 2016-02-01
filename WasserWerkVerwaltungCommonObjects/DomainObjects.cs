@@ -270,13 +270,15 @@ namespace WasserWerkVerwaltung.CommonObjects {
         private double halbJahresBetrag;
         private DateTime rechnungsDatumHalbjahr;
         private DateTime rechnungsDatumJahr;
+        private long? rechnungsNummerHalbjahr;
+        private long? rechnungsNummerJahr;
 
         public JahresDatenData(long id, long kundenId, 
                     long zaehlerStandAlt, long zaehlerStandNeu, long jahr, 
                     DateTime ableseDatum, double bereitsBezahlt, long tauschZaehlerStandAlt,
                     long tauschZaehlerStandNeu, string sonstigeForderungenText,
                     double sonstigeForderungenValue, double halbJahresBetrag,
-                    DateTime rechnungsDatumHalbjahr, DateTime rechnungsDatumJahr) {
+                    DateTime rechnungsDatumHalbjahr, DateTime rechnungsDatumJahr, long? rechnungsNummerHalbjahr, long? rechnungsNummerJahr) {
             this.id = id;
             this.kundenId = kundenId;
             this.zaehlerStandAlt = zaehlerStandAlt;
@@ -289,6 +291,8 @@ namespace WasserWerkVerwaltung.CommonObjects {
             this.sonstigeForderungenText = sonstigeForderungenText;
             this.sonstigeForderungenValue = sonstigeForderungenValue;
             this.halbJahresBetrag = halbJahresBetrag;
+            this.rechnungsDatumHalbjahr = rechnungsDatumHalbjahr;
+            this.rechnungsDatumJahr = rechnungsDatumJahr;
             this.rechnungsDatumHalbjahr = rechnungsDatumHalbjahr;
             this.rechnungsDatumJahr = rechnungsDatumJahr;
         }
@@ -416,6 +420,30 @@ namespace WasserWerkVerwaltung.CommonObjects {
             }
             set {
                 this.rechnungsDatumJahr = value;
+            }
+        }
+
+        public long? RechnungsNummerHalbjahr
+        {
+            get
+            {
+                return this.rechnungsNummerHalbjahr;
+            }
+            set
+            {
+                this.rechnungsNummerHalbjahr = value;
+            }
+        }
+
+        public long? RechnungsNummerJahr
+        {
+            get
+            {
+                return this.rechnungsNummerJahr;
+            }
+            set
+            {
+                this.rechnungsNummerJahr = value;
             }
         }
 
