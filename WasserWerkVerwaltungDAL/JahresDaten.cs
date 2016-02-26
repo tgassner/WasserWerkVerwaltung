@@ -93,26 +93,9 @@ namespace WasserWerkVerwaltung.DAL {
 
                 using (IDataReader rdr = findAllCmd.ExecuteReader()) {
                     IList<JahresDatenData> jahresDatenList = new List<JahresDatenData>();
-                    while (rdr.Read()) {
-
-                        jahresDatenList.Add(new JahresDatenData(
-                                     (long)(int)rdr["JahresDatenID"], 
-                                     (long)(int)rdr["KundeID"],
-                                     (long) (int) rdr["ZaehlerStandAlt"],
-                                     (long) (int) rdr["ZaehlerStandNeu"],
-                                     (long) (int) rdr["Jahr"],
-                                     (DateTime)rdr["Ablesedatum"],
-                                     (double) rdr["BereitsBezahlt"],
-                                     (long)(int)rdr["TauschZaehlerStandAlt"],
-                                     (long)(int)rdr["TauschZaehlerStandNeu"],
-                                     (string)rdr["SonstigeForderungenText"],
-                                     (double)rdr["SonstigeForderungenValue"],
-                                     (double)rdr["HalbJahresBetrag"],
-                                     (DateTime)rdr["RechnungsDatumHalbjahr"],
-                                     (DateTime)rdr["RechnungsDatumJahr"],
-                                     (long?)(int?)rdr["RechnungsNummerHalbjahr"],
-                                     (long?)(int?)rdr["RechnungsNummerJahr"]
-                                    ));
+                    while (rdr.Read())
+                    {
+                        jahresDatenList.Add(fillJahresDaten(rdr));
                     }
                     return jahresDatenList;
                 }
@@ -120,7 +103,7 @@ namespace WasserWerkVerwaltung.DAL {
                 DbUtil.CloseConnection();
             }
         }
-
+        
         public JahresDatenData FindByID(long id) {
             try {
                 DbUtil.OpenConnection();
@@ -134,25 +117,7 @@ namespace WasserWerkVerwaltung.DAL {
 
                 using (IDataReader rdr = findByIdCmd.ExecuteReader()) {
                     if (rdr.Read()) {
-
-                        return new JahresDatenData(
-                                     (long)(int)rdr["JahresDatenID"],
-                                     (long)(int)rdr["KundeID"],
-                                     (long)(int)rdr["ZaehlerStandAlt"],
-                                     (long)(int)rdr["ZaehlerStandNeu"],
-                                     (long)(int)rdr["Jahr"],
-                                     (DateTime)rdr["Ablesedatum"],
-                                     (double)rdr["BereitsBezahlt"],
-                                     (long)(int)rdr["TauschZaehlerStandAlt"],
-                                     (long)(int)rdr["TauschZaehlerStandNeu"],
-                                     (string)rdr["SonstigeForderungenText"],
-                                     (double)rdr["SonstigeForderungenValue"],
-                                     (double)rdr["HalbJahresBetrag"],
-                                     (DateTime)rdr["RechnungsDatumHalbjahr"],
-                                     (DateTime)rdr["RechnungsDatumJahr"],
-                                     (long?)(int?)rdr["RechnungsNummerHalbjahr"],
-                                     (long?)(int?)rdr["RechnungsNummerJahr"]
-                                    );
+                        return fillJahresDaten(rdr);
                     }
                 }
             } finally {
@@ -175,25 +140,7 @@ namespace WasserWerkVerwaltung.DAL {
                 using (IDataReader rdr = findByKundeIdCmd.ExecuteReader()) {
                     IList<JahresDatenData> jahresDatenList = new List<JahresDatenData>();
                     while (rdr.Read()) {
-
-                        jahresDatenList.Add( new JahresDatenData(
-                                     (long)(int)rdr["JahresDatenID"],
-                                     (long)(int)rdr["KundeID"],
-                                     (long)(int)rdr["ZaehlerStandAlt"],
-                                     (long)(int)rdr["ZaehlerStandNeu"],
-                                     (long)(int)rdr["Jahr"],
-                                     (DateTime)rdr["Ablesedatum"],
-                                     (double)rdr["BereitsBezahlt"],
-                                     (long)(int)rdr["TauschZaehlerStandAlt"],
-                                     (long)(int)rdr["TauschZaehlerStandNeu"],
-                                     (string)rdr["SonstigeForderungenText"],
-                                     (double)rdr["SonstigeForderungenValue"],
-                                     (double)rdr["HalbJahresBetrag"],
-                                     (DateTime)rdr["RechnungsDatumHalbjahr"],
-                                     (DateTime)rdr["RechnungsDatumJahr"],
-                                     (long?)(int?)rdr["RechnungsNummerHalbjahr"],
-                                     (long?)(int?)rdr["RechnungsNummerJahr"]
-                                    ));
+                        jahresDatenList.Add(fillJahresDaten(rdr));
                     }
                     return jahresDatenList;
                 }
@@ -320,6 +267,28 @@ namespace WasserWerkVerwaltung.DAL {
             } finally {
                 DbUtil.CloseConnection();
             }
+        }
+
+        private static JahresDatenData fillJahresDaten(IDataReader rdr)
+        {
+            JahresDatenData jahresDatenData = new JahresDatenData();
+            jahresDatenData.Id = Convert.ToInt64(rdr["JahresDatenID"]);
+            jahresDatenData.KundenId = Convert.ToInt64(rdr["KundeID"]);
+            jahresDatenData.ZaehlerStandAlt = Convert.ToInt64(rdr["ZaehlerStandAlt"]);
+            jahresDatenData.ZaehlerStandNeu = Convert.ToInt64(rdr["ZaehlerStandNeu"]);
+            jahresDatenData.Jahr = Convert.ToInt64(rdr["Jahr"]);
+            jahresDatenData.AbleseDatum = (DateTime)rdr["Ablesedatum"];
+            jahresDatenData.BereitsBezahlt = (double)rdr["BereitsBezahlt"];
+            jahresDatenData.TauschZaehlerStandAlt = Convert.ToInt64(rdr["TauschZaehlerStandAlt"]);
+            jahresDatenData.TauschZaehlerStandNeu = Convert.ToInt64(rdr["TauschZaehlerStandNeu"]);
+            jahresDatenData.SonstigeForderungenText = Convert.ToString(rdr["SonstigeForderungenText"]);
+            jahresDatenData.SonstigeForderungenValue = (double)rdr["SonstigeForderungenValue"];
+            jahresDatenData.HalbJahresBetrag = (double)rdr["HalbJahresBetrag"];
+            jahresDatenData.RechnungsDatumHalbjahr = (DateTime)rdr["RechnungsDatumHalbjahr"];
+            jahresDatenData.RechnungsDatumJahr = (DateTime)rdr["RechnungsDatumJahr"];
+            jahresDatenData.RechnungsNummerHalbjahr = DBNull.Value.Equals(rdr["RechnungsNummerHalbjahr"]) ? (long?)null : Convert.ToInt64(rdr["RechnungsNummerHalbjahr"]);
+            jahresDatenData.RechnungsNummerJahr = DBNull.Value.Equals(rdr["RechnungsNummerJahr"]) ? (long?)null : Convert.ToInt64(rdr["RechnungsNummerJahr"]);
+            return jahresDatenData;
         }
     }
 }

@@ -1,0 +1,13 @@
+/WasserWerkVerwaltungBL/obj
+/WasserWerkVerwaltungBL/bin
+/WasserWerkVerwaltungCommonObjects/obj
+/WasserWerkVerwaltungCommonObjects/bin
+/WasserWerkVerwaltungDAL/obj
+/WasserWerkVerwaltungDAL/bin
+/WasserWerkVerwaltungGUI/obj
+/WasserWerkVerwaltungGUI/bin
+/WasserWerkVerwaltungPrint/bin
+/WasserWerkVerwaltungPrint/obj
+/.vs
+/SetupWWV/Release
+/SetupWWV/Debug

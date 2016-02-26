@@ -273,6 +273,11 @@ namespace WasserWerkVerwaltung.CommonObjects {
         private long? rechnungsNummerHalbjahr;
         private long? rechnungsNummerJahr;
 
+        public JahresDatenData()
+        {
+
+        }
+
         public JahresDatenData(long id, long kundenId, 
                     long zaehlerStandAlt, long zaehlerStandNeu, long jahr, 
                     DateTime ableseDatum, double bereitsBezahlt, long tauschZaehlerStandAlt,
