@@ -57,6 +57,8 @@ namespace WasserWerkVerwaltung.GUI {
             this.textBoxSonstigeForderungenText.Text = this.currentJahresData.SonstigeForderungenText;
             this.textBoxSonstigeForderungenWert.Text = this.currentJahresData.SonstigeForderungenValue.ToString();
             this.textBoxHalbJahresBetrag.Text = this.currentJahresData.HalbJahresBetrag.ToString();
+            this.textBoxHalbJahresRechnungsNummer.Text = Convert.ToString(this.currentJahresData.RechnungsNummerHalbjahr);
+            this.textBoxGanzJahresRechnungsNummer.Text = Convert.ToString(this.currentJahresData.RechnungsNummerJahr);
             this.rechnungsDatumHalbjahr = this.currentJahresData.RechnungsDatumHalbjahr;
             this.rechnungsDatumJahr = this.currentJahresData.RechnungsDatumJahr;
 
@@ -65,9 +67,45 @@ namespace WasserWerkVerwaltung.GUI {
             this.buttonDruckJahresrechnung.Enabled = !this.changed;
         }
 
+        private bool checkHalbJahresRechnungsNummer()
+        {
+            if (String.IsNullOrEmpty(this.textBoxHalbJahresRechnungsNummer.Text))
+            {
+                return true;
+            }
+            try
+            {
+                Int64.Parse(this.textBoxHalbJahresRechnungsNummer.Text);
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Bitte Halbjahres Rechnungs Nummer Überprüfen: Wert ungültig.");
+                return false;
+            }
+            return true;
+        }
+
+        private bool checkGanzJahresRechnungsNummer()
+        {
+            if (String.IsNullOrEmpty(this.textBoxGanzJahresRechnungsNummer.Text))
+            {
+                return true;
+            }
+            try
+            {
+                Int64.Parse(this.textBoxGanzJahresRechnungsNummer.Text);
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Bitte Ganzjahres Rechnungs Nummer Überprüfen: Wert ungültig.");
+                return false;
+            }
+            return true;
+        }
+
         private bool checkZaehlerStandAlt() {
             try {
-                long zsa = Int64.Parse(this.textBoxZaehlerStandAlt.Text);
+                Int64.Parse(this.textBoxZaehlerStandAlt.Text);
             } catch (FormatException) {
                 MessageBox.Show("Bitte ZaehlerStandAlt Überprüfen: Wert ungültig.");
                 return false;
@@ -77,7 +115,7 @@ namespace WasserWerkVerwaltung.GUI {
 
         private bool checkZaehlerStandNeu() {
             try {
-                long zsn = Int64.Parse(this.textBoxZaehlerStandNeu.Text);
+                Int64.Parse(this.textBoxZaehlerStandNeu.Text);
             } catch (FormatException) {
                 MessageBox.Show("Bitte ZaehlerStandNeu Überprüfen: Wert ungültig.");
                 return false;
@@ -87,7 +125,7 @@ namespace WasserWerkVerwaltung.GUI {
 
         private bool checkAblesedatum() {
             try {
-                DateTime dt = DateTime.Parse(this.textBoxAblesedatum.Text, DateTimeFormatInfo.CurrentInfo);
+                DateTime.Parse(this.textBoxAblesedatum.Text, DateTimeFormatInfo.CurrentInfo);
             } catch (FormatException) {
                 MessageBox.Show("Bitte Ablesedatum Überprüfen: Wert ungültig.");
                 return false;
@@ -97,7 +135,7 @@ namespace WasserWerkVerwaltung.GUI {
 
         private bool checkBereitsBezahlt() {
             try {
-                double bb = Double.Parse(this.textBoxBereitsbezahlt.Text.Replace(".", ","));
+                Double.Parse(this.textBoxBereitsbezahlt.Text.Replace(".", ","));
             } catch (FormatException) {
                 MessageBox.Show("Bitte Bereitsbezahlt Überprüfen: Wert ungültig.");
                 return false;
@@ -107,7 +145,7 @@ namespace WasserWerkVerwaltung.GUI {
 
         private bool checkTauschzaehlerstandAlt() {
             try {
-                long tzsa = Int64.Parse(this.textBoxTauschZaehlerstandAlt.Text);
+                Int64.Parse(this.textBoxTauschZaehlerstandAlt.Text);
             } catch (FormatException) {
                 MessageBox.Show("Bitte Tausch Zaehlerstand Alt Überprüfen: Wert ungültig.");
                 return false;
@@ -117,7 +155,7 @@ namespace WasserWerkVerwaltung.GUI {
 
         private bool checkTauschzaehlerstandNeu() {
             try {
-                long tzsn = Int64.Parse(this.textBoxTauschZaehlerstandNeu.Text);
+                Int64.Parse(this.textBoxTauschZaehlerstandNeu.Text);
             } catch (FormatException) {
                 MessageBox.Show("Bitte Tausch Zaehlerstand Neu Überprüfen: Wert ungültig.");
                 return false;
@@ -127,7 +165,7 @@ namespace WasserWerkVerwaltung.GUI {
 
         private bool checkSonstigeForderungenWert() {
             try {
-                double tzsn = Double.Parse(this.textBoxSonstigeForderungenWert.Text.Replace(".", ","));
+                Double.Parse(this.textBoxSonstigeForderungenWert.Text.Replace(".", ","));
             } catch (FormatException) {
                 MessageBox.Show("Bitte Sonstige Froderungen Wert Überprüfen: Wert ungültig.");
                 return false;
@@ -137,7 +175,7 @@ namespace WasserWerkVerwaltung.GUI {
 
         private bool checkHalbJahresBetrag() {
             try {
-                double hjb = Double.Parse(this.textBoxSonstigeForderungenWert.Text.Replace(".", ","));
+                Double.Parse(this.textBoxSonstigeForderungenWert.Text.Replace(".", ","));
             } catch (FormatException) {
                 MessageBox.Show("Bitte Sonstige Froderungen überprüfen: Wert ungültig.");
                 return false;
@@ -147,7 +185,7 @@ namespace WasserWerkVerwaltung.GUI {
 
         private bool checkBereitsBezahltSummand() {
             try {
-                double hjb = Double.Parse(this.textBoxBereitsBezahltSummand.Text.Replace(".", ","));
+                Double.Parse(this.textBoxBereitsBezahltSummand.Text.Replace(".", ","));
             } catch (FormatException) {
                 MessageBox.Show("Bitte BereitsBezahlt Summand überprüfen: Wert ungültig.");
                 return false;
@@ -187,6 +225,14 @@ namespace WasserWerkVerwaltung.GUI {
                 return false;
 
             ok = checkHalbJahresBetrag();
+            if (!ok)
+                return false;
+
+            ok = checkHalbJahresRechnungsNummer();
+            if (!ok)
+                return false;
+
+            ok = checkGanzJahresRechnungsNummer();
             if (!ok)
                 return false;
 

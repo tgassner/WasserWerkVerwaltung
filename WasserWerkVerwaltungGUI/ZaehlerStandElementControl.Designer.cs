@@ -27,6 +27,10 @@ namespace WasserWerkVerwaltung.GUI {
             this.buttonVomVorjahr = new System.Windows.Forms.Button();
             this.textBoxZaehlerStandAlt = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textBoxHalbJahresRechnungsNummer = new System.Windows.Forms.TextBox();
+            this.textBoxGanzJahresRechnungsNummer = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
             this.buttonCalcBereitsBezahlt = new System.Windows.Forms.Button();
             this.textBoxBereitsBezahltSummand = new System.Windows.Forms.TextBox();
             this.buttonBerechneHalbJahresBetrag = new System.Windows.Forms.Button();
@@ -83,6 +87,10 @@ namespace WasserWerkVerwaltung.GUI {
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.textBoxHalbJahresRechnungsNummer);
+            this.groupBox1.Controls.Add(this.textBoxGanzJahresRechnungsNummer);
+            this.groupBox1.Controls.Add(this.label12);
+            this.groupBox1.Controls.Add(this.label11);
             this.groupBox1.Controls.Add(this.buttonCalcBereitsBezahlt);
             this.groupBox1.Controls.Add(this.textBoxBereitsBezahltSummand);
             this.groupBox1.Controls.Add(this.buttonBerechneHalbJahresBetrag);
@@ -112,10 +120,42 @@ namespace WasserWerkVerwaltung.GUI {
             this.groupBox1.Controls.Add(this.textBoxZaehlerStandAlt);
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(570, 136);
+            this.groupBox1.Size = new System.Drawing.Size(570, 160);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "groupBox1";
+            // 
+            // textBoxHalbJahresRechnungsNummer
+            // 
+            this.textBoxHalbJahresRechnungsNummer.Location = new System.Drawing.Point(178, 133);
+            this.textBoxHalbJahresRechnungsNummer.Name = "textBoxHalbJahresRechnungsNummer";
+            this.textBoxHalbJahresRechnungsNummer.Size = new System.Drawing.Size(100, 20);
+            this.textBoxHalbJahresRechnungsNummer.TabIndex = 18;
+            // 
+            // textBoxGanzJahresRechnungsNummer
+            // 
+            this.textBoxGanzJahresRechnungsNummer.Location = new System.Drawing.Point(464, 133);
+            this.textBoxGanzJahresRechnungsNummer.Name = "textBoxGanzJahresRechnungsNummer";
+            this.textBoxGanzJahresRechnungsNummer.Size = new System.Drawing.Size(100, 20);
+            this.textBoxGanzJahresRechnungsNummer.TabIndex = 17;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(300, 136);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(158, 13);
+            this.label12.TabIndex = 16;
+            this.label12.Text = "Ganzjahres Rechnungsnummer:";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(17, 136);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(155, 13);
+            this.label11.TabIndex = 15;
+            this.label11.Text = "Halbjahres Rechnungsnummer:";
             // 
             // buttonCalcBereitsBezahlt
             // 
@@ -334,7 +374,7 @@ namespace WasserWerkVerwaltung.GUI {
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.groupBox1);
             this.Name = "ZaehlerStandElementControl";
-            this.Size = new System.Drawing.Size(576, 144);
+            this.Size = new System.Drawing.Size(576, 168);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -371,5 +411,9 @@ namespace WasserWerkVerwaltung.GUI {
         private System.Windows.Forms.Button buttonCalcBereitsBezahlt;
         private System.Windows.Forms.TextBox textBoxBereitsBezahltSummand;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox textBoxHalbJahresRechnungsNummer;
+        private System.Windows.Forms.TextBox textBoxGanzJahresRechnungsNummer;
+        private System.Windows.Forms.Label label12;
     }
 }

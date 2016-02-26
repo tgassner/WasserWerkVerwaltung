@@ -63,7 +63,7 @@ namespace WasserWerkVerwaltung.GUI {
 
             foreach (ZaehlerStandElementControl zsc in zaehlerStandElementControlList) {
                 zsc.Location = new System.Drawing.Point(0, pos);
-                pos += 144;
+                pos += 165;
             }
 
             this.Controls.AddRange(((List<ZaehlerStandElementControl>)zaehlerStandElementControlList).ToArray());
