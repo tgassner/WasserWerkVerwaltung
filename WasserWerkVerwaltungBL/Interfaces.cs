@@ -54,6 +54,8 @@ namespace WasserWerkVerwaltung.BL {
             double calcMwSt(JahresDatenData jdd, KundenData kunde, PreisData preis);
             double calcJahresrechnungBrutto(JahresDatenData jdd, KundenData kunde, PreisData preis);
             int calcVerbrauch(JahresDatenData jdd);
+            bool doDbBackup(string backupFileName);
+            bool doDbImport(string fileName);
         #endregion Tools
     }
 }

@@ -14,7 +14,7 @@ namespace WasserWerkVerwaltung.DAL {
         private static IDbConnection conn = null;
         private static int nestedOpens = 0;
         private static string connString = "";
-        const string mdbFile = "wasser.mdb";
+        public const string mdbFile = "wasser.mdb";
 
         private static IDbConnection GetCachedConnection() {
             if (conn == null) {

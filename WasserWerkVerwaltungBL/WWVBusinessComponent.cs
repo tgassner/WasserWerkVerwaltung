@@ -1033,6 +1033,16 @@ namespace WasserWerkVerwaltung.BL {
             return (int)(jdd.ZaehlerStandNeu - jdd.ZaehlerStandAlt) + (int)(jdd.TauschZaehlerStandNeu - jdd.TauschZaehlerStandAlt);
         }
 
+        public bool doDbBackup(string backupFileName)
+        {
+            return DbTools.DoDbBackup(backupFileName);
+        }
+
+        public bool doDbImport(string fileName)
+        {
+            return DbTools.DoDbImport(fileName);
+        }
+
         #endregion Tools
 
         #region IWWVBL Members

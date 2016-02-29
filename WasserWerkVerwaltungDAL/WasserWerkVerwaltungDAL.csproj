@@ -64,7 +64,7 @@
   <ItemGroup>
     <Compile Include="Database.cs" />
     <Compile Include="DBTest.cs" />
-    <Compile Include="DBTools.cs" />
+    <Compile Include="DbTools.cs" />
     <Compile Include="DbUtil.cs" />
     <Compile Include="Interfaces.cs" />
     <Compile Include="Zahlung.cs" />

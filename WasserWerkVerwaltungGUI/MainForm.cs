@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using WasserWerkVerwaltung.BL;
@@ -22,9 +23,15 @@ namespace WasserWerkVerwaltung.GUI {
             this.zaehlerStaendeControl = new ZaehlerStaendeControl();
             this.druckenControl = new DruckenControl();
             wwvBLComp = WWVBLFactory.GetBussinessLogicObject();
-            this.stammdatenControl.Init(this.wwvBLComp);
-            this.zaehlerStaendeControl.Init(this.wwvBLComp);
-            this.druckenControl.Init(this.wwvBLComp);
+
+            try {
+                this.stammdatenControl.Init(this.wwvBLComp);
+                this.zaehlerStaendeControl.Init(this.wwvBLComp);
+                this.druckenControl.Init(this.wwvBLComp);
+            } catch (Exception) {
+                doImport();
+                Application.Exit();
+            }
 
             this.Text = "Wasser Werk Verwaltung Version " + this.GetType().Assembly.GetName().Version.ToString();
         }
@@ -58,6 +65,41 @@ namespace WasserWerkVerwaltung.GUI {
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e) {
             WWVAboutBox wwvAboutBox = new WWVAboutBox();
             wwvAboutBox.ShowDialog();
+        }
+
+        private void importToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            doImport();
+        }
+
+        private void doImport()
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.FileName = "wasser*.mdb";
+            DialogResult dr = ofd.ShowDialog();
+            if (dr == DialogResult.OK)
+            {
+                if (wwvBLComp.doDbImport(ofd.FileName))
+                {
+                    MessageBox.Show(ofd.FileName + " erfolgreich importiert!\r\nWasserwerkverwaltung wird beendet - bitte neu starten.");
+                    Application.Exit();
+                }
+            }
+        }
+
+        private void exportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+
+            sfd.FileName = "wasser_" + DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + DateTime.Now.Day + "-" + DateTime.Now.Hour + "-" + DateTime.Now.Minute + ".mdb";
+            DialogResult dr = sfd.ShowDialog();
+
+            if (dr == DialogResult.OK) {
+                if (wwvBLComp.doDbBackup(sfd.FileName))
+                {
+                    MessageBox.Show("Datenbank erfolgreich nach: " + sfd.FileName + " kopiert");
+                }
+            }
         }
     }
 }
