@@ -257,8 +257,8 @@ namespace WasserWerkVerwaltung.GUI {
                 Double.Parse(textBoxHalbJahresBetrag.Text.Replace(".", ",")),
                 rechnungsDatumHalbjahr,
                 rechnungsDatumJahr,
-                null, // FIXME TODO
-                null  // FIXME TODO
+                String.IsNullOrEmpty(textBoxHalbJahresRechnungsNummer.Text) ? (long?)null : long.Parse(textBoxHalbJahresRechnungsNummer.Text),
+                String.IsNullOrEmpty(textBoxGanzJahresRechnungsNummer.Text) ? (long?)null : long.Parse(textBoxGanzJahresRechnungsNummer.Text)
                 );
 
             if (currentJahresData.Id == 0) { // Neue Jahresdata -> insert

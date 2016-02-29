@@ -14,8 +14,8 @@ namespace WasserWerkVerwaltung.DAL {
         const string SQL_FIND_BY_KUNDEN_ID = "SELECT * FROM JahresDaten WHERE KundeID = ?";
         const string SQL_FIND_ALL = "SELECT * FROM JahresDaten";
         const string SQL_LAST_INSERTED_ROW = "SELECT @@Identity";
-        const string SQL_SELECT_MAX_PLUS_1_HalbJahresRechnungsNummer = "select max(RechnungsNummerHalbjahr) + 1 as next from JahresDaten";
-        const string SQL_SELECT_MAX_PLUS_1_JahresRechnungsNummer = "select max(RechnungsNummerJahr) + 1 as next from JahresDaten";
+        const string SQL_SELECT_MAX_PLUS_1_HalbJahresRechnungsNummer = "select Nz(max(RechnungsNummerHalbjahr), 0) + 1 as next from JahresDaten where Jahr = ?";
+        const string SQL_SELECT_MAX_PLUS_1_JahresRechnungsNummer = "select Nz(max(RechnungsNummerJahr), 0) + 1 as next from JahresDaten where Jahr = ?";
 
         readonly string SQL_UPDATE_BY_ID = "UPDATE JahresDaten SET KundeID = ?, ZaehlerStandAlt = ?, ZaehlerStandNeu = ?, Ablesedatum = ?, Jahr = ?, BereitsBezahlt = ?, TauschZaehlerStandAlt = ?, TauschZaehlerStandNeu = ?, SonstigeForderungenText = ?, SonstigeForderungenValue = ?, HalbJahresBetrag = ?, RechnungsDatumHalbjahr = ?, RechnungsDatumJahr = ?, RechnungsNummerHalbjahr = ?, RechnungsNummerJahr = ? WHERE JahresDatenID = ?";
         readonly string SQL_INSERT_BY_ID = "INSERT INTO JahresDaten (KundeID, ZaehlerStandAlt, ZaehlerStandNeu, Ablesedatum, Jahr, BereitsBezahlt, TauschZaehlerStandAlt, TauschZaehlerStandNeu, SonstigeForderungenText, SonstigeForderungenValue, HalbJahresBetrag, RechnungsDatumHalbjahr, RechnungsDatumJahr, RechnungsNummerHalbjahr, RechnungsNummerJahr) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?, ?, ?)";
@@ -23,24 +23,27 @@ namespace WasserWerkVerwaltung.DAL {
         static IDbCommand findByIdCmd;
         static IDbCommand findByKundeIdCmd;
         static IDbCommand findAllCmd;
-        static IDbCommand findNextHalbJahresRechnungNummer;
-        static IDbCommand findNextJahresRechnungNummer;
+        static IDbCommand findNextHalbJahresRechnungNummerCmd;
+        static IDbCommand findNextJahresRechnungNummerCmd;
         static IDbCommand updateByIdCmd;
         static IDbCommand insertByIdCmd;
         static IDbCommand deleteByIdCmd;
         static IDbCommand lastInsertedRowCmd;
        
-        public long FindNextHalbJahresRechnungNummer () {
+        public long FindNextHalbJahresRechnungNummer(long jahr) {
             try
             {
                 DbUtil.OpenConnection();
 
-                if (findNextHalbJahresRechnungNummer == null)
+                if (findNextHalbJahresRechnungNummerCmd == null)
                 {
-                    findNextHalbJahresRechnungNummer = DbUtil.CreateCommand(SQL_SELECT_MAX_PLUS_1_HalbJahresRechnungsNummer, DbUtil.CurrentConnection);
+                    findNextHalbJahresRechnungNummerCmd = DbUtil.CreateCommand(SQL_SELECT_MAX_PLUS_1_HalbJahresRechnungsNummer, DbUtil.CurrentConnection);
+                    findNextHalbJahresRechnungNummerCmd.Parameters.Add(DbUtil.CreateParameter("@Jahr", DbType.Int64));
                 }
 
-                using (IDataReader rdr = findNextHalbJahresRechnungNummer.ExecuteReader())
+                ((IDataParameter)findNextHalbJahresRechnungNummerCmd.Parameters["@Jahr"]).Value = jahr;
+
+                using (IDataReader rdr = findNextHalbJahresRechnungNummerCmd.ExecuteReader())
                 {
                     if (rdr.Read())
                     {
@@ -55,17 +58,20 @@ namespace WasserWerkVerwaltung.DAL {
             }
         }
 
-        public long FindNextJahresRechnungNummer() {
+        public long FindNextJahresRechnungNummer(long jahr) {
             try
             {
                 DbUtil.OpenConnection();
 
-                if (findNextJahresRechnungNummer == null)
+                if (findNextJahresRechnungNummerCmd == null)
                 {
-                    findNextJahresRechnungNummer = DbUtil.CreateCommand(SQL_SELECT_MAX_PLUS_1_JahresRechnungsNummer, DbUtil.CurrentConnection);
+                    findNextJahresRechnungNummerCmd = DbUtil.CreateCommand(SQL_SELECT_MAX_PLUS_1_JahresRechnungsNummer, DbUtil.CurrentConnection);
+                    findNextJahresRechnungNummerCmd.Parameters.Add(DbUtil.CreateParameter("@Jahr", DbType.Int64));
                 }
 
-                using (IDataReader rdr = findNextJahresRechnungNummer.ExecuteReader())
+                ((IDataParameter)findNextJahresRechnungNummerCmd.Parameters["@Jahr"]).Value = jahr;
+
+                using (IDataReader rdr = findNextJahresRechnungNummerCmd.ExecuteReader())
                 {
                     if (rdr.Read())
                     {
@@ -242,8 +248,21 @@ namespace WasserWerkVerwaltung.DAL {
                 ((IDataParameter)updateByIdCmd.Parameters["@HalbJahresBetrag"]).Value = jahresDatenData.HalbJahresBetrag;
                 ((IDataParameter)updateByIdCmd.Parameters["@RechnungsDatumHalbjahr"]).Value = jahresDatenData.RechnungsDatumHalbjahr.Date;
                 ((IDataParameter)updateByIdCmd.Parameters["@RechnungsDatumJahr"]).Value = jahresDatenData.RechnungsDatumJahr.Date;
-                ((IDataParameter)updateByIdCmd.Parameters["@RechnungsNummerHalbjahr"]).Value = jahresDatenData.RechnungsNummerHalbjahr;
-                ((IDataParameter)updateByIdCmd.Parameters["@JahresDatenID"]).Value = jahresDatenData.RechnungsNummerJahr;
+
+                if (jahresDatenData.RechnungsNummerHalbjahr == null) {
+                    ((IDataParameter)updateByIdCmd.Parameters["@RechnungsNummerHalbjahr"]).Value = DBNull.Value;
+                } else {
+                    ((IDataParameter)updateByIdCmd.Parameters["@RechnungsNummerHalbjahr"]).Value = jahresDatenData.RechnungsNummerHalbjahr;
+                }
+
+                if (jahresDatenData.RechnungsNummerJahr == null)
+                {
+                    ((IDataParameter)updateByIdCmd.Parameters["@RechnungsNummerJahr"]).Value = DBNull.Value;
+                }
+                else {
+                    ((IDataParameter)updateByIdCmd.Parameters["@RechnungsNummerJahr"]).Value = jahresDatenData.RechnungsNummerJahr;
+                }
+                
                 ((IDataParameter)updateByIdCmd.Parameters["@JahresDatenID"]).Value = jahresDatenData.Id;
 
                 return updateByIdCmd.ExecuteNonQuery() == 1;

@@ -20,10 +20,12 @@ namespace WasserWerkVerwaltung.BL {
             bool DeleteJahresDaten(long jahresDatumID);
             JahresDatenData GetJahresdataByKundenIDandYear(long kundenID, long year);
             void GenerateHalbJahresBetragFuerJahr(long jahr);
+            long setHalbJahresRechnungsNummer(long jahresDatenId);
+            long setGanzJahresRechnungsNummer(long jahresDatenId);
         #endregion JahresDaten
 
         #region Preis
-            IList<PreisData> GetAllPreise();
+        IList<PreisData> GetAllPreise();
             PreisData GetPreisDataByJahr(long jahr);
             PreisData InsertPreis(PreisData preis);
             bool UpdatePreis(PreisData jahresDatum);

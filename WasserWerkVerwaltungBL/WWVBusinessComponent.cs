@@ -85,9 +85,6 @@ namespace WasserWerkVerwaltung.BL {
 
         public IList<JahresDatenData> GetJahresdataByKundenID(long kundenID) {
             if (allJahresData == null) {
-                //Todo: asyncron einbauen für alle und nur da eine jetzt suchen!!
-                //IJahresDaten jahresdatenDB = Database.CreateJahresDaten();
-                //return jahresdatenDB.FindByKundenId(kundenID);
                 this.GetAllJahresdata();
             }
  
@@ -100,10 +97,27 @@ namespace WasserWerkVerwaltung.BL {
             return jahresDaten;
         }
 
-        public bool UpdateJahresDaten(JahresDatenData jahresDatum) {
-            IJahresDaten jahredDataDB = Database.CreateJahresDaten();
+        public JahresDatenData GetJahresdataByJahresDataId(long jahresDatenId)
+        {
+            if (allJahresData == null)
+            {
+                this.GetAllJahresdata();
+            }
 
-            if (jahredDataDB.Update(jahresDatum)) {
+            foreach (JahresDatenData jdd in this.allJahresData)
+            {
+                if (jdd.Id == jahresDatenId)
+                {
+                    return jdd;
+                }
+            }
+            return null;
+        }
+
+        public bool UpdateJahresDaten(JahresDatenData jahresDatum) {
+            IJahresDaten jahresDataDB = Database.CreateJahresDaten();
+
+            if (jahresDataDB.Update(jahresDatum)) {
                 if (this.allJahresData != null) {
                     this.allJahresData.Remove(jahresDatum);
                     this.allJahresData.Add(jahresDatum);
@@ -230,7 +244,7 @@ namespace WasserWerkVerwaltung.BL {
                                                                 halbjahresbetrag,
                                                                 DateTime.MinValue,
                                                                 DateTime.MinValue,
-                                                                Database.CreateJahresDaten().FindNextHalbJahresRechnungNummer(),
+                                                                null,
                                                                 null);
 
                     JahresDatenData jdd2 = this.InsertJahresDaten(jdd);
@@ -337,7 +351,16 @@ namespace WasserWerkVerwaltung.BL {
             foreach(KundenData kunde in kunden){
                 ppd = new PrintablePage();
                 JahresDatenData jdd = this.GetJahresdataByKundenIDandYear(kunde.Id, preis.Jahr);
+
+                
+
+                //TODO
+
                 if (jdd != null) {
+                    if (jdd.RechnungsNummerJahr == null)
+                    {
+                        jdd.RechnungsNummerJahr = setGanzJahresRechnungsNummer(preis.Jahr);
+                    }
                     ppd.AddPrintableObject(new PrintableTextObject(WASSERWERK_WEINBERGER, new Font("Arial", 15, FontStyle.Bold), Brushes.Black, linkerRand, obererRand + 0 * zeilenabstand));
                     ppd.AddPrintableObject(new PrintableTextObject(BAHNHOFSTRASSE_27, new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 1 * zeilenabstand));
                     ppd.AddPrintableObject(new PrintableTextObject(_3350_STADT_HAAG, new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 2 * zeilenabstand));
@@ -432,6 +455,10 @@ namespace WasserWerkVerwaltung.BL {
                 ppd = new PrintablePage();
                 JahresDatenData jdd = this.GetJahresdataByKundenIDandYear(kunde.Id, preis.Jahr);
                 if (jdd != null) {
+                    if (jdd.RechnungsNummerHalbjahr == null)
+                    {
+                        jdd.RechnungsNummerHalbjahr = setHalbJahresRechnungsNummer(preis.Jahr);
+                    }
                     ppd.AddPrintableObject(new PrintableTextObject(WASSERWERK_WEINBERGER, new Font("Arial", 15, FontStyle.Bold), Brushes.Black, linkerRand, obererRand + 0 * zeilenabstand));
                     ppd.AddPrintableObject(new PrintableTextObject(BAHNHOFSTRASSE_27, new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 1 * zeilenabstand));
                     ppd.AddPrintableObject(new PrintableTextObject(_3350_STADT_HAAG, new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 2 * zeilenabstand));
@@ -443,7 +470,7 @@ namespace WasserWerkVerwaltung.BL {
                     ppd.AddPrintableObject(new PrintableTextObject(kunde.Ort, new Font("Arial", stdFontSize, FontStyle.Bold | FontStyle.Underline), Brushes.Black, linkerRand, obererRand + 9 * zeilenabstand));
 
                     ppd.AddPrintableObject(new PrintableTextObject("Halbjahreswasserrechnung " + preis.Jahr, new Font("Arial", 15, FontStyle.Bold), Brushes.Black, linkerRand + 180, obererRand + 13 * zeilenabstand));
-
+                    //TODO
                     ppd.AddPrintableObject(new PrintableTextObject(DateTime.Now.Date.ToString("dd.MM.yyyy", DateTimeFormatInfo.InvariantInfo), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand + 575, obererRand + 15 * zeilenabstand));
 
                     ppd.AddPrintableObject(new PrintableTextObject("für das Objekt:", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 17 * zeilenabstand));
@@ -1041,6 +1068,38 @@ namespace WasserWerkVerwaltung.BL {
         public bool doDbImport(string fileName)
         {
             return DbTools.DoDbImport(fileName);
+        }
+
+        public long setHalbJahresRechnungsNummer(long jahresDatenId)
+        {
+            JahresDatenData jd = GetJahresdataByJahresDataId(jahresDatenId);
+            IJahresDaten jahresdatenDB = Database.CreateJahresDaten();
+            JahresDatenData jdd = GetJahresdataByJahresDataId(jahresDatenId);
+            if (jdd.RechnungsNummerHalbjahr == null) {
+                long rechnungsHalbJahresNummer = jahresdatenDB.FindNextHalbJahresRechnungNummer(jdd.Jahr);
+                jdd.Jahr = rechnungsHalbJahresNummer;
+                UpdateJahresDaten(jdd);
+                return rechnungsHalbJahresNummer;
+            } else {
+                return (long)jdd.RechnungsNummerHalbjahr;
+            }
+        }
+
+        public long setGanzJahresRechnungsNummer(long jahresDatenId)
+        {
+            JahresDatenData jd = GetJahresdataByJahresDataId(jahresDatenId);
+            IJahresDaten jahresdatenDB = Database.CreateJahresDaten();
+            JahresDatenData jdd = GetJahresdataByJahresDataId(jahresDatenId);
+            if (jdd.RechnungsNummerHalbjahr == null)
+            {
+                long rechnungsGanzJahresNummer = jahresdatenDB.FindNextJahresRechnungNummer(jdd.Jahr);
+                jdd.Jahr = rechnungsGanzJahresNummer;
+                UpdateJahresDaten(jdd);
+                return rechnungsGanzJahresNummer;
+            }
+            else {
+                return (long)jdd.RechnungsNummerJahr;
+            }
         }
 
         #endregion Tools

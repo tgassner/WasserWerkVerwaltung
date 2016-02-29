@@ -298,8 +298,8 @@ namespace WasserWerkVerwaltung.CommonObjects {
             this.halbJahresBetrag = halbJahresBetrag;
             this.rechnungsDatumHalbjahr = rechnungsDatumHalbjahr;
             this.rechnungsDatumJahr = rechnungsDatumJahr;
-            this.rechnungsDatumHalbjahr = rechnungsDatumHalbjahr;
-            this.rechnungsDatumJahr = rechnungsDatumJahr;
+            this.rechnungsNummerHalbjahr = rechnungsNummerHalbjahr;
+            this.rechnungsNummerJahr = rechnungsNummerJahr;
         }
 
         public long Id {
