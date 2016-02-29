@@ -470,7 +470,9 @@ namespace WasserWerkVerwaltung.BL {
                     ppd.AddPrintableObject(new PrintableTextObject(kunde.Ort, new Font("Arial", stdFontSize, FontStyle.Bold | FontStyle.Underline), Brushes.Black, linkerRand, obererRand + 9 * zeilenabstand));
 
                     ppd.AddPrintableObject(new PrintableTextObject("Halbjahreswasserrechnung " + preis.Jahr, new Font("Arial", 15, FontStyle.Bold), Brushes.Black, linkerRand + 180, obererRand + 13 * zeilenabstand));
-                    //TODO
+
+                    ppd.AddPrintableObject(new PrintableTextObject("RechnungsNr: " + jdd.getFullRechnungsNummerHalbJahr(), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand + 450, obererRand + 14 * zeilenabstand));
+
                     ppd.AddPrintableObject(new PrintableTextObject(DateTime.Now.Date.ToString("dd.MM.yyyy", DateTimeFormatInfo.InvariantInfo), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand + 575, obererRand + 15 * zeilenabstand));
 
                     ppd.AddPrintableObject(new PrintableTextObject("für das Objekt:", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 17 * zeilenabstand));

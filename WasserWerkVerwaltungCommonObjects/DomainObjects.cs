@@ -302,6 +302,16 @@ namespace WasserWerkVerwaltung.CommonObjects {
             this.rechnungsNummerJahr = rechnungsNummerJahr;
         }
 
+        public string getFullRechnungsNummerGanzJahr()
+        {
+            return "J-" + jahr + "-" + Convert.ToString(rechnungsNummerJahr).PadLeft(5, '0'); ;
+        }
+
+        public string getFullRechnungsNummerHalbJahr()
+        {
+            return "HJ-" + jahr + "-" + Convert.ToString(rechnungsNummerHalbjahr).PadLeft(5, '0');
+        }
+
         public long Id {
             get {
                 return this.id;
