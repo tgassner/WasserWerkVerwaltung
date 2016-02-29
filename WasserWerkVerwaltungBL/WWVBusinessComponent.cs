@@ -359,7 +359,7 @@ namespace WasserWerkVerwaltung.BL {
                 if (jdd != null) {
                     if (jdd.RechnungsNummerJahr == null)
                     {
-                        jdd.RechnungsNummerJahr = setGanzJahresRechnungsNummer(preis.Jahr);
+                        jdd.RechnungsNummerJahr = setGanzJahresRechnungsNummer(jdd.Id);
                     }
                     ppd.AddPrintableObject(new PrintableTextObject(WASSERWERK_WEINBERGER, new Font("Arial", 15, FontStyle.Bold), Brushes.Black, linkerRand, obererRand + 0 * zeilenabstand));
                     ppd.AddPrintableObject(new PrintableTextObject(BAHNHOFSTRASSE_27, new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 1 * zeilenabstand));
@@ -457,7 +457,7 @@ namespace WasserWerkVerwaltung.BL {
                 if (jdd != null) {
                     if (jdd.RechnungsNummerHalbjahr == null)
                     {
-                        jdd.RechnungsNummerHalbjahr = setHalbJahresRechnungsNummer(preis.Jahr);
+                        jdd.RechnungsNummerHalbjahr = setHalbJahresRechnungsNummer(jdd.Id);
                     }
                     ppd.AddPrintableObject(new PrintableTextObject(WASSERWERK_WEINBERGER, new Font("Arial", 15, FontStyle.Bold), Brushes.Black, linkerRand, obererRand + 0 * zeilenabstand));
                     ppd.AddPrintableObject(new PrintableTextObject(BAHNHOFSTRASSE_27, new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 1 * zeilenabstand));
@@ -1122,9 +1122,5 @@ namespace WasserWerkVerwaltung.BL {
         }
 
         #endregion Tools
-
-        #region IWWVBL Members
-
-        #endregion
     }
 }

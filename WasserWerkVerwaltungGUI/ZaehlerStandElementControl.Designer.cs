@@ -131,6 +131,7 @@ namespace WasserWerkVerwaltung.GUI {
             this.textBoxHalbJahresRechnungsNummer.Name = "textBoxHalbJahresRechnungsNummer";
             this.textBoxHalbJahresRechnungsNummer.Size = new System.Drawing.Size(100, 20);
             this.textBoxHalbJahresRechnungsNummer.TabIndex = 18;
+            this.textBoxHalbJahresRechnungsNummer.TextChanged += new System.EventHandler(this.textChanged);
             // 
             // textBoxGanzJahresRechnungsNummer
             // 
@@ -138,6 +139,7 @@ namespace WasserWerkVerwaltung.GUI {
             this.textBoxGanzJahresRechnungsNummer.Name = "textBoxGanzJahresRechnungsNummer";
             this.textBoxGanzJahresRechnungsNummer.Size = new System.Drawing.Size(100, 20);
             this.textBoxGanzJahresRechnungsNummer.TabIndex = 17;
+            this.textBoxGanzJahresRechnungsNummer.TextChanged += new System.EventHandler(this.textChanged);
             // 
             // label12
             // 

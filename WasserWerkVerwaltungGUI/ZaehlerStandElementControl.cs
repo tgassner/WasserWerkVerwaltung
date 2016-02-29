@@ -243,6 +243,22 @@ namespace WasserWerkVerwaltung.GUI {
             if (!checkFields())
                 return;
 
+            if (currentJahresData.RechnungsNummerJahr != null && !String.IsNullOrEmpty(textBoxGanzJahresRechnungsNummer.Text) && currentJahresData.RechnungsNummerJahr != Int64.Parse(textBoxGanzJahresRechnungsNummer.Text)) {
+                DialogResult dr = MessageBox.Show("Die Ganzjahres Rechnungsnummer wurde geändert. Wollen sie das wirklich?", "Achtung", MessageBoxButtons.OKCancel);
+                if (!(dr == DialogResult.OK)) {
+                    return;
+                }
+            }
+
+            if (currentJahresData.RechnungsNummerHalbjahr != null && !String.IsNullOrEmpty(textBoxHalbJahresRechnungsNummer.Text) && currentJahresData.RechnungsNummerHalbjahr != Int64.Parse(textBoxHalbJahresRechnungsNummer.Text))
+            {
+                DialogResult dr = MessageBox.Show("Die Halbjahres Rechnungsnummer wurde geändert. Wollen sie das wirklich?", "Achtung", MessageBoxButtons.OKCancel);
+                if (!(dr == DialogResult.OK))
+                {
+                    return;
+                }
+            }
+
             JahresDatenData jahresdataTemp = new JahresDatenData(this.currentJahresData.Id,
                 this.currentJahresData.KundenId,
                 Int64.Parse(textBoxZaehlerStandAlt.Text),
@@ -313,9 +329,14 @@ namespace WasserWerkVerwaltung.GUI {
         }
 
         private void buttonDruckJahresrechnung_Click(object sender, EventArgs e) {
+            if (changed) {
+                MessageBox.Show("Bitte vor dem Drucken speichern!");
+                return;
+            }
             IList<KundenData> kundenlist = new List<KundenData>();
             kundenlist.Add(this.currentKunde);
             this.wwvBLComp.PrintJahresRechnungen(kundenlist,this.wwvBLComp.GetPreisDataByJahr(this.currentJahresData.Jahr));
+            this.fillDataFromCurrentJahresData();
         }
 
         private void buttonBerechneHalbJahresBetrag_Click(object sender, EventArgs e) {
