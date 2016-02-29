@@ -1072,12 +1072,10 @@ namespace WasserWerkVerwaltung.BL {
 
         public long setHalbJahresRechnungsNummer(long jahresDatenId)
         {
-            JahresDatenData jd = GetJahresdataByJahresDataId(jahresDatenId);
-            IJahresDaten jahresdatenDB = Database.CreateJahresDaten();
             JahresDatenData jdd = GetJahresdataByJahresDataId(jahresDatenId);
             if (jdd.RechnungsNummerHalbjahr == null) {
-                long rechnungsHalbJahresNummer = jahresdatenDB.FindNextHalbJahresRechnungNummer(jdd.Jahr);
-                jdd.Jahr = rechnungsHalbJahresNummer;
+                long rechnungsHalbJahresNummer = getNewHalbJahresRechnungsNummer(jdd.Jahr);
+                jdd.RechnungsNummerHalbjahr = rechnungsHalbJahresNummer;
                 UpdateJahresDaten(jdd);
                 return rechnungsHalbJahresNummer;
             } else {
@@ -1087,19 +1085,40 @@ namespace WasserWerkVerwaltung.BL {
 
         public long setGanzJahresRechnungsNummer(long jahresDatenId)
         {
-            JahresDatenData jd = GetJahresdataByJahresDataId(jahresDatenId);
-            IJahresDaten jahresdatenDB = Database.CreateJahresDaten();
             JahresDatenData jdd = GetJahresdataByJahresDataId(jahresDatenId);
             if (jdd.RechnungsNummerHalbjahr == null)
             {
-                long rechnungsGanzJahresNummer = jahresdatenDB.FindNextJahresRechnungNummer(jdd.Jahr);
-                jdd.Jahr = rechnungsGanzJahresNummer;
+                long rechnungsGanzJahresNummer = getNewGanzJahresRechnungsNummer(jdd.Jahr);
+                jdd.RechnungsNummerJahr = rechnungsGanzJahresNummer;
                 UpdateJahresDaten(jdd);
                 return rechnungsGanzJahresNummer;
             }
             else {
                 return (long)jdd.RechnungsNummerJahr;
             }
+        }
+
+        private long getNewHalbJahresRechnungsNummer(long jahr) {
+            long max = 0;
+            foreach (JahresDatenData jdd in GetAllJahresdata()) {
+                if (jdd.Jahr == jahr && jdd.RechnungsNummerHalbjahr != null) {
+                    max = Math.Max(max, (long)jdd.RechnungsNummerHalbjahr);
+                }
+            }
+            return max + 1;
+        }
+
+        private long getNewGanzJahresRechnungsNummer(long jahr)
+        {
+            long max = 0;
+            foreach (JahresDatenData jdd in GetAllJahresdata())
+            {
+                if (jdd.Jahr == jahr && jdd.RechnungsNummerJahr != null)
+                {
+                    max = Math.Max(max, (long)jdd.RechnungsNummerJahr);
+                }
+            }
+            return max + 1;
         }
 
         #endregion Tools

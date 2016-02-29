@@ -14,8 +14,6 @@ namespace WasserWerkVerwaltung.DAL {
         const string SQL_FIND_BY_KUNDEN_ID = "SELECT * FROM JahresDaten WHERE KundeID = ?";
         const string SQL_FIND_ALL = "SELECT * FROM JahresDaten";
         const string SQL_LAST_INSERTED_ROW = "SELECT @@Identity";
-        const string SQL_SELECT_MAX_PLUS_1_HalbJahresRechnungsNummer = "select Nz(max(RechnungsNummerHalbjahr), 0) + 1 as next from JahresDaten where Jahr = ?";
-        const string SQL_SELECT_MAX_PLUS_1_JahresRechnungsNummer = "select Nz(max(RechnungsNummerJahr), 0) + 1 as next from JahresDaten where Jahr = ?";
 
         readonly string SQL_UPDATE_BY_ID = "UPDATE JahresDaten SET KundeID = ?, ZaehlerStandAlt = ?, ZaehlerStandNeu = ?, Ablesedatum = ?, Jahr = ?, BereitsBezahlt = ?, TauschZaehlerStandAlt = ?, TauschZaehlerStandNeu = ?, SonstigeForderungenText = ?, SonstigeForderungenValue = ?, HalbJahresBetrag = ?, RechnungsDatumHalbjahr = ?, RechnungsDatumJahr = ?, RechnungsNummerHalbjahr = ?, RechnungsNummerJahr = ? WHERE JahresDatenID = ?";
         readonly string SQL_INSERT_BY_ID = "INSERT INTO JahresDaten (KundeID, ZaehlerStandAlt, ZaehlerStandNeu, Ablesedatum, Jahr, BereitsBezahlt, TauschZaehlerStandAlt, TauschZaehlerStandNeu, SonstigeForderungenText, SonstigeForderungenValue, HalbJahresBetrag, RechnungsDatumHalbjahr, RechnungsDatumJahr, RechnungsNummerHalbjahr, RechnungsNummerJahr) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?, ?, ?)";
@@ -23,68 +21,10 @@ namespace WasserWerkVerwaltung.DAL {
         static IDbCommand findByIdCmd;
         static IDbCommand findByKundeIdCmd;
         static IDbCommand findAllCmd;
-        static IDbCommand findNextHalbJahresRechnungNummerCmd;
-        static IDbCommand findNextJahresRechnungNummerCmd;
         static IDbCommand updateByIdCmd;
         static IDbCommand insertByIdCmd;
         static IDbCommand deleteByIdCmd;
         static IDbCommand lastInsertedRowCmd;
-       
-        public long FindNextHalbJahresRechnungNummer(long jahr) {
-            try
-            {
-                DbUtil.OpenConnection();
-
-                if (findNextHalbJahresRechnungNummerCmd == null)
-                {
-                    findNextHalbJahresRechnungNummerCmd = DbUtil.CreateCommand(SQL_SELECT_MAX_PLUS_1_HalbJahresRechnungsNummer, DbUtil.CurrentConnection);
-                    findNextHalbJahresRechnungNummerCmd.Parameters.Add(DbUtil.CreateParameter("@Jahr", DbType.Int64));
-                }
-
-                ((IDataParameter)findNextHalbJahresRechnungNummerCmd.Parameters["@Jahr"]).Value = jahr;
-
-                using (IDataReader rdr = findNextHalbJahresRechnungNummerCmd.ExecuteReader())
-                {
-                    if (rdr.Read())
-                    {
-                        return (long)(int)rdr["next"];
-                    }
-                    return 1;
-                }
-            }
-            finally
-            {
-                DbUtil.CloseConnection();
-            }
-        }
-
-        public long FindNextJahresRechnungNummer(long jahr) {
-            try
-            {
-                DbUtil.OpenConnection();
-
-                if (findNextJahresRechnungNummerCmd == null)
-                {
-                    findNextJahresRechnungNummerCmd = DbUtil.CreateCommand(SQL_SELECT_MAX_PLUS_1_JahresRechnungsNummer, DbUtil.CurrentConnection);
-                    findNextJahresRechnungNummerCmd.Parameters.Add(DbUtil.CreateParameter("@Jahr", DbType.Int64));
-                }
-
-                ((IDataParameter)findNextJahresRechnungNummerCmd.Parameters["@Jahr"]).Value = jahr;
-
-                using (IDataReader rdr = findNextJahresRechnungNummerCmd.ExecuteReader())
-                {
-                    if (rdr.Read())
-                    {
-                        return (long)(int)rdr["next"];
-                    }
-                    return 1;
-                }
-            }
-            finally
-            {
-                DbUtil.CloseConnection();
-            }
-        }
 
         //JahresDatenID, KundeID, Rechnungssumme, ZaehlerStandAlt, ZaehlerStandNeu, Ablesedatum, Jahr, BereitsBezahlt
         // TauschZaehlerStandAlt, TauschZaehlerStandNeu, SonstigeForderungenText, SonstigeForderungenValue, HalbJahresBetrag
