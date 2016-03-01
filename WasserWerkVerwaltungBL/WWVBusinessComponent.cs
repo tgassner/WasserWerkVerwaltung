@@ -352,10 +352,6 @@ namespace WasserWerkVerwaltung.BL {
                 ppd = new PrintablePage();
                 JahresDatenData jdd = this.GetJahresdataByKundenIDandYear(kunde.Id, preis.Jahr);
 
-                
-
-                //TODO
-
                 if (jdd != null) {
                     if (jdd.RechnungsNummerJahr == null)
                     {
@@ -370,6 +366,8 @@ namespace WasserWerkVerwaltung.BL {
                     ppd.AddPrintableObject(new PrintableTextObject(kunde.Vorname + " " + kunde.Nachname, new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 7 * zeilenabstand));
                     ppd.AddPrintableObject(new PrintableTextObject(kunde.Strasse, new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 8 * zeilenabstand));
                     ppd.AddPrintableObject(new PrintableTextObject(kunde.Ort, new Font("Arial", stdFontSize, FontStyle.Bold | FontStyle.Underline), Brushes.Black, linkerRand, obererRand + 9 * zeilenabstand));
+
+                    ppd.AddPrintableObject(new PrintableTextObject("RechnungsNr: " + jdd.getFullRechnungsNummerGanzJahr(), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand + 437, obererRand + 9.1F * zeilenabstand));
 
                     ppd.AddPrintableObject(new PrintableTextObject("Jahreswasserrechnung " + preis.Jahr, new Font("Arial", 15, FontStyle.Bold), Brushes.Black, linkerRand + 180, obererRand + 13 * zeilenabstand));
 
@@ -469,9 +467,9 @@ namespace WasserWerkVerwaltung.BL {
                     ppd.AddPrintableObject(new PrintableTextObject(kunde.Strasse, new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 8 * zeilenabstand));
                     ppd.AddPrintableObject(new PrintableTextObject(kunde.Ort, new Font("Arial", stdFontSize, FontStyle.Bold | FontStyle.Underline), Brushes.Black, linkerRand, obererRand + 9 * zeilenabstand));
 
-                    ppd.AddPrintableObject(new PrintableTextObject("Halbjahreswasserrechnung " + preis.Jahr, new Font("Arial", 15, FontStyle.Bold), Brushes.Black, linkerRand + 180, obererRand + 13 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("RechnungsNr: " + jdd.getFullRechnungsNummerHalbJahr(), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand + 423, obererRand + 9 * zeilenabstand));
 
-                    ppd.AddPrintableObject(new PrintableTextObject("RechnungsNr: " + jdd.getFullRechnungsNummerHalbJahr(), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand + 450, obererRand + 14 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("Halbjahreswasserrechnung " + preis.Jahr, new Font("Arial", 15, FontStyle.Bold), Brushes.Black, linkerRand + 180, obererRand + 13 * zeilenabstand));
 
                     ppd.AddPrintableObject(new PrintableTextObject(DateTime.Now.Date.ToString("dd.MM.yyyy", DateTimeFormatInfo.InvariantInfo), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand + 575, obererRand + 15 * zeilenabstand));
 
@@ -1088,7 +1086,7 @@ namespace WasserWerkVerwaltung.BL {
         public long setGanzJahresRechnungsNummer(long jahresDatenId)
         {
             JahresDatenData jdd = GetJahresdataByJahresDataId(jahresDatenId);
-            if (jdd.RechnungsNummerHalbjahr == null)
+            if (jdd.RechnungsNummerJahr == null)
             {
                 long rechnungsGanzJahresNummer = getNewGanzJahresRechnungsNummer(jdd.Jahr);
                 jdd.RechnungsNummerJahr = rechnungsGanzJahresNummer;
