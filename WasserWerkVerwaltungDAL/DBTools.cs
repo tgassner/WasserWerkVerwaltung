@@ -25,7 +25,15 @@ namespace WasserWerkVerwaltung.DAL
         public static bool DoDbImport(string filename) {
             try
             {
-                File.Copy(filename, DbUtil.GetDatabaseFullFilename());
+                if (File.Exists(DbUtil.GetDatabaseFullFilename()))
+                {
+                    DialogResult dr = MessageBox.Show("Soll die bestehende Datenbank überschrieben werden?", "Achtung", MessageBoxButtons.OKCancel);
+                    if (!(dr == DialogResult.OK))
+                    {
+                        return false;
+                    }
+                }
+                File.Copy(filename, DbUtil.GetDatabaseFullFilename(), true);
             }
             catch (Exception e)
             {
