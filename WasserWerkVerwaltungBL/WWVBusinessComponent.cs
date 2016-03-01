@@ -387,7 +387,7 @@ namespace WasserWerkVerwaltung.BL {
                     ppd.AddPrintableObject(new PrintableTextObject("Wasserkosten =", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 23 * zeilenabstand));
                     ppd.AddPrintableObject(new PrintableTextObject("EUR " + FormatDezimal(Math.Round(this.calcVerbrauch(jdd) * preis.Preis, 2)), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, mittlererRand, obererRand + 23 * zeilenabstand));
                     ppd.AddPrintableObject(new PrintableTextObject("netto", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, rechterRand, obererRand + 23 * zeilenabstand));
-                    ppd.AddPrintableObject(new PrintableTextObject("Zählermiete =", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 24 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("Zählermiete/Grundgebühr =", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 24 * zeilenabstand));
                     ppd.AddPrintableObject(new PrintableTextObject("EUR " + FormatDezimal(kunde.Zaehlermiete), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, mittlererRand, obererRand + 24 * zeilenabstand));
                     ppd.AddPrintableObject(new PrintableTextObject("netto", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, rechterRand, obererRand + 24 * zeilenabstand));
                     ppd.AddPrintableObject(new PrintableTextObject("Sonstige Forderungen: " + jdd.SonstigeForderungenText + " =", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 25 * zeilenabstand));
@@ -591,7 +591,7 @@ namespace WasserWerkVerwaltung.BL {
                 ppd.AddPrintableObject(new PrintableTextObject("Jahresrechnungssumme gesamt incl. Mwst = EUR " + this.calcJahresrechnungBrutto(jdd,kunde,preis), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + zeile++ * zeilenabstand));
                 ppd.AddPrintableObject(new PrintableTextObject("Abzüglich 1/2 Jahresrechnung = EUR " + jdd.HalbJahresBetrag, new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + zeile++ * zeilenabstand));
                 ppd.AddPrintableObject(new PrintableTextObject("Zahlbetrag = " + (this.calcJahresrechnungBrutto(jdd,kunde,preis) - jdd.HalbJahresBetrag) + "   Bankverbindung: " + kunde.BankVerbindung, new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + zeile++ * zeilenabstand));
-                ppd.AddPrintableObject(new PrintableTextObject("Bekommt Rechnung: " + kunde.BekommtRechnung.ToString() + "   Bemerkung: " + kunde.Bemerkung, new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + zeile++ * zeilenabstand));
+                ppd.AddPrintableObject(new PrintableTextObject("Bekommt Rechnung: " + kunde.BekommtRechnung.ToString() + "  ;" + jdd.getFullRechnungsNummerHalbJahr() + " " + jdd.getFullRechnungsNummerGanzJahr() + "   Bemerkung: " + kunde.Bemerkung, new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + zeile++ * zeilenabstand));
                 
                 if ((counter % 5) == 0) {
                     pdd.AddPrintPage(ppd);

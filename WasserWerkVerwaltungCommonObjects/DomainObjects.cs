@@ -304,12 +304,24 @@ namespace WasserWerkVerwaltung.CommonObjects {
 
         public string getFullRechnungsNummerGanzJahr()
         {
-            return "J-" + jahr + "-" + Convert.ToString(rechnungsNummerJahr).PadLeft(5, '0'); ;
+            if (rechnungsNummerJahr == null)
+            {
+                return "";
+            }
+            else {
+                return "J-" + jahr + "-" + Convert.ToString(rechnungsNummerJahr).PadLeft(5, '0'); ;
+            }
         }
 
         public string getFullRechnungsNummerHalbJahr()
         {
-            return "HJ-" + jahr + "-" + Convert.ToString(rechnungsNummerHalbjahr).PadLeft(5, '0');
+            if (rechnungsNummerHalbjahr == null)
+            {
+                return "";
+            } else
+            {
+                return "HJ-" + jahr + "-" + Convert.ToString(rechnungsNummerHalbjahr).PadLeft(5, '0');
+            }
         }
 
         public long Id {
