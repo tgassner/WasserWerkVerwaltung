@@ -37,6 +37,7 @@ namespace WasserWerkVerwaltung.BL {
         #endregion Join
 
         #region Print
+            void PrintRechnungsAusgangsListe(IList<KundenData> kunden, PreisData preis);
             void PrintJahresRechnungen(IList<KundenData> kunden, PreisData preis);
             void PrintHalbJahresRechnungen(IList<KundenData> kunden, PreisData preis);
             void PrintBezahltCheckListe(IList<KundenData> kunden, PreisData preis);

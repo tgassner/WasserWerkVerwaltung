@@ -284,5 +284,26 @@ namespace WasserWerkVerwaltung.GUI {
 
             this.wwvBLComp.PrintStammdaten(selectedKundenList);
         }
+
+        private void PrintRechnungsAusgangsListe_Click(object sender, EventArgs e)
+        {
+            PreisData pd = listBoxJahre.SelectedItem as PreisData;
+
+            if (pd == null)
+            {
+                MessageBox.Show("Bitte oben ein Jahr auswählen!");
+                return;
+            }
+
+            IList<KundenData> selectedKundenList = new List<KundenData>();
+            foreach (KundenData kunde in checkedListBoxKunden.Items)
+            {
+                if (kunde.BekommtRechnung == Rechnung.Halbjahres || kunde.BekommtRechnung == Rechnung.Jahres) {
+                    selectedKundenList.Add(kunde);
+                }
+            }
+
+            this.wwvBLComp.PrintRechnungsAusgangsListe(selectedKundenList, (PreisData)listBoxJahre.SelectedItem);
+        }
     }
 }

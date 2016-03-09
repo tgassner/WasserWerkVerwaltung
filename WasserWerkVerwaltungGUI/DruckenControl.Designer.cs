@@ -40,6 +40,7 @@ namespace WasserWerkVerwaltung.GUI {
             this.buttonHalbjahresrechnungsdatumUebersicht = new System.Windows.Forms.Button();
             this.buttonJahresrechnungsdatumUebersicht = new System.Windows.Forms.Button();
             this.buttonStammdatenDrucken = new System.Windows.Forms.Button();
+            this.PrintRechnungsAusgangsListe = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // checkedListBoxKunden
@@ -208,10 +209,22 @@ namespace WasserWerkVerwaltung.GUI {
             this.buttonStammdatenDrucken.UseVisualStyleBackColor = true;
             this.buttonStammdatenDrucken.Click += new System.EventHandler(this.buttonStammdatenDrucken_Click);
             // 
+            // PrintRechnungsAusgangsListe
+            // 
+            this.PrintRechnungsAusgangsListe.Location = new System.Drawing.Point(266, 572);
+            this.PrintRechnungsAusgangsListe.Name = "PrintRechnungsAusgangsListe";
+            this.PrintRechnungsAusgangsListe.Size = new System.Drawing.Size(288, 48);
+            this.PrintRechnungsAusgangsListe.TabIndex = 16;
+            this.PrintRechnungsAusgangsListe.Text = "Rechnungs Ausgangs Liste Drucken.\r\nAlle Kunden mir Ganz- oder HalbjahresRechnung\r" +
+    "\nUnabhängig von der Selektierung.";
+            this.PrintRechnungsAusgangsListe.UseVisualStyleBackColor = true;
+            this.PrintRechnungsAusgangsListe.Click += new System.EventHandler(this.PrintRechnungsAusgangsListe_Click);
+            // 
             // DruckenControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.PrintRechnungsAusgangsListe);
             this.Controls.Add(this.buttonStammdatenDrucken);
             this.Controls.Add(this.buttonJahresrechnungsdatumUebersicht);
             this.Controls.Add(this.buttonHalbjahresrechnungsdatumUebersicht);
@@ -255,5 +268,6 @@ namespace WasserWerkVerwaltung.GUI {
         private System.Windows.Forms.Button buttonHalbjahresrechnungsdatumUebersicht;
         private System.Windows.Forms.Button buttonJahresrechnungsdatumUebersicht;
         private System.Windows.Forms.Button buttonStammdatenDrucken;
+        private System.Windows.Forms.Button PrintRechnungsAusgangsListe;
     }
 }
