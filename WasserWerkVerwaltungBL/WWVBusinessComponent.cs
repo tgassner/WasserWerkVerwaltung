@@ -469,6 +469,9 @@ namespace WasserWerkVerwaltung.BL {
                     ppd.AddPrintableObject(new PrintableTextObject("EUR " + FormatDezimal(kunde.Zaehlermiete), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, mittlererRand, obererRand + 24 * zeilenabstand));
                     ppd.AddPrintableObject(new PrintableTextObject("netto", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, rechterRand, obererRand + 24 * zeilenabstand));
                     ppd.AddPrintableObject(new PrintableTextObject("Sonstige Forderungen: " + jdd.SonstigeForderungenText + " =", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 25 * zeilenabstand));
+
+                    ppd.AddPrintableObject(new PrintableFillRectangleObject(Brushes.White, (int)mittlererRand + 2, (int)(obererRand + 25 * zeilenabstand), 300, 20));
+
                     ppd.AddPrintableObject(new PrintableTextObject("EUR " + FormatDezimal(jdd.SonstigeForderungenValue), new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, mittlererRand, obererRand + 25 * zeilenabstand));
                     ppd.AddPrintableObject(new PrintableTextObject("netto", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, rechterRand, obererRand + 25 * zeilenabstand));
                     ppd.AddPrintableObject(new PrintableLineObject(Pens.Black, (int)linkerRand, (int)(obererRand + 26 * zeilenabstand), (int)linkerRand + 680, (int)(obererRand + 26 * zeilenabstand)));
