@@ -377,7 +377,7 @@ namespace WasserWerkVerwaltung.BL {
                 ppd.AddPrintableObject(new PrintableTextObject(FormatDezimal(this.calcJahresrechnungNetto(jdd, kunde, preis)), new Font("Arial", 8, FontStyle.Bold), Brushes.Black, linkerRand + 350, zeile * kleinerZeilenabstand));
                 ppd.AddPrintableObject(new PrintableTextObject(FormatDezimal(this.calcMwSt(jdd, kunde, preis)), new Font("Arial", 8, FontStyle.Bold), Brushes.Black, linkerRand + 450, zeile * kleinerZeilenabstand));
                 ppd.AddPrintableObject(new PrintableTextObject(FormatDezimal(this.calcJahresrechnungBrutto(jdd, kunde, preis)), new Font("Arial", 8, FontStyle.Bold), Brushes.Black, linkerRand + 510, zeile * kleinerZeilenabstand));
-                ppd.AddPrintableObject(new PrintableTextObject(jdd.getFullRechnungsNummerHalbJahr(), new Font("Arial", 8, FontStyle.Bold), Brushes.Black, linkerRand + 610, zeile * kleinerZeilenabstand));
+                ppd.AddPrintableObject(new PrintableTextObject(jdd.getFullRechnungsNummerGanzJahr(), new Font("Arial", 8, FontStyle.Bold), Brushes.Black, linkerRand + 610, zeile * kleinerZeilenabstand));
 
                 ppd.AddPrintableObject(new PrintableLineObject(Pens.Gray, (int)linkerRand - 40, (int)kleinerZeilenabstand * (int)(zeile + 1), (int)linkerRand + 700, (int)kleinerZeilenabstand * (int)(zeile + 1)));
                 zeile++;
