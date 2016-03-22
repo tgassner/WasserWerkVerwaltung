@@ -243,18 +243,37 @@ namespace WasserWerkVerwaltung.GUI {
             if (!checkFields())
                 return;
 
-            if (currentJahresData.RechnungsNummerJahr != null && !String.IsNullOrEmpty(textBoxGanzJahresRechnungsNummer.Text) && currentJahresData.RechnungsNummerJahr != Int64.Parse(textBoxGanzJahresRechnungsNummer.Text)) {
+            if ((currentJahresData.RechnungsNummerJahr != null && !String.IsNullOrEmpty(textBoxGanzJahresRechnungsNummer.Text) && currentJahresData.RechnungsNummerJahr != Int64.Parse(textBoxGanzJahresRechnungsNummer.Text))
+                || (String.IsNullOrEmpty(textBoxGanzJahresRechnungsNummer.Text) && currentJahresData.RechnungsNummerJahr != null)) {
                 DialogResult dr = MessageBox.Show("Die Ganzjahres Rechnungsnummer wurde geändert. Wollen sie das wirklich?", "Achtung", MessageBoxButtons.OKCancel);
                 if (!(dr == DialogResult.OK)) {
                     return;
                 }
             }
 
-            if (currentJahresData.RechnungsNummerHalbjahr != null && !String.IsNullOrEmpty(textBoxHalbJahresRechnungsNummer.Text) && currentJahresData.RechnungsNummerHalbjahr != Int64.Parse(textBoxHalbJahresRechnungsNummer.Text))
+            if (!String.IsNullOrEmpty(textBoxGanzJahresRechnungsNummer.Text) && currentJahresData.RechnungsNummerJahr != Int64.Parse(textBoxGanzJahresRechnungsNummer.Text)) {
+                if (wwvBLComp.ExistsGanzJahresRechnungsnummer(long.Parse(textBoxGanzJahresRechnungsNummer.Text), currentJahresData.Jahr))
+                {
+                    MessageBox.Show("Die Ganzjahres Rechnungsnummer existiert bereits! Vorgang Abgebrochen!");
+                    return;
+                }
+            }
+
+            if ((currentJahresData.RechnungsNummerHalbjahr != null && !String.IsNullOrEmpty(textBoxHalbJahresRechnungsNummer.Text) && currentJahresData.RechnungsNummerHalbjahr != Int64.Parse(textBoxHalbJahresRechnungsNummer.Text))
+                || (String.IsNullOrEmpty(textBoxHalbJahresRechnungsNummer.Text) && currentJahresData.RechnungsNummerHalbjahr != null))
             {
                 DialogResult dr = MessageBox.Show("Die Halbjahres Rechnungsnummer wurde geändert. Wollen sie das wirklich?", "Achtung", MessageBoxButtons.OKCancel);
                 if (!(dr == DialogResult.OK))
                 {
+                    return;
+                }
+            }
+
+            if (!String.IsNullOrEmpty(textBoxHalbJahresRechnungsNummer.Text) && currentJahresData.RechnungsNummerHalbjahr != Int64.Parse(textBoxHalbJahresRechnungsNummer.Text))
+            {
+                if (wwvBLComp.ExistsHalbJahresRechnungsnummer(long.Parse(textBoxHalbJahresRechnungsNummer.Text), currentJahresData.Jahr))
+                {
+                    MessageBox.Show("Die Halbjahres Rechnungsnummer existiert bereits! Vorgang Abgebrochen!");
                     return;
                 }
             }

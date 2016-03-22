@@ -320,15 +320,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Wasser Werk Verwaltung"
-        "ProductCode" = "8:{5AD4F4B7-F0D0-4B1C-B39F-3287DF270FC6}"
-        "PackageCode" = "8:{701411C5-CB2D-4F06-A429-E926E7BC3407}"
+        "ProductCode" = "8:{E5D4011F-E844-47F5-869E-E96529127F05}"
+        "PackageCode" = "8:{F095E796-4F51-408A-8FD7-9D661E9AB2B4}"
         "UpgradeCode" = "8:{31F2A098-8994-4E49-A69D-1EA408F017D3}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.4.0"
+        "ProductVersion" = "8:1.4.1"
         "Manufacturer" = "8:Thomas Gassner"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -885,7 +885,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_E99B2413BB1E4ADE9E868DEB8354D995"
             {
-            "SourcePath" = "8:..\\WasserWerkVerwaltungGUI\\obj\\x86\\Release\\WWV.exe"
+            "SourcePath" = "8:..\\WasserWerkVerwaltungGUI\\obj\\x86\\Debug\\WWV.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_83695022A3E8470F93DA329AD6324ADF"

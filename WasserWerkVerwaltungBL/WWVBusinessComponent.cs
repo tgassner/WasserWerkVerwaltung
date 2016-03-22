@@ -336,7 +336,6 @@ namespace WasserWerkVerwaltung.BL {
         const string _3350_STADT_HAAG = "3350 Haag";
 
         //ID  Vorname   Name  Objekt   Re-Betrag netto    Mwst    Re-Betrag brutto 
-        // xxxxxxxx
         public void PrintRechnungsAusgangsListe(IList<KundenData> kunden, PreisData preis) {
             PrintableDocument pdd = new PrintableDocument();
             pdd.DocumentName = "Wasser Werk Verwaltung";
@@ -363,22 +362,33 @@ namespace WasserWerkVerwaltung.BL {
             {
                 JahresDatenData jdd = this.GetJahresdataByKundenIDandYear(kunde.Id, preis.Jahr);
 
-                ppd.AddPrintableObject(new PrintableTextObject(Convert.ToString(kunde.Id) , new Font("Arial", 8, FontStyle.Bold), Brushes.Black, linkerRand - 40, zeile * kleinerZeilenabstand));
-                ppd.AddPrintableObject(new PrintableTextObject(kunde.Nachname + " " + kunde.Vorname, new Font("Arial", 8, FontStyle.Bold), Brushes.Black, linkerRand -10, zeile * kleinerZeilenabstand));
+                ppd.AddPrintableObject(new PrintableTextObject(Convert.ToString(kunde.Id), new Font("Arial", 8, FontStyle.Bold), Brushes.Black, linkerRand - 40, zeile * kleinerZeilenabstand));
+                ppd.AddPrintableObject(new PrintableTextObject(kunde.Nachname + " " + kunde.Vorname, new Font("Arial", 8, FontStyle.Bold), Brushes.Black, linkerRand - 10, zeile * kleinerZeilenabstand));
                 ppd.AddPrintableObject(new PrintableFillRectangleObject(Brushes.White, (int)linkerRand + 153, zeile * kleinerZeilenabstand + 1, 300, 13));
                 ppd.AddPrintableObject(new PrintableTextObject(kunde.Objekt, new Font("Arial", 8, FontStyle.Bold), Brushes.Black, linkerRand + 155, zeile * kleinerZeilenabstand));
-                ppd.AddPrintableObject(new PrintableTextObject(FormatDezimal(calcHalbJahresrechnungNetto(jdd)), new Font("Arial", 8, FontStyle.Bold), Brushes.Black, linkerRand + 350, zeile * kleinerZeilenabstand));
-                ppd.AddPrintableObject(new PrintableTextObject(FormatDezimal(calcHalbJahresrechnungMwSt(jdd)), new Font("Arial", 8, FontStyle.Bold), Brushes.Black, linkerRand + 450, zeile * kleinerZeilenabstand));
-                ppd.AddPrintableObject(new PrintableTextObject(FormatDezimal(jdd.HalbJahresBetrag), new Font("Arial", 8, FontStyle.Bold), Brushes.Black, linkerRand + 510, zeile * kleinerZeilenabstand));
-                ppd.AddPrintableObject(new PrintableTextObject(jdd.getFullRechnungsNummerHalbJahr(), new Font("Arial", 8, FontStyle.Bold), Brushes.Black, linkerRand + 610, zeile * kleinerZeilenabstand));
+
+                if (kunde.BekommtRechnung == Rechnung.Halbjahres) { 
+                    ppd.AddPrintableObject(new PrintableTextObject(FormatDezimal(calcHalbJahresrechnungNetto(jdd)), new Font("Arial", 8, FontStyle.Bold), Brushes.Black, linkerRand + 350, zeile * kleinerZeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject(FormatDezimal(calcHalbJahresrechnungMwSt(jdd)), new Font("Arial", 8, FontStyle.Bold), Brushes.Black, linkerRand + 450, zeile * kleinerZeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject(FormatDezimal(jdd.HalbJahresBetrag), new Font("Arial", 8, FontStyle.Bold), Brushes.Black, linkerRand + 510, zeile * kleinerZeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject(jdd.getFullRechnungsNummerHalbJahr(), new Font("Arial", 8, FontStyle.Bold), Brushes.Black, linkerRand + 610, zeile * kleinerZeilenabstand));
+
+                    zeile++;
+                }
+
+                if (kunde.BekommtRechnung == Rechnung.Halbjahres || kunde.BekommtRechnung == Rechnung.Jahres)
+                {
+                    ppd.AddPrintableObject(new PrintableTextObject(FormatDezimal(this.calcJahresrechnungNetto(jdd, kunde, preis)), new Font("Arial", 8, FontStyle.Bold), Brushes.Black, linkerRand + 350, zeile * kleinerZeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject(FormatDezimal(this.calcMwSt(jdd, kunde, preis)), new Font("Arial", 8, FontStyle.Bold), Brushes.Black, linkerRand + 450, zeile * kleinerZeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject(FormatDezimal(this.calcJahresrechnungBrutto(jdd, kunde, preis)), new Font("Arial", 8, FontStyle.Bold), Brushes.Black, linkerRand + 510, zeile * kleinerZeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject(jdd.getFullRechnungsNummerGanzJahr(), new Font("Arial", 8, FontStyle.Bold), Brushes.Black, linkerRand + 610, zeile * kleinerZeilenabstand));
+                }
+
+                if (kunde.BekommtRechnung == Rechnung.Keine)
+                {
+                    ppd.AddPrintableObject(new PrintableTextObject("Kunde bekommt keine Rechnung!", new Font("Arial", 8, FontStyle.Bold), Brushes.Black, linkerRand + 350, zeile * kleinerZeilenabstand));
+                }
                 
-                zeile++;
-
-                ppd.AddPrintableObject(new PrintableTextObject(FormatDezimal(this.calcJahresrechnungNetto(jdd, kunde, preis)), new Font("Arial", 8, FontStyle.Bold), Brushes.Black, linkerRand + 350, zeile * kleinerZeilenabstand));
-                ppd.AddPrintableObject(new PrintableTextObject(FormatDezimal(this.calcMwSt(jdd, kunde, preis)), new Font("Arial", 8, FontStyle.Bold), Brushes.Black, linkerRand + 450, zeile * kleinerZeilenabstand));
-                ppd.AddPrintableObject(new PrintableTextObject(FormatDezimal(this.calcJahresrechnungBrutto(jdd, kunde, preis)), new Font("Arial", 8, FontStyle.Bold), Brushes.Black, linkerRand + 510, zeile * kleinerZeilenabstand));
-                ppd.AddPrintableObject(new PrintableTextObject(jdd.getFullRechnungsNummerGanzJahr(), new Font("Arial", 8, FontStyle.Bold), Brushes.Black, linkerRand + 610, zeile * kleinerZeilenabstand));
-
                 ppd.AddPrintableObject(new PrintableLineObject(Pens.Gray, (int)linkerRand - 40, (int)kleinerZeilenabstand * (int)(zeile + 1), (int)linkerRand + 700, (int)kleinerZeilenabstand * (int)(zeile + 1)));
                 zeile++;
                 counter++;
@@ -1159,6 +1169,28 @@ namespace WasserWerkVerwaltung.BL {
         public bool doDbImport(string fileName)
         {
             return DbTools.DoDbImport(fileName);
+        }
+
+        public bool ExistsGanzJahresRechnungsnummer(long rechnungsNummer, long jahr) {
+            foreach(JahresDatenData jdd in GetAllJahresdata())
+            {
+                if (jdd.Jahr == jahr && jdd.RechnungsNummerJahr == rechnungsNummer)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool ExistsHalbJahresRechnungsnummer(long rechnungsNummer, long jahr) {
+            foreach (JahresDatenData jdd in GetAllJahresdata())
+            {
+                if (jdd.Jahr == jahr && jdd.RechnungsNummerHalbjahr == rechnungsNummer)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public long setHalbJahresRechnungsNummer(long jahresDatenId)
