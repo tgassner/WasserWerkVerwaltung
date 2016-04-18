@@ -133,9 +133,19 @@ namespace WasserWerkVerwaltung.DAL {
                 ((IDataParameter)insertByIdCmd.Parameters["@HalbJahresBetrag"]).Value = jahresDatenData.HalbJahresBetrag;
                 ((IDataParameter)insertByIdCmd.Parameters["@RechnungsDatumHalbjahr"]).Value = jahresDatenData.RechnungsDatumHalbjahr.Date;
                 ((IDataParameter)insertByIdCmd.Parameters["@RechnungsDatumJahr"]).Value = jahresDatenData.RechnungsDatumJahr.Date;
-                ((IDataParameter)insertByIdCmd.Parameters["@RechnungsNummerHalbjahr"]).Value = jahresDatenData.RechnungsNummerHalbjahr;
-                ((IDataParameter)insertByIdCmd.Parameters["@RechnungsNummerJahr"]).Value = jahresDatenData.RechnungsNummerJahr;
+                if (jahresDatenData.RechnungsNummerHalbjahr == null) {
+                    ((IDataParameter)insertByIdCmd.Parameters["@RechnungsNummerHalbjahr"]).Value = DBNull.Value;
+                    
+                } else {
+                    ((IDataParameter)insertByIdCmd.Parameters["@RechnungsNummerHalbjahr"]).Value = jahresDatenData.RechnungsNummerHalbjahr;
+                }
 
+                if (jahresDatenData.RechnungsNummerJahr == null) {
+                    ((IDataParameter)insertByIdCmd.Parameters["@RechnungsNummerJahr"]).Value = DBNull.Value;
+                } else {
+                    ((IDataParameter)insertByIdCmd.Parameters["@RechnungsNummerJahr"]).Value = jahresDatenData.RechnungsNummerJahr;
+                }
+                
                 if (insertByIdCmd.ExecuteNonQuery() != 1)
                 
                     return 0;

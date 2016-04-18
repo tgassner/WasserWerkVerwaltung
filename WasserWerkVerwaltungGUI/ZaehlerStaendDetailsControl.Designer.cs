@@ -28,6 +28,7 @@ namespace WasserWerkVerwaltung.GUI {
             this.textBoxJahr = new System.Windows.Forms.TextBox();
             this.buttonJahrLoeschen = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
+            this.button_QuickJahrHinzufuegen = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonJahrHinzufuegen
@@ -75,11 +76,22 @@ namespace WasserWerkVerwaltung.GUI {
             this.label2.TabIndex = 1;
             this.label2.Text = " Kunden anlegen:";
             // 
+            // button_QuickJahrHinzufuegen
+            // 
+            this.button_QuickJahrHinzufuegen.Location = new System.Drawing.Point(347, 5);
+            this.button_QuickJahrHinzufuegen.Name = "button_QuickJahrHinzufuegen";
+            this.button_QuickJahrHinzufuegen.Size = new System.Drawing.Size(224, 23);
+            this.button_QuickJahrHinzufuegen.TabIndex = 3;
+            this.button_QuickJahrHinzufuegen.Text = "button1";
+            this.button_QuickJahrHinzufuegen.UseVisualStyleBackColor = true;
+            this.button_QuickJahrHinzufuegen.Click += new System.EventHandler(this.button_QuickJahrHinzufuegen_Click);
+            // 
             // ZaehlerStaendDetailsControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
+            this.Controls.Add(this.button_QuickJahrHinzufuegen);
             this.Controls.Add(this.textBoxJahr);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -99,5 +111,6 @@ namespace WasserWerkVerwaltung.GUI {
         private System.Windows.Forms.TextBox textBoxJahr;
         private System.Windows.Forms.Button buttonJahrLoeschen;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button button_QuickJahrHinzufuegen;
     }
 }

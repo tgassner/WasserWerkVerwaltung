@@ -23,6 +23,7 @@ namespace WasserWerkVerwaltung.GUI {
         public void Init(IWWVBL wwvBLComp) {
             this.wwvBLComp = wwvBLComp;
             this.textBoxJahr.Text = "";
+            this.button_QuickJahrHinzufuegen.Text = "Jahr " + DateTime.Now.Year + " (beim Kunden) hinzufügen";
         }
 
         public void Clear() {
@@ -101,29 +102,53 @@ namespace WasserWerkVerwaltung.GUI {
             return true;
         }
 
+        private void button_QuickJahrHinzufuegen_Click(object sender, EventArgs e)
+        {
+            jahrHinzufuegen(DateTime.Now.Year);
+        }
+
         private void buttonJahrHinzufuegen_Click(object sender, EventArgs e) {
             long currentJahr;
 
             if (!checkJahr())
                 return;
             currentJahr = Int64.Parse(textBoxJahr.Text);
+            jahrHinzufuegen(currentJahr);
+        }
 
+        private void jahrHinzufuegen(long currentJahr) {
             PreisData preis = this.wwvBLComp.GetPreisDataByJahr(currentJahr);
-            if (preis == null){
+            if (preis == null)
+            {
                 MessageBox.Show("Für das Jahr ist noch kein Preis festgelegt!");
                 PreisForm pf = new PreisForm();
                 pf.Init(currentJahr);
                 pf.ShowDialog();
-                if (!pf.OK){
+                if (!pf.OK)
+                {
                     MessageBox.Show("Kein Preis für das Jahr festgelegt speichern abgebrochen!");
                     return;
                 }
-                preis = new PreisData(currentJahr,pf.Preis);
-                
+                preis = new PreisData(currentJahr, pf.Preis);
+
                 wwvBLComp.InsertPreis(preis);
-                preis = new PreisData(currentJahr,pf.Preis);
-                if (preis == null){
+                preis = new PreisData(currentJahr, pf.Preis);
+                if (preis == null)
+                {
                     MessageBox.Show("Preis konnte nicht erstellt werden!");
+                    return;
+                }
+            }
+
+            JahresDatenData jddOld = this.wwvBLComp.GetJahresdataByKundenIDandYear(currentKunde.Id, currentJahr);
+            if (jddOld != null) {
+                MessageBox.Show("Für das Jahr " + currentJahr + " und den Kunden " + currentKunde.Vorname + " " + currentKunde.Nachname + " ist bereits ein Jahr angelegt!");
+                return;
+            }
+
+            foreach (ZaehlerStandElementControl zscLoop in zaehlerStandElementControlList) {
+                if (zscLoop.Jahr == currentJahr) {
+                    MessageBox.Show("Für das Jahr " + currentJahr + " und den Kunden " + currentKunde.Vorname + " " + currentKunde.Nachname + " ist bereits ein Jahr hinzugefügt!\r\nBitte speicherm!!");
                     return;
                 }
             }
@@ -131,7 +156,8 @@ namespace WasserWerkVerwaltung.GUI {
             JahresDatenData jahresDatenData = new JahresDatenData(0, currentKunde.Id, 0, 0, currentJahr, DateTime.Now, 0.0, 0, 0, "", 0.0, 0.0, new DateTime(1901, 1, 1), new DateTime(1901, 1, 1), null, null);  // FIXME TODO
             jahresDataList.Add(jahresDatenData);
 
-            foreach (ZaehlerStandElementControl zsecl in zaehlerStandElementControlList) {
+            foreach (ZaehlerStandElementControl zsecl in zaehlerStandElementControlList)
+            {
                 this.Controls.Remove(zsecl);
             }
 
