@@ -59,8 +59,7 @@ namespace WasserWerkVerwaltung.BL {
             int calcVerbrauch(JahresDatenData jdd);
             bool doDbBackup(string backupFileName);
             bool doDbImport(string fileName);
-            bool ExistsGanzJahresRechnungsnummer(long rechnungsNummer, long jahr);
-            bool ExistsHalbJahresRechnungsnummer(long rechnungsNummer, long jahr);
+            bool ExistsRechnungsnummer(long rechnungsNummer, long jahr);
         #endregion Tools
     }
 }

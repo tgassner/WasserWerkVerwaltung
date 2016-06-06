@@ -1171,7 +1171,12 @@ namespace WasserWerkVerwaltung.BL {
             return DbTools.DoDbImport(fileName);
         }
 
-        public bool ExistsGanzJahresRechnungsnummer(long rechnungsNummer, long jahr) {
+        public bool ExistsRechnungsnummer(long rechnungsNummer, long jahr)
+        {
+            return existsGanzJahresRechnungsnummer(rechnungsNummer, jahr) || existsHalbJahresRechnungsnummer(rechnungsNummer, jahr);
+        }
+
+        private bool existsGanzJahresRechnungsnummer(long rechnungsNummer, long jahr) {
             foreach(JahresDatenData jdd in GetAllJahresdata())
             {
                 if (jdd.Jahr == jahr && jdd.RechnungsNummerJahr == rechnungsNummer)
@@ -1182,7 +1187,7 @@ namespace WasserWerkVerwaltung.BL {
             return false;
         }
 
-        public bool ExistsHalbJahresRechnungsnummer(long rechnungsNummer, long jahr) {
+        private bool existsHalbJahresRechnungsnummer(long rechnungsNummer, long jahr) {
             foreach (JahresDatenData jdd in GetAllJahresdata())
             {
                 if (jdd.Jahr == jahr && jdd.RechnungsNummerHalbjahr == rechnungsNummer)
@@ -1197,7 +1202,7 @@ namespace WasserWerkVerwaltung.BL {
         {
             JahresDatenData jdd = GetJahresdataByJahresDataId(jahresDatenId);
             if (jdd.RechnungsNummerHalbjahr == null) {
-                long rechnungsHalbJahresNummer = getNewHalbJahresRechnungsNummer(jdd.Jahr);
+                long rechnungsHalbJahresNummer = getNewRechnungsnummer(jdd.Jahr);
                 jdd.RechnungsNummerHalbjahr = rechnungsHalbJahresNummer;
                 UpdateJahresDaten(jdd);
                 return rechnungsHalbJahresNummer;
@@ -1211,7 +1216,7 @@ namespace WasserWerkVerwaltung.BL {
             JahresDatenData jdd = GetJahresdataByJahresDataId(jahresDatenId);
             if (jdd.RechnungsNummerJahr == null)
             {
-                long rechnungsGanzJahresNummer = getNewGanzJahresRechnungsNummer(jdd.Jahr);
+                long rechnungsGanzJahresNummer = getNewRechnungsnummer(jdd.Jahr);
                 jdd.RechnungsNummerJahr = rechnungsGanzJahresNummer;
                 UpdateJahresDaten(jdd);
                 return rechnungsGanzJahresNummer;
@@ -1219,6 +1224,11 @@ namespace WasserWerkVerwaltung.BL {
             else {
                 return (long)jdd.RechnungsNummerJahr;
             }
+        }
+
+        private long getNewRechnungsnummer(long jahr)
+        {
+            return Math.Max(getNewHalbJahresRechnungsNummer(jahr), getNewGanzJahresRechnungsNummer(jahr));
         }
 
         private long getNewHalbJahresRechnungsNummer(long jahr) {

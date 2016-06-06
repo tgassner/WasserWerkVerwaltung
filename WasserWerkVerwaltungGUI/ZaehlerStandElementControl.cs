@@ -252,7 +252,7 @@ namespace WasserWerkVerwaltung.GUI {
             }
 
             if (!String.IsNullOrEmpty(textBoxGanzJahresRechnungsNummer.Text) && currentJahresData.RechnungsNummerJahr != Int64.Parse(textBoxGanzJahresRechnungsNummer.Text)) {
-                if (wwvBLComp.ExistsGanzJahresRechnungsnummer(long.Parse(textBoxGanzJahresRechnungsNummer.Text), currentJahresData.Jahr))
+                if (wwvBLComp.ExistsRechnungsnummer(long.Parse(textBoxGanzJahresRechnungsNummer.Text), currentJahresData.Jahr))
                 {
                     MessageBox.Show("Die Ganzjahres Rechnungsnummer existiert bereits! Vorgang Abgebrochen!");
                     return;
@@ -271,7 +271,7 @@ namespace WasserWerkVerwaltung.GUI {
 
             if (!String.IsNullOrEmpty(textBoxHalbJahresRechnungsNummer.Text) && currentJahresData.RechnungsNummerHalbjahr != Int64.Parse(textBoxHalbJahresRechnungsNummer.Text))
             {
-                if (wwvBLComp.ExistsHalbJahresRechnungsnummer(long.Parse(textBoxHalbJahresRechnungsNummer.Text), currentJahresData.Jahr))
+                if (wwvBLComp.ExistsRechnungsnummer(long.Parse(textBoxHalbJahresRechnungsNummer.Text), currentJahresData.Jahr))
                 {
                     MessageBox.Show("Die Halbjahres Rechnungsnummer existiert bereits! Vorgang Abgebrochen!");
                     return;
