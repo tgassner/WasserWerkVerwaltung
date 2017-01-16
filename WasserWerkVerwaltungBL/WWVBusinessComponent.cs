@@ -329,8 +329,8 @@ namespace WasserWerkVerwaltung.BL {
 
         const string BANK_VERBINDUNG = "Bankverbindung: Sparkasse OÖ, AT36 2032 0261 0000 3132, BIC: ASPKAT2L";
         const string ATU_NUMMER = "Unsere ATU Nummer: ATU 563 88 929";
-        const string TEL = "Tel: 07434/44398";
-        const string TEL_FAX_MOBIL = "Tel/Fax: 07434/44398 oder 0676/620 32 38";
+        const string TEL = "Tel: +43 7434 44398";
+        const string TEL_FAX_MOBIL = "Tel/Fax: +43 7434 44398 oder +43 676 6203238";
         const string WASSERWERK_WEINBERGER = "WASSERWERK WEINBERGER";
         const string BAHNHOFSTRASSE_27 = "Bahnhofstraße 27";
         const string _3350_STADT_HAAG = "3350 Haag";
@@ -847,11 +847,12 @@ namespace WasserWerkVerwaltung.BL {
                     ppd.AddPrintableObject(new PrintableTextObject("Bitte denken Sie innerhalb der nächsten 14 Tagen an die Bezahlung unserer", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 20 * zeilenabstand));
                     ppd.AddPrintableObject(new PrintableTextObject("Jahreswasserrechnung " + preis.Jahr, new Font("Arial", stdFontSize, FontStyle.Bold), Brushes.Black, linkerRand, obererRand + 21 * zeilenabstand));
                     ppd.AddPrintableObject(new PrintableTextObject("für das Objekt " + kunde.Objekt + ",", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand + 250, obererRand + 21 * zeilenabstand));
-                    ppd.AddPrintableObject(new PrintableTextObject("mit € " + this.calcJahresRechnungMinusBereitsBezahlt(jdd,kunde,preis) + " zuzüglich Mahnspesen von € 3,-.", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 22 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("mit € " + this.calcJahresRechnungMinusBereitsBezahlt(jdd,kunde,preis) + " zuzüglich Mahnspesen von € 5,-.", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 22 * zeilenabstand));
 
                     ppd.AddPrintableObject(new PrintableTextObject("Sollte Ihre Bezahlung inzwischen schon unterwegs sein, betrachten Sie dieses ", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 24 * zeilenabstand));
                     ppd.AddPrintableObject(new PrintableTextObject("Schreiben bitte als gegenstandslos. Andernfalls überweisen Sie bitte den", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 25 * zeilenabstand));
-                    ppd.AddPrintableObject(new PrintableTextObject("Betrag von € " + (this.calcJahresRechnungMinusBereitsBezahlt(jdd, kunde, preis) + 3.0).ToString() + " auf unser Konto Nummer 267 126 769 00, BLZ 20111, Erste Bank.", new Font("Arial", stdFontSize, FontStyle.Underline), Brushes.Black, linkerRand, obererRand + 26 * zeilenabstand));                   
+                    ppd.AddPrintableObject(new PrintableTextObject("Betrag von € " + (this.calcJahresRechnungMinusBereitsBezahlt(jdd, kunde, preis) + 5.0).ToString() + ".", new Font("Arial", stdFontSize, FontStyle.Underline), Brushes.Black, linkerRand, obererRand + 26 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject(BANK_VERBINDUNG, new Font("Arial", stdFontSize, FontStyle.Underline), Brushes.Black, linkerRand, obererRand + 27 * zeilenabstand));
 
                     ppd.AddPrintableObject(new PrintableTextObject("Mit bestem Dank,", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 30 * zeilenabstand));
                     ppd.AddPrintableObject(new PrintableTextObject("Ing. Waltraud Weinberger-Hairas", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 33 * zeilenabstand));
@@ -899,9 +900,9 @@ namespace WasserWerkVerwaltung.BL {
 
                     ppd.AddPrintableObject(new PrintableTextObject("Wir ersuchen Sie dringend den Rechnungsbetrag von € " + this.calcJahresRechnungMinusBereitsBezahlt(jdd,kunde,preis) + " zuzüglich", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 23 * zeilenabstand));
                     ppd.AddPrintableObject(new PrintableTextObject("Mahnspesen von € 5,-, das sind", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 24 * zeilenabstand));
-                    ppd.AddPrintableObject(new PrintableTextObject("€ " + (this.calcJahresRechnungMinusBereitsBezahlt(jdd,kunde,preis) + 5) + " Mahnbetrag auf unser Konto Nummer", new Font("Arial", stdFontSize, FontStyle.Underline), Brushes.Black, linkerRand + 260, obererRand + 24 * zeilenabstand));
-                    ppd.AddPrintableObject(new PrintableTextObject("267 126 769 00, BLZ 20111, Erste Bank,", new Font("Arial", stdFontSize, FontStyle.Underline), Brushes.Black, linkerRand, obererRand + 25 * zeilenabstand));
-                    ppd.AddPrintableObject(new PrintableTextObject("zu überweisen.", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand + 330, obererRand + 25 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("€ " + (this.calcJahresRechnungMinusBereitsBezahlt(jdd,kunde,preis) + 5) + " Mahnbetrag, zu überweisen.", new Font("Arial", stdFontSize, FontStyle.Underline), Brushes.Black, linkerRand + 260, obererRand + 24 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject(BANK_VERBINDUNG, new Font("Arial", stdFontSize, FontStyle.Underline), Brushes.Black, linkerRand, obererRand + 25 * zeilenabstand));
+                    //ppd.AddPrintableObject(new PrintableTextObject("", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand + 330, obererRand + 25 * zeilenabstand));
 
                     ppd.AddPrintableObject(new PrintableTextObject("Sollte der Betrag bis zum", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 27 * zeilenabstand));
                     ppd.AddPrintableObject(new PrintableTextObject(DateTime.Now.AddDays(14).Date.ToString("dd.MM.yyyy", DateTimeFormatInfo.InvariantInfo), new Font("Arial", stdFontSize, FontStyle.Bold | FontStyle.Underline), Brushes.Black, linkerRand + 205, obererRand + 27 * zeilenabstand));
