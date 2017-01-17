@@ -52,13 +52,13 @@
         "Entry"
         {
         "MsmKey" = "8:_3F972D6BDD980ADF248A7EA98115970E"
-        "OwnerKey" = "8:_E99B2413BB1E4ADE9E868DEB8354D995"
+        "OwnerKey" = "8:_491E1799DD75EE6AF9BBA5DF4143D665"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_3F972D6BDD980ADF248A7EA98115970E"
-        "OwnerKey" = "8:_491E1799DD75EE6AF9BBA5DF4143D665"
+        "OwnerKey" = "8:_E99B2413BB1E4ADE9E868DEB8354D995"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -106,19 +106,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_E99B2413BB1E4ADE9E868DEB8354D995"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_491E1799DD75EE6AF9BBA5DF4143D665"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_C5736AAF70C00AEF8D20240C47940178"
+        "OwnerKey" = "8:_3F972D6BDD980ADF248A7EA98115970E"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -130,7 +118,19 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_3F972D6BDD980ADF248A7EA98115970E"
+        "OwnerKey" = "8:_C5736AAF70C00AEF8D20240C47940178"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_491E1799DD75EE6AF9BBA5DF4143D665"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_E99B2413BB1E4ADE9E868DEB8354D995"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -245,11 +245,6 @@
             "AssemblyAsmDisplayName" = "8:WWVDAL, Version=1.4.3.0, Culture=neutral, processorArchitecture=x86"
                 "ScatterAssemblies"
                 {
-                    "_26244FF5B8F3EF9D547E09A6EF61CA34"
-                    {
-                    "Name" = "8:WWVDAL.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:WWVDAL.dll"
             "TargetName" = "8:"
@@ -276,11 +271,6 @@
             "AssemblyAsmDisplayName" = "8:nunit.framework, Version=2.2.9.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_382801BA37F57202FCD7A6FBDAFF9B87"
-                    {
-                    "Name" = "8:nunit.framework.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:nunit.framework.dll"
             "TargetName" = "8:"
@@ -307,11 +297,6 @@
             "AssemblyAsmDisplayName" = "8:WWVCO, Version=1.4.3.0, Culture=neutral, processorArchitecture=x86"
                 "ScatterAssemblies"
                 {
-                    "_3F972D6BDD980ADF248A7EA98115970E"
-                    {
-                    "Name" = "8:WWVCO.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:WWVCO.dll"
             "TargetName" = "8:"
@@ -338,11 +323,6 @@
             "AssemblyAsmDisplayName" = "8:WWVBL, Version=1.4.3.0, Culture=neutral, processorArchitecture=x86"
                 "ScatterAssemblies"
                 {
-                    "_491E1799DD75EE6AF9BBA5DF4143D665"
-                    {
-                    "Name" = "8:WWVBL.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:WWVBL.dll"
             "TargetName" = "8:"
@@ -389,11 +369,6 @@
             "AssemblyAsmDisplayName" = "8:WWVPrint, Version=1.4.3.0, Culture=neutral, processorArchitecture=x86"
                 "ScatterAssemblies"
                 {
-                    "_C5736AAF70C00AEF8D20240C47940178"
-                    {
-                    "Name" = "8:WWVPrint.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:WWVPrint.dll"
             "TargetName" = "8:"
@@ -522,15 +497,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Wasser Werk Verwaltung"
-        "ProductCode" = "8:{48B0373A-8C94-4307-9511-A17B70F20839}"
-        "PackageCode" = "8:{4C55B2D7-7BFD-48E3-A398-157EEA56D664}"
+        "ProductCode" = "8:{1677411A-35F6-4916-9BFE-5D9178999CBB}"
+        "PackageCode" = "8:{9125A6C5-5AD4-4C0F-B927-C2E6C7DA7A46}"
         "UpgradeCode" = "8:{31F2A098-8994-4E49-A69D-1EA408F017D3}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.4.3"
+        "ProductVersion" = "8:1.5.0"
         "Manufacturer" = "8:Thomas Gassner"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -698,7 +673,7 @@
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_7BB949D45B114CC383C74CB134FB2A32"
                     {
                     "Sequence" = "3:100"
-                    "DisplayName" = "8:Progress"
+                    "DisplayName" = "8:Status"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
                     "SourcePath" = "8:<VsdDialogDir>\\VsdProgressDlg.wid"
@@ -742,7 +717,7 @@
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_2221CC16CD7D46869C58F6E39FF20A0A"
                     {
                     "Sequence" = "3:200"
-                    "DisplayName" = "8:Installation Folder"
+                    "DisplayName" = "8:Installationsordner"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
                     "SourcePath" = "8:<VsdDialogDir>\\VsdAdminFolderDlg.wid"
@@ -764,7 +739,7 @@
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_817B33F388FF41BE9463D663B495F15C"
                     {
                     "Sequence" = "3:300"
-                    "DisplayName" = "8:Confirm Installation"
+                    "DisplayName" = "8:Installation bestätigen"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
                     "SourcePath" = "8:<VsdDialogDir>\\VsdAdminConfirmDlg.wid"
@@ -786,7 +761,7 @@
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_FEA9B5E51A3E460FAA2832248A0A9AF9"
                     {
                     "Sequence" = "3:100"
-                    "DisplayName" = "8:Welcome"
+                    "DisplayName" = "8:Willkommen"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
                     "SourcePath" = "8:<VsdDialogDir>\\VsdAdminWelcomeDlg.wid"
@@ -843,7 +818,7 @@
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_0E1B1BC93CEE4C3CA43061C96D53365F"
                     {
                     "Sequence" = "3:100"
-                    "DisplayName" = "8:Progress"
+                    "DisplayName" = "8:Status"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
                     "SourcePath" = "8:<VsdDialogDir>\\VsdAdminProgressDlg.wid"
@@ -893,7 +868,7 @@
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_99EAF31E72064F2B9689313B00057D14"
                     {
                     "Sequence" = "3:100"
-                    "DisplayName" = "8:Finished"
+                    "DisplayName" = "8:Fertig"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
                     "SourcePath" = "8:<VsdDialogDir>\\VsdFinishedDlg.wid"
@@ -937,7 +912,7 @@
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_737261892ADA438EA3F67974C42F373A"
                     {
                     "Sequence" = "3:200"
-                    "DisplayName" = "8:Installation Folder"
+                    "DisplayName" = "8:Installationsordner"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
                     "SourcePath" = "8:<VsdDialogDir>\\VsdFolderDlg.wid"
@@ -972,7 +947,7 @@
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_7E3A372619D14BDC98173C4ED7740E48"
                     {
                     "Sequence" = "3:100"
-                    "DisplayName" = "8:Welcome"
+                    "DisplayName" = "8:Willkommen"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
                     "SourcePath" = "8:<VsdDialogDir>\\VsdWelcomeDlg.wid"
@@ -1021,7 +996,7 @@
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_E74FCD451889403FA4682154178076BA"
                     {
                     "Sequence" = "3:300"
-                    "DisplayName" = "8:Confirm Installation"
+                    "DisplayName" = "8:Installation bestätigen"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
                     "SourcePath" = "8:<VsdDialogDir>\\VsdConfirmDlg.wid"
@@ -1058,7 +1033,7 @@
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_A9ABBE305AFF43558775A86C7A6869DB"
                     {
                     "Sequence" = "3:100"
-                    "DisplayName" = "8:Finished"
+                    "DisplayName" = "8:Fertig"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
                     "SourcePath" = "8:<VsdDialogDir>\\VsdAdminFinishedDlg.wid"
@@ -1087,7 +1062,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_E99B2413BB1E4ADE9E868DEB8354D995"
             {
-            "SourcePath" = "8:..\\WasserWerkVerwaltungGUI\\obj\\x86\\Release\\WWV.exe"
+            "SourcePath" = "8:..\\WasserWerkVerwaltungGUI\\obj\\x86\\Debug\\WWV.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_83695022A3E8470F93DA329AD6324ADF"
