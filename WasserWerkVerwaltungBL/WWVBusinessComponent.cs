@@ -958,12 +958,7 @@ namespace WasserWerkVerwaltung.BL {
             foreach (KundenData kunde in kunden) {
                 JahresDatenData jdd = this.GetJahresdataByKundenIDandYear(kunde.Id, preis.Jahr);
 
-                bool rechnung;
-                if (jdd.RechnungsDatumJahr.Day == 1 && jdd.RechnungsDatumJahr.Month == 1 && jdd.RechnungsDatumJahr.Year == 1901) {
-                    rechnung = false;
-                } else {
-                    rechnung = true;
-                }
+                bool rechnung = jdd.RechnungsDatumJahr.HasValue;
 
                 if (!rechnung) {
                     ppd.AddPrintableObject(new PrintableFillRectangleObject(Brushes.LightGray, (int)linkerRand - 30, zeile * kleinerZeilenabstand + 1, 329, 13));
@@ -979,7 +974,7 @@ namespace WasserWerkVerwaltung.BL {
                 ppd.AddPrintableObject(new PrintableFillRectangleObject(Brushes.White, (int)linkerRand + 299, zeile * kleinerZeilenabstand + 1, 300, 13));
 
                 if (rechnung) {
-                    ppd.AddPrintableObject(new PrintableTextObject(jdd.RechnungsDatumJahr.ToShortDateString(), new Font("Arial", 8, FontStyle.Bold), Brushes.Black, linkerRand + 300, zeile * kleinerZeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject(jdd.RechnungsDatumJahr.Value.ToShortDateString(), new Font("Arial", 8, FontStyle.Bold), Brushes.Black, linkerRand + 300, zeile * kleinerZeilenabstand));
                     ppd.AddPrintableObject(new PrintableTextObject(this.FormatDezimal(jdd.HalbJahresBetrag) + "EUR", new Font("Arial", 8, FontStyle.Bold), Brushes.Black, linkerRand + 380, zeile * kleinerZeilenabstand));
                     ppd.AddPrintableObject(new PrintableTextObject(this.FormatDezimal(this.calcJahresrechnungNetto(jdd, kunde, preis)) + "EUR", new Font("Arial", 8, FontStyle.Bold), Brushes.Black, linkerRand + 460, zeile * kleinerZeilenabstand));
                     ppd.AddPrintableObject(new PrintableTextObject(this.FormatDezimal(this.calcMwSt(jdd, kunde, preis)) + "EUR", new Font("Arial", 8, FontStyle.Bold), Brushes.Black, linkerRand + 540, zeile * kleinerZeilenabstand));
@@ -1203,8 +1198,9 @@ namespace WasserWerkVerwaltung.BL {
         {
             JahresDatenData jdd = GetJahresdataByJahresDataId(jahresDatenId);
             if (jdd.RechnungsNummerHalbjahr == null) {
-                long rechnungsHalbJahresNummer = getNewRechnungsnummer(jdd.Jahr);
+                long rechnungsHalbJahresNummer = getNewHalbJahresRechnungsNummer(DateTime.Now.Year);
                 jdd.RechnungsNummerHalbjahr = rechnungsHalbJahresNummer;
+                jdd.RechnungsDatumHalbjahr = DateTime.Now;
                 UpdateJahresDaten(jdd);
                 return rechnungsHalbJahresNummer;
             } else {
@@ -1217,8 +1213,9 @@ namespace WasserWerkVerwaltung.BL {
             JahresDatenData jdd = GetJahresdataByJahresDataId(jahresDatenId);
             if (jdd.RechnungsNummerJahr == null)
             {
-                long rechnungsGanzJahresNummer = getNewRechnungsnummer(jdd.Jahr);
+                long rechnungsGanzJahresNummer = getNewGanzJahresRechnungsNummer(DateTime.Now.Year);
                 jdd.RechnungsNummerJahr = rechnungsGanzJahresNummer;
+                jdd.RechnungsDatumJahr = DateTime.Now;
                 UpdateJahresDaten(jdd);
                 return rechnungsGanzJahresNummer;
             }
@@ -1227,15 +1224,12 @@ namespace WasserWerkVerwaltung.BL {
             }
         }
 
-        private long getNewRechnungsnummer(long jahr)
-        {
-            return Math.Max(getNewHalbJahresRechnungsNummer(jahr), getNewGanzJahresRechnungsNummer(jahr));
-        }
-
         private long getNewHalbJahresRechnungsNummer(long jahr) {
             long max = 0;
             foreach (JahresDatenData jdd in GetAllJahresdata()) {
-                if (jdd.Jahr == jahr && jdd.RechnungsNummerHalbjahr != null) {
+                if (jdd.RechnungsDatumHalbjahr.HasValue 
+                    && jdd.RechnungsDatumHalbjahr.Value.Year == jahr 
+                    && jdd.RechnungsNummerHalbjahr != null) {
                     max = Math.Max(max, (long)jdd.RechnungsNummerHalbjahr);
                 }
             }
@@ -1247,7 +1241,9 @@ namespace WasserWerkVerwaltung.BL {
             long max = 0;
             foreach (JahresDatenData jdd in GetAllJahresdata())
             {
-                if (jdd.Jahr == jahr && jdd.RechnungsNummerJahr != null)
+                if (jdd.RechnungsDatumJahr.HasValue
+                    && jdd.RechnungsDatumJahr.Value.Year == jahr 
+                    && jdd.RechnungsNummerJahr != null)
                 {
                     max = Math.Max(max, (long)jdd.RechnungsNummerJahr);
                 }

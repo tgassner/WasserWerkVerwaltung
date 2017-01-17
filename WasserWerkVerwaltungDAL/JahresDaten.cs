@@ -131,11 +131,21 @@ namespace WasserWerkVerwaltung.DAL {
                 ((IDataParameter)insertByIdCmd.Parameters["@SonstigeForderungenText"]).Value = jahresDatenData.SonstigeForderungenText;
                 ((IDataParameter)insertByIdCmd.Parameters["@SonstigeForderungenValue"]).Value = jahresDatenData.SonstigeForderungenValue;
                 ((IDataParameter)insertByIdCmd.Parameters["@HalbJahresBetrag"]).Value = jahresDatenData.HalbJahresBetrag;
-                ((IDataParameter)insertByIdCmd.Parameters["@RechnungsDatumHalbjahr"]).Value = jahresDatenData.RechnungsDatumHalbjahr.Date;
-                ((IDataParameter)insertByIdCmd.Parameters["@RechnungsDatumJahr"]).Value = jahresDatenData.RechnungsDatumJahr.Date;
+
+                if (jahresDatenData.RechnungsDatumHalbjahr.HasValue) {
+                    ((IDataParameter)insertByIdCmd.Parameters["@RechnungsDatumHalbjahr"]).Value = jahresDatenData.RechnungsDatumHalbjahr.Value;
+                } else {
+                    ((IDataParameter)insertByIdCmd.Parameters["@RechnungsDatumHalbjahr"]).Value = DBNull.Value;
+                }
+
+                if (jahresDatenData.RechnungsDatumJahr.HasValue) {
+                    ((IDataParameter)insertByIdCmd.Parameters["@RechnungsDatumJahr"]).Value = jahresDatenData.RechnungsDatumJahr.Value;
+                } else {
+                    ((IDataParameter)insertByIdCmd.Parameters["@RechnungsDatumJahr"]).Value = DBNull.Value;
+                }
+
                 if (jahresDatenData.RechnungsNummerHalbjahr == null) {
                     ((IDataParameter)insertByIdCmd.Parameters["@RechnungsNummerHalbjahr"]).Value = DBNull.Value;
-                    
                 } else {
                     ((IDataParameter)insertByIdCmd.Parameters["@RechnungsNummerHalbjahr"]).Value = jahresDatenData.RechnungsNummerHalbjahr;
                 }
@@ -196,8 +206,18 @@ namespace WasserWerkVerwaltung.DAL {
                 ((IDataParameter)updateByIdCmd.Parameters["@SonstigeForderungenText"]).Value = jahresDatenData.SonstigeForderungenText;
                 ((IDataParameter)updateByIdCmd.Parameters["@SonstigeForderungenValue"]).Value = jahresDatenData.SonstigeForderungenValue;
                 ((IDataParameter)updateByIdCmd.Parameters["@HalbJahresBetrag"]).Value = jahresDatenData.HalbJahresBetrag;
-                ((IDataParameter)updateByIdCmd.Parameters["@RechnungsDatumHalbjahr"]).Value = jahresDatenData.RechnungsDatumHalbjahr.Date;
-                ((IDataParameter)updateByIdCmd.Parameters["@RechnungsDatumJahr"]).Value = jahresDatenData.RechnungsDatumJahr.Date;
+
+                if (jahresDatenData.RechnungsDatumHalbjahr.HasValue) {
+                    ((IDataParameter)updateByIdCmd.Parameters["@RechnungsDatumHalbjahr"]).Value = jahresDatenData.RechnungsDatumHalbjahr.Value.Date;
+                } else {
+                    ((IDataParameter)updateByIdCmd.Parameters["@RechnungsDatumHalbjahr"]).Value = DBNull.Value;
+                }
+
+                if (jahresDatenData.RechnungsDatumJahr.HasValue) {
+                    ((IDataParameter)updateByIdCmd.Parameters["@RechnungsDatumJahr"]).Value = jahresDatenData.RechnungsDatumJahr.Value.Date;
+                } else {
+                    ((IDataParameter)updateByIdCmd.Parameters["@RechnungsDatumJahr"]).Value = DBNull.Value;
+                }
 
                 if (jahresDatenData.RechnungsNummerHalbjahr == null) {
                     ((IDataParameter)updateByIdCmd.Parameters["@RechnungsNummerHalbjahr"]).Value = DBNull.Value;
@@ -253,8 +273,8 @@ namespace WasserWerkVerwaltung.DAL {
             jahresDatenData.SonstigeForderungenText = Convert.ToString(rdr["SonstigeForderungenText"]);
             jahresDatenData.SonstigeForderungenValue = (double)rdr["SonstigeForderungenValue"];
             jahresDatenData.HalbJahresBetrag = (double)rdr["HalbJahresBetrag"];
-            jahresDatenData.RechnungsDatumHalbjahr = (DateTime)rdr["RechnungsDatumHalbjahr"];
-            jahresDatenData.RechnungsDatumJahr = (DateTime)rdr["RechnungsDatumJahr"];
+            jahresDatenData.RechnungsDatumHalbjahr = DBNull.Value.Equals(rdr["RechnungsDatumHalbjahr"]) ? (DateTime?)null : (DateTime)rdr["RechnungsDatumHalbjahr"];
+            jahresDatenData.RechnungsDatumJahr = DBNull.Value.Equals(rdr["RechnungsDatumJahr"]) ? (DateTime?)null : (DateTime)rdr["RechnungsDatumJahr"];
             jahresDatenData.RechnungsNummerHalbjahr = DBNull.Value.Equals(rdr["RechnungsNummerHalbjahr"]) ? (long?)null : Convert.ToInt64(rdr["RechnungsNummerHalbjahr"]);
             jahresDatenData.RechnungsNummerJahr = DBNull.Value.Equals(rdr["RechnungsNummerJahr"]) ? (long?)null : Convert.ToInt64(rdr["RechnungsNummerJahr"]);
             return jahresDatenData;

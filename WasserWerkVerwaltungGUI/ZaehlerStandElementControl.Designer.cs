@@ -55,6 +55,8 @@ namespace WasserWerkVerwaltung.GUI {
             this.buttonSpeichern = new System.Windows.Forms.Button();
             this.textBoxSonstigeForderungenText = new System.Windows.Forms.TextBox();
             this.textBoxTauschZaehlerstandAlt = new System.Windows.Forms.TextBox();
+            this.labelHalbJahresRechnungJah = new System.Windows.Forms.Label();
+            this.labelGanzJahresRechnungJah = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -87,6 +89,8 @@ namespace WasserWerkVerwaltung.GUI {
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.labelGanzJahresRechnungJah);
+            this.groupBox1.Controls.Add(this.labelHalbJahresRechnungJah);
             this.groupBox1.Controls.Add(this.textBoxHalbJahresRechnungsNummer);
             this.groupBox1.Controls.Add(this.textBoxGanzJahresRechnungsNummer);
             this.groupBox1.Controls.Add(this.label12);
@@ -144,20 +148,20 @@ namespace WasserWerkVerwaltung.GUI {
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(300, 136);
+            this.label12.Location = new System.Drawing.Point(291, 136);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(158, 13);
+            this.label12.Size = new System.Drawing.Size(130, 13);
             this.label12.TabIndex = 16;
-            this.label12.Text = "Ganzjahres Rechnungsnummer:";
+            this.label12.Text = "Ganzjahres Rechnungsnr:";
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(17, 136);
+            this.label11.Location = new System.Drawing.Point(8, 136);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(155, 13);
+            this.label11.Size = new System.Drawing.Size(127, 13);
             this.label11.TabIndex = 15;
-            this.label11.Text = "Halbjahres Rechnungsnummer:";
+            this.label11.Text = "Halbjahres Rechnungsnr:";
             // 
             // buttonCalcBereitsBezahlt
             // 
@@ -370,6 +374,24 @@ namespace WasserWerkVerwaltung.GUI {
             this.textBoxTauschZaehlerstandAlt.TabIndex = 7;
             this.textBoxTauschZaehlerstandAlt.TextChanged += new System.EventHandler(this.textChanged);
             // 
+            // labelHalbJahresRechnungJah
+            // 
+            this.labelHalbJahresRechnungJah.AutoSize = true;
+            this.labelHalbJahresRechnungJah.Location = new System.Drawing.Point(141, 136);
+            this.labelHalbJahresRechnungJah.Name = "labelHalbJahresRechnungJah";
+            this.labelHalbJahresRechnungJah.Size = new System.Drawing.Size(31, 13);
+            this.labelHalbJahresRechnungJah.TabIndex = 19;
+            this.labelHalbJahresRechnungJah.Text = "1900";
+            // 
+            // labelGanzJahresRechnungJah
+            // 
+            this.labelGanzJahresRechnungJah.AutoSize = true;
+            this.labelGanzJahresRechnungJah.Location = new System.Drawing.Point(427, 136);
+            this.labelGanzJahresRechnungJah.Name = "labelGanzJahresRechnungJah";
+            this.labelGanzJahresRechnungJah.Size = new System.Drawing.Size(31, 13);
+            this.labelGanzJahresRechnungJah.TabIndex = 20;
+            this.labelGanzJahresRechnungJah.Text = "1900";
+            // 
             // ZaehlerStandElementControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -417,5 +439,7 @@ namespace WasserWerkVerwaltung.GUI {
         private System.Windows.Forms.TextBox textBoxHalbJahresRechnungsNummer;
         private System.Windows.Forms.TextBox textBoxGanzJahresRechnungsNummer;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label labelGanzJahresRechnungJah;
+        private System.Windows.Forms.Label labelHalbJahresRechnungJah;
     }
 }

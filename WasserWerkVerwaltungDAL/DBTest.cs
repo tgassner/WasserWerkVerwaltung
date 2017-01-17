@@ -273,8 +273,10 @@ namespace SimplePatientDocumentation.DAL.Tests {
             Assert.AreEqual(jahres3.SonstigeForderungenText, this.jahresdaten.SonstigeForderungenText);
             Assert.AreEqual(jahres3.SonstigeForderungenValue, this.jahresdaten.SonstigeForderungenValue);
             Assert.AreEqual(jahres3.HalbJahresBetrag, this.jahresdaten.HalbJahresBetrag);
-            Assert.AreEqual(jahres3.RechnungsDatumHalbjahr.Date, this.jahresdaten.RechnungsDatumHalbjahr.Date);
-            Assert.AreEqual(jahres3.RechnungsDatumJahr.Date, this.jahresdaten.RechnungsDatumJahr.Date);
+            Assert.AreEqual(jahres3.RechnungsNummerJahr, this.jahresdaten.RechnungsNummerJahr);
+            Assert.AreEqual(jahres3.RechnungsNummerHalbjahr, this.jahresdaten.RechnungsNummerHalbjahr);
+            Assert.AreEqual(jahres3.RechnungsDatumHalbjahr, this.jahresdaten.RechnungsDatumHalbjahr);
+            Assert.AreEqual(jahres3.RechnungsDatumJahr, this.jahresdaten.RechnungsDatumJahr);
         }
 
         [Test]

@@ -142,18 +142,18 @@ namespace WasserWerkVerwaltung.GUI {
 
             JahresDatenData jddOld = this.wwvBLComp.GetJahresdataByKundenIDandYear(currentKunde.Id, currentJahr);
             if (jddOld != null) {
-                MessageBox.Show("Für das Jahr " + currentJahr + " und den Kunden " + currentKunde.Vorname + " " + currentKunde.Nachname + " ist bereits ein Jahr angelegt!");
+                MessageBox.Show("Für das Jahr " + currentJahr + " und den Kunden " + currentKunde.Vorname + " " + currentKunde.Nachname + " (" + currentKunde.Id + ") ist bereits ein Jahr " + currentJahr + " angelegt!");
                 return;
             }
 
             foreach (ZaehlerStandElementControl zscLoop in zaehlerStandElementControlList) {
                 if (zscLoop.Jahr == currentJahr) {
-                    MessageBox.Show("Für das Jahr " + currentJahr + " und den Kunden " + currentKunde.Vorname + " " + currentKunde.Nachname + " ist bereits ein Jahr hinzugefügt!\r\nBitte speicherm!!");
+                    MessageBox.Show("Für das Jahr " + currentJahr + " und den Kunden " + currentKunde.Vorname + " " + currentKunde.Nachname + " (" + currentKunde.Id + ") ist bereits ein Jahr hinzugefügt!\r\nBitte speicherm!!");
                     return;
                 }
             }
 
-            JahresDatenData jahresDatenData = new JahresDatenData(0, currentKunde.Id, 0, 0, currentJahr, DateTime.Now, 0.0, 0, 0, "", 0.0, 0.0, new DateTime(1901, 1, 1), new DateTime(1901, 1, 1), null, null);  // FIXME TODO
+            JahresDatenData jahresDatenData = new JahresDatenData(0, currentKunde.Id, 0, 0, currentJahr, DateTime.Now, 0.0, 0, 0, "", 0.0, 0.0, null, null, null, null);
             jahresDataList.Add(jahresDatenData);
 
             foreach (ZaehlerStandElementControl zsecl in zaehlerStandElementControlList)

@@ -239,7 +239,7 @@ namespace WasserWerkVerwaltung.CommonObjects {
         }
 
         public override string ToString() {
-            return this.vorname + " " + this.nachname;
+            return this.vorname + " " + this.nachname + " (" + this.id + ")";
         }
 
         public override bool Equals(object obj) {
@@ -268,8 +268,8 @@ namespace WasserWerkVerwaltung.CommonObjects {
         private string sonstigeForderungenText;
         private double sonstigeForderungenValue;
         private double halbJahresBetrag;
-        private DateTime rechnungsDatumHalbjahr;
-        private DateTime rechnungsDatumJahr;
+        private DateTime? rechnungsDatumHalbjahr;
+        private DateTime? rechnungsDatumJahr;
         private long? rechnungsNummerHalbjahr;
         private long? rechnungsNummerJahr;
 
@@ -283,7 +283,7 @@ namespace WasserWerkVerwaltung.CommonObjects {
                     DateTime ableseDatum, double bereitsBezahlt, long tauschZaehlerStandAlt,
                     long tauschZaehlerStandNeu, string sonstigeForderungenText,
                     double sonstigeForderungenValue, double halbJahresBetrag,
-                    DateTime rechnungsDatumHalbjahr, DateTime rechnungsDatumJahr, long? rechnungsNummerHalbjahr, long? rechnungsNummerJahr) {
+                    DateTime? rechnungsDatumHalbjahr, DateTime? rechnungsDatumJahr, long? rechnungsNummerHalbjahr, long? rechnungsNummerJahr) {
             this.id = id;
             this.kundenId = kundenId;
             this.zaehlerStandAlt = zaehlerStandAlt;
@@ -304,23 +304,23 @@ namespace WasserWerkVerwaltung.CommonObjects {
 
         public string getFullRechnungsNummerGanzJahr()
         {
-            if (rechnungsNummerJahr == null || rechnungsDatumJahr == null)
+            if (!rechnungsNummerJahr.HasValue || !rechnungsDatumJahr.HasValue)
             {
                 return "";
             }
             else {
-                return "J-" + rechnungsDatumJahr.Year + "-" + Convert.ToString(rechnungsNummerJahr).PadLeft(5, '0'); ;
+                return "J-" + rechnungsDatumJahr.Value.Year + "-" + Convert.ToString(rechnungsNummerJahr).PadLeft(5, '0'); ;
             }
         }
 
         public string getFullRechnungsNummerHalbJahr()
         {
-            if (rechnungsNummerHalbjahr == null || rechnungsDatumHalbjahr == null)
+            if (!rechnungsNummerHalbjahr.HasValue || !rechnungsDatumHalbjahr.HasValue)
             {
                 return "";
             } else
             {
-                return "HJ-" + rechnungsDatumHalbjahr.Year + "-" + Convert.ToString(rechnungsNummerHalbjahr).PadLeft(5, '0');
+                return "HJ-" + rechnungsDatumHalbjahr.Value.Year + "-" + Convert.ToString(rechnungsNummerHalbjahr).PadLeft(5, '0');
             }
         }
 
@@ -432,7 +432,7 @@ namespace WasserWerkVerwaltung.CommonObjects {
             }
         }
 
-        public DateTime RechnungsDatumHalbjahr {
+        public DateTime? RechnungsDatumHalbjahr {
             get {
                 return this.rechnungsDatumHalbjahr;
             }
@@ -441,7 +441,7 @@ namespace WasserWerkVerwaltung.CommonObjects {
             }
         }
 
-        public DateTime RechnungsDatumJahr {
+        public DateTime? RechnungsDatumJahr {
             get {
                 return this.rechnungsDatumJahr;
             }
