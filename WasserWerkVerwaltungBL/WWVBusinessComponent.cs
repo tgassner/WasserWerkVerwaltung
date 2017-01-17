@@ -899,8 +899,8 @@ namespace WasserWerkVerwaltung.BL {
                     ppd.AddPrintableObject(new PrintableTextObject("eingegangen.", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 21 * zeilenabstand));
 
                     ppd.AddPrintableObject(new PrintableTextObject("Wir ersuchen Sie dringend den Rechnungsbetrag von € " + this.calcJahresRechnungMinusBereitsBezahlt(jdd,kunde,preis) + " zuzüglich", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 23 * zeilenabstand));
-                    ppd.AddPrintableObject(new PrintableTextObject("Mahnspesen von € 5,-, das sind", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 24 * zeilenabstand));
-                    ppd.AddPrintableObject(new PrintableTextObject("€ " + (this.calcJahresRechnungMinusBereitsBezahlt(jdd,kunde,preis) + 5) + " Mahnbetrag, zu überweisen.", new Font("Arial", stdFontSize, FontStyle.Underline), Brushes.Black, linkerRand + 260, obererRand + 24 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("Mahnspesen von € 7,-, das sind", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand, obererRand + 24 * zeilenabstand));
+                    ppd.AddPrintableObject(new PrintableTextObject("€ " + (this.calcJahresRechnungMinusBereitsBezahlt(jdd,kunde,preis) + 7) + " Mahnbetrag, zu überweisen.", new Font("Arial", stdFontSize, FontStyle.Underline), Brushes.Black, linkerRand + 260, obererRand + 24 * zeilenabstand));
                     ppd.AddPrintableObject(new PrintableTextObject(BANK_VERBINDUNG, new Font("Arial", stdFontSize, FontStyle.Underline), Brushes.Black, linkerRand, obererRand + 25 * zeilenabstand));
                     //ppd.AddPrintableObject(new PrintableTextObject("", new Font("Arial", stdFontSize, FontStyle.Regular), Brushes.Black, linkerRand + 330, obererRand + 25 * zeilenabstand));
 
